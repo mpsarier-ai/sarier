@@ -24,16 +24,16 @@
       .card { position: absolute; left: 0; top: 0; width: 1080px; height: 680px; pointer-events: none; }
       .stmt { position: absolute; inset: 0; }
       .stmt .rot { position: absolute; white-space: nowrap; }
-      .piece { display: inline-block; font-weight: 600; line-height: 0.98; letter-spacing: var(--tr-display); }
-      .piece.ink { color: var(--ink); text-shadow: 0 1px 12px rgba(255,255,255,0.7); }
-      .piece.grad { background-size: 300% 100%; background-position: 100% 50%; -webkit-background-clip: text; background-clip: text;
-        -webkit-text-fill-color: transparent; color: transparent; padding: 0.04em 0.06em 0.12em; margin: -0.04em -0.06em -0.12em; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.28)); }
+      .piece { display: inline-block; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
+      .piece.white { color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }
       .gstack { display: grid; }
-      .gstack > span { grid-area: 1 / 1; display: inline-block; font-size: 210px; font-weight: 600; line-height: 0.98; letter-spacing: var(--tr-display); }
+      .gstack > span { grid-area: 1 / 1; display: inline-block; font-size: 220px; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
       .gstack .ghost { opacity: 0; }
       .gstack .warm { color: #FF3332; }
       .gstack .cool { color: #5470FD; }
 
+      .num { position: absolute; left: 64px; top: 620px; pointer-events: none; }
+      .numin { display: inline-block; font-weight: 700; font-size: 220px; line-height: 1; letter-spacing: -0.05em; color: var(--red); text-shadow: 0 2px 3px rgba(0,0,0,0.25), 0 8px 30px rgba(0,0,0,0.3); }
       .mg { position: absolute; left: 0; top: 0; width: 1080px; pointer-events: none; }
       .gin { position: absolute; left: 0; top: 120px; }
       .mg svg { display: block; }
@@ -82,14 +82,21 @@
   <rect class="ey-w" x="300" y="452" width="140" height="18" rx="9" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <rect class="ey-w" x="470" y="452" width="140" height="18" rx="9" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <rect class="ey-w" x="640" y="452" width="140" height="18" rx="9" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path class="ey-r" d="M540 250 m0 -150 v-30" transform="rotate(-60 540 250)" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ey-r" d="M540 250 m0 -150 v-30" transform="rotate(-40 540 250)" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ey-r" d="M540 250 m0 -150 v-30" transform="rotate(-20 540 250)" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ey-r" d="M540 250 m0 -150 v-30" transform="rotate(0 540 250)" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ey-r" d="M540 250 m0 -150 v-30" transform="rotate(20 540 250)" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ey-r" d="M540 250 m0 -150 v-30" transform="rotate(40 540 250)" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ey-r" d="M540 250 m0 -150 v-30" transform="rotate(60 540 250)" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <text id="ey-t" x="540" y="140" text-anchor="middle" class="wl" fill="#1D1D1F">01 · CONSUME</text>
         </svg></div>
       </div>
       <div id="nota" class="mg clip" data-start="30.67" data-duration="11.32" data-track-index="3">
         <div id="nota-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
-  <circle id="mg-c" cx="500" cy="220" r="120" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(-90 500 220)"/>
-  <path id="mg-h" d="M586 306 L700 420" stroke="#1D1D1F" stroke-width="12" stroke-linecap="round" fill="none"/>
-  <text id="mg-q" x="500" y="245" text-anchor="middle" class="big" fill="#E1251B">?</text>
+  <rect class="mg-w" x="150" y="330" width="150" height="18" rx="9" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect class="mg-w" x="330" y="330" width="150" height="18" rx="9" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect class="mg-w" x="510" y="330" width="150" height="18" rx="9" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect class="mg-w" x="690" y="330" width="150" height="18" rx="9" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <g id="mg-g">
+    <circle id="mg-c" cx="300" cy="220" r="120" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(-90 300 220)"/>
+    <path id="mg-h" d="M386 306 L500 420" stroke="#1D1D1F" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <text id="mg-q" x="300" y="245" text-anchor="middle" class="big" fill="#E1251B">?</text>
+  </g>
   <text id="mg-t" x="540" y="490" text-anchor="middle" class="wl" fill="#1D1D1F">02 · NOTA</text>
         </svg></div>
       </div>
@@ -98,6 +105,8 @@
   <rect id="rl-b" x="200" y="200" width="680" height="100" rx="12" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <path class="rl-t" d="M240 300 v-28" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M280 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M320 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M360 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M400 300 v-28" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M440 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M480 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M520 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M560 300 v-28" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M600 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M640 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M680 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M720 300 v-28" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M760 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M800 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rl-t" d="M840 300 v-14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <path id="rl-r" d="M240 232 h140" stroke="#E1251B" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <rect id="rl-box" x="760" y="360" width="160" height="120" rx="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="rl-bt" x="840" y="510" text-anchor="middle" class="wl" fill="#1D1D1F">TU TRABAJO</text>
   <text id="rl-t2" x="540" y="400" text-anchor="middle" class="wl" fill="#1D1D1F">03 · EXTRAE</text>
         </svg></div>
       </div>
@@ -117,15 +126,23 @@
   <text id="rp-t" x="540" y="470" text-anchor="middle" class="wl" fill="#E1251B">REPITE</text>
         </svg></div>
       </div>
+      <div id="noteye" class="mg clip" data-start="66.92" data-duration="1.92" data-track-index="3">
+        <div id="noteye-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <path id="ne-o" d="M420 500 Q540 420 660 500 Q540 580 420 500 Z" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle id="ne-d" cx="540" cy="500" r="14" fill="#E1251B"/>
+        </svg></div>
+      </div>
+
+<div id="num1" class="num clip" data-start="17.00" data-duration="1.60" data-track-index="4"><span class="numin" id="num1i">1</span></div><div id="num2" class="num clip" data-start="30.67" data-duration="1.52" data-track-index="4"><span class="numin" id="num2i">2</span></div><div id="num3" class="num clip" data-start="41.99" data-duration="1.60" data-track-index="4"><span class="numin" id="num3i">3</span></div><div id="num4" class="num clip" data-start="49.29" data-duration="1.33" data-track-index="4"><span class="numin" id="num4i">4</span></div>
 
       <div id="hook" class="card clip" data-start="0.00" data-duration="5.72" data-track-index="3">
-        <div class="stmt" id="hook-in"><div class="rot" style="left:72px;top:140px;"><span class="piece ink" id="hook-a" style="font-size:84px;">Cuatro pasos para un</span></div><div class="rot" style="left:40px;top:230px;"><span class="piece grad" id="hook-b" style="font-size:200px;background-image:linear-gradient(100deg, #5470FD, #9C6CE6, #FA66C5, #5470FD);">criterio</span></div><div class="rot" style="right:60px;top:440px;"><span class="piece grad" id="hook-c" style="font-size:150px;background-image:linear-gradient(100deg, #5470FD, #9C6CE6, #FA66C5, #5470FD);">excepcional.</span></div></div>
+        <div class="stmt" id="hook-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:150px;"><span class="piece white" id="hook-a" data-layout-allow-overlap style="font-size:84px;">Cuatro pasos para un</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:214px;"><span class="piece white" id="hook-b" data-layout-allow-overlap style="font-size:210px;">criterio</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:392px;"><span class="piece white" id="hook-c" data-layout-allow-overlap style="font-size:150px;">excepcional.</span></div></div>
       </div>
       <div id="fail" class="card clip" data-start="13.39" data-duration="3.61" data-track-index="3">
-        <div class="stmt" id="fail-in"><div class="rot" style="left:80px;top:150px;"><span class="piece ink" id="fail-a" style="font-size:88px;">La mayoría ya está</span></div><div class="rot" style="left:40px;top:250px;"><span class="gstack" id="fail-stack"><span class="ghost warm" aria-hidden="true">fallando</span><span class="ghost cool" aria-hidden="true">fallando</span><span class="piece grad" id="fail-b" style="font-size:210px;background-image:linear-gradient(100deg, #FF3332, #FF9A4E, #FF3332);">fallando</span></span></div><div class="rot" style="right:60px;top:470px;"><span class="piece grad" id="fail-c" style="font-size:120px;background-image:linear-gradient(100deg, #FF3332, #FF9A4E, #FF3332);">en el primero.</span></div></div>
+        <div class="stmt" id="fail-in"><div class="rot" data-layout-allow-overlap style="left:80px;top:150px;"><span class="piece white" id="fail-a" data-layout-allow-overlap style="font-size:88px;">La mayoría ya está</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:218px;"><span class="gstack" id="fail-stack"><span class="ghost warm" aria-hidden="true">fallando</span><span class="ghost cool" aria-hidden="true">fallando</span><span class="piece white" id="fail-b" data-layout-allow-overlap style="font-size:220px;">fallando</span></span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:408px;"><span class="piece white" id="fail-c" data-layout-allow-overlap style="font-size:120px;">en el primero.</span></div></div>
       </div>
       <div id="close" class="card clip" data-start="64.70" data-duration="4.14" data-track-index="3">
-        <div class="stmt" id="close-in"><div class="rot" style="left:72px;top:150px;"><span class="piece ink" id="close-a" style="font-size:104px;">No nació con él.</span></div><div class="rot" style="right:60px;top:280px;"><span class="piece grad" id="close-b" style="font-size:160px;background-image:linear-gradient(100deg, #5470FD, #9C6CE6, #FA66C5, #5470FD);">Se enseñó</span></div><div class="rot" style="right:60px;top:445px;"><span class="piece grad" id="close-c" style="font-size:160px;background-image:linear-gradient(100deg, #5470FD, #9C6CE6, #FA66C5, #5470FD);">a notarlo.</span></div></div>
+        <div class="stmt" id="close-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:150px;"><span class="piece white" id="close-a" data-layout-allow-overlap style="font-size:104px;">No nació con él.</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:236px;"><span class="piece white" id="close-b" data-layout-allow-overlap style="font-size:170px;">Se enseñó</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:386px;"><span class="piece white" id="close-c" data-layout-allow-overlap style="font-size:170px;">a notarlo.</span></div></div>
       </div>
     </div>
     <script>
@@ -310,25 +327,19 @@
   tl.fromTo("#r24w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 63.81);
   tl.to("#r24l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 64.22);
   tl.set("#r24l", { autoAlpha: 0 }, 64.36);
-  tl.fromTo("#hook-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 0.05);
-  tl.fromTo("#hook-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 0.19);
-  tl.fromTo("#hook-b", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 5.42, ease: "none" }, 0.00);
-  tl.fromTo("#hook-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 0.33);
-  tl.fromTo("#hook-c", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 5.42, ease: "none" }, 0.00);
+  tl.fromTo("#hook-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 0.05);
+  tl.fromTo("#hook-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 0.19);
+  tl.fromTo("#hook-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 0.33);
   tl.to("#hook-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 5.42);
   tl.set("#hook-in", { autoAlpha: 0 }, 5.72);
-  tl.fromTo("#fail-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 13.44);
-  tl.fromTo("#fail-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 13.58);
-  tl.fromTo("#fail-b", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 3.31, ease: "none" }, 13.39);
-  tl.fromTo("#fail-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 13.72);
-  tl.fromTo("#fail-c", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 3.31, ease: "none" }, 13.39);
+  tl.fromTo("#fail-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 13.44);
+  tl.fromTo("#fail-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 13.58);
+  tl.fromTo("#fail-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 13.72);
   tl.to("#fail-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 16.70);
   tl.set("#fail-in", { autoAlpha: 0 }, 17.00);
-  tl.fromTo("#close-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 64.75);
-  tl.fromTo("#close-b", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 64.89);
-  tl.fromTo("#close-b", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 3.84, ease: "none" }, 64.70);
-  tl.fromTo("#close-c", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 65.03);
-  tl.fromTo("#close-c", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 3.84, ease: "none" }, 64.70);
+  tl.fromTo("#close-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 64.75);
+  tl.fromTo("#close-b", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 64.89);
+  tl.fromTo("#close-c", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 65.03);
   tl.set(ghosts, { opacity: 0.55, x: 0, y: 0 }, 13.39);
   tl.fromTo(glitch, { amp: 1 }, { amp: 0, duration: 0.45, ease: "power2.in",
     onUpdate: () => {
@@ -343,6 +354,26 @@
   tl.to("#video-wrap", { scale: 1, duration: 1.4, ease: "power2.out" }, 13.87);
   tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 1.6, ease: "sine.inOut" }, 60.96);
   tl.to("#video-wrap", { scale: 1, duration: 1.4, ease: "sine.inOut" }, 62.56);
+  tl.fromTo("#num1i", { autoAlpha: 0, scale: 1.6, y: -10 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.35, ease: "expo.out" }, 17.00);
+  tl.to("#num1i", { autoAlpha: 0, y: -16, duration: 0.25, ease: "power2.in" }, 18.35);
+  tl.set("#num1i", { autoAlpha: 0 }, 18.60);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.035, duration: 0.14, ease: "expo.out" }, 17.00);
+  tl.to("#video-wrap", { scale: 1, duration: 0.9, ease: "power2.out" }, 17.14);
+  tl.fromTo("#num2i", { autoAlpha: 0, scale: 1.6, y: -10 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.35, ease: "expo.out" }, 30.67);
+  tl.to("#num2i", { autoAlpha: 0, y: -16, duration: 0.25, ease: "power2.in" }, 31.94);
+  tl.set("#num2i", { autoAlpha: 0 }, 32.19);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.035, duration: 0.14, ease: "expo.out" }, 30.67);
+  tl.to("#video-wrap", { scale: 1, duration: 0.9, ease: "power2.out" }, 30.81);
+  tl.fromTo("#num3i", { autoAlpha: 0, scale: 1.6, y: -10 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.35, ease: "expo.out" }, 41.99);
+  tl.to("#num3i", { autoAlpha: 0, y: -16, duration: 0.25, ease: "power2.in" }, 43.34);
+  tl.set("#num3i", { autoAlpha: 0 }, 43.59);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.035, duration: 0.14, ease: "expo.out" }, 41.99);
+  tl.to("#video-wrap", { scale: 1, duration: 0.9, ease: "power2.out" }, 42.13);
+  tl.fromTo("#num4i", { autoAlpha: 0, scale: 1.6, y: -10 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.35, ease: "expo.out" }, 49.29);
+  tl.to("#num4i", { autoAlpha: 0, y: -16, duration: 0.25, ease: "power2.in" }, 50.37);
+  tl.set("#num4i", { autoAlpha: 0 }, 50.62);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.035, duration: 0.14, ease: "expo.out" }, 49.29);
+  tl.to("#video-wrap", { scale: 1, duration: 0.9, ease: "power2.out" }, 49.43);
   tl.fromTo("#kolb-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 5.82);
   tl.to("#kolb-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 13.44);
   tl.set("#kolb-in", { autoAlpha: 0 }, 13.69);
@@ -362,14 +393,22 @@
   tl.fromTo("#ey-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 18.15);
   tl.fromTo("#ey-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 17.40);
   tl.fromTo(".ey-w", { strokeDasharray: "340", strokeDashoffset: 340 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.55 }, 23.88);
+  tl.to(["#ey-o","#ey-p","#ey-d"], { scaleY: 0.08, transformOrigin: "50% 50%", duration: 0.12, ease: "power2.in" }, 19.45);
+  tl.to(["#ey-o","#ey-p","#ey-d"], { scaleY: 1, duration: 0.16, ease: "power2.out" }, 19.57);
+  tl.to(["#ey-o","#ey-p","#ey-d"], { scaleY: 0.08, transformOrigin: "50% 50%", duration: 0.12, ease: "power2.in" }, 20.00);
+  tl.to(["#ey-o","#ey-p","#ey-d"], { scaleY: 1, duration: 0.16, ease: "power2.out" }, 20.12);
+  tl.fromTo(".ey-r", { strokeDasharray: "60", strokeDashoffset: 60 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out", stagger: 0.05 }, 27.46);
   tl.fromTo("#nota-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 30.67);
   tl.to("#nota-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 41.74);
   tl.set("#nota-in", { autoAlpha: 0 }, 41.99);
   tl.fromTo("#mg-c", { strokeDasharray: "780", strokeDashoffset: 780 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out", stagger: 0.0 }, 30.72);
   tl.fromTo("#mg-h", { strokeDasharray: "170", strokeDashoffset: 170 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 31.37);
+  tl.fromTo(".mg-w", { strokeDasharray: "360", strokeDashoffset: 360 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.1 }, 30.97);
   tl.set("#mg-q", { autoAlpha: 0 }, 30.67);
   tl.set("#mg-t", { autoAlpha: 0 }, 30.67);
   tl.fromTo("#mg-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 31.07);
+  tl.fromTo("#mg-g", { x: 0 }, { x: 420, duration: 4.47, ease: "sine.inOut" }, 31.99);
+  tl.to("#mg-g", { x: 285, duration: 0.5, ease: "power3.out" }, 36.66);
   tl.fromTo("#mg-q", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 37.06);
   tl.fromTo("#extrae-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 41.99);
   tl.to("#extrae-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 49.04);
@@ -378,8 +417,13 @@
   tl.fromTo(".rl-t", { strokeDasharray: "30", strokeDashoffset: 30 }, { strokeDashoffset: 0, duration: 0.1, ease: "power2.out", stagger: 0.05 }, 42.49);
   tl.set("#rl-r", { autoAlpha: 0 }, 41.99);
   tl.set("#rl-t2", { autoAlpha: 0 }, 41.99);
+  tl.set("#rl-bt", { autoAlpha: 0 }, 41.99);
   tl.fromTo("#rl-t2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 42.39);
   tl.fromTo("#rl-r", { strokeDasharray: "150", strokeDashoffset: 150 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 44.05);
+  tl.fromTo("#rl-box", { strokeDasharray: "600", strokeDashoffset: 600 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 46.72);
+  tl.fromTo("#rl-bt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 47.07);
+  tl.to("#rl-r", { y: -40, duration: 0.25, ease: "power2.out" }, 47.17);
+  tl.to("#rl-r", { x: 530, y: 188, duration: 0.8, ease: "power2.inOut" }, 47.42);
   tl.fromTo("#recrea-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 49.29);
   tl.to("#recrea-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 54.56);
   tl.set("#recrea-in", { autoAlpha: 0 }, 54.81);
@@ -398,7 +442,28 @@
   tl.fromTo(".rp-n", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.08 }, 55.74);
   tl.fromTo("#rp-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 55.74);
   tl.to("#rp-orb", { autoAlpha: 1, duration: 0.2 }, 57.05);
-  tl.fromTo("#rp-orb", { rotation: 0, svgOrigin: "540 250" }, { rotation: 720, duration: 7.11, ease: "power1.inOut" }, 57.15);
+  tl.fromTo("#rp-orb", { rotation: 0, svgOrigin: "540 250" }, { rotation: 720, duration: 7.11, ease: "none" }, 57.15);
+  tl.fromTo("#rp-n0", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, 57.15);
+  tl.fromTo("#rp-n0", { fill: "#1D1D1F" }, { fill: "#E1251B", duration: 0.12, yoyo: true, repeat: 1 }, 57.15);
+  tl.fromTo("#rp-n1", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, 58.04);
+  tl.fromTo("#rp-n1", { fill: "#1D1D1F" }, { fill: "#E1251B", duration: 0.12, yoyo: true, repeat: 1 }, 58.04);
+  tl.fromTo("#rp-n2", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, 58.93);
+  tl.fromTo("#rp-n2", { fill: "#1D1D1F" }, { fill: "#E1251B", duration: 0.12, yoyo: true, repeat: 1 }, 58.93);
+  tl.fromTo("#rp-n3", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, 59.82);
+  tl.fromTo("#rp-n3", { fill: "#1D1D1F" }, { fill: "#E1251B", duration: 0.12, yoyo: true, repeat: 1 }, 59.82);
+  tl.fromTo("#rp-n0", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, 60.70);
+  tl.fromTo("#rp-n0", { fill: "#1D1D1F" }, { fill: "#E1251B", duration: 0.12, yoyo: true, repeat: 1 }, 60.70);
+  tl.fromTo("#rp-n1", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, 61.59);
+  tl.fromTo("#rp-n1", { fill: "#1D1D1F" }, { fill: "#E1251B", duration: 0.12, yoyo: true, repeat: 1 }, 61.59);
+  tl.fromTo("#rp-n2", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, 62.48);
+  tl.fromTo("#rp-n2", { fill: "#1D1D1F" }, { fill: "#E1251B", duration: 0.12, yoyo: true, repeat: 1 }, 62.48);
+  tl.fromTo("#rp-n3", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, 63.37);
+  tl.fromTo("#rp-n3", { fill: "#1D1D1F" }, { fill: "#E1251B", duration: 0.12, yoyo: true, repeat: 1 }, 63.37);
+  tl.fromTo("#noteye-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 66.92);
+  tl.to("#noteye-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 68.59);
+  tl.set("#noteye-in", { autoAlpha: 0 }, 68.84);
+  tl.fromTo("#ne-o", { scaleY: 0.04, transformOrigin: "50% 50%" }, { scaleY: 1, duration: 0.55, ease: "power3.out" }, 67.22);
+  tl.fromTo("#noteye-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25 }, 66.92);
       window.__timelines["main"] = tl;
     </script>
   </body>

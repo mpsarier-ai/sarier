@@ -52,30 +52,28 @@ CARDS = [
     ("fail",  S(6) - 0.10,   E(6) + 0.0,    "heat"),
     ("close", S(25) - 0.10,  DUR,           "spectrum"),
 ]
-STMT = {
-  "hook":  [("a","Cuatro pasos para un","ink",84,72,140,"left","left"), ("b","criterio","grad",200,40,230,"left","scale"), ("c","excepcional.","grad",150,60,440,"right","right")],
-  "fail":  [("a","La mayoría ya está","ink",88,80,150,"left","left"), ("b","fallando","grad",210,40,250,"left","scale"), ("c","en el primero.","grad",120,60,470,"right","right")],
-  "close": [("a","No nació con él.","ink",104,72,150,"left","left"), ("b","Se enseñó","grad",160,60,280,"right","right"), ("c","a notarlo.","grad",160,60,445,"right","scale")],
+STMT = {   # (key, text, size, x, y, align, enter, alpha) — all white; alpha = transparency layer
+  "hook":  [("a","Cuatro pasos para un",84,72,150,"left","left",0.72), ("b","criterio",210,40,214,"left","scale",1.0), ("c","excepcional.",150,60,392,"right","right",0.86)],
+  "fail":  [("a","La mayoría ya está",88,80,150,"left","left",0.72), ("b","fallando",220,40,218,"left","scale",1.0), ("c","en el primero.",120,60,408,"right","right",0.86)],
+  "close": [("a","No nació con él.",104,72,150,"left","left",0.72), ("b","Se enseñó",170,60,236,"right","right",1.0), ("c","a notarlo.",170,60,386,"right","scale",0.86)],
 }
 ENTER = {"left": "{ x: -80, autoAlpha: 0 }", "right": "{ x: 90, autoAlpha: 0 }",
          "scale": "{ scale: 0.6, autoAlpha: 0 }", "drop": "{ y: -60, autoAlpha: 0 }"}
 card_html = []
 for cid, st, en, gname in CARDS:
     d = en - st; parts = []
-    for k, (key, text, kind, size, x, y, align, enter) in enumerate(STMT[cid]):
+    for k, (key, text, size, x, y, align, enter, alpha) in enumerate(STMT[cid]):
         pid = f"{cid}-{key}"
         pos = f"left:{x}px;" if align == "left" else f"right:{x}px;"
-        style = f"font-size:{size}px;" + (f"background-image:{GRAD[gname]};" if kind == "grad" else "")
+        style = f"font-size:{size}px;"
         if cid == "fail" and key == "b":
             inner = (f'<span class="gstack" id="{cid}-stack"><span class="ghost warm" aria-hidden="true">{esc(text)}</span>'
                      f'<span class="ghost cool" aria-hidden="true">{esc(text)}</span>'
-                     f'<span class="piece grad" id="{pid}" style="{style}">{esc(text)}</span></span>')
+                     f'<span class="piece white" id="{pid}" data-layout-allow-overlap style="{style}">{esc(text)}</span></span>')
         else:
-            inner = f'<span class="piece {kind}" id="{pid}" style="{style}">{esc(text)}</span>'
-        parts.append(f'<div class="rot" style="{pos}top:{y}px;">{inner}</div>')
-        tl.append(f'  tl.fromTo("#{pid}", {ENTER[enter]}, {{ x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }}, {st + 0.05 + k * 0.14:.2f});')
-        if kind == "grad":
-            tl.append(f'  tl.fromTo("#{pid}", {{ backgroundPosition: "100% 50%" }}, {{ backgroundPosition: "0% 50%", duration: {d - 0.3:.2f}, ease: "none" }}, {st:.2f});')
+            inner = f'<span class="piece white" id="{pid}" data-layout-allow-overlap style="{style}">{esc(text)}</span>'
+        parts.append(f'<div class="rot" data-layout-allow-overlap style="{pos}top:{y}px;">{inner}</div>')
+        tl.append(f'  tl.fromTo("#{pid}", {ENTER[enter]}, {{ x: 0, y: 0, scale: 1, autoAlpha: {alpha}, duration: 0.6, ease: "expo.out" }}, {st + 0.05 + k * 0.14:.2f});')
     card_html.append(f'      <div id="{cid}" class="card clip" data-start="{st:.2f}" data-duration="{d:.2f}" data-track-index="3">\n'
                      f'        <div class="stmt" id="{cid}-in">{"".join(parts)}</div>\n      </div>')
     if en < DUR - 0.05:
@@ -98,6 +96,16 @@ tl.append(f'  tl.fromTo("#video-wrap", {{ scale: 1 }}, {{ scale: 1.05, duration:
 tl.append(f'  tl.to("#video-wrap", {{ scale: 1, duration: 1.4, ease: "power2.out" }}, {S(6) + 0.38:.2f});')
 tl.append(f'  tl.fromTo("#video-wrap", {{ scale: 1 }}, {{ scale: 1.05, duration: 1.6, ease: "sine.inOut" }}, {S(24):.2f});')
 tl.append(f'  tl.to("#video-wrap", {{ scale: 1, duration: 1.4, ease: "sine.inOut" }}, {S(24) + 1.6:.2f});')
+
+# step counters — big red numeral top-left on each step word, plus a camera snap
+STEPS = [(7,"1"),(11,"2"),(16,"3"),(19,"4")]
+num_html = "".join(f'<div id="num{n}" class="num clip" data-start="{S(i):.2f}" data-duration="{min(1.6, E(i)-S(i)+0.2):.2f}" data-track-index="4"><span class="numin" id="num{n}i">{n}</span></div>' for i,n in STEPS)
+for i,n in STEPS:
+    tl.append(f'  tl.fromTo("#num{n}i", {{ autoAlpha: 0, scale: 1.6, y: -10 }}, {{ autoAlpha: 1, scale: 1, y: 0, duration: 0.35, ease: "expo.out" }}, {S(i):.2f});')
+    tl.append(f'  tl.to("#num{n}i", {{ autoAlpha: 0, y: -16, duration: 0.25, ease: "power2.in" }}, {S(i) + min(1.6, E(i)-S(i)+0.2) - 0.25:.2f});')
+    tl.append(f'  tl.set("#num{n}i", {{ autoAlpha: 0 }}, {S(i) + min(1.6, E(i)-S(i)+0.2):.2f});')
+    tl.append(f'  tl.fromTo("#video-wrap", {{ scale: 1 }}, {{ scale: 1.035, duration: 0.14, ease: "expo.out" }}, {S(i):.2f});')
+    tl.append(f'  tl.to("#video-wrap", {{ scale: 1, duration: 0.9, ease: "power2.out" }}, {S(i) + 0.14:.2f});')
 
 # ---------------------------------------------------------------- line graphics
 graphics = []
@@ -136,22 +144,41 @@ clip("consume", st, en, f'''
   <rect class="ey-w" x="300" y="452" width="140" height="18" rx="9" stroke="{INK}" {SW}/>
   <rect class="ey-w" x="470" y="452" width="140" height="18" rx="9" stroke="{INK}" {SW}/>
   <rect class="ey-w" x="640" y="452" width="140" height="18" rx="9" stroke="{INK}" {SW}/>
+  {"".join(f'<path class="ey-r" d="M540 250 m0 -150 v-30" transform="rotate({a} 540 250)" stroke="{RED}" {SW}/>' for a in (-60,-40,-20,0,20,40,60))}
   {label("ey-t", "01 · CONSUME", y=140)}''')
 draw("#ey-o", 1300, st + 0.05, 1.0); draw("#ey-p", 340, st + 0.7, 0.5)
 hidden("#ey-d", st); hidden(".ey-w", st); hidden("#ey-t", st)
 pop("#ey-d", st + 1.15, 0.25); pop("#ey-t", st + 0.4, 0.3)
 draw(".ey-w", 340, S(9) + 0.1, 0.35, stagger=0.55)
+# blink ×2 on "contacto repetido" — the eye outline + pupil collapse vertically
+for k in range(2):
+    b = S(8) + 0.4 + k * 0.55
+    tl.append(f'  tl.to(["#ey-o","#ey-p","#ey-d"], {{ scaleY: 0.08, transformOrigin: "50% 50%", duration: 0.12, ease: "power2.in" }}, {b:.2f});')
+    tl.append(f'  tl.to(["#ey-o","#ey-p","#ey-d"], {{ scaleY: 1, duration: 0.16, ease: "power2.out" }}, {b + 0.12:.2f});')
+# rays on "exponerte a él"
+draw(".ey-r", 60, S(10) + 0.9, 0.22, stagger=0.05)
 
 # 3 · NOTA — magnifier + ¿POR QUÉ?
 st, en = S(11), E(15)
 clip("nota", st, en, f'''
-  <circle id="mg-c" cx="500" cy="220" r="120" stroke="{INK}" {SW} transform="rotate(-90 500 220)"/>
-  <path id="mg-h" d="M586 306 L700 420" stroke="{INK}" stroke-width="12" stroke-linecap="round" fill="none"/>
-  <text id="mg-q" x="500" y="245" text-anchor="middle" class="big" fill="{RED}">?</text>
+  <rect class="mg-w" x="150" y="330" width="150" height="18" rx="9" stroke="{INK}" {SW}/>
+  <rect class="mg-w" x="330" y="330" width="150" height="18" rx="9" stroke="{INK}" {SW}/>
+  <rect class="mg-w" x="510" y="330" width="150" height="18" rx="9" stroke="{INK}" {SW}/>
+  <rect class="mg-w" x="690" y="330" width="150" height="18" rx="9" stroke="{INK}" {SW}/>
+  <g id="mg-g">
+    <circle id="mg-c" cx="300" cy="220" r="120" stroke="{INK}" {SW} transform="rotate(-90 300 220)"/>
+    <path id="mg-h" d="M386 306 L500 420" stroke="{INK}" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <text id="mg-q" x="300" y="245" text-anchor="middle" class="big" fill="{RED}">?</text>
+  </g>
   {label("mg-t", "02 · NOTA", y=490)}''')
 draw("#mg-c", 780, st + 0.05, 0.8); draw("#mg-h", 170, st + 0.7, 0.3)
+draw(".mg-w", 360, st + 0.3, 0.3, stagger=0.1)
 hidden("#mg-q", st); hidden("#mg-t", st)
-pop("#mg-t", st + 0.4, 0.3); pop("#mg-q", S(14) + 0.4, 0.3)
+pop("#mg-t", st + 0.4, 0.3)
+# sweep across the works on "cuando veas algo que te gusta" / "en vez de anotar", settle on the third one
+tl.append(f'  tl.fromTo("#mg-g", {{ x: 0 }}, {{ x: 420, duration: {E(13) - S(12) - 0.2:.2f}, ease: "sine.inOut" }}, {S(12):.2f});')
+tl.append(f'  tl.to("#mg-g", {{ x: 285, duration: 0.5, ease: "power3.out" }}, {S(14):.2f});')
+pop("#mg-q", S(14) + 0.4, 0.3)
 
 # 4 · EXTRAE — a ruler ("regla")
 st, en = S(16), E(18)
@@ -160,10 +187,16 @@ clip("extrae", st, en, f'''
   <rect id="rl-b" x="200" y="200" width="680" height="100" rx="12" stroke="{INK}" {SW}/>
   {ticks}
   <path id="rl-r" d="M240 232 h140" stroke="{RED}" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <rect id="rl-box" x="760" y="360" width="160" height="120" rx="16" stroke="{INK}" {SW}/>
+  <text id="rl-bt" x="840" y="510" text-anchor="middle" class="wl" fill="{INK}">TU TRABAJO</text>
   {label("rl-t2", "03 · EXTRAE", y=400)}''')
 draw("#rl-b", 1600, st + 0.05, 0.8); draw(".rl-t", 30, st + 0.5, 0.1, stagger=0.05)
-hidden("#rl-r", st); hidden("#rl-t2", st); pop("#rl-t2", st + 0.4, 0.3)
+hidden("#rl-r", st); hidden("#rl-t2", st); hidden("#rl-bt", st); pop("#rl-t2", st + 0.4, 0.3)
 draw("#rl-r", 150, S(17) + 0.6, 0.4)
+# "que puedas llevarte a tu propio trabajo": box draws, the rule lifts and travels into it
+draw("#rl-box", 600, S(18) + 0.05, 0.5); pop("#rl-bt", S(18) + 0.4, 0.3)
+tl.append(f'  tl.to("#rl-r", {{ y: -40, duration: 0.25, ease: "power2.out" }}, {S(18) + 0.5:.2f});')
+tl.append(f'  tl.to("#rl-r", {{ x: 530, y: 188, duration: 0.8, ease: "power2.inOut" }}, {S(18) + 0.75:.2f});')
 
 # 5 · RECREA — two boxes: check (ink) and cross (red)
 st, en = S(19), E(21)
@@ -188,7 +221,23 @@ draw("#rp-ring", 960, st + 0.05, 0.8)
 hidden(".rp-n", st); hidden("#rp-t", st); hidden("#rp-orb", st)
 pop(".rp-n", st + 0.5, 0.2, stagger=0.08); pop("#rp-t", st + 0.5, 0.3)
 tl.append(f'  tl.to("#rp-orb", {{ autoAlpha: 1, duration: 0.2 }}, {S(23):.2f});')
-tl.append(f'  tl.fromTo("#rp-orb", {{ rotation: 0, svgOrigin: "540 250" }}, {{ rotation: 720, duration: {E(24) - S(23) - 0.2:.2f}, ease: "power1.inOut" }}, {S(23) + 0.1:.2f});')
+ORB = E(24) - S(23) - 0.2
+tl.append(f'  tl.fromTo("#rp-orb", {{ rotation: 0, svgOrigin: "540 250" }}, {{ rotation: 720, duration: {ORB:.2f}, ease: "none" }}, {S(23) + 0.1:.2f});')
+for lap in range(2):
+    for k in range(4):
+        at = S(23) + 0.1 + ORB * (lap * 4 + k) / 8
+        tl.append(f'  tl.fromTo("#rp-n{k}", {{ scale: 1, transformOrigin: "50% 50%" }}, {{ scale: 1.8, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }}, {at:.2f});')
+        tl.append(f'  tl.fromTo("#rp-n{k}", {{ fill: "{INK}" }}, {{ fill: "{RED}", duration: 0.12, yoyo: true, repeat: 1 }}, {at:.2f});')
+
+# 7 · close eye — "a notarlo": an eye opens under the statement
+st, en = S(26), DUR
+clip("noteye", st, en, f'''
+  <path id="ne-o" d="M420 500 Q540 420 660 500 Q540 580 420 500 Z" stroke="#FFFFFF" {SW}/>
+  <circle id="ne-d" cx="540" cy="500" r="14" fill="{RED}"/>''')
+tl.append(f'  tl.fromTo("#ne-o", {{ scaleY: 0.04, transformOrigin: "50% 50%" }}, {{ scaleY: 1, duration: 0.55, ease: "power3.out" }}, {st + 0.3:.2f});')
+hidden("#ne-d", st); pop("#ne-d", st + 0.7, 0.25)
+tl.pop(); tl.pop()   # drop this clip's fade-out/hard-kill: it holds to the end
+tl.append(f'  tl.fromTo("#noteye-in", {{ autoAlpha: 0 }}, {{ autoAlpha: 1, duration: 0.25 }}, {st:.2f});')
 
 # ---------------------------------------------------------------- assemble
 g_html = []
@@ -223,16 +272,16 @@ page = f'''<!doctype html>
       .card {{ position: absolute; left: 0; top: 0; width: {W}px; height: 680px; pointer-events: none; }}
       .stmt {{ position: absolute; inset: 0; }}
       .stmt .rot {{ position: absolute; white-space: nowrap; }}
-      .piece {{ display: inline-block; font-weight: 600; line-height: 0.98; letter-spacing: var(--tr-display); }}
-      .piece.ink {{ color: var(--ink); text-shadow: 0 1px 12px rgba(255,255,255,0.7); }}
-      .piece.grad {{ background-size: 300% 100%; background-position: 100% 50%; -webkit-background-clip: text; background-clip: text;
-        -webkit-text-fill-color: transparent; color: transparent; padding: 0.04em 0.06em 0.12em; margin: -0.04em -0.06em -0.12em; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.28)); }}
+      .piece {{ display: inline-block; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }}
+      .piece.white {{ color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }}
       .gstack {{ display: grid; }}
-      .gstack > span {{ grid-area: 1 / 1; display: inline-block; font-size: 210px; font-weight: 600; line-height: 0.98; letter-spacing: var(--tr-display); }}
+      .gstack > span {{ grid-area: 1 / 1; display: inline-block; font-size: 220px; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }}
       .gstack .ghost {{ opacity: 0; }}
       .gstack .warm {{ color: #FF3332; }}
       .gstack .cool {{ color: #5470FD; }}
 
+      .num {{ position: absolute; left: 64px; top: 620px; pointer-events: none; }}
+      .numin {{ display: inline-block; font-weight: 700; font-size: 220px; line-height: 1; letter-spacing: -0.05em; color: var(--red); text-shadow: 0 2px 3px rgba(0,0,0,0.25), 0 8px 30px rgba(0,0,0,0.3); }}
       .mg {{ position: absolute; left: 0; top: 0; width: {W}px; pointer-events: none; }}
       .gin {{ position: absolute; left: 0; top: 120px; }}
       .mg svg {{ display: block; }}
@@ -250,6 +299,8 @@ page = f'''<!doctype html>
 {chr(10).join(rail_html)}
 
 {chr(10).join(g_html)}
+
+{num_html}
 
 {chr(10).join(card_html)}
     </div>
