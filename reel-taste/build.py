@@ -13,7 +13,7 @@ frags = json.load(open("captions.json", encoding="utf-8"))
 FR = {f["i"]: f for f in frags}
 def S(i): return FR[i]["start"]
 def E(i): return FR[i]["end"]
-CARD_FRAGS = {1, 2, 6, 25, 26}
+CARD_FRAGS = {1, 2, 6, 26}
 
 GRAD = {
     "heat":     "linear-gradient(100deg, #FF3332, #FF9A4E, #FF3332)",
@@ -50,7 +50,7 @@ for f in frags:
 CARDS = [
     ("hook",  0.00,          E(2) + 0.3,    "spectrum"),
     ("fail",  S(6) - 0.10,   E(6) + 0.0,    "heat"),
-    ("close", S(25) - 0.10,  DUR,           "spectrum"),
+    ("close", 66.00,         DUR,           "spectrum"),
 ]
 STMT = {   # (key, text, size, x, y, align, enter, alpha) — all white; alpha = transparency layer
   "hook":  [("a","Cuatro pasos para un",84,72,150,"left","left",0.72), ("b","criterio",210,40,214,"left","scale",1.0), ("c","excepcional.",150,60,392,"right","right",0.86)],
