@@ -17,7 +17,7 @@ for a,b in runs:
     a=max(0.0,a-PRE); b=min(total,b+POST)
     if segs and a-segs[-1][1] < MINGAP: segs[-1][1]=b
     else: segs.append([a,b])
-segs[-1][1]=min(total, segs[-1][1]+0.6)   # hold the closing statement
+segs[-1][1]=min(total, segs[-1][1]+1.1)   # hold the closing statement
 kept=sum(b-a for a,b in segs)
 print(f"total {total:.2f}s → kept {kept:.2f}s (removed {total-kept:.2f}s in {len(segs)-1} cuts)", file=sys.stderr)
 for a,b in segs: print(f"  keep {a:6.2f}-{b:6.2f}", file=sys.stderr)
@@ -35,7 +35,8 @@ json.dump(new,open("captions.cut.json","w",encoding="utf-8"),ensure_ascii=False,
 # ffmpeg: trim each segment (video+audio), tiny audio fades to avoid clicks, concat
 fc=[]
 for k,(a,b) in enumerate(segs):
+    fo = 0.45 if k == len(segs) - 1 else 0.012
     fc.append(f"[0:v]trim=start={a:.3f}:end={b:.3f},setpts=PTS-STARTPTS[v{k}];"
-              f"[0:a]atrim=start={a:.3f}:end={b:.3f},asetpts=PTS-STARTPTS,afade=t=in:d=0.012,afade=t=out:st={b-a-0.012:.3f}:d=0.012[a{k}]")
+              f"[0:a]atrim=start={a:.3f}:end={b:.3f},asetpts=PTS-STARTPTS,afade=t=in:d=0.012,afade=t=out:st={b-a-fo:.3f}:d={fo}[a{k}]")
 fc.append("".join(f"[v{k}][a{k}]" for k in range(len(segs)))+f"concat=n={len(segs)}:v=1:a=1[v][a]")
 open("cut.filter","w").write(";".join(fc))

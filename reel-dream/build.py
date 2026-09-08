@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Sarier reel 3 — "¿Por qué soñamos?" (overfitting / dreams). v2: pauses cut + two faceless scenes.
-Same language as reels 1-2: no backgrounds on text · kinetic word captions · big uneven white statements ·
-chained line graphics. Two full-screen faceless explainers: OVERFIT (light surface) and NIGHT (dark surface).
-Every beat derives from captions.cut.json (timings remapped after cutting the pauses). ink = human · red = AI."""
-import json, html, re, subprocess
+"""Sarier reel 3 — "¿Por qué soñamos?" (overfitting / dreams). v3: pauses cut, two SHORT faceless scenes,
+anatomical brain, fade to black at the end. Same language as reels 1-2: no backgrounds on text · kinetic word
+captions · big uneven white statements · chained line graphics. ink = human · red = AI.
+Every beat derives from captions.cut.json (timings remapped after cutting the pauses)."""
+import json, html, re, subprocess, sys
+sys.path.insert(0, "brain")
+from brainpath import CEREBRUM, CEREBELLUM, STEM, FISSURE, GYRI
 
 W, H, FPS = 1080, 1920, 25
 VIDEO = "public/input-video.mp4"
@@ -17,8 +19,8 @@ FR = {f["i"]: f for f in frags}
 def S(i): return FR[i]["start"]
 def E(i): return FR[i]["end"]
 CARD_FRAGS = {1, 2, 9, 10, 25, 26}
-SCENE_A = {3, 4, 5, 6, 7, 8}          # faceless · overfitting (light)
-SCENE_B = {18, 19, 20, 21, 22, 23}    # faceless · night (dark)
+SCENE_A = {3, 4}          # faceless · "mismos datos una y otra vez, empieza a romperse" (light)
+SCENE_B = {19, 20, 21}    # faceless · "genera experiencias que no ocurrieron…" (dark)
 
 PUNCH = {3:"vez",4:"romperse",5:"patrón",6:"memorizar",7:"memorizados",8:"nuevo",11:"2021",12:"cerebro",
          13:"misma",14:"mismas",15:"bucle",16:"ayer",17:"mañana",18:"extraño",19:"ocurrieron",20:"imposibles",
@@ -105,7 +107,10 @@ def punch_cam(at, amount=1.05, hold=0.18, back=1.4, sel="#video-wrap"):
     tl.append(f'  tl.to("{sel}", {{ scale: 1, duration: {back}, ease: "power2.out" }}, {at + hold:.2f});')
 punch_cam(S(10) + 0.05)                      # "Overfitting."
 punch_cam(S(15) + 0.9, 1.04, 0.16, 1.2)      # "en bucle"
+punch_cam(S(18) + 1.5, 1.04, 0.16, 1.2)      # "algo extraño"
 tl.append(f'  tl.fromTo("#video-wrap", {{ scale: 1 }}, {{ scale: 1.05, duration: 2.2, ease: "sine.inOut" }}, {S(26):.2f});')
+# fade to black at the very end
+tl.append(f'  tl.fromTo("#fadeout", {{ autoAlpha: 0 }}, {{ autoAlpha: 1, duration: 0.5, ease: "power1.in" }}, {DUR - 0.55:.2f});')
 
 # ---------------------------------------------------------------- helpers
 graphics, scenes = [], []
@@ -130,20 +135,23 @@ SW8 = 'stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="non
 def label(id_, text, y=470, color=INK, x=540, anchor="middle", cls="wl"):
     return f'<text id="{id_}" x="{x}" y="{y}" text-anchor="{anchor}" class="{cls}" fill="{color}">{text}</text>'
 
-BRAIN = ("M540 105 C640 85 745 150 745 250 C745 340 655 405 565 392 C525 420 445 412 420 372 "
-         "C340 362 322 282 350 222 C338 150 440 95 540 105 Z")
-BRAIN_FISSURE = "M540 105 C572 180 518 265 552 392"
-BRAIN_GYRI = ["M400 240 C430 210 470 215 490 245", "M600 200 C640 175 690 190 705 230", "M450 320 C480 300 520 305 540 335", "M600 300 C630 280 675 285 690 320"]
-def brain(prefix, color=INK, extra="", sw=SW):
-    g = "".join(f'<path class="{prefix}-gy" d="{d}" stroke="{color}" {sw}/>' for d in BRAIN_GYRI)
-    return (f'<g id="{prefix}-g" {extra}><path id="{prefix}-o" d="{BRAIN}" stroke="{color}" {sw}/>'
-            f'<path id="{prefix}-f" d="{BRAIN_FISSURE}" stroke="{color}" {sw}/>{g}</g>')
+# anatomical brain (side view, front to the left) · bbox x 330..778 · y 80..452 in the 1080×520 box
+def brain(p, color=INK, extra="", sw=SW):
+    g = "".join(f'<path class="{p}-gy" d="{d}" stroke="{color}" {sw}/>' for d in GYRI)
+    return (f'<g id="{p}-g" {extra}><path id="{p}-o" d="{CEREBRUM}" stroke="{color}" {sw}/>'
+            f'<path id="{p}-c" d="{CEREBELLUM}" stroke="{color}" {sw}/><path id="{p}-s" d="{STEM}" stroke="{color}" {sw}/>'
+            f'<path id="{p}-f" d="{FISSURE}" stroke="{color}" {sw}/>{g}</g>')
+def draw_brain(p, at, k=1.0):
+    draw(f"#{p}-o", 2100, at, 0.9 * k); draw(f"#{p}-c", 450, at + 0.55 * k, 0.35 * k); draw(f"#{p}-s", 220, at + 0.75 * k, 0.3 * k)
+    draw(f"#{p}-f", 360, at + 0.5 * k, 0.4 * k); draw(f".{p}-gy", 120, at + 0.7 * k, 0.25 * k, stagger=0.06 * k)
 
-# ================================================================ SCENE A · OVERFIT (faceless, light)
 DOTS = [(180,300),(280,230),(380,200),(480,260),(580,320),(680,280),(780,210),(880,240)]
-st, en = S(3), E(8) + 0.15
-dots = "".join(f'<circle class="sa-d" id="sa-d{k}" cx="{x}" cy="{y}" r="20" fill="{INK}"/>' for k,(x,y) in enumerate(DOTS))
-jag = "M180 300 L230 170 L280 230 L330 330 L380 200 L430 120 L480 260 L530 380 L580 320 L630 180 L680 280 L730 360 L780 210 L830 130 L880 240"
+SMOOTH = "M180 300 C270 220 350 190 450 240 S620 330 720 270 S840 220 880 240"
+JAG = "M180 300 L230 170 L280 230 L330 330 L380 200 L430 120 L480 260 L530 380 L580 320 L630 180 L680 280 L730 360 L780 210 L830 130 L880 240"
+
+# ================================================================ SCENE A · "mismos datos una y otra vez… romperse" (faceless, light)
+st, en = S(3), E(4) + 0.15
+dots = "".join(f'<circle class="sa-d" cx="{x}" cy="{y}" r="20" fill="{INK}"/>' for x, y in DOTS)
 counters = "".join(f'<text class="cnt" id="sa-c{k}" x="1008" y="560" text-anchor="end" fill="{INK if k < 4 else RED}">{t}</text>'
                    for k, t in enumerate(["×1", "×2", "×3", "×4", "×∞"]))
 scene("scA", st, en, LIGHT, f'''
@@ -151,45 +159,57 @@ scene("scA", st, en, LIGHT, f'''
   {counters}
   <g transform="translate(0 640)">
     {dots}
-    <path id="sa-s" d="M180 300 C270 220 350 190 450 240 S620 330 720 270 S840 220 880 240" stroke="{INK}" {SW8}/>
-    <path id="sa-j" d="{jag}" stroke="{RED}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <circle id="sa-n" cx="1000" cy="260" r="20" fill="{INK}"/>
-    {label("sa-nt", "NUEVO", y=200, x=1000, cls="wl2")}
-    <path id="sa-x1" d="M964 224 L1036 296" stroke="{RED}" stroke-width="12" stroke-linecap="round" fill="none"/>
-    <path id="sa-x2" d="M1036 224 L964 296" stroke="{RED}" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <path id="sa-s" d="{SMOOTH}" stroke="{INK}" {SW8}/>
+    <path id="sa-j" d="{JAG}" stroke="{RED}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   </g>
   {label("sa-p", "PATRÓN", y=1130, x=180, anchor="start", cls="wl2")}
-  <path id="sa-ps" d="M166 1116 L342 1116" stroke="{RED}" stroke-width="10" stroke-linecap="round" fill="none"/>
-  {label("sa-m", "MEMORIZA", y=1130, x=900, anchor="end", color=RED, cls="wl2")}''')
-hidden(".sa-d, .cnt, #sa-t, #sa-n, #sa-nt, #sa-p, #sa-m", st)
-pop("#sa-t", st + 0.25, 0.3)
-pop(".sa-d", st + 0.35, 0.25, stagger=0.07)
-draw("#sa-s", 900, st + 1.0, 0.8); pop("#sa-p", st + 1.5, 0.3)
-for k, at in enumerate([S(3) + 1.7, S(3) + 2.15, S(3) + 2.6, S(3) + 3.0]):       # "una y otra vez": ×1 ×2 ×3 ×4
+  {label("sa-r", "SE ROMPE", y=1130, x=900, anchor="end", color=RED, cls="wl2")}''')
+hidden(".sa-d, .cnt, #sa-t, #sa-p, #sa-r", st)
+pop("#sa-t", st + 0.2, 0.3)
+pop(".sa-d", st + 0.3, 0.25, stagger=0.06)
+draw("#sa-s", 900, st + 0.9, 0.7); pop("#sa-p", st + 1.3, 0.3)
+for k, at in enumerate([S(3) + 1.7, S(3) + 2.1, S(3) + 2.5, S(3) + 2.9]):       # "una y otra vez": ×1 ×2 ×3 ×4
     if k: hidden(f"#sa-c{k-1}", at)
     pop(f"#sa-c{k}", at, 0.18)
 hidden("#sa-c3", S(4) + 0.1); pop("#sa-c4", S(4) + 0.1, 0.25)                     # ×∞
-punch_cam(S(4) + 0.3, 1.03, 0.14, 1.0, sel="#scA-in")                             # "empieza a romperse"
-draw("#sa-j", 2200, S(4) + 0.15, 0.7, ease="power3.in")
-fade("#sa-s", S(5) + 0.3, 0.18, 0.5); draw("#sa-ps", 180, S(5) + 0.5, 0.2)       # "deja de aprender el patrón"
-pop("#sa-m", S(6) + 0.6, 0.3)                                                     # "empieza a memorizar los ejemplos"
+punch_cam(S(4) + 0.3, 1.03, 0.14, 0.8, sel="#scA-in")                             # "empieza a romperse"
+draw("#sa-j", 2200, S(4) + 0.15, 0.6, ease="power3.in"); pop("#sa-r", S(4) + 0.55, 0.25)
+
+# ================================================================ overlay · the broken model, continued (on face)
+st, en = S(5), E(8) + 0.2
+dots = "".join(f'<circle class="of-d" id="of-d{k}" cx="{x}" cy="{y}" r="14" fill="{INK}"/>' for k,(x,y) in enumerate(DOTS))
+clip("ofit", st, en, f'''
+  {dots}
+  <path id="of-s" d="{SMOOTH}" stroke="{INK}" {SW} opacity="0.18"/>
+  <path id="of-j" d="{JAG}" stroke="{RED}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  {label("of-p", "PATRÓN", y=470, x=180, anchor="start")}
+  <path id="of-ps" d="M172 460 L300 460" stroke="{RED}" stroke-width="8" stroke-linecap="round" fill="none"/>
+  {label("of-m", "MEMORIZA", y=470, x=900, anchor="end", color=RED)}
+  <circle id="of-n" cx="1000" cy="260" r="14" fill="{INK}"/>
+  {label("of-nt", "NUEVO", y=212, x=1000)}
+  <path id="of-x1" d="M972 232 L1028 288" stroke="{RED}" stroke-width="9" stroke-linecap="round" fill="none"/>
+  <path id="of-x2" d="M1028 232 L972 288" stroke="{RED}" stroke-width="9" stroke-linecap="round" fill="none"/>''')
+hidden("#of-m, #of-n, #of-nt", st)
+draw("#of-ps", 140, S(5) + 0.4, 0.2)                                              # "deja de aprender el patrón"
+pop("#of-m", S(6) + 0.6, 0.3)                                                     # "empieza a memorizar los ejemplos"
 for k in range(len(DOTS)):
     at = S(6) + 0.7 + k * 0.16
-    tl.append(f'  tl.fromTo("#sa-d{k}", {{ fill: "{INK}", scale: 1, transformOrigin: "50% 50%" }}, {{ fill: "{RED}", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }}, {at:.2f});')
-tl.append(f'  tl.fromTo("#sa-j", {{ strokeWidth: 10 }}, {{ strokeWidth: 16, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 3 }}, {S(7) + 0.4:.2f});')
-pop("#sa-n", S(8) + 0.9, 0.25); pop("#sa-nt", S(8) + 1.0, 0.25)                  # "algo nuevo" → can't reach it
-draw("#sa-x1, #sa-x2", 110, S(8) + 1.5, 0.18, stagger=0.12)
+    tl.append(f'  tl.fromTo("#of-d{k}", {{ fill: "{INK}", scale: 1, transformOrigin: "50% 50%" }}, {{ fill: "{RED}", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }}, {at:.2f});')
+tl.append(f'  tl.fromTo("#of-j", {{ strokeWidth: 7 }}, {{ strokeWidth: 12, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 3 }}, {S(7) + 0.4:.2f});')
+pop("#of-n", S(8) + 0.9, 0.25); pop("#of-nt", S(8) + 1.0, 0.25)                  # "algo nuevo" → can't reach it
+draw("#of-x1, #of-x2", 90, S(8) + 1.5, 0.18, stagger=0.12)
 
 # ================================================================ overlay · BRAIN (on face)
 st, en = S(11), E(12) + 0.2
 clip("brain", st, en, brain("br") + f'''
-  <path id="br-j" d="M400 220 L430 160 L460 265 L490 180 L520 305 L550 200 L580 295 L610 170 L640 265 L670 205" stroke="{RED}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  {label("br-y", "2021", y=470, x=540, color=RED)}
-  {label("br-t", "TU CEREBRO")}''')
-draw("#br-o", 1500, st + 0.05, 0.9); draw("#br-f", 320, st + 0.6, 0.4); draw(".br-gy", 140, st + 0.8, 0.3, stagger=0.08)
+  <path id="br-j" d="M420 250 L445 195 L470 290 L495 210 L520 300 L545 215 L575 300 L600 200 L630 290 L660 225" stroke="{RED}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  {label("br-y", "2021", y=500, x=540, color=RED)}
+  {label("br-t", "TU CEREBRO", y=500)}''')
+draw_brain("br", st + 0.05)
 hidden("#br-y", st); hidden("#br-t", st); pop("#br-y", st + 0.4, 0.3)
 fade("#br-y", S(12) + 0.2, 0.0, 0.2); pop("#br-t", S(12) + 0.4, 0.3)
-draw("#br-j", 900, S(12) + 1.1, 0.6, ease="power3.in")
+fade(".br-gy, #br-f", S(12) + 1.0, 0.25, 0.3)
+draw("#br-j", 900, S(12) + 1.1, 0.6, ease="power3.in")                           # "el mismo problema": the jagged line again
 
 # ================================================================ overlay · SAME DAY (on face)
 st, en = S(13), E(15) + 0.2
@@ -230,20 +250,25 @@ tl.append(f'  tl.set("#wh-b", {{ autoAlpha: 1 }}, {S(17):.2f});')
 draw("#wh-b", 900, S(17) + 0.05, 0.6); pop("#wh-tb", S(17) + 0.4, 0.3)
 draw("#wh-x1, #wh-x2", 160, S(17) + 0.9, 0.22, stagger=0.15)
 
-# ================================================================ SCENE B · NIGHT (faceless, dark)
-st, en = S(18), E(23) + 0.15
-def spark(cx, cy, r=18, cls="sb-sp"):
+# ================================================================ overlay · MOON — "entonces, de noche, hace algo extraño" (on face)
+def spark(cx, cy, r=18, cls="sp"):
     return f'<path class="{cls}" d="M{cx} {cy-r} L{cx+r*0.3:.0f} {cy-r*0.3:.0f} L{cx+r} {cy} L{cx+r*0.3:.0f} {cy+r*0.3:.0f} L{cx} {cy+r} L{cx-r*0.3:.0f} {cy+r*0.3:.0f} L{cx-r} {cy} L{cx-r*0.3:.0f} {cy-r*0.3:.0f} Z" fill="{RED}"/>'
+st, en = S(18), S(19) - 0.02
+clip("moon", st, en, f'''
+  <path id="mn-m" d="M540 110 A130 130 0 1 0 540 370 A100 100 0 1 1 540 110 Z" stroke="{INK}" {SW}/>
+  {spark(660, 150, 22, "mn-sp")}{spark(700, 240, 14, "mn-sp")}{spark(630, 80, 14, "mn-sp")}
+  {label("mn-t", "DE NOCHE", y=470)}''')
+draw("#mn-m", 1400, st + 0.05, 0.9); hidden(".mn-sp", st); hidden("#mn-t", st)
+pop("#mn-t", st + 0.5, 0.3); pop(".mn-sp", S(18) + 1.5, 0.25, stagger=0.1)       # "algo extraño"
+
+# ================================================================ SCENE B · "genera experiencias que no ocurrieron…" (faceless, dark)
+st, en = S(19), E(21) + 0.15
 cube = ["M480 1100 H600 V1220 H480 Z", "M530 1050 H650 V1170 H530 Z", "M480 1100 L530 1050", "M600 1100 L650 1050", "M600 1220 L650 1170", "M480 1220 L530 1170"]
-STREAM = [(0, 0), (1, -30), (2, 30), (3, -60), (4, 60), (5, -15), (6, 15), (7, 45)]
-stream = "".join(f'<circle class="sb-p" id="sb-p{k}" cx="540" cy="{800 + dy}" r="14" fill="{RED}"/>' for k, dy in STREAM)
 scene("scB", st, en, DARK, f'''
-  {label("sb-t1", "DE NOCHE", y=330, x=72, anchor="start", color=WHITE, cls="wl2")}
-  {label("sb-t2", "NO OCURRIÓ", y=330, x=72, anchor="start", color=RED, cls="wl2")}
-  {label("sb-t3", "DATOS DE ENTRENAMIENTO", y=330, x=72, anchor="start", color=RED, cls="wl2")}
-  <path id="sb-m" d="M250 390 A130 130 0 1 0 250 650 A100 100 0 1 1 250 390 Z" stroke="{WHITE}" {SW8}/>
-  {spark(410, 450, 22)}{spark(450, 540, 14)}{spark(380, 630, 14)}
-  {brain("sb", WHITE, extra='transform="translate(-100 498) scale(1.2)"', sw=SW8)}
+  {label("sb-t", "NO OCURRIÓ", y=330, x=72, anchor="start", color=RED, cls="wl2")}
+  <path id="sb-m" d="M900 300 A80 80 0 1 0 900 460 A62 62 0 1 1 900 300 Z" stroke="{WHITE}" {SW}/>
+  {spark(975, 320, 16, "sb-sp")}{spark(1000, 400, 11, "sb-sp")}
+  {brain("sb", WHITE, extra='transform="translate(-125 480) scale(1.2)"', sw=SW8)}
   <g id="sb-mem">
     <path d="M120 1080 Q200 1060 280 1085 Q300 1150 275 1220 Q200 1240 125 1215 Q105 1150 120 1080 Z" stroke="{RED}" {SW}/>
     <path d="M140 1195 L180 1140 L210 1170 L250 1120 L268 1150" stroke="{RED}" {SW}/>
@@ -252,39 +277,40 @@ scene("scB", st, en, DARK, f'''
   {"".join(f'<path class="sb-c" d="{d}" stroke="{WHITE}" {SW}/>' for d in cube)}
   <path id="sb-w" d="M480 1220 L650 1050" stroke="{RED}" stroke-width="8" stroke-linecap="round" fill="none"/>
   <circle id="sb-f" cx="880" cy="1150" r="72" stroke="{WHITE}" {SW} transform="rotate(-90 880 1150)"/>
-  <text id="sb-q" x="880" y="1184" text-anchor="middle" class="big" fill="{RED}">?</text>
-  {stream}
-  <rect id="sb-box" x="740" y="420" width="220" height="180" rx="18" stroke="{WHITE}" {SW}/>
-  {label("sb-bt", "VIDA NO VIVIDA", y=650, x=850, color=WHITE)}''')
-hidden("#sb-t1, #sb-t2, #sb-t3, .sb-sp, #sb-mem, #sb-q, .sb-p, #sb-box, #sb-bt", st)
-pop("#sb-t1", st + 0.25, 0.3)
-draw("#sb-m", 1400, st + 0.2, 0.9)
-pop(".sb-sp", S(18) + 1.5, 0.25, stagger=0.1)                                     # "algo extraño"
-draw("#sb-o", 1800, S(19) + 0.05, 0.7); draw("#sb-f", 400, S(19) + 0.5, 0.3); draw(".sb-gy", 170, S(19) + 0.6, 0.25, stagger=0.06)
-fade("#sb-t1", S(19) + 0.5, 0.0, 0.2); pop("#sb-t2", S(19) + 0.6, 0.3)          # "que no ocurrieron"
+  <text id="sb-q" x="880" y="1184" text-anchor="middle" class="big" fill="{RED}">?</text>''')
+hidden("#sb-t, .sb-sp, #sb-mem, #sb-q", st)
+draw("#sb-m", 900, st + 0.05, 0.4); pop(".sb-sp", st + 0.3, 0.2, stagger=0.1)
+draw_brain("sb", st + 0.05, 0.7)                                                  # "genera experiencias"
+pop("#sb-t", S(19) + 0.7, 0.3)                                                    # "que no ocurrieron"
 tl.append(f'  tl.set("#sb-mem", {{ autoAlpha: 1 }}, {S(20):.2f});')
 draw("#sb-mem path", 700, S(20) + 0.1, 0.4, stagger=0.1)                          # "recuerdos distorsionados"
-draw(".sb-c", 500, S(20) + 1.0, 0.3, stagger=0.05)                                # "cuartos imposibles"
-draw("#sb-w", 260, S(20) + 1.6, 0.25)
+draw(".sb-c", 500, S(20) + 0.95, 0.3, stagger=0.05)                               # "cuartos imposibles"
+draw("#sb-w", 260, S(20) + 1.5, 0.25)
 draw("#sb-f", 460, S(21) + 0.05, 0.4); pop("#sb-q", S(21) + 0.5, 0.3)             # "gente que nunca has conocido"
-fade("#sb-t2", S(22) + 0.5, 0.0, 0.2); pop("#sb-t3", S(22) + 0.6, 0.3)          # "genera datos de entrenamiento"
-fade("#sb-mem, .sb-c, #sb-w, #sb-f, #sb-q", S(22) + 0.4, 0.0, 0.3)
-tl.append(f'  tl.set("#sb-box", {{ autoAlpha: 1 }}, {S(23):.2f});')
-draw("#sb-box", 900, S(23) + 0.05, 0.5); pop("#sb-bt", S(23) + 0.4, 0.3)          # "para una vida que no has vivido"
-for k, dy in STREAM:
-    at = S(22) + 0.8 + k * 0.2
-    tl.append(f'  tl.fromTo("#sb-p{k}", {{ autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }}, {{ autoAlpha: 1, x: 310, y: {-290 - dy}, scale: 1, duration: 1.2, ease: "power1.inOut" }}, {at:.2f});')
-    tl.append(f'  tl.to("#sb-p{k}", {{ autoAlpha: 0, duration: 0.15 }}, {at + 1.2:.2f});')
-    tl.append(f'  tl.set("#sb-p{k}", {{ autoAlpha: 0 }}, {at + 1.35:.2f});')
 
-# ================================================================ overlay · COSAS NUEVAS (back on face)
-st, en = S(24), E(24) + 0.25
-clip("newbox", st, en, f'''
-  <rect id="nb-box" x="430" y="120" width="220" height="180" rx="18" stroke="{INK}" {SW}/>
-  <path id="nb-ok" d="M490 215 L525 252 L595 165" stroke="{INK}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  {label("nb-t", "COSAS NUEVAS", y=370, color=RED)}''')
-draw("#nb-box", 900, st + 0.05, 0.45); hidden("#nb-t", st)
-draw("#nb-ok", 220, st + 0.5, 0.3); pop("#nb-t", st + 0.6, 0.3)
+# ================================================================ overlay · TRAINING DATA (back on face) — brain → box → ✓
+st, en = S(22), E(24) + 0.25
+STREAM = [(0, 0), (1, -40), (2, 30), (3, -15), (4, 45), (5, 10)]
+stream = "".join(f'<circle class="td-p" id="td-p{k}" cx="330" cy="{250 + dy}" r="12" fill="{RED}"/>' for k, dy in STREAM)
+clip("train", st, en, brain("td", extra='transform="translate(-60 96) scale(0.58)"') + f'''
+  {stream}
+  <rect id="td-box" x="720" y="160" width="220" height="180" rx="18" stroke="{INK}" {SW}/>
+  <path id="td-ok" d="M780 255 L815 292 L885 205" stroke="{INK}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  {label("td-bt", "VIDA NO VIVIDA", y=400, x=830)}
+  {label("td-t", "DATOS DE ENTRENAMIENTO", color=RED)}
+  {label("td-n", "COSAS NUEVAS", color=RED)}''')
+draw_brain("td", st + 0.05, 0.7)
+hidden(".td-p, #td-t, #td-bt, #td-box, #td-n", st)
+pop("#td-t", S(22) + 1.0, 0.3)
+tl.append(f'  tl.set("#td-box", {{ autoAlpha: 1 }}, {S(23):.2f});')
+draw("#td-box", 900, S(23) + 0.05, 0.5); pop("#td-bt", S(23) + 0.4, 0.3)
+for k, dy in STREAM:
+    at = S(22) + 1.1 + k * 0.22
+    tl.append(f'  tl.fromTo("#td-p{k}", {{ autoAlpha: 0, x: 0, scale: 0.5, transformOrigin: "50% 50%" }}, {{ autoAlpha: 1, x: 500, scale: 1, duration: 1.3, ease: "power1.inOut" }}, {at:.2f});')
+    tl.append(f'  tl.to("#td-p{k}", {{ autoAlpha: 0, duration: 0.15 }}, {at + 1.3:.2f});')
+    tl.append(f'  tl.set("#td-p{k}", {{ autoAlpha: 0 }}, {at + 1.45:.2f});')
+fade("#td-t", S(24) + 0.3, 0.0, 0.2); pop("#td-n", S(24) + 0.4, 0.3)
+draw("#td-ok", 220, S(24) + 0.6, 0.35)                                            # "seguir procesando cosas nuevas"
 
 # ---------------------------------------------------------------- assemble
 g_html = []
@@ -319,6 +345,7 @@ page = f'''<!doctype html>
       .scene {{ position: absolute; inset: 0; pointer-events: none; }}
       .scin {{ position: absolute; inset: 0; transform-origin: 50% 50%; opacity: 0; }}
       .scin svg {{ display: block; }}
+      #fadeout {{ position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }}
 
       .rail {{ position: absolute; left: 0; right: 0; top: 1300px; display: flex; justify-content: center; pointer-events: none; }}
       .rail .line {{ max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: 700; font-size: 62px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }}
@@ -362,6 +389,7 @@ page = f'''<!doctype html>
 {chr(10).join(g_html)}
 
 {chr(10).join(card_html)}
+      <div id="fadeout" class="clip" data-start="{DUR - 0.6:.2f}" data-duration="0.60" data-track-index="6"></div>
     </div>
     <script>
       const glitchHash = (n) => {{ const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); }};

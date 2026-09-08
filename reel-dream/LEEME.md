@@ -1,8 +1,10 @@
-# Sarier · reel "¿Por qué soñamos?" (sobreajuste y sueños) · v2
+# Sarier · reel "¿Por qué soñamos?" (sobreajuste y sueños) · v3
 
 Composición HyperFrames: pausas del audio recortadas, subtítulos cinéticos, 3 statements blancos por capas,
-dos explicaciones faceless a pantalla completa (SOBREAJUSTE sobre superficie clara `#F5F5F7`, NOCHE sobre
-superficie oscura `#161618`) y 4 gráficos de línea superpuestos sobre la cara (cerebro, el mismo día, ayer/mañana, cosas nuevas).
+dos explicaciones faceless cortas a pantalla completa (~4–5 s: "una y otra vez… se rompe" sobre superficie clara `#F5F5F7`,
+"genera experiencias que no ocurrieron…" sobre superficie oscura `#161618`), 6 gráficos de línea superpuestos sobre la cara
+(modelo roto, cerebro, el mismo día, ayer/mañana, luna, datos de entrenamiento) y fundido a negro final.
+El cerebro (vista lateral con lóbulos, cisura, cerebelo y tronco) se genera en `brain/brainpath.py`.
 Fuente: original HEVC 1080×1920 a 25 fps (la composición fija `data-fps="25"`). Duración ≈ 56.9 s (original 61.4 s).
 
 ## Renders finales
