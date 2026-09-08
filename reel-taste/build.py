@@ -53,9 +53,9 @@ CARDS = [
     ("close", 66.00,         DUR,           "spectrum"),
 ]
 STMT = {   # (key, text, size, x, y, align, enter, alpha) — all white; alpha = transparency layer
-  "hook":  [("a","Cuatro pasos para un",84,72,150,"left","left",0.72), ("b","criterio",210,40,214,"left","scale",1.0), ("c","excepcional.",150,60,392,"right","right",0.86)],
-  "fail":  [("a","La mayoría ya está",88,80,150,"left","left",0.72), ("b","fallando",220,40,218,"left","scale",1.0), ("c","en el primero.",120,60,408,"right","right",0.86)],
-  "close": [("a","No nació con él.",104,72,150,"left","left",0.72), ("b","Se enseñó",170,60,236,"right","right",1.0), ("c","a notarlo.",170,60,386,"right","scale",0.86)],
+  "hook":  [("a","Cuatro pasos para un",80,72,252,"left","left",0.72), ("b","criterio",190,40,308,"left","scale",1.0), ("c","excepcional.",136,60,458,"right","right",0.86)],
+  "fail":  [("a","La mayoría ya está",84,80,252,"left","left",0.72), ("b","fallando",200,40,308,"left","scale",1.0), ("c","en el primero.",116,60,466,"right","right",0.86)],
+  "close": [("a","No nació con él.",96,72,252,"left","left",0.72), ("b","Se enseñó",160,60,324,"right","right",1.0), ("c","a notarlo.",160,60,436,"right","scale",0.86)],
 }
 ENTER = {"left": "{ x: -80, autoAlpha: 0 }", "right": "{ x: 90, autoAlpha: 0 }",
          "scale": "{ scale: 0.6, autoAlpha: 0 }", "drop": "{ y: -60, autoAlpha: 0 }"}
@@ -232,8 +232,8 @@ for lap in range(2):
 # 7 · close eye — "a notarlo": an eye opens under the statement
 st, en = S(26), DUR
 clip("noteye", st, en, f'''
-  <path id="ne-o" d="M420 500 Q540 420 660 500 Q540 580 420 500 Z" stroke="#FFFFFF" {SW}/>
-  <circle id="ne-d" cx="540" cy="500" r="14" fill="{RED}"/>''')
+  <path id="ne-o" d="M420 400 Q540 320 660 400 Q540 480 420 400 Z" stroke="#FFFFFF" {SW}/>
+  <circle id="ne-d" cx="540" cy="400" r="14" fill="{RED}"/>''')
 tl.append(f'  tl.fromTo("#ne-o", {{ scaleY: 0.04, transformOrigin: "50% 50%" }}, {{ scaleY: 1, duration: 0.55, ease: "power3.out" }}, {st + 0.3:.2f});')
 hidden("#ne-d", st); pop("#ne-d", st + 0.7, 0.25)
 tl.pop(); tl.pop()   # drop this clip's fade-out/hard-kill: it holds to the end
@@ -275,15 +275,15 @@ page = f'''<!doctype html>
       .piece {{ display: inline-block; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }}
       .piece.white {{ color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }}
       .gstack {{ display: grid; }}
-      .gstack > span {{ grid-area: 1 / 1; display: inline-block; font-size: 220px; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }}
+      .gstack > span {{ grid-area: 1 / 1; display: inline-block; font-size: 200px; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }}
       .gstack .ghost {{ opacity: 0; }}
       .gstack .warm {{ color: #FF3332; }}
       .gstack .cool {{ color: #5470FD; }}
 
-      .num {{ position: absolute; left: 64px; top: 620px; pointer-events: none; }}
+      .num {{ position: absolute; left: 64px; top: 660px; pointer-events: none; }}
       .numin {{ display: inline-block; font-weight: 700; font-size: 220px; line-height: 1; letter-spacing: -0.05em; color: var(--red); text-shadow: 0 2px 3px rgba(0,0,0,0.25), 0 8px 30px rgba(0,0,0,0.3); }}
       .mg {{ position: absolute; left: 0; top: 0; width: {W}px; pointer-events: none; }}
-      .gin {{ position: absolute; left: 0; top: 120px; }}
+      .gin {{ position: absolute; left: 0; top: 236px; transform: scale(0.70); transform-origin: top center; }}
       .mg svg {{ display: block; }}
       .wl {{ font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 28px; letter-spacing: var(--tr-caps); }}
       .big {{ font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 110px; }}

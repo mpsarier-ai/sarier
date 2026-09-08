@@ -27,15 +27,15 @@
       .piece { display: inline-block; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
       .piece.white { color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }
       .gstack { display: grid; }
-      .gstack > span { grid-area: 1 / 1; display: inline-block; font-size: 220px; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
+      .gstack > span { grid-area: 1 / 1; display: inline-block; font-size: 200px; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
       .gstack .ghost { opacity: 0; }
       .gstack .warm { color: #FF3332; }
       .gstack .cool { color: #5470FD; }
 
-      .num { position: absolute; left: 64px; top: 620px; pointer-events: none; }
+      .num { position: absolute; left: 64px; top: 660px; pointer-events: none; }
       .numin { display: inline-block; font-weight: 700; font-size: 220px; line-height: 1; letter-spacing: -0.05em; color: var(--red); text-shadow: 0 2px 3px rgba(0,0,0,0.25), 0 8px 30px rgba(0,0,0,0.3); }
       .mg { position: absolute; left: 0; top: 0; width: 1080px; pointer-events: none; }
-      .gin { position: absolute; left: 0; top: 120px; }
+      .gin { position: absolute; left: 0; top: 236px; transform: scale(0.70); transform-origin: top center; }
       .mg svg { display: block; }
       .wl { font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 28px; letter-spacing: var(--tr-caps); }
       .big { font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 110px; }
@@ -129,21 +129,21 @@
       </div>
       <div id="noteye" class="mg clip" data-start="66.92" data-duration="1.92" data-track-index="3">
         <div id="noteye-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
-  <path id="ne-o" d="M420 500 Q540 420 660 500 Q540 580 420 500 Z" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <circle id="ne-d" cx="540" cy="500" r="14" fill="#E1251B"/>
+  <path id="ne-o" d="M420 400 Q540 320 660 400 Q540 480 420 400 Z" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle id="ne-d" cx="540" cy="400" r="14" fill="#E1251B"/>
         </svg></div>
       </div>
 
 <div id="num1" class="num clip" data-start="17.00" data-duration="1.60" data-track-index="4"><span class="numin" id="num1i">1</span></div><div id="num2" class="num clip" data-start="30.67" data-duration="1.52" data-track-index="4"><span class="numin" id="num2i">2</span></div><div id="num3" class="num clip" data-start="41.99" data-duration="1.60" data-track-index="4"><span class="numin" id="num3i">3</span></div><div id="num4" class="num clip" data-start="49.29" data-duration="1.33" data-track-index="4"><span class="numin" id="num4i">4</span></div>
 
       <div id="hook" class="card clip" data-start="0.00" data-duration="5.72" data-track-index="3">
-        <div class="stmt" id="hook-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:150px;"><span class="piece white" id="hook-a" data-layout-allow-overlap style="font-size:84px;">Cuatro pasos para un</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:214px;"><span class="piece white" id="hook-b" data-layout-allow-overlap style="font-size:210px;">criterio</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:392px;"><span class="piece white" id="hook-c" data-layout-allow-overlap style="font-size:150px;">excepcional.</span></div></div>
+        <div class="stmt" id="hook-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="hook-a" data-layout-allow-overlap style="font-size:80px;">Cuatro pasos para un</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:308px;"><span class="piece white" id="hook-b" data-layout-allow-overlap style="font-size:190px;">criterio</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:458px;"><span class="piece white" id="hook-c" data-layout-allow-overlap style="font-size:136px;">excepcional.</span></div></div>
       </div>
       <div id="fail" class="card clip" data-start="13.39" data-duration="3.61" data-track-index="3">
-        <div class="stmt" id="fail-in"><div class="rot" data-layout-allow-overlap style="left:80px;top:150px;"><span class="piece white" id="fail-a" data-layout-allow-overlap style="font-size:88px;">La mayoría ya está</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:218px;"><span class="gstack" id="fail-stack"><span class="ghost warm" aria-hidden="true">fallando</span><span class="ghost cool" aria-hidden="true">fallando</span><span class="piece white" id="fail-b" data-layout-allow-overlap style="font-size:220px;">fallando</span></span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:408px;"><span class="piece white" id="fail-c" data-layout-allow-overlap style="font-size:120px;">en el primero.</span></div></div>
+        <div class="stmt" id="fail-in"><div class="rot" data-layout-allow-overlap style="left:80px;top:252px;"><span class="piece white" id="fail-a" data-layout-allow-overlap style="font-size:84px;">La mayoría ya está</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:308px;"><span class="gstack" id="fail-stack"><span class="ghost warm" aria-hidden="true">fallando</span><span class="ghost cool" aria-hidden="true">fallando</span><span class="piece white" id="fail-b" data-layout-allow-overlap style="font-size:200px;">fallando</span></span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:466px;"><span class="piece white" id="fail-c" data-layout-allow-overlap style="font-size:116px;">en el primero.</span></div></div>
       </div>
       <div id="close" class="card clip" data-start="66.00" data-duration="2.84" data-track-index="3">
-        <div class="stmt" id="close-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:150px;"><span class="piece white" id="close-a" data-layout-allow-overlap style="font-size:104px;">No nació con él.</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:236px;"><span class="piece white" id="close-b" data-layout-allow-overlap style="font-size:170px;">Se enseñó</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:386px;"><span class="piece white" id="close-c" data-layout-allow-overlap style="font-size:170px;">a notarlo.</span></div></div>
+        <div class="stmt" id="close-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="close-a" data-layout-allow-overlap style="font-size:96px;">No nació con él.</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:324px;"><span class="piece white" id="close-b" data-layout-allow-overlap style="font-size:160px;">Se enseñó</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:436px;"><span class="piece white" id="close-c" data-layout-allow-overlap style="font-size:160px;">a notarlo.</span></div></div>
       </div>
     </div>
     <script>
