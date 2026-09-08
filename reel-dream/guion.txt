@@ -1,0 +1,26 @@
+Llevamos cien años tratando de entender por qué soñamos,
+y puede que la respuesta acabe de llegar desde el machine learning.
+Cuando entrenas un modelo de IA con los mismos datos una y otra vez,
+empieza a romperse.
+Deja de aprender el patrón
+y empieza a memorizar los ejemplos que le diste.
+Y con el tiempo se familiariza tanto con los patrones memorizados
+que se vuelve incapaz de aprender algo nuevo.
+Se llama sobreajuste.
+Overfitting.
+En 2021, un neurocientífico propuso
+que tu cerebro tiene exactamente el mismo problema.
+Cada día vives la misma tajada estrecha de vida:
+el mismo trayecto, las mismas caras.
+Y si tu cerebro simplemente consolidara eso en bucle,
+quedarías hiperespecializado para el ayer
+y siempre malo para el mañana.
+Entonces, de noche, hace algo extraño:
+genera experiencias que no ocurrieron.
+Recuerdos distorsionados, cuartos imposibles,
+gente que nunca has conocido.
+Cada noche, tu cerebro genera datos de entrenamiento
+para una vida que todavía no has vivido,
+para que puedas seguir procesando cosas nuevas.
+Siempre pensamos que soñamos porque dormimos.
+Pero tal vez dormimos porque necesitamos soñar.
