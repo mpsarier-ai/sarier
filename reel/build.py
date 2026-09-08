@@ -54,30 +54,28 @@ CARDS = [
     ("punch", S(9) - 0.15,   S(9) + 3.30,   "heat"),
     ("philo", S(26) - 0.16,  E(26) + 1.60,  "spectrum"),
 ]
-STMT = {   # (key, text, kind, size, x, y, align, enter)
-  "hook":  [("a","¿Puede la IA","ink",92,72,150,"left","left"), ("b","hacernos","grad",190,40,236,"left","scale"), ("c","pensar más?","grad",132,60,452,"right","right")],
-  "punch": [("a","Eso fue","ink",110,90,165,"left","left"), ("b","IA.","grad",300,330,250,"left","scale")],
-  "philo": [("a","¿Puede volvernos","ink",96,80,140,"left","left"), ("b","más","grad",170,120,258,"left","drop"), ("c","filosóficos?","grad",150,60,430,"right","right")],
+STMT = {   # (key, text, size, x, y, align, enter, alpha) — all white; alpha = transparency layer
+  "hook":  [("a","¿Puede la IA",84,72,252,"left","left",0.72), ("b","hacernos",180,40,312,"left","scale",1.0), ("c","pensar más?",124,60,458,"right","right",0.86)],
+  "punch": [("a","Eso fue",100,90,262,"left","left",0.72), ("b","IA.",270,330,332,"left","scale",1.0)],
+  "philo": [("a","¿Puede volvernos",88,80,252,"left","left",0.72), ("b","más",160,120,318,"left","drop",1.0), ("c","filosóficos?",136,60,462,"right","right",0.86)],
 }
 ENTER = {"left": "{ x: -80, autoAlpha: 0 }", "right": "{ x: 90, autoAlpha: 0 }",
          "scale": "{ scale: 0.6, autoAlpha: 0 }", "drop": "{ y: -60, autoAlpha: 0 }"}
 card_html = []
 for cid, st, en, gname in CARDS:
     d = en - st; parts = []
-    for k, (key, text, kind, size, x, y, align, enter) in enumerate(STMT[cid]):
+    for k, (key, text, size, x, y, align, enter, alpha) in enumerate(STMT[cid]):
         pid = f"{cid}-{key}"
         pos = f"left:{x}px;" if align == "left" else f"right:{x}px;"
-        style = f"font-size:{size}px;" + (f"background-image:{GRAD[gname]};" if kind == "grad" else "")
-        if cid == "punch" and kind == "grad":
+        style = f"font-size:{size}px;"
+        if cid == "punch" and key == "b":
             inner = (f'<span class="gstack" id="{cid}-stack"><span class="ghost warm" aria-hidden="true">{esc(text)}</span>'
                      f'<span class="ghost cool" aria-hidden="true">{esc(text)}</span>'
-                     f'<span class="piece grad" id="{pid}" style="{style}">{esc(text)}</span></span>')
+                     f'<span class="piece white" id="{pid}" data-layout-allow-overlap style="{style}">{esc(text)}</span></span>')
         else:
-            inner = f'<span class="piece {kind}" id="{pid}" style="{style}">{esc(text)}</span>'
-        parts.append(f'<div class="rot" style="{pos}top:{y}px;">{inner}</div>')
-        tl.append(f'  tl.fromTo("#{pid}", {ENTER[enter]}, {{ x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }}, {st + 0.05 + k * 0.14:.2f});')
-        if kind == "grad":
-            tl.append(f'  tl.fromTo("#{pid}", {{ backgroundPosition: "100% 50%" }}, {{ backgroundPosition: "0% 50%", duration: {d - 0.3:.2f}, ease: "none" }}, {st:.2f});')
+            inner = f'<span class="piece white" id="{pid}" data-layout-allow-overlap style="{style}">{esc(text)}</span>'
+        parts.append(f'<div class="rot" data-layout-allow-overlap style="{pos}top:{y}px;">{inner}</div>')
+        tl.append(f'  tl.fromTo("#{pid}", {ENTER[enter]}, {{ x: 0, y: 0, scale: 1, autoAlpha: {alpha}, duration: 0.6, ease: "expo.out" }}, {st + 0.05 + k * 0.14:.2f});')
     card_html.append(f'      <div id="{cid}" class="card clip" data-start="{st:.2f}" data-duration="{d:.2f}" data-track-index="3">\n'
                      f'        <div class="stmt" id="{cid}-in">{"".join(parts)}</div>\n      </div>')
     tl.append(f'  tl.to("#{cid}-in", {{ autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }}, {en - 0.30:.2f});')
@@ -280,24 +278,22 @@ page = f'''<!doctype html>
       .card {{ position: absolute; left: 0; top: 0; width: {W}px; height: 680px; pointer-events: none; }}
       .stmt {{ position: absolute; inset: 0; }}
       .stmt .rot {{ position: absolute; white-space: nowrap; }}
-      .piece {{ display: inline-block; font-weight: 600; line-height: 0.98; letter-spacing: var(--tr-display); }}
-      .piece.ink {{ color: var(--ink); text-shadow: 0 1px 12px rgba(255,255,255,0.7); }}
-      .piece.grad {{ background-size: 300% 100%; background-position: 100% 50%; -webkit-background-clip: text; background-clip: text;
-        -webkit-text-fill-color: transparent; color: transparent; padding: 0.04em 0.06em 0.12em; margin: -0.04em -0.06em -0.12em; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.28)); }}
+      .piece {{ display: inline-block; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }}
+      .piece.white {{ color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }}
       .gstack {{ display: grid; }}
-      .gstack > span {{ grid-area: 1 / 1; display: inline-block; font-size: 300px; font-weight: 600; line-height: 0.98; letter-spacing: var(--tr-display); }}
+      .gstack > span {{ grid-area: 1 / 1; display: inline-block; font-size: 270px; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }}
       .gstack .ghost {{ opacity: 0; }}
       .gstack .warm {{ color: #FF3332; }}
       .gstack .cool {{ color: #5470FD; }}
 
       .mg {{ position: absolute; left: 0; top: 0; width: {W}px; pointer-events: none; }}
-      .gin {{ position: absolute; left: 0; top: 120px; }}
+      .gin {{ position: absolute; left: 0; top: 236px; transform: scale(0.70); transform-origin: top center; }}
       .mg svg {{ display: block; }}
       .wl {{ font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 28px; letter-spacing: var(--tr-caps); }}
       .big {{ font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 84px; }}
-      #eq {{ top: 300px; display: flex; justify-content: center; }}
+      #eq {{ top: 330px; display: flex; justify-content: center; }}
       .eq {{ display: flex; align-items: flex-end; gap: 16px; }}
-      .eq .bar {{ width: 18px; height: 180px; background: var(--ink); border-radius: 9px; transform-origin: bottom center; }}
+      .eq .bar {{ width: 18px; height: 160px; background: var(--ink); border-radius: 9px; transform-origin: bottom center; }}
     </style>
   </head>
   <body>

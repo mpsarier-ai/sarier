@@ -24,24 +24,22 @@
       .card { position: absolute; left: 0; top: 0; width: 1080px; height: 680px; pointer-events: none; }
       .stmt { position: absolute; inset: 0; }
       .stmt .rot { position: absolute; white-space: nowrap; }
-      .piece { display: inline-block; font-weight: 600; line-height: 0.98; letter-spacing: var(--tr-display); }
-      .piece.ink { color: var(--ink); text-shadow: 0 1px 12px rgba(255,255,255,0.7); }
-      .piece.grad { background-size: 300% 100%; background-position: 100% 50%; -webkit-background-clip: text; background-clip: text;
-        -webkit-text-fill-color: transparent; color: transparent; padding: 0.04em 0.06em 0.12em; margin: -0.04em -0.06em -0.12em; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.28)); }
+      .piece { display: inline-block; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
+      .piece.white { color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }
       .gstack { display: grid; }
-      .gstack > span { grid-area: 1 / 1; display: inline-block; font-size: 300px; font-weight: 600; line-height: 0.98; letter-spacing: var(--tr-display); }
+      .gstack > span { grid-area: 1 / 1; display: inline-block; font-size: 270px; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
       .gstack .ghost { opacity: 0; }
       .gstack .warm { color: #FF3332; }
       .gstack .cool { color: #5470FD; }
 
       .mg { position: absolute; left: 0; top: 0; width: 1080px; pointer-events: none; }
-      .gin { position: absolute; left: 0; top: 120px; }
+      .gin { position: absolute; left: 0; top: 236px; transform: scale(0.70); transform-origin: top center; }
       .mg svg { display: block; }
       .wl { font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 28px; letter-spacing: var(--tr-caps); }
       .big { font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 84px; }
-      #eq { top: 300px; display: flex; justify-content: center; }
+      #eq { top: 330px; display: flex; justify-content: center; }
       .eq { display: flex; align-items: flex-end; gap: 16px; }
-      .eq .bar { width: 18px; height: 180px; background: var(--ink); border-radius: 9px; transform-origin: bottom center; }
+      .eq .bar { width: 18px; height: 160px; background: var(--ink); border-radius: 9px; transform-origin: bottom center; }
     </style>
   </head>
   <body>
@@ -157,13 +155,13 @@
       </div>
 
       <div id="hook" class="card clip" data-start="0.00" data-duration="5.20" data-track-index="3">
-        <div class="stmt" id="hook-in"><div class="rot" style="left:72px;top:150px;"><span class="piece ink" id="hook-a" style="font-size:92px;">¿Puede la IA</span></div><div class="rot" style="left:40px;top:236px;"><span class="piece grad" id="hook-b" style="font-size:190px;background-image:linear-gradient(100deg, #5470FD, #9C6CE6, #FA66C5, #5470FD);">hacernos</span></div><div class="rot" style="right:60px;top:452px;"><span class="piece grad" id="hook-c" style="font-size:132px;background-image:linear-gradient(100deg, #5470FD, #9C6CE6, #FA66C5, #5470FD);">pensar más?</span></div></div>
+        <div class="stmt" id="hook-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="hook-a" data-layout-allow-overlap style="font-size:84px;">¿Puede la IA</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:312px;"><span class="piece white" id="hook-b" data-layout-allow-overlap style="font-size:180px;">hacernos</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:458px;"><span class="piece white" id="hook-c" data-layout-allow-overlap style="font-size:124px;">pensar más?</span></div></div>
       </div>
       <div id="punch" class="card clip" data-start="17.19" data-duration="3.45" data-track-index="3">
-        <div class="stmt" id="punch-in"><div class="rot" style="left:90px;top:165px;"><span class="piece ink" id="punch-a" style="font-size:110px;">Eso fue</span></div><div class="rot" style="left:330px;top:250px;"><span class="gstack" id="punch-stack"><span class="ghost warm" aria-hidden="true">IA.</span><span class="ghost cool" aria-hidden="true">IA.</span><span class="piece grad" id="punch-b" style="font-size:300px;background-image:linear-gradient(100deg, #FF3332, #FF9A4E, #FF3332);">IA.</span></span></div></div>
+        <div class="stmt" id="punch-in"><div class="rot" data-layout-allow-overlap style="left:90px;top:262px;"><span class="piece white" id="punch-a" data-layout-allow-overlap style="font-size:100px;">Eso fue</span></div><div class="rot" data-layout-allow-overlap style="left:330px;top:332px;"><span class="gstack" id="punch-stack"><span class="ghost warm" aria-hidden="true">IA.</span><span class="ghost cool" aria-hidden="true">IA.</span><span class="piece white" id="punch-b" data-layout-allow-overlap style="font-size:270px;">IA.</span></span></div></div>
       </div>
       <div id="philo" class="card clip" data-start="50.98" data-duration="3.57" data-track-index="3">
-        <div class="stmt" id="philo-in"><div class="rot" style="left:80px;top:140px;"><span class="piece ink" id="philo-a" style="font-size:96px;">¿Puede volvernos</span></div><div class="rot" style="left:120px;top:258px;"><span class="piece grad" id="philo-b" style="font-size:170px;background-image:linear-gradient(100deg, #5470FD, #9C6CE6, #FA66C5, #5470FD);">más</span></div><div class="rot" style="right:60px;top:430px;"><span class="piece grad" id="philo-c" style="font-size:150px;background-image:linear-gradient(100deg, #5470FD, #9C6CE6, #FA66C5, #5470FD);">filosóficos?</span></div></div>
+        <div class="stmt" id="philo-in"><div class="rot" data-layout-allow-overlap style="left:80px;top:252px;"><span class="piece white" id="philo-a" data-layout-allow-overlap style="font-size:88px;">¿Puede volvernos</span></div><div class="rot" data-layout-allow-overlap style="left:120px;top:318px;"><span class="piece white" id="philo-b" data-layout-allow-overlap style="font-size:160px;">más</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:462px;"><span class="piece white" id="philo-c" data-layout-allow-overlap style="font-size:136px;">filosóficos?</span></div></div>
       </div>
     </div>
     <script>
@@ -440,23 +438,18 @@
   tl.fromTo("#r35w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 72.97);
   tl.to("#r35l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 73.40);
   tl.set("#r35l", { autoAlpha: 0 }, 73.54);
-  tl.fromTo("#hook-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 0.05);
-  tl.fromTo("#hook-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 0.19);
-  tl.fromTo("#hook-b", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 4.90, ease: "none" }, 0.00);
-  tl.fromTo("#hook-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 0.33);
-  tl.fromTo("#hook-c", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 4.90, ease: "none" }, 0.00);
+  tl.fromTo("#hook-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 0.05);
+  tl.fromTo("#hook-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 0.19);
+  tl.fromTo("#hook-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 0.33);
   tl.to("#hook-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 4.90);
   tl.set("#hook-in", { autoAlpha: 0 }, 5.20);
-  tl.fromTo("#punch-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 17.24);
-  tl.fromTo("#punch-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 17.38);
-  tl.fromTo("#punch-b", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 3.15, ease: "none" }, 17.19);
+  tl.fromTo("#punch-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 17.24);
+  tl.fromTo("#punch-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 17.38);
   tl.to("#punch-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 20.34);
   tl.set("#punch-in", { autoAlpha: 0 }, 20.64);
-  tl.fromTo("#philo-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 51.03);
-  tl.fromTo("#philo-b", { y: -60, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 51.17);
-  tl.fromTo("#philo-b", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 3.27, ease: "none" }, 50.98);
-  tl.fromTo("#philo-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "expo.out" }, 51.31);
-  tl.fromTo("#philo-c", { backgroundPosition: "100% 50%" }, { backgroundPosition: "0% 50%", duration: 3.27, ease: "none" }, 50.98);
+  tl.fromTo("#philo-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 51.03);
+  tl.fromTo("#philo-b", { y: -60, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 51.17);
+  tl.fromTo("#philo-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 51.31);
   tl.to("#philo-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 54.25);
   tl.set("#philo-in", { autoAlpha: 0 }, 54.55);
   tl.set(ghosts, { opacity: 0.55, x: 0, y: 0 }, 17.19);
