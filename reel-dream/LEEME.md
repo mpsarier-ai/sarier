@@ -5,8 +5,8 @@ Composición HyperFrames: subtítulos cinéticos, 3 statements blancos por capas
 Fuente: original HEVC 1080×1920 a 25 fps (la composición fija `data-fps="25"`). Duración 61.44 s.
 
 ## Renders finales
-- `renders/sonamos-final.mp4`            master · 1080×1920 · 25 fps
-- `renders/sonamos-final-instagram.mp4`  copia para Instagram · 3 Mbps
+- `renders/sonamos-final.mp4`            master · 1080×1920 · 25 fps · 85 MB
+- `renders/sonamos-final-instagram.mp4`  copia para Instagram · 3 Mbps · 24 MB
 
 ## Regenerar
 1. Pon el original convertido en `public/input-video.mp4` (ver el LEEME del reel 1; usa `-g 25 -keyint_min 25`).
