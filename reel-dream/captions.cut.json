@@ -1,0 +1,158 @@
+[
+ {
+  "i": 1,
+  "start": 0.0,
+  "end": 2.69,
+  "text": "Llevamos cien años tratando de entender por qué soñamos,"
+ },
+ {
+  "i": 2,
+  "start": 2.69,
+  "end": 5.85,
+  "text": "y puede que la respuesta acabe de llegar desde el machine learning."
+ },
+ {
+  "i": 3,
+  "start": 6.02,
+  "end": 9.34,
+  "text": "Cuando entrenas un modelo de IA con los mismos datos una y otra vez,"
+ },
+ {
+  "i": 4,
+  "start": 9.34,
+  "end": 10.43,
+  "text": "empieza a romperse."
+ },
+ {
+  "i": 5,
+  "start": 10.43,
+  "end": 11.49,
+  "text": "Deja de aprender el patrón"
+ },
+ {
+  "i": 6,
+  "start": 11.49,
+  "end": 13.96,
+  "text": "y empieza a memorizar los ejemplos que le diste."
+ },
+ {
+  "i": 7,
+  "start": 14.13,
+  "end": 17.0,
+  "text": "Y con el tiempo se familiariza tanto con los patrones memorizados"
+ },
+ {
+  "i": 8,
+  "start": 17.0,
+  "end": 19.17,
+  "text": "que se vuelve incapaz de aprender algo nuevo."
+ },
+ {
+  "i": 9,
+  "start": 19.34,
+  "end": 20.67,
+  "text": "Se llama sobreajuste."
+ },
+ {
+  "i": 10,
+  "start": 20.67,
+  "end": 21.51,
+  "text": "Overfitting."
+ },
+ {
+  "i": 11,
+  "start": 21.51,
+  "end": 23.37,
+  "text": "En 2021, un neurocientífico propuso"
+ },
+ {
+  "i": 12,
+  "start": 23.37,
+  "end": 26.17,
+  "text": "que tu cerebro tiene exactamente el mismo problema."
+ },
+ {
+  "i": 13,
+  "start": 26.17,
+  "end": 28.77,
+  "text": "Cada día vives la misma tajada estrecha de vida:"
+ },
+ {
+  "i": 14,
+  "start": 28.77,
+  "end": 30.89,
+  "text": "el mismo trayecto, las mismas caras."
+ },
+ {
+  "i": 15,
+  "start": 31.0,
+  "end": 33.66,
+  "text": "Y si tu cerebro simplemente consolidara eso en bucle,"
+ },
+ {
+  "i": 16,
+  "start": 33.66,
+  "end": 35.65,
+  "text": "quedarías hiperespecializado para el ayer"
+ },
+ {
+  "i": 17,
+  "start": 35.65,
+  "end": 37.29,
+  "text": "y siempre malo para el mañana."
+ },
+ {
+  "i": 18,
+  "start": 37.48,
+  "end": 40.13,
+  "text": "Entonces, de noche, hace algo extraño:"
+ },
+ {
+  "i": 19,
+  "start": 40.31,
+  "end": 42.03,
+  "text": "genera experiencias que no ocurrieron."
+ },
+ {
+  "i": 20,
+  "start": 42.03,
+  "end": 43.95,
+  "text": "Recuerdos distorsionados, cuartos imposibles,"
+ },
+ {
+  "i": 21,
+  "start": 43.95,
+  "end": 45.38,
+  "text": "gente que nunca has conocido."
+ },
+ {
+  "i": 22,
+  "start": 45.56,
+  "end": 47.94,
+  "text": "Cada noche, tu cerebro genera datos de entrenamiento"
+ },
+ {
+  "i": 23,
+  "start": 47.94,
+  "end": 49.87,
+  "text": "para una vida que todavía no has vivido,"
+ },
+ {
+  "i": 24,
+  "start": 50.04,
+  "end": 51.94,
+  "text": "para que puedas seguir procesando cosas nuevas."
+ },
+ {
+  "i": 25,
+  "start": 52.09,
+  "end": 54.43,
+  "text": "Siempre pensamos que soñamos porque dormimos."
+ },
+ {
+  "i": 26,
+  "start": 54.43,
+  "end": 56.87,
+  "text": "Pero tal vez dormimos porque necesitamos soñar."
+ }
+]

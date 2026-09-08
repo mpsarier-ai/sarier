@@ -1,19 +1,24 @@
 #!/usr/bin/env python3
-"""Sarier reel 3 — "¿Por qué soñamos?" (overfitting / dreams). Same language as reels 1-2:
-no backgrounds · kinetic word captions · big uneven white statements · chained line graphics.
-Every beat derives from captions.json. ink = human · red = AI / accent."""
-import json, html, re
+"""Sarier reel 3 — "¿Por qué soñamos?" (overfitting / dreams). v2: pauses cut + two faceless scenes.
+Same language as reels 1-2: no backgrounds on text · kinetic word captions · big uneven white statements ·
+chained line graphics. Two full-screen faceless explainers: OVERFIT (light surface) and NIGHT (dark surface).
+Every beat derives from captions.cut.json (timings remapped after cutting the pauses). ink = human · red = AI."""
+import json, html, re, subprocess
 
 W, H, FPS = 1080, 1920, 25
-DUR = 61.44
 VIDEO = "public/input-video.mp4"
+DUR = round(float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", VIDEO],
+                                 capture_output=True, text=True).stdout) - 0.02, 2)
 INK, RED = "#1D1D1F", "#E1251B"
+LIGHT, DARK, WHITE = "#F5F5F7", "#161618", "#FFFFFF"
 
-frags = json.load(open("captions.json", encoding="utf-8"))
+frags = json.load(open("captions.cut.json", encoding="utf-8"))
 FR = {f["i"]: f for f in frags}
 def S(i): return FR[i]["start"]
 def E(i): return FR[i]["end"]
 CARD_FRAGS = {1, 2, 9, 10, 25, 26}
+SCENE_A = {3, 4, 5, 6, 7, 8}          # faceless · overfitting (light)
+SCENE_B = {18, 19, 20, 21, 22, 23}    # faceless · night (dark)
 
 PUNCH = {3:"vez",4:"romperse",5:"patrón",6:"memorizar",7:"memorizados",8:"nuevo",11:"2021",12:"cerebro",
          13:"misma",14:"mismas",15:"bucle",16:"ayer",17:"mañana",18:"extraño",19:"ocurrieron",20:"imposibles",
@@ -38,14 +43,15 @@ for f in frags:
         spans.append(f'<span class="{cls}" id="{rid}w{k}">{esc(w)}</span>')
         tl.append(f'  tl.fromTo("#{rid}w{k}", {{ autoAlpha: 0, y: 14, scale: 0.82 }}, {{ autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }}, {t:.2f});')
         t += (en - st) * wt / tot * 0.93
-    rail_html.append(f'      <div id="{rid}" class="rail clip" data-start="{st:.2f}" data-duration="{d:.2f}" data-track-index="2"><div class="line" id="{rid}l">{" ".join(spans)}</div></div>')
+    lcls = "line ink" if f["i"] in SCENE_A else "line"
+    rail_html.append(f'      <div id="{rid}" class="rail clip" data-start="{st:.2f}" data-duration="{d:.2f}" data-track-index="2"><div class="{lcls}" id="{rid}l">{" ".join(spans)}</div></div>')
     tl.append(f'  tl.to("#{rid}l", {{ autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }}, {max(st, st + d - 0.14):.2f});')
     tl.append(f'  tl.set("#{rid}l", {{ autoAlpha: 0 }}, {st + d:.2f});')
 
 # ---------------------------------------------------------------- statements
 CARDS = [
-    ("hook",    0.00,         E(2) + 0.3),
-    ("overfit", S(9) - 0.10,  E(10) + 0.35),
+    ("hook",    0.00,         E(2) + 0.2),
+    ("overfit", S(9) - 0.05,  E(10) + 0.3),
     ("close",   S(25) - 0.10, DUR),
 ]
 # (key, text, size, x, y, align, enter, alpha[, at]) — all white; alpha = transparency layer; at = absolute enter time
@@ -94,21 +100,25 @@ tl.append(f'''  tl.set(ghosts, {{ opacity: 0.55, x: 0, y: 0 }}, {G0:.2f});
       }});
     }} }}, {G0:.2f});
   tl.set(ghosts, {{ opacity: 0, x: 0, y: 0 }}, {G0 + GDUR:.2f});''')
-def punch_cam(at, amount=1.05, hold=0.18, back=1.4):
-    tl.append(f'  tl.fromTo("#video-wrap", {{ scale: 1 }}, {{ scale: {amount}, duration: {hold}, ease: "expo.out" }}, {at:.2f});')
-    tl.append(f'  tl.to("#video-wrap", {{ scale: 1, duration: {back}, ease: "power2.out" }}, {at + hold:.2f});')
-punch_cam(S(4) + 0.35)                       # "empieza a romperse"
+def punch_cam(at, amount=1.05, hold=0.18, back=1.4, sel="#video-wrap"):
+    tl.append(f'  tl.fromTo("{sel}", {{ scale: 1 }}, {{ scale: {amount}, duration: {hold}, ease: "expo.out" }}, {at:.2f});')
+    tl.append(f'  tl.to("{sel}", {{ scale: 1, duration: {back}, ease: "power2.out" }}, {at + hold:.2f});')
 punch_cam(S(10) + 0.05)                      # "Overfitting."
-punch_cam(S(18) + 1.55, 1.04, 0.16, 1.2)     # "algo extraño"
+punch_cam(S(15) + 0.9, 1.04, 0.16, 1.2)      # "en bucle"
 tl.append(f'  tl.fromTo("#video-wrap", {{ scale: 1 }}, {{ scale: 1.05, duration: 2.2, ease: "sine.inOut" }}, {S(26):.2f});')
 
-# ---------------------------------------------------------------- line graphics
-graphics = []
+# ---------------------------------------------------------------- helpers
+graphics, scenes = [], []
 def clip(gid, st, en, inner):
     graphics.append((gid, st, en, inner))
     tl.append(f'  tl.fromTo("#{gid}-in", {{ autoAlpha: 0 }}, {{ autoAlpha: 1, duration: 0.25, ease: "power2.out" }}, {st:.2f});')
     tl.append(f'  tl.to("#{gid}-in", {{ autoAlpha: 0, duration: 0.25, ease: "power2.in" }}, {en - 0.25:.2f});')
     tl.append(f'  tl.set("#{gid}-in", {{ autoAlpha: 0 }}, {en:.2f});')
+def scene(sid, st, en, bg, inner):
+    scenes.append((sid, st, en, bg, inner))
+    tl.append(f'  tl.fromTo("#{sid}-in", {{ autoAlpha: 0, scale: 1.05 }}, {{ autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" }}, {st:.2f});')
+    tl.append(f'  tl.to("#{sid}-in", {{ autoAlpha: 0, duration: 0.15, ease: "power2.in" }}, {en - 0.15:.2f});')
+    tl.append(f'  tl.set("#{sid}-in", {{ autoAlpha: 0 }}, {en:.2f});')
 def draw(sel, L, at, dur, ease="power2.out", stagger=0.0):
     tl.append(f'  tl.fromTo("{sel}", {{ strokeDasharray: "{L:.0f}", strokeDashoffset: {L:.0f} }}, {{ strokeDashoffset: 0, duration: {dur}, ease: "{ease}", stagger: {stagger} }}, {at:.2f});')
 def pop(sel, at, dur=0.3, stagger=0.0):
@@ -116,48 +126,61 @@ def pop(sel, at, dur=0.3, stagger=0.0):
 def fade(sel, at, to=0.0, dur=0.3): tl.append(f'  tl.to("{sel}", {{ autoAlpha: {to}, duration: {dur}, ease: "power2.inOut" }}, {at:.2f});')
 def hidden(sel, at): tl.append(f'  tl.set("{sel}", {{ autoAlpha: 0 }}, {at:.2f});')
 SW = 'stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"'
-def label(id_, text, y=470, color=INK, x=540, anchor="middle"):
-    return f'<text id="{id_}" x="{x}" y="{y}" text-anchor="{anchor}" class="wl" fill="{color}">{text}</text>'
+SW8 = 'stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"'
+def label(id_, text, y=470, color=INK, x=540, anchor="middle", cls="wl"):
+    return f'<text id="{id_}" x="{x}" y="{y}" text-anchor="{anchor}" class="{cls}" fill="{color}">{text}</text>'
 
 BRAIN = ("M540 105 C640 85 745 150 745 250 C745 340 655 405 565 392 C525 420 445 412 420 372 "
          "C340 362 322 282 350 222 C338 150 440 95 540 105 Z")
 BRAIN_FISSURE = "M540 105 C572 180 518 265 552 392"
 BRAIN_GYRI = ["M400 240 C430 210 470 215 490 245", "M600 200 C640 175 690 190 705 230", "M450 320 C480 300 520 305 540 335", "M600 300 C630 280 675 285 690 320"]
-def brain(prefix, color=INK, extra=""):
-    g = "".join(f'<path class="{prefix}-gy" d="{d}" stroke="{color}" {SW}/>' for d in BRAIN_GYRI)
-    return (f'<g id="{prefix}-g" {extra}><path id="{prefix}-o" d="{BRAIN}" stroke="{color}" {SW}/>'
-            f'<path id="{prefix}-f" d="{BRAIN_FISSURE}" stroke="{color}" {SW}/>{g}</g>')
+def brain(prefix, color=INK, extra="", sw=SW):
+    g = "".join(f'<path class="{prefix}-gy" d="{d}" stroke="{color}" {sw}/>' for d in BRAIN_GYRI)
+    return (f'<g id="{prefix}-g" {extra}><path id="{prefix}-o" d="{BRAIN}" stroke="{color}" {sw}/>'
+            f'<path id="{prefix}-f" d="{BRAIN_FISSURE}" stroke="{color}" {sw}/>{g}</g>')
 
-# 1 · OVERFIT — data points, the smooth pattern (ink) vs the jagged memorised line (red)
+# ================================================================ SCENE A · OVERFIT (faceless, light)
 DOTS = [(180,300),(280,230),(380,200),(480,260),(580,320),(680,280),(780,210),(880,240)]
-st, en = S(3), E(8) + 0.2
-dots = "".join(f'<circle class="of-d" id="of-d{k}" cx="{x}" cy="{y}" r="14" fill="{INK}"/>' for k,(x,y) in enumerate(DOTS))
+st, en = S(3), E(8) + 0.15
+dots = "".join(f'<circle class="sa-d" id="sa-d{k}" cx="{x}" cy="{y}" r="20" fill="{INK}"/>' for k,(x,y) in enumerate(DOTS))
 jag = "M180 300 L230 170 L280 230 L330 330 L380 200 L430 120 L480 260 L530 380 L580 320 L630 180 L680 280 L730 360 L780 210 L830 130 L880 240"
-clip("ofit", st, en, f'''
-  {dots}
-  <path id="of-s" d="M180 300 C270 220 350 190 450 240 S620 330 720 270 S840 220 880 240" stroke="{INK}" {SW}/>
-  <path id="of-j" d="{jag}" stroke="{RED}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <g id="of-loop"><path id="of-lp" d="M960 80 A48 48 0 1 1 1008 128" stroke="{RED}" {SW}/><path id="of-la" d="M990 112 L1008 128 L1024 108" stroke="{RED}" {SW}/></g>
-  <circle id="of-n" cx="1000" cy="400" r="14" fill="{INK}"/>
-  {label("of-nt", "NUEVO", y=352, x=1000)}
-  <path id="of-x1" d="M972 372 L1028 428" stroke="{RED}" stroke-width="9" stroke-linecap="round" fill="none"/>
-  <path id="of-x2" d="M1028 372 L972 428" stroke="{RED}" stroke-width="9" stroke-linecap="round" fill="none"/>
-  {label("of-t", "MISMOS DATOS · UNA Y OTRA VEZ")}''')
-hidden(".of-d", st); hidden("#of-loop", st); hidden("#of-t", st); hidden("#of-n", st); hidden("#of-nt", st)
-pop(".of-d", st + 0.1, 0.25, stagger=0.07)
-draw("#of-s", 900, st + 0.8, 0.8)
-pop("#of-loop", S(3) + 1.6, 0.25); pop("#of-t", st + 0.5, 0.3)
-tl.append(f'  tl.fromTo("#of-loop", {{ rotation: 0, svgOrigin: "984 104" }}, {{ rotation: 1080, duration: {E(3) - S(3) - 1.6:.2f}, ease: "power1.inOut" }}, {S(3) + 1.7:.2f});')
-draw("#of-j", 2200, S(4) + 0.1, 0.7, ease="power3.in")           # "empieza a romperse"
-fade("#of-s", S(5) + 0.3, 0.18, 0.5)                                # "deja de aprender el patrón"
-for k in range(len(DOTS)):                                          # "memorizar los ejemplos": dots flash red one by one
-    at = S(6) + 0.5 + k * 0.16
-    tl.append(f'  tl.fromTo("#of-d{k}", {{ fill: "{INK}", scale: 1, transformOrigin: "50% 50%" }}, {{ fill: "{RED}", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }}, {at:.2f});')
-tl.append(f'  tl.fromTo("#of-j", {{ strokeWidth: 7 }}, {{ strokeWidth: 12, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 3 }}, {S(7) + 0.4:.2f});')
-pop("#of-n", S(8) + 0.9, 0.25); pop("#of-nt", S(8) + 1.0, 0.25)  # "algo nuevo" → the line can't reach it
-draw("#of-x1, #of-x2", 90, S(8) + 1.5, 0.18, stagger=0.12)
+counters = "".join(f'<text class="cnt" id="sa-c{k}" x="1008" y="560" text-anchor="end" fill="{INK if k < 4 else RED}">{t}</text>'
+                   for k, t in enumerate(["×1", "×2", "×3", "×4", "×∞"]))
+scene("scA", st, en, LIGHT, f'''
+  {label("sa-t", "MODELO DE IA · MISMOS DATOS", y=330, x=72, anchor="start", color=RED, cls="wl2")}
+  {counters}
+  <g transform="translate(0 640)">
+    {dots}
+    <path id="sa-s" d="M180 300 C270 220 350 190 450 240 S620 330 720 270 S840 220 880 240" stroke="{INK}" {SW8}/>
+    <path id="sa-j" d="{jag}" stroke="{RED}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle id="sa-n" cx="1000" cy="260" r="20" fill="{INK}"/>
+    {label("sa-nt", "NUEVO", y=200, x=1000, cls="wl2")}
+    <path id="sa-x1" d="M964 224 L1036 296" stroke="{RED}" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <path id="sa-x2" d="M1036 224 L964 296" stroke="{RED}" stroke-width="12" stroke-linecap="round" fill="none"/>
+  </g>
+  {label("sa-p", "PATRÓN", y=1130, x=180, anchor="start", cls="wl2")}
+  <path id="sa-ps" d="M166 1116 L342 1116" stroke="{RED}" stroke-width="10" stroke-linecap="round" fill="none"/>
+  {label("sa-m", "MEMORIZA", y=1130, x=900, anchor="end", color=RED, cls="wl2")}''')
+hidden(".sa-d, .cnt, #sa-t, #sa-n, #sa-nt, #sa-p, #sa-m", st)
+pop("#sa-t", st + 0.25, 0.3)
+pop(".sa-d", st + 0.35, 0.25, stagger=0.07)
+draw("#sa-s", 900, st + 1.0, 0.8); pop("#sa-p", st + 1.5, 0.3)
+for k, at in enumerate([S(3) + 1.7, S(3) + 2.15, S(3) + 2.6, S(3) + 3.0]):       # "una y otra vez": ×1 ×2 ×3 ×4
+    if k: hidden(f"#sa-c{k-1}", at)
+    pop(f"#sa-c{k}", at, 0.18)
+hidden("#sa-c3", S(4) + 0.1); pop("#sa-c4", S(4) + 0.1, 0.25)                     # ×∞
+punch_cam(S(4) + 0.3, 1.03, 0.14, 1.0, sel="#scA-in")                             # "empieza a romperse"
+draw("#sa-j", 2200, S(4) + 0.15, 0.7, ease="power3.in")
+fade("#sa-s", S(5) + 0.3, 0.18, 0.5); draw("#sa-ps", 180, S(5) + 0.5, 0.2)       # "deja de aprender el patrón"
+pop("#sa-m", S(6) + 0.6, 0.3)                                                     # "empieza a memorizar los ejemplos"
+for k in range(len(DOTS)):
+    at = S(6) + 0.7 + k * 0.16
+    tl.append(f'  tl.fromTo("#sa-d{k}", {{ fill: "{INK}", scale: 1, transformOrigin: "50% 50%" }}, {{ fill: "{RED}", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }}, {at:.2f});')
+tl.append(f'  tl.fromTo("#sa-j", {{ strokeWidth: 10 }}, {{ strokeWidth: 16, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 3 }}, {S(7) + 0.4:.2f});')
+pop("#sa-n", S(8) + 0.9, 0.25); pop("#sa-nt", S(8) + 1.0, 0.25)                  # "algo nuevo" → can't reach it
+draw("#sa-x1, #sa-x2", 110, S(8) + 1.5, 0.18, stagger=0.12)
 
-# 2 · BRAIN — "en 2021 un neurocientífico… tu cerebro tiene el mismo problema"
+# ================================================================ overlay · BRAIN (on face)
 st, en = S(11), E(12) + 0.2
 clip("brain", st, en, brain("br") + f'''
   <path id="br-j" d="M400 220 L430 160 L460 265 L490 180 L520 305 L550 200 L580 295 L610 170 L640 265 L670 205" stroke="{RED}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
@@ -166,9 +189,9 @@ clip("brain", st, en, brain("br") + f'''
 draw("#br-o", 1500, st + 0.05, 0.9); draw("#br-f", 320, st + 0.6, 0.4); draw(".br-gy", 140, st + 0.8, 0.3, stagger=0.08)
 hidden("#br-y", st); hidden("#br-t", st); pop("#br-y", st + 0.4, 0.3)
 fade("#br-y", S(12) + 0.2, 0.0, 0.2); pop("#br-t", S(12) + 0.4, 0.3)
-draw("#br-j", 900, S(12) + 1.1, 0.6, ease="power3.in")            # "el mismo problema": the jagged line again
+draw("#br-j", 900, S(12) + 1.1, 0.6, ease="power3.in")
 
-# 3 · SAME DAY — ring, a dot doing laps, three identical faces, then the loop turns red
+# ================================================================ overlay · SAME DAY (on face)
 st, en = S(13), E(15) + 0.2
 def face(prefix, cx, cy):
     return (f'<g class="{prefix}-face"><circle cx="{cx}" cy="{cy}" r="36" fill="#FFFFFF" stroke="{INK}" {SW}/>'
@@ -186,12 +209,12 @@ hidden("#dy-orb", st); hidden(".dy-face", st); hidden("#dy-t", st); hidden("#dy-
 pop("#dy-t", st + 0.5, 0.3); pop("#dy-orb", st + 0.8, 0.2)
 ORB = E(14) - st - 0.9
 tl.append(f'  tl.fromTo("#dy-orb", {{ rotation: 0, svgOrigin: "540 250" }}, {{ rotation: 720, duration: {ORB:.2f}, ease: "none" }}, {st + 0.9:.2f});')
-pop(".dy-face", S(14) + 0.7, 0.25, stagger=0.14)                  # "las mismas caras"
-draw("#dy-red", 960, S(15) + 0.9, 0.7, ease="power2.inOut")        # "en bucle"
+pop(".dy-face", S(14) + 0.7, 0.25, stagger=0.14)
+draw("#dy-red", 960, S(15) + 0.9, 0.7, ease="power2.inOut")
 fade("#dy-t", S(15) + 0.9, 0.0, 0.2); pop("#dy-b", S(15) + 1.0, 0.3)
 tl.append(f'  tl.fromTo("#dy-orb", {{ rotation: 720 }}, {{ rotation: 1800, duration: {E(15) + 0.2 - S(15) - 0.9:.2f}, ease: "power2.in" }}, {S(15) + 0.9:.2f});')
 
-# 4 · AYER / MAÑANA — two boxes: check (ink) and cross (red)
+# ================================================================ overlay · AYER / MAÑANA (on face)
 st, en = S(16), E(17) + 0.2
 clip("when", st, en, f'''
   <rect id="wh-a" x="270" y="140" width="220" height="220" rx="22" stroke="{INK}" {SW}/>
@@ -207,47 +230,61 @@ tl.append(f'  tl.set("#wh-b", {{ autoAlpha: 1 }}, {S(17):.2f});')
 draw("#wh-b", 900, S(17) + 0.05, 0.6); pop("#wh-tb", S(17) + 0.4, 0.3)
 draw("#wh-x1, #wh-x2", 160, S(17) + 0.9, 0.22, stagger=0.15)
 
-# 5 · NIGHT — moon, sparkles, an impossible room (red wrong edge), a face you never met
-st, en = S(18), E(21) + 0.2
-def spark(cx, cy, r=18):
-    return f'<path class="nt-sp" d="M{cx} {cy-r} L{cx+r*0.3:.0f} {cy-r*0.3:.0f} L{cx+r} {cy} L{cx+r*0.3:.0f} {cy+r*0.3:.0f} L{cx} {cy+r} L{cx-r*0.3:.0f} {cy+r*0.3:.0f} L{cx-r} {cy} L{cx-r*0.3:.0f} {cy-r*0.3:.0f} Z" fill="{RED}"/>'
-cube = [("M480 200 H600 V320 H480 Z", INK), ("M530 150 H650 V270 H530 Z", INK), ("M480 200 L530 150", INK), ("M600 200 L650 150", INK), ("M600 320 L650 270", INK), ("M480 320 L530 270", INK)]
-clip("night", st, en, f'''
-  <path id="nt-m" d="M240 130 A115 115 0 1 0 240 360 A88 88 0 1 1 240 130 Z" stroke="{INK}" {SW}/>
-  {spark(330, 120)}{spark(360, 200, 12)}{spark(300, 70, 12)}
-  {"".join(f'<path class="nt-c" d="{d}" stroke="{c}" {SW}/>' for d, c in cube)}
-  <path id="nt-w" d="M480 320 L650 150" stroke="{RED}" stroke-width="8" stroke-linecap="round" fill="none"/>
-  <circle id="nt-f" cx="860" cy="250" r="72" stroke="{INK}" {SW} transform="rotate(-90 860 250)"/>
-  <text id="nt-q" x="860" y="284" text-anchor="middle" class="big" fill="{RED}">?</text>
-  {label("nt-t", "NO OCURRIÓ", color=RED)}''')
-draw("#nt-m", 1200, st + 0.05, 0.9)
-hidden(".nt-sp", st); hidden("#nt-t", st); hidden("#nt-q", st)
-pop(".nt-sp", S(18) + 1.5, 0.25, stagger=0.1)                     # "algo extraño"
-pop("#nt-t", S(19) + 0.5, 0.3)                                     # "que no ocurrieron"
-draw(".nt-c", 500, S(20) + 0.8, 0.35, stagger=0.06)                # "cuartos imposibles"
-draw("#nt-w", 260, S(20) + 1.5, 0.25)
-draw("#nt-f", 460, S(21) + 0.1, 0.4); pop("#nt-q", S(21) + 0.55, 0.3)   # "gente que nunca has conocido"
-
-# 6 · TRAINING DATA — brain emits red data dots into the box of the life not yet lived
-st, en = S(22), E(24) + 0.2
-STREAM = [(0, 0), (1, -40), (2, 30), (3, -15), (4, 45), (5, 10)]
-stream = "".join(f'<circle class="td-p" id="td-p{k}" cx="330" cy="{250 + dy}" r="12" fill="{RED}"/>' for k, dy in STREAM)
-clip("train", st, en, brain("td", extra='transform="translate(-44 100) scale(0.6)"') + f'''
+# ================================================================ SCENE B · NIGHT (faceless, dark)
+st, en = S(18), E(23) + 0.15
+def spark(cx, cy, r=18, cls="sb-sp"):
+    return f'<path class="{cls}" d="M{cx} {cy-r} L{cx+r*0.3:.0f} {cy-r*0.3:.0f} L{cx+r} {cy} L{cx+r*0.3:.0f} {cy+r*0.3:.0f} L{cx} {cy+r} L{cx-r*0.3:.0f} {cy+r*0.3:.0f} L{cx-r} {cy} L{cx-r*0.3:.0f} {cy-r*0.3:.0f} Z" fill="{RED}"/>'
+cube = ["M480 1100 H600 V1220 H480 Z", "M530 1050 H650 V1170 H530 Z", "M480 1100 L530 1050", "M600 1100 L650 1050", "M600 1220 L650 1170", "M480 1220 L530 1170"]
+STREAM = [(0, 0), (1, -30), (2, 30), (3, -60), (4, 60), (5, -15), (6, 15), (7, 45)]
+stream = "".join(f'<circle class="sb-p" id="sb-p{k}" cx="540" cy="{800 + dy}" r="14" fill="{RED}"/>' for k, dy in STREAM)
+scene("scB", st, en, DARK, f'''
+  {label("sb-t1", "DE NOCHE", y=330, x=72, anchor="start", color=WHITE, cls="wl2")}
+  {label("sb-t2", "NO OCURRIÓ", y=330, x=72, anchor="start", color=RED, cls="wl2")}
+  {label("sb-t3", "DATOS DE ENTRENAMIENTO", y=330, x=72, anchor="start", color=RED, cls="wl2")}
+  <path id="sb-m" d="M250 390 A130 130 0 1 0 250 650 A100 100 0 1 1 250 390 Z" stroke="{WHITE}" {SW8}/>
+  {spark(410, 450, 22)}{spark(450, 540, 14)}{spark(380, 630, 14)}
+  {brain("sb", WHITE, extra='transform="translate(-100 498) scale(1.2)"', sw=SW8)}
+  <g id="sb-mem">
+    <path d="M120 1080 Q200 1060 280 1085 Q300 1150 275 1220 Q200 1240 125 1215 Q105 1150 120 1080 Z" stroke="{RED}" {SW}/>
+    <path d="M140 1195 L180 1140 L210 1170 L250 1120 L268 1150" stroke="{RED}" {SW}/>
+    <circle cx="240" cy="1110" r="8" fill="{RED}"/>
+  </g>
+  {"".join(f'<path class="sb-c" d="{d}" stroke="{WHITE}" {SW}/>' for d in cube)}
+  <path id="sb-w" d="M480 1220 L650 1050" stroke="{RED}" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <circle id="sb-f" cx="880" cy="1150" r="72" stroke="{WHITE}" {SW} transform="rotate(-90 880 1150)"/>
+  <text id="sb-q" x="880" y="1184" text-anchor="middle" class="big" fill="{RED}">?</text>
   {stream}
-  <rect id="td-box" x="720" y="160" width="220" height="180" rx="18" stroke="{INK}" {SW}/>
-  <path id="td-ok" d="M780 255 L815 292 L885 205" stroke="{INK}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  {label("td-bt", "VIDA NO VIVIDA", y=400, x=830)}
-  {label("td-t", "DATOS DE ENTRENAMIENTO", color=RED)}''')
-draw("#td-o", 1500, st + 0.05, 0.7); draw("#td-f", 320, st + 0.4, 0.3); draw(".td-gy", 140, st + 0.5, 0.25, stagger=0.06)
-hidden(".td-p", st); hidden("#td-t", st); hidden("#td-bt", st); hidden("#td-box", st)
-pop("#td-t", S(22) + 1.0, 0.3)
-tl.append(f'  tl.set("#td-box", {{ autoAlpha: 1 }}, {S(23):.2f});')
-draw("#td-box", 900, S(23) + 0.05, 0.5); pop("#td-bt", S(23) + 0.4, 0.3)
+  <rect id="sb-box" x="740" y="420" width="220" height="180" rx="18" stroke="{WHITE}" {SW}/>
+  {label("sb-bt", "VIDA NO VIVIDA", y=650, x=850, color=WHITE)}''')
+hidden("#sb-t1, #sb-t2, #sb-t3, .sb-sp, #sb-mem, #sb-q, .sb-p, #sb-box, #sb-bt", st)
+pop("#sb-t1", st + 0.25, 0.3)
+draw("#sb-m", 1400, st + 0.2, 0.9)
+pop(".sb-sp", S(18) + 1.5, 0.25, stagger=0.1)                                     # "algo extraño"
+draw("#sb-o", 1800, S(19) + 0.05, 0.7); draw("#sb-f", 400, S(19) + 0.5, 0.3); draw(".sb-gy", 170, S(19) + 0.6, 0.25, stagger=0.06)
+fade("#sb-t1", S(19) + 0.5, 0.0, 0.2); pop("#sb-t2", S(19) + 0.6, 0.3)          # "que no ocurrieron"
+tl.append(f'  tl.set("#sb-mem", {{ autoAlpha: 1 }}, {S(20):.2f});')
+draw("#sb-mem path", 700, S(20) + 0.1, 0.4, stagger=0.1)                          # "recuerdos distorsionados"
+draw(".sb-c", 500, S(20) + 1.0, 0.3, stagger=0.05)                                # "cuartos imposibles"
+draw("#sb-w", 260, S(20) + 1.6, 0.25)
+draw("#sb-f", 460, S(21) + 0.05, 0.4); pop("#sb-q", S(21) + 0.5, 0.3)             # "gente que nunca has conocido"
+fade("#sb-t2", S(22) + 0.5, 0.0, 0.2); pop("#sb-t3", S(22) + 0.6, 0.3)          # "genera datos de entrenamiento"
+fade("#sb-mem, .sb-c, #sb-w, #sb-f, #sb-q", S(22) + 0.4, 0.0, 0.3)
+tl.append(f'  tl.set("#sb-box", {{ autoAlpha: 1 }}, {S(23):.2f});')
+draw("#sb-box", 900, S(23) + 0.05, 0.5); pop("#sb-bt", S(23) + 0.4, 0.3)          # "para una vida que no has vivido"
 for k, dy in STREAM:
-    at = S(22) + 1.2 + k * 0.22
-    tl.append(f'  tl.fromTo("#td-p{k}", {{ autoAlpha: 0, x: 0, scale: 0.5, transformOrigin: "50% 50%" }}, {{ autoAlpha: 1, x: 500, scale: 1, duration: 1.3, ease: "power1.inOut" }}, {at:.2f});')
-    tl.append(f'  tl.to("#td-p{k}", {{ autoAlpha: 0, duration: 0.15 }}, {at + 1.3:.2f});')
-draw("#td-ok", 220, S(24) + 0.6, 0.35)                             # "seguir procesando cosas nuevas"
+    at = S(22) + 0.8 + k * 0.2
+    tl.append(f'  tl.fromTo("#sb-p{k}", {{ autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }}, {{ autoAlpha: 1, x: 310, y: {-290 - dy}, scale: 1, duration: 1.2, ease: "power1.inOut" }}, {at:.2f});')
+    tl.append(f'  tl.to("#sb-p{k}", {{ autoAlpha: 0, duration: 0.15 }}, {at + 1.2:.2f});')
+    tl.append(f'  tl.set("#sb-p{k}", {{ autoAlpha: 0 }}, {at + 1.35:.2f});')
+
+# ================================================================ overlay · COSAS NUEVAS (back on face)
+st, en = S(24), E(24) + 0.25
+clip("newbox", st, en, f'''
+  <rect id="nb-box" x="430" y="120" width="220" height="180" rx="18" stroke="{INK}" {SW}/>
+  <path id="nb-ok" d="M490 215 L525 252 L595 165" stroke="{INK}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  {label("nb-t", "COSAS NUEVAS", y=370, color=RED)}''')
+draw("#nb-box", 900, st + 0.05, 0.45); hidden("#nb-t", st)
+draw("#nb-ok", 220, st + 0.5, 0.3); pop("#nb-t", st + 0.6, 0.3)
 
 # ---------------------------------------------------------------- assemble
 g_html = []
@@ -255,6 +292,11 @@ for gid, st, en, inner in graphics:
     d = en - st
     g_html.append(f'      <div id="{gid}" class="mg clip" data-start="{st:.2f}" data-duration="{d:.2f}" data-track-index="3">\n'
                   f'        <div id="{gid}-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">{inner}\n        </svg></div>\n      </div>')
+s_html = []
+for sid, st, en, bg, inner in scenes:
+    d = en - st
+    s_html.append(f'      <div id="{sid}" class="scene clip" data-start="{st:.2f}" data-duration="{d:.2f}" data-track-index="5">\n'
+                  f'        <div id="{sid}-in" class="scin" style="background:{bg}"><svg width="{W}" height="{H}" viewBox="0 0 {W} {H}">{inner}\n        </svg></div>\n      </div>')
 
 page = f'''<!doctype html>
 <html lang="es">
@@ -274,10 +316,16 @@ page = f'''<!doctype html>
       #video-wrap {{ position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 45%; }}
       #video-wrap video {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
 
+      .scene {{ position: absolute; inset: 0; pointer-events: none; }}
+      .scin {{ position: absolute; inset: 0; transform-origin: 50% 50%; opacity: 0; }}
+      .scin svg {{ display: block; }}
+
       .rail {{ position: absolute; left: 0; right: 0; top: 1300px; display: flex; justify-content: center; pointer-events: none; }}
       .rail .line {{ max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: 700; font-size: 62px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }}
+      .rail .line.ink {{ color: var(--ink); text-shadow: none; }}
       .rail .w {{ display: inline-block; }}
       .rail .w.hot {{ color: var(--red); text-shadow: 0 0 2px rgba(255,255,255,0.55), 0 0 12px rgba(255,255,255,0.45), 0 2px 2px rgba(0,0,0,0.35); }}
+      .rail .line.ink .w.hot {{ text-shadow: none; }}
 
       .card {{ position: absolute; left: 0; top: 0; width: {W}px; height: 700px; pointer-events: none; }}
       .stmt {{ position: absolute; inset: 0; }}
@@ -293,8 +341,11 @@ page = f'''<!doctype html>
       .mg {{ position: absolute; left: 0; top: 0; width: {W}px; pointer-events: none; }}
       .gin {{ position: absolute; left: 0; top: 226px; transform: scale(0.66); transform-origin: top center; }}
       .mg svg {{ display: block; }}
-      .wl {{ font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 28px; letter-spacing: var(--tr-caps); }}
-      .big {{ font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 96px; }}
+      .wl, .wl2, .cnt, .big {{ font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; }}
+      .wl {{ font-size: 28px; letter-spacing: var(--tr-caps); }}
+      .wl2 {{ font-size: 34px; letter-spacing: var(--tr-caps); }}
+      .cnt {{ font-size: 200px; letter-spacing: -0.05em; }}
+      .big {{ font-size: 96px; }}
     </style>
   </head>
   <body>
@@ -303,6 +354,8 @@ page = f'''<!doctype html>
         <video id="src" src="{VIDEO}" data-start="0" data-duration="{DUR}" data-track-index="1" muted playsinline></video>
       </div>
       <audio id="voice" src="{VIDEO}" data-start="0" data-duration="{DUR}" data-volume="1"></audio>
+
+{chr(10).join(s_html)}
 
 {chr(10).join(rail_html)}
 
@@ -322,4 +375,4 @@ page = f'''<!doctype html>
 </html>
 '''
 open("index.html", "w", encoding="utf-8").write(page)
-print(f"index.html: {len(rail_html)} rail clips, {len(CARDS)} statements, {len(graphics)} graphics, {len(tl)} tweens")
+print(f"index.html: DUR={DUR} {len(rail_html)} rail clips, {len(CARDS)} statements, {len(graphics)} overlays, {len(scenes)} scenes, {len(tl)} tweens")
