@@ -6,8 +6,8 @@ superficie oscura `#161618`) y 4 gráficos de línea superpuestos sobre la cara 
 Fuente: original HEVC 1080×1920 a 25 fps (la composición fija `data-fps="25"`). Duración ≈ 56.9 s (original 61.4 s).
 
 ## Renders finales
-- `renders/sonamos-final.mp4`            master · 1080×1920 · 25 fps
-- `renders/sonamos-final-instagram.mp4`  copia para Instagram · 3 Mbps
+- `renders/sonamos-final.mp4`            master · 1080×1920 · 25 fps · 47 MB
+- `renders/sonamos-final-instagram.mp4`  copia para Instagram · 3 Mbps · 14 MB
 
 ## Regenerar
 1. `python3 cut.py` detecta las pausas del audio original (`audio16k.wav`, -28 dB / 0,22 s), escribe `cuts.json`,

@@ -16,10 +16,16 @@
       #video-wrap { position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 45%; }
       #video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+      .scene { position: absolute; inset: 0; pointer-events: none; }
+      .scin { position: absolute; inset: 0; transform-origin: 50% 50%; opacity: 0; }
+      .scin svg { display: block; }
+
       .rail { position: absolute; left: 0; right: 0; top: 1300px; display: flex; justify-content: center; pointer-events: none; }
       .rail .line { max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: 700; font-size: 62px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }
+      .rail .line.ink { color: var(--ink); text-shadow: none; }
       .rail .w { display: inline-block; }
       .rail .w.hot { color: var(--red); text-shadow: 0 0 2px rgba(255,255,255,0.55), 0 0 12px rgba(255,255,255,0.45), 0 2px 2px rgba(0,0,0,0.35); }
+      .rail .line.ink .w.hot { text-shadow: none; }
 
       .card { position: absolute; left: 0; top: 0; width: 1080px; height: 700px; pointer-events: none; }
       .stmt { position: absolute; inset: 0; }
@@ -35,59 +41,90 @@
       .mg { position: absolute; left: 0; top: 0; width: 1080px; pointer-events: none; }
       .gin { position: absolute; left: 0; top: 226px; transform: scale(0.66); transform-origin: top center; }
       .mg svg { display: block; }
-      .wl { font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 28px; letter-spacing: var(--tr-caps); }
-      .big { font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; font-size: 96px; }
+      .wl, .wl2, .cnt, .big { font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; }
+      .wl { font-size: 28px; letter-spacing: var(--tr-caps); }
+      .wl2 { font-size: 34px; letter-spacing: var(--tr-caps); }
+      .cnt { font-size: 200px; letter-spacing: -0.05em; }
+      .big { font-size: 96px; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="61.44" data-fps="25" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="56.94" data-fps="25" data-width="1080" data-height="1920">
       <div id="video-wrap">
-        <video id="src" src="public/input-video.mp4" data-start="0" data-duration="61.44" data-track-index="1" muted playsinline></video>
+        <video id="src" src="public/input-video.mp4" data-start="0" data-duration="56.94" data-track-index="1" muted playsinline></video>
       </div>
-      <audio id="voice" src="public/input-video.mp4" data-start="0" data-duration="61.44" data-volume="1"></audio>
+      <audio id="voice" src="public/input-video.mp4" data-start="0" data-duration="56.94" data-volume="1"></audio>
 
-      <div id="r03" class="rail clip" data-start="6.74" data-duration="3.32" data-track-index="2"><div class="line" id="r03l"><span class="w" id="r03w0">Cuando</span> <span class="w" id="r03w1">entrenas</span> <span class="w" id="r03w2">un</span> <span class="w" id="r03w3">modelo</span> <span class="w" id="r03w4">de</span> <span class="w" id="r03w5">IA</span> <span class="w" id="r03w6">con</span> <span class="w" id="r03w7">los</span> <span class="w" id="r03w8">mismos</span> <span class="w" id="r03w9">datos</span> <span class="w" id="r03w10">una</span> <span class="w" id="r03w11">y</span> <span class="w" id="r03w12">otra</span> <span class="w hot" id="r03w13">vez,</span></div></div>
-      <div id="r04" class="rail clip" data-start="10.06" data-duration="1.09" data-track-index="2"><div class="line" id="r04l"><span class="w" id="r04w0">empieza</span> <span class="w" id="r04w1">a</span> <span class="w hot" id="r04w2">romperse.</span></div></div>
-      <div id="r05" class="rail clip" data-start="11.15" data-duration="1.23" data-track-index="2"><div class="line" id="r05l"><span class="w" id="r05w0">Deja</span> <span class="w" id="r05w1">de</span> <span class="w" id="r05w2">aprender</span> <span class="w" id="r05w3">el</span> <span class="w hot" id="r05w4">patrón</span></div></div>
-      <div id="r06" class="rail clip" data-start="12.38" data-duration="2.47" data-track-index="2"><div class="line" id="r06l"><span class="w" id="r06w0">y</span> <span class="w" id="r06w1">empieza</span> <span class="w" id="r06w2">a</span> <span class="w hot" id="r06w3">memorizar</span> <span class="w" id="r06w4">los</span> <span class="w" id="r06w5">ejemplos</span> <span class="w" id="r06w6">que</span> <span class="w" id="r06w7">le</span> <span class="w" id="r06w8">diste.</span></div></div>
-      <div id="r07" class="rail clip" data-start="15.42" data-duration="2.87" data-track-index="2"><div class="line" id="r07l"><span class="w" id="r07w0">Y</span> <span class="w" id="r07w1">con</span> <span class="w" id="r07w2">el</span> <span class="w" id="r07w3">tiempo</span> <span class="w" id="r07w4">se</span> <span class="w" id="r07w5">familiariza</span> <span class="w" id="r07w6">tanto</span> <span class="w" id="r07w7">con</span> <span class="w" id="r07w8">los</span> <span class="w" id="r07w9">patrones</span> <span class="w hot" id="r07w10">memorizados</span></div></div>
-      <div id="r08" class="rail clip" data-start="18.29" data-duration="2.17" data-track-index="2"><div class="line" id="r08l"><span class="w" id="r08w0">que</span> <span class="w" id="r08w1">se</span> <span class="w" id="r08w2">vuelve</span> <span class="w" id="r08w3">incapaz</span> <span class="w" id="r08w4">de</span> <span class="w" id="r08w5">aprender</span> <span class="w" id="r08w6">algo</span> <span class="w hot" id="r08w7">nuevo.</span></div></div>
-      <div id="r11" class="rail clip" data-start="23.08" data-duration="1.86" data-track-index="2"><div class="line" id="r11l"><span class="w" id="r11w0">En</span> <span class="w hot" id="r11w1">2021,</span> <span class="w" id="r11w2">un</span> <span class="w" id="r11w3">neurocientífico</span> <span class="w" id="r11w4">propuso</span></div></div>
-      <div id="r12" class="rail clip" data-start="24.94" data-duration="2.91" data-track-index="2"><div class="line" id="r12l"><span class="w" id="r12w0">que</span> <span class="w" id="r12w1">tu</span> <span class="w hot" id="r12w2">cerebro</span> <span class="w" id="r12w3">tiene</span> <span class="w" id="r12w4">exactamente</span> <span class="w" id="r12w5">el</span> <span class="w" id="r12w6">mismo</span> <span class="w" id="r12w7">problema.</span></div></div>
-      <div id="r13" class="rail clip" data-start="27.85" data-duration="2.64" data-track-index="2"><div class="line" id="r13l"><span class="w" id="r13w0">Cada</span> <span class="w" id="r13w1">día</span> <span class="w" id="r13w2">vives</span> <span class="w" id="r13w3">la</span> <span class="w hot" id="r13w4">misma</span> <span class="w" id="r13w5">tajada</span> <span class="w" id="r13w6">estrecha</span> <span class="w" id="r13w7">de</span> <span class="w" id="r13w8">vida:</span></div></div>
-      <div id="r14" class="rail clip" data-start="30.49" data-duration="2.12" data-track-index="2"><div class="line" id="r14l"><span class="w" id="r14w0">el</span> <span class="w" id="r14w1">mismo</span> <span class="w" id="r14w2">trayecto,</span> <span class="w" id="r14w3">las</span> <span class="w hot" id="r14w4">mismas</span> <span class="w" id="r14w5">caras.</span></div></div>
-      <div id="r15" class="rail clip" data-start="33.03" data-duration="2.66" data-track-index="2"><div class="line" id="r15l"><span class="w" id="r15w0">Y</span> <span class="w" id="r15w1">si</span> <span class="w" id="r15w2">tu</span> <span class="w" id="r15w3">cerebro</span> <span class="w" id="r15w4">simplemente</span> <span class="w" id="r15w5">consolidara</span> <span class="w" id="r15w6">eso</span> <span class="w" id="r15w7">en</span> <span class="w hot" id="r15w8">bucle,</span></div></div>
-      <div id="r16" class="rail clip" data-start="35.69" data-duration="1.99" data-track-index="2"><div class="line" id="r16l"><span class="w" id="r16w0">quedarías</span> <span class="w" id="r16w1">hiperespecializado</span> <span class="w" id="r16w2">para</span> <span class="w" id="r16w3">el</span> <span class="w hot" id="r16w4">ayer</span></div></div>
-      <div id="r17" class="rail clip" data-start="37.68" data-duration="1.64" data-track-index="2"><div class="line" id="r17l"><span class="w" id="r17w0">y</span> <span class="w" id="r17w1">siempre</span> <span class="w" id="r17w2">malo</span> <span class="w" id="r17w3">para</span> <span class="w" id="r17w4">el</span> <span class="w hot" id="r17w5">mañana.</span></div></div>
-      <div id="r18" class="rail clip" data-start="39.83" data-duration="2.65" data-track-index="2"><div class="line" id="r18l"><span class="w" id="r18w0">Entonces,</span> <span class="w" id="r18w1">de</span> <span class="w" id="r18w2">noche,</span> <span class="w" id="r18w3">hace</span> <span class="w" id="r18w4">algo</span> <span class="w hot" id="r18w5">extraño:</span></div></div>
-      <div id="r19" class="rail clip" data-start="42.85" data-duration="1.83" data-track-index="2"><div class="line" id="r19l"><span class="w" id="r19w0">genera</span> <span class="w" id="r19w1">experiencias</span> <span class="w" id="r19w2">que</span> <span class="w" id="r19w3">no</span> <span class="w hot" id="r19w4">ocurrieron.</span></div></div>
-      <div id="r20" class="rail clip" data-start="44.68" data-duration="2.04" data-track-index="2"><div class="line" id="r20l"><span class="w" id="r20w0">Recuerdos</span> <span class="w" id="r20w1">distorsionados,</span> <span class="w" id="r20w2">cuartos</span> <span class="w hot" id="r20w3">imposibles,</span></div></div>
-      <div id="r21" class="rail clip" data-start="46.72" data-duration="1.43" data-track-index="2"><div class="line" id="r21l"><span class="w" id="r21w0">gente</span> <span class="w" id="r21w1">que</span> <span class="w hot" id="r21w2">nunca</span> <span class="w" id="r21w3">has</span> <span class="w" id="r21w4">conocido.</span></div></div>
-      <div id="r22" class="rail clip" data-start="48.64" data-duration="2.38" data-track-index="2"><div class="line" id="r22l"><span class="w" id="r22w0">Cada</span> <span class="w" id="r22w1">noche,</span> <span class="w" id="r22w2">tu</span> <span class="w" id="r22w3">cerebro</span> <span class="w" id="r22w4">genera</span> <span class="w" id="r22w5">datos</span> <span class="w" id="r22w6">de</span> <span class="w hot" id="r22w7">entrenamiento</span></div></div>
-      <div id="r23" class="rail clip" data-start="51.02" data-duration="1.93" data-track-index="2"><div class="line" id="r23l"><span class="w" id="r23w0">para</span> <span class="w" id="r23w1">una</span> <span class="w" id="r23w2">vida</span> <span class="w" id="r23w3">que</span> <span class="w" id="r23w4">todavía</span> <span class="w" id="r23w5">no</span> <span class="w" id="r23w6">has</span> <span class="w hot" id="r23w7">vivido,</span></div></div>
-      <div id="r24" class="rail clip" data-start="53.31" data-duration="1.90" data-track-index="2"><div class="line" id="r24l"><span class="w" id="r24w0">para</span> <span class="w" id="r24w1">que</span> <span class="w" id="r24w2">puedas</span> <span class="w" id="r24w3">seguir</span> <span class="w" id="r24w4">procesando</span> <span class="w" id="r24w5">cosas</span> <span class="w hot" id="r24w6">nuevas.</span></div></div>
-
-      <div id="ofit" class="mg clip" data-start="6.74" data-duration="13.92" data-track-index="3">
-        <div id="ofit-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
-  <circle class="of-d" id="of-d0" cx="180" cy="300" r="14" fill="#1D1D1F"/><circle class="of-d" id="of-d1" cx="280" cy="230" r="14" fill="#1D1D1F"/><circle class="of-d" id="of-d2" cx="380" cy="200" r="14" fill="#1D1D1F"/><circle class="of-d" id="of-d3" cx="480" cy="260" r="14" fill="#1D1D1F"/><circle class="of-d" id="of-d4" cx="580" cy="320" r="14" fill="#1D1D1F"/><circle class="of-d" id="of-d5" cx="680" cy="280" r="14" fill="#1D1D1F"/><circle class="of-d" id="of-d6" cx="780" cy="210" r="14" fill="#1D1D1F"/><circle class="of-d" id="of-d7" cx="880" cy="240" r="14" fill="#1D1D1F"/>
-  <path id="of-s" d="M180 300 C270 220 350 190 450 240 S620 330 720 270 S840 220 880 240" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path id="of-j" d="M180 300 L230 170 L280 230 L330 330 L380 200 L430 120 L480 260 L530 380 L580 320 L630 180 L680 280 L730 360 L780 210 L830 130 L880 240" stroke="#E1251B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <g id="of-loop"><path id="of-lp" d="M960 80 A48 48 0 1 1 1008 128" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path id="of-la" d="M990 112 L1008 128 L1024 108" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-  <circle id="of-n" cx="1000" cy="400" r="14" fill="#1D1D1F"/>
-  <text id="of-nt" x="1000" y="352" text-anchor="middle" class="wl" fill="#1D1D1F">NUEVO</text>
-  <path id="of-x1" d="M972 372 L1028 428" stroke="#E1251B" stroke-width="9" stroke-linecap="round" fill="none"/>
-  <path id="of-x2" d="M1028 372 L972 428" stroke="#E1251B" stroke-width="9" stroke-linecap="round" fill="none"/>
-  <text id="of-t" x="540" y="470" text-anchor="middle" class="wl" fill="#1D1D1F">MISMOS DATOS · UNA Y OTRA VEZ</text>
+      <div id="scA" class="scene clip" data-start="6.02" data-duration="13.30" data-track-index="5">
+        <div id="scA-in" class="scin" style="background:#F5F5F7"><svg width="1080" height="1920" viewBox="0 0 1080 1920">
+  <text id="sa-t" x="72" y="330" text-anchor="start" class="wl2" fill="#E1251B">MODELO DE IA · MISMOS DATOS</text>
+  <text class="cnt" id="sa-c0" x="1008" y="560" text-anchor="end" fill="#1D1D1F">×1</text><text class="cnt" id="sa-c1" x="1008" y="560" text-anchor="end" fill="#1D1D1F">×2</text><text class="cnt" id="sa-c2" x="1008" y="560" text-anchor="end" fill="#1D1D1F">×3</text><text class="cnt" id="sa-c3" x="1008" y="560" text-anchor="end" fill="#1D1D1F">×4</text><text class="cnt" id="sa-c4" x="1008" y="560" text-anchor="end" fill="#E1251B">×∞</text>
+  <g transform="translate(0 640)">
+    <circle class="sa-d" id="sa-d0" cx="180" cy="300" r="20" fill="#1D1D1F"/><circle class="sa-d" id="sa-d1" cx="280" cy="230" r="20" fill="#1D1D1F"/><circle class="sa-d" id="sa-d2" cx="380" cy="200" r="20" fill="#1D1D1F"/><circle class="sa-d" id="sa-d3" cx="480" cy="260" r="20" fill="#1D1D1F"/><circle class="sa-d" id="sa-d4" cx="580" cy="320" r="20" fill="#1D1D1F"/><circle class="sa-d" id="sa-d5" cx="680" cy="280" r="20" fill="#1D1D1F"/><circle class="sa-d" id="sa-d6" cx="780" cy="210" r="20" fill="#1D1D1F"/><circle class="sa-d" id="sa-d7" cx="880" cy="240" r="20" fill="#1D1D1F"/>
+    <path id="sa-s" d="M180 300 C270 220 350 190 450 240 S620 330 720 270 S840 220 880 240" stroke="#1D1D1F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path id="sa-j" d="M180 300 L230 170 L280 230 L330 330 L380 200 L430 120 L480 260 L530 380 L580 320 L630 180 L680 280 L730 360 L780 210 L830 130 L880 240" stroke="#E1251B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle id="sa-n" cx="1000" cy="260" r="20" fill="#1D1D1F"/>
+    <text id="sa-nt" x="1000" y="200" text-anchor="middle" class="wl2" fill="#1D1D1F">NUEVO</text>
+    <path id="sa-x1" d="M964 224 L1036 296" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <path id="sa-x2" d="M1036 224 L964 296" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/>
+  </g>
+  <text id="sa-p" x="180" y="1130" text-anchor="start" class="wl2" fill="#1D1D1F">PATRÓN</text>
+  <path id="sa-ps" d="M166 1116 L342 1116" stroke="#E1251B" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <text id="sa-m" x="900" y="1130" text-anchor="end" class="wl2" fill="#E1251B">MEMORIZA</text>
         </svg></div>
       </div>
-      <div id="brain" class="mg clip" data-start="23.08" data-duration="4.97" data-track-index="3">
+      <div id="scB" class="scene clip" data-start="37.48" data-duration="12.54" data-track-index="5">
+        <div id="scB-in" class="scin" style="background:#161618"><svg width="1080" height="1920" viewBox="0 0 1080 1920">
+  <text id="sb-t1" x="72" y="330" text-anchor="start" class="wl2" fill="#FFFFFF">DE NOCHE</text>
+  <text id="sb-t2" x="72" y="330" text-anchor="start" class="wl2" fill="#E1251B">NO OCURRIÓ</text>
+  <text id="sb-t3" x="72" y="330" text-anchor="start" class="wl2" fill="#E1251B">DATOS DE ENTRENAMIENTO</text>
+  <path id="sb-m" d="M250 390 A130 130 0 1 0 250 650 A100 100 0 1 1 250 390 Z" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path class="sb-sp" d="M410 428 L417 443 L432 450 L417 457 L410 472 L403 457 L388 450 L403 443 Z" fill="#E1251B"/><path class="sb-sp" d="M450 526 L454 536 L464 540 L454 544 L450 554 L446 544 L436 540 L446 536 Z" fill="#E1251B"/><path class="sb-sp" d="M380 616 L384 626 L394 630 L384 634 L380 644 L376 634 L366 630 L376 626 Z" fill="#E1251B"/>
+  <g id="sb-g" transform="translate(-100 498) scale(1.2)"><path id="sb-o" d="M540 105 C640 85 745 150 745 250 C745 340 655 405 565 392 C525 420 445 412 420 372 C340 362 322 282 350 222 C338 150 440 95 540 105 Z" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path id="sb-f" d="M540 105 C572 180 518 265 552 392" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="sb-gy" d="M400 240 C430 210 470 215 490 245" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="sb-gy" d="M600 200 C640 175 690 190 705 230" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="sb-gy" d="M450 320 C480 300 520 305 540 335" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="sb-gy" d="M600 300 C630 280 675 285 690 320" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
+  <g id="sb-mem">
+    <path d="M120 1080 Q200 1060 280 1085 Q300 1150 275 1220 Q200 1240 125 1215 Q105 1150 120 1080 Z" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M140 1195 L180 1140 L210 1170 L250 1120 L268 1150" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="240" cy="1110" r="8" fill="#E1251B"/>
+  </g>
+  <path class="sb-c" d="M480 1100 H600 V1220 H480 Z" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="sb-c" d="M530 1050 H650 V1170 H530 Z" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="sb-c" d="M480 1100 L530 1050" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="sb-c" d="M600 1100 L650 1050" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="sb-c" d="M600 1220 L650 1170" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="sb-c" d="M480 1220 L530 1170" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path id="sb-w" d="M480 1220 L650 1050" stroke="#E1251B" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <circle id="sb-f" cx="880" cy="1150" r="72" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(-90 880 1150)"/>
+  <text id="sb-q" x="880" y="1184" text-anchor="middle" class="big" fill="#E1251B">?</text>
+  <circle class="sb-p" id="sb-p0" cx="540" cy="800" r="14" fill="#E1251B"/><circle class="sb-p" id="sb-p1" cx="540" cy="770" r="14" fill="#E1251B"/><circle class="sb-p" id="sb-p2" cx="540" cy="830" r="14" fill="#E1251B"/><circle class="sb-p" id="sb-p3" cx="540" cy="740" r="14" fill="#E1251B"/><circle class="sb-p" id="sb-p4" cx="540" cy="860" r="14" fill="#E1251B"/><circle class="sb-p" id="sb-p5" cx="540" cy="785" r="14" fill="#E1251B"/><circle class="sb-p" id="sb-p6" cx="540" cy="815" r="14" fill="#E1251B"/><circle class="sb-p" id="sb-p7" cx="540" cy="845" r="14" fill="#E1251B"/>
+  <rect id="sb-box" x="740" y="420" width="220" height="180" rx="18" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="sb-bt" x="850" y="650" text-anchor="middle" class="wl" fill="#FFFFFF">VIDA NO VIVIDA</text>
+        </svg></div>
+      </div>
+
+      <div id="r03" class="rail clip" data-start="6.02" data-duration="3.32" data-track-index="2"><div class="line ink" id="r03l"><span class="w" id="r03w0">Cuando</span> <span class="w" id="r03w1">entrenas</span> <span class="w" id="r03w2">un</span> <span class="w" id="r03w3">modelo</span> <span class="w" id="r03w4">de</span> <span class="w" id="r03w5">IA</span> <span class="w" id="r03w6">con</span> <span class="w" id="r03w7">los</span> <span class="w" id="r03w8">mismos</span> <span class="w" id="r03w9">datos</span> <span class="w" id="r03w10">una</span> <span class="w" id="r03w11">y</span> <span class="w" id="r03w12">otra</span> <span class="w hot" id="r03w13">vez,</span></div></div>
+      <div id="r04" class="rail clip" data-start="9.34" data-duration="1.09" data-track-index="2"><div class="line ink" id="r04l"><span class="w" id="r04w0">empieza</span> <span class="w" id="r04w1">a</span> <span class="w hot" id="r04w2">romperse.</span></div></div>
+      <div id="r05" class="rail clip" data-start="10.43" data-duration="1.06" data-track-index="2"><div class="line ink" id="r05l"><span class="w" id="r05w0">Deja</span> <span class="w" id="r05w1">de</span> <span class="w" id="r05w2">aprender</span> <span class="w" id="r05w3">el</span> <span class="w hot" id="r05w4">patrón</span></div></div>
+      <div id="r06" class="rail clip" data-start="11.49" data-duration="2.47" data-track-index="2"><div class="line ink" id="r06l"><span class="w" id="r06w0">y</span> <span class="w" id="r06w1">empieza</span> <span class="w" id="r06w2">a</span> <span class="w hot" id="r06w3">memorizar</span> <span class="w" id="r06w4">los</span> <span class="w" id="r06w5">ejemplos</span> <span class="w" id="r06w6">que</span> <span class="w" id="r06w7">le</span> <span class="w" id="r06w8">diste.</span></div></div>
+      <div id="r07" class="rail clip" data-start="14.13" data-duration="2.87" data-track-index="2"><div class="line ink" id="r07l"><span class="w" id="r07w0">Y</span> <span class="w" id="r07w1">con</span> <span class="w" id="r07w2">el</span> <span class="w" id="r07w3">tiempo</span> <span class="w" id="r07w4">se</span> <span class="w" id="r07w5">familiariza</span> <span class="w" id="r07w6">tanto</span> <span class="w" id="r07w7">con</span> <span class="w" id="r07w8">los</span> <span class="w" id="r07w9">patrones</span> <span class="w hot" id="r07w10">memorizados</span></div></div>
+      <div id="r08" class="rail clip" data-start="17.00" data-duration="2.17" data-track-index="2"><div class="line ink" id="r08l"><span class="w" id="r08w0">que</span> <span class="w" id="r08w1">se</span> <span class="w" id="r08w2">vuelve</span> <span class="w" id="r08w3">incapaz</span> <span class="w" id="r08w4">de</span> <span class="w" id="r08w5">aprender</span> <span class="w" id="r08w6">algo</span> <span class="w hot" id="r08w7">nuevo.</span></div></div>
+      <div id="r11" class="rail clip" data-start="21.51" data-duration="1.86" data-track-index="2"><div class="line" id="r11l"><span class="w" id="r11w0">En</span> <span class="w hot" id="r11w1">2021,</span> <span class="w" id="r11w2">un</span> <span class="w" id="r11w3">neurocientífico</span> <span class="w" id="r11w4">propuso</span></div></div>
+      <div id="r12" class="rail clip" data-start="23.37" data-duration="2.80" data-track-index="2"><div class="line" id="r12l"><span class="w" id="r12w0">que</span> <span class="w" id="r12w1">tu</span> <span class="w hot" id="r12w2">cerebro</span> <span class="w" id="r12w3">tiene</span> <span class="w" id="r12w4">exactamente</span> <span class="w" id="r12w5">el</span> <span class="w" id="r12w6">mismo</span> <span class="w" id="r12w7">problema.</span></div></div>
+      <div id="r13" class="rail clip" data-start="26.17" data-duration="2.60" data-track-index="2"><div class="line" id="r13l"><span class="w" id="r13w0">Cada</span> <span class="w" id="r13w1">día</span> <span class="w" id="r13w2">vives</span> <span class="w" id="r13w3">la</span> <span class="w hot" id="r13w4">misma</span> <span class="w" id="r13w5">tajada</span> <span class="w" id="r13w6">estrecha</span> <span class="w" id="r13w7">de</span> <span class="w" id="r13w8">vida:</span></div></div>
+      <div id="r14" class="rail clip" data-start="28.77" data-duration="2.12" data-track-index="2"><div class="line" id="r14l"><span class="w" id="r14w0">el</span> <span class="w" id="r14w1">mismo</span> <span class="w" id="r14w2">trayecto,</span> <span class="w" id="r14w3">las</span> <span class="w hot" id="r14w4">mismas</span> <span class="w" id="r14w5">caras.</span></div></div>
+      <div id="r15" class="rail clip" data-start="31.00" data-duration="2.66" data-track-index="2"><div class="line" id="r15l"><span class="w" id="r15w0">Y</span> <span class="w" id="r15w1">si</span> <span class="w" id="r15w2">tu</span> <span class="w" id="r15w3">cerebro</span> <span class="w" id="r15w4">simplemente</span> <span class="w" id="r15w5">consolidara</span> <span class="w" id="r15w6">eso</span> <span class="w" id="r15w7">en</span> <span class="w hot" id="r15w8">bucle,</span></div></div>
+      <div id="r16" class="rail clip" data-start="33.66" data-duration="1.99" data-track-index="2"><div class="line" id="r16l"><span class="w" id="r16w0">quedarías</span> <span class="w" id="r16w1">hiperespecializado</span> <span class="w" id="r16w2">para</span> <span class="w" id="r16w3">el</span> <span class="w hot" id="r16w4">ayer</span></div></div>
+      <div id="r17" class="rail clip" data-start="35.65" data-duration="1.64" data-track-index="2"><div class="line" id="r17l"><span class="w" id="r17w0">y</span> <span class="w" id="r17w1">siempre</span> <span class="w" id="r17w2">malo</span> <span class="w" id="r17w3">para</span> <span class="w" id="r17w4">el</span> <span class="w hot" id="r17w5">mañana.</span></div></div>
+      <div id="r18" class="rail clip" data-start="37.48" data-duration="2.65" data-track-index="2"><div class="line" id="r18l"><span class="w" id="r18w0">Entonces,</span> <span class="w" id="r18w1">de</span> <span class="w" id="r18w2">noche,</span> <span class="w" id="r18w3">hace</span> <span class="w" id="r18w4">algo</span> <span class="w hot" id="r18w5">extraño:</span></div></div>
+      <div id="r19" class="rail clip" data-start="40.31" data-duration="1.72" data-track-index="2"><div class="line" id="r19l"><span class="w" id="r19w0">genera</span> <span class="w" id="r19w1">experiencias</span> <span class="w" id="r19w2">que</span> <span class="w" id="r19w3">no</span> <span class="w hot" id="r19w4">ocurrieron.</span></div></div>
+      <div id="r20" class="rail clip" data-start="42.03" data-duration="1.92" data-track-index="2"><div class="line" id="r20l"><span class="w" id="r20w0">Recuerdos</span> <span class="w" id="r20w1">distorsionados,</span> <span class="w" id="r20w2">cuartos</span> <span class="w hot" id="r20w3">imposibles,</span></div></div>
+      <div id="r21" class="rail clip" data-start="43.95" data-duration="1.43" data-track-index="2"><div class="line" id="r21l"><span class="w" id="r21w0">gente</span> <span class="w" id="r21w1">que</span> <span class="w hot" id="r21w2">nunca</span> <span class="w" id="r21w3">has</span> <span class="w" id="r21w4">conocido.</span></div></div>
+      <div id="r22" class="rail clip" data-start="45.56" data-duration="2.38" data-track-index="2"><div class="line" id="r22l"><span class="w" id="r22w0">Cada</span> <span class="w" id="r22w1">noche,</span> <span class="w" id="r22w2">tu</span> <span class="w" id="r22w3">cerebro</span> <span class="w" id="r22w4">genera</span> <span class="w" id="r22w5">datos</span> <span class="w" id="r22w6">de</span> <span class="w hot" id="r22w7">entrenamiento</span></div></div>
+      <div id="r23" class="rail clip" data-start="47.94" data-duration="1.93" data-track-index="2"><div class="line" id="r23l"><span class="w" id="r23w0">para</span> <span class="w" id="r23w1">una</span> <span class="w" id="r23w2">vida</span> <span class="w" id="r23w3">que</span> <span class="w" id="r23w4">todavía</span> <span class="w" id="r23w5">no</span> <span class="w" id="r23w6">has</span> <span class="w hot" id="r23w7">vivido,</span></div></div>
+      <div id="r24" class="rail clip" data-start="50.04" data-duration="1.90" data-track-index="2"><div class="line" id="r24l"><span class="w" id="r24w0">para</span> <span class="w" id="r24w1">que</span> <span class="w" id="r24w2">puedas</span> <span class="w" id="r24w3">seguir</span> <span class="w" id="r24w4">procesando</span> <span class="w" id="r24w5">cosas</span> <span class="w hot" id="r24w6">nuevas.</span></div></div>
+
+      <div id="brain" class="mg clip" data-start="21.51" data-duration="4.86" data-track-index="3">
         <div id="brain-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><g id="br-g" ><path id="br-o" d="M540 105 C640 85 745 150 745 250 C745 340 655 405 565 392 C525 420 445 412 420 372 C340 362 322 282 350 222 C338 150 440 95 540 105 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path id="br-f" d="M540 105 C572 180 518 265 552 392" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="br-gy" d="M400 240 C430 210 470 215 490 245" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="br-gy" d="M600 200 C640 175 690 190 705 230" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="br-gy" d="M450 320 C480 300 520 305 540 335" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="br-gy" d="M600 300 C630 280 675 285 690 320" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
   <path id="br-j" d="M400 220 L430 160 L460 265 L490 180 L520 305 L550 200 L580 295 L610 170 L640 265 L670 205" stroke="#E1251B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <text id="br-y" x="540" y="470" text-anchor="middle" class="wl" fill="#E1251B">2021</text>
   <text id="br-t" x="540" y="470" text-anchor="middle" class="wl" fill="#1D1D1F">TU CEREBRO</text>
         </svg></div>
       </div>
-      <div id="day" class="mg clip" data-start="27.85" data-duration="8.04" data-track-index="3">
+      <div id="day" class="mg clip" data-start="26.17" data-duration="7.69" data-track-index="3">
         <div id="day-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
   <circle id="dy-ring" cx="540" cy="250" r="150" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(-90 540 250)"/>
   <circle id="dy-red" cx="540" cy="250" r="150" stroke="#E1251B" stroke-width="8" fill="none" transform="rotate(-90 540 250)"/>
@@ -97,7 +134,7 @@
   <text id="dy-b" x="540" y="470" text-anchor="middle" class="wl" fill="#E1251B">EN BUCLE</text>
         </svg></div>
       </div>
-      <div id="when" class="mg clip" data-start="35.69" data-duration="3.83" data-track-index="3">
+      <div id="when" class="mg clip" data-start="33.66" data-duration="3.83" data-track-index="3">
         <div id="when-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
   <rect id="wh-a" x="270" y="140" width="220" height="220" rx="22" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <rect id="wh-b" x="590" y="140" width="220" height="220" rx="22" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
@@ -108,34 +145,21 @@
   <text id="wh-tb" x="700" y="420" text-anchor="middle" class="wl" fill="#E1251B">MAÑANA</text>
         </svg></div>
       </div>
-      <div id="night" class="mg clip" data-start="39.83" data-duration="8.52" data-track-index="3">
-        <div id="night-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
-  <path id="nt-m" d="M240 130 A115 115 0 1 0 240 360 A88 88 0 1 1 240 130 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path class="nt-sp" d="M330 102 L335 115 L348 120 L335 125 L330 138 L325 125 L312 120 L325 115 Z" fill="#E1251B"/><path class="nt-sp" d="M360 188 L364 196 L372 200 L364 204 L360 212 L356 204 L348 200 L356 196 Z" fill="#E1251B"/><path class="nt-sp" d="M300 58 L304 66 L312 70 L304 74 L300 82 L296 74 L288 70 L296 66 Z" fill="#E1251B"/>
-  <path class="nt-c" d="M480 200 H600 V320 H480 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nt-c" d="M530 150 H650 V270 H530 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nt-c" d="M480 200 L530 150" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nt-c" d="M600 200 L650 150" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nt-c" d="M600 320 L650 270" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nt-c" d="M480 320 L530 270" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path id="nt-w" d="M480 320 L650 150" stroke="#E1251B" stroke-width="8" stroke-linecap="round" fill="none"/>
-  <circle id="nt-f" cx="860" cy="250" r="72" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(-90 860 250)"/>
-  <text id="nt-q" x="860" y="284" text-anchor="middle" class="big" fill="#E1251B">?</text>
-  <text id="nt-t" x="540" y="470" text-anchor="middle" class="wl" fill="#E1251B">NO OCURRIÓ</text>
-        </svg></div>
-      </div>
-      <div id="train" class="mg clip" data-start="48.64" data-duration="6.77" data-track-index="3">
-        <div id="train-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><g id="td-g" transform="translate(-44 100) scale(0.6)"><path id="td-o" d="M540 105 C640 85 745 150 745 250 C745 340 655 405 565 392 C525 420 445 412 420 372 C340 362 322 282 350 222 C338 150 440 95 540 105 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path id="td-f" d="M540 105 C572 180 518 265 552 392" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="td-gy" d="M400 240 C430 210 470 215 490 245" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="td-gy" d="M600 200 C640 175 690 190 705 230" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="td-gy" d="M450 320 C480 300 520 305 540 335" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="td-gy" d="M600 300 C630 280 675 285 690 320" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-  <circle class="td-p" id="td-p0" cx="330" cy="250" r="12" fill="#E1251B"/><circle class="td-p" id="td-p1" cx="330" cy="210" r="12" fill="#E1251B"/><circle class="td-p" id="td-p2" cx="330" cy="280" r="12" fill="#E1251B"/><circle class="td-p" id="td-p3" cx="330" cy="235" r="12" fill="#E1251B"/><circle class="td-p" id="td-p4" cx="330" cy="295" r="12" fill="#E1251B"/><circle class="td-p" id="td-p5" cx="330" cy="260" r="12" fill="#E1251B"/>
-  <rect id="td-box" x="720" y="160" width="220" height="180" rx="18" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path id="td-ok" d="M780 255 L815 292 L885 205" stroke="#1D1D1F" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="td-bt" x="830" y="400" text-anchor="middle" class="wl" fill="#1D1D1F">VIDA NO VIVIDA</text>
-  <text id="td-t" x="540" y="470" text-anchor="middle" class="wl" fill="#E1251B">DATOS DE ENTRENAMIENTO</text>
+      <div id="newbox" class="mg clip" data-start="50.04" data-duration="2.15" data-track-index="3">
+        <div id="newbox-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <rect id="nb-box" x="430" y="120" width="220" height="180" rx="18" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path id="nb-ok" d="M490 215 L525 252 L595 165" stroke="#1D1D1F" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="nb-t" x="540" y="370" text-anchor="middle" class="wl" fill="#E1251B">COSAS NUEVAS</text>
         </svg></div>
       </div>
 
-      <div id="hook" class="card clip" data-start="0.00" data-duration="6.29" data-track-index="3">
+      <div id="hook" class="card clip" data-start="0.00" data-duration="6.05" data-track-index="3">
         <div class="stmt" id="hook-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="hook-a" data-layout-allow-overlap style="font-size:72px;">Cien años sin entender</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:302px;"><span class="piece white" id="hook-b" data-layout-allow-overlap style="font-size:210px;">por qué</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:470px;"><span class="piece white" id="hook-c" data-layout-allow-overlap style="font-size:150px;">soñamos.</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:612px;"><span class="piece white" id="hook-d" data-layout-allow-overlap style="font-size:56px;">La respuesta: machine learning.</span></div></div>
       </div>
-      <div id="overfit" class="card clip" data-start="20.81" data-duration="2.62" data-track-index="3">
+      <div id="overfit" class="card clip" data-start="19.29" data-duration="2.52" data-track-index="3">
         <div class="stmt" id="overfit-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="overfit-a" data-layout-allow-overlap style="font-size:84px;">Se llama</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:312px;"><span class="gstack" id="overfit-stack" style="font-size:150px;"><span class="ghost warm" aria-hidden="true">sobreajuste.</span><span class="ghost cool" aria-hidden="true">sobreajuste.</span><span class="piece white" id="overfit-b" data-layout-allow-overlap>sobreajuste.</span></span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:452px;"><span class="piece white" id="overfit-c" data-layout-allow-overlap style="font-size:110px;">Overfitting.</span></div></div>
       </div>
-      <div id="close" class="card clip" data-start="55.69" data-duration="5.75" data-track-index="3">
+      <div id="close" class="card clip" data-start="51.99" data-duration="4.95" data-track-index="3">
         <div class="stmt" id="close-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="close-a" data-layout-allow-overlap style="font-size:62px;">No soñamos porque dormimos.</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:302px;"><span class="piece white" id="close-b" data-layout-allow-overlap style="font-size:180px;">Dormimos</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:464px;"><span class="piece white" id="close-c" data-layout-allow-overlap style="font-size:120px;">para soñar.</span></div></div>
       </div>
     </div>
@@ -144,202 +168,202 @@
       const ghosts = gsap.utils.toArray("#overfit-stack .ghost");
       const glitch = { amp: 0 };
       const tl = gsap.timeline({ paused: true });
-  tl.fromTo("#r03w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 6.74);
-  tl.fromTo("#r03w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.05);
-  tl.fromTo("#r03w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.46);
-  tl.fromTo("#r03w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.59);
-  tl.fromTo("#r03w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.90);
-  tl.fromTo("#r03w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.04);
-  tl.fromTo("#r03w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.17);
-  tl.fromTo("#r03w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.35);
-  tl.fromTo("#r03w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.53);
-  tl.fromTo("#r03w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.84);
-  tl.fromTo("#r03w10", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.11);
-  tl.fromTo("#r03w11", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.29);
-  tl.fromTo("#r03w12", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.38);
-  tl.fromTo("#r03w13", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.60);
-  tl.to("#r03l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 9.92);
-  tl.set("#r03l", { autoAlpha: 0 }, 10.06);
-  tl.fromTo("#r04w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.06);
-  tl.fromTo("#r04w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.47);
-  tl.fromTo("#r04w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.57);
-  tl.to("#r04l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 11.01);
-  tl.set("#r04l", { autoAlpha: 0 }, 11.15);
-  tl.fromTo("#r05w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.15);
-  tl.fromTo("#r05w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.36);
-  tl.fromTo("#r05w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.49);
-  tl.fromTo("#r05w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.87);
-  tl.fromTo("#r05w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.00);
-  tl.to("#r05l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 12.24);
-  tl.set("#r05l", { autoAlpha: 0 }, 12.38);
-  tl.fromTo("#r06w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.38);
-  tl.fromTo("#r06w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.47);
-  tl.fromTo("#r06w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.85);
-  tl.fromTo("#r06w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.94);
-  tl.fromTo("#r06w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.41);
-  tl.fromTo("#r06w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.60);
-  tl.fromTo("#r06w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.02);
-  tl.fromTo("#r06w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.21);
-  tl.fromTo("#r06w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.35);
-  tl.to("#r06l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 14.71);
-  tl.set("#r06l", { autoAlpha: 0 }, 14.85);
-  tl.fromTo("#r07w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.42);
-  tl.fromTo("#r07w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.50);
-  tl.fromTo("#r07w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.66);
-  tl.fromTo("#r07w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.78);
-  tl.fromTo("#r07w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 16.07);
-  tl.fromTo("#r07w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 16.19);
-  tl.fromTo("#r07w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 16.67);
-  tl.fromTo("#r07w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 16.92);
-  tl.fromTo("#r07w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.08);
-  tl.fromTo("#r07w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.24);
-  tl.fromTo("#r07w10", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.60);
-  tl.to("#r07l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 18.15);
-  tl.set("#r07l", { autoAlpha: 0 }, 18.29);
-  tl.fromTo("#r08w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.29);
-  tl.fromTo("#r08w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.47);
-  tl.fromTo("#r08w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.60);
-  tl.fromTo("#r08w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.90);
-  tl.fromTo("#r08w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 19.26);
-  tl.fromTo("#r08w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 19.39);
-  tl.fromTo("#r08w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 19.78);
-  tl.fromTo("#r08w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 20.00);
-  tl.to("#r08l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 20.32);
-  tl.set("#r08l", { autoAlpha: 0 }, 20.46);
-  tl.fromTo("#r11w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.08);
-  tl.fromTo("#r11w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.22);
-  tl.fromTo("#r11w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.51);
-  tl.fromTo("#r11w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.66);
-  tl.fromTo("#r11w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 24.43);
-  tl.to("#r11l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 24.80);
-  tl.set("#r11l", { autoAlpha: 0 }, 24.94);
-  tl.fromTo("#r12w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 24.94);
-  tl.fromTo("#r12w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.15);
-  tl.fromTo("#r12w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.30);
-  tl.fromTo("#r12w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.72);
-  tl.fromTo("#r12w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.03);
-  tl.fromTo("#r12w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.66);
-  tl.fromTo("#r12w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.81);
-  tl.fromTo("#r12w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 27.13);
-  tl.to("#r12l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 27.71);
-  tl.set("#r12l", { autoAlpha: 0 }, 27.85);
-  tl.fromTo("#r13w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 27.85);
-  tl.fromTo("#r13w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.10);
-  tl.fromTo("#r13w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.30);
-  tl.fromTo("#r13w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.60);
-  tl.fromTo("#r13w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.75);
-  tl.fromTo("#r13w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 29.05);
-  tl.fromTo("#r13w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 29.40);
-  tl.fromTo("#r13w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 29.85);
-  tl.fromTo("#r13w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 30.00);
-  tl.to("#r13l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 30.35);
-  tl.set("#r13l", { autoAlpha: 0 }, 30.49);
-  tl.fromTo("#r14w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 30.49);
-  tl.fromTo("#r14w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 30.65);
-  tl.fromTo("#r14w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 30.97);
-  tl.fromTo("#r14w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.50);
-  tl.fromTo("#r14w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.72);
-  tl.fromTo("#r14w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 32.09);
-  tl.to("#r14l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 32.47);
-  tl.set("#r14l", { autoAlpha: 0 }, 32.61);
-  tl.fromTo("#r15w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.03);
-  tl.fromTo("#r15w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.12);
-  tl.fromTo("#r15w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.26);
-  tl.fromTo("#r15w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.40);
-  tl.fromTo("#r15w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.76);
-  tl.fromTo("#r15w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.31);
-  tl.fromTo("#r15w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.86);
-  tl.fromTo("#r15w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.05);
-  tl.fromTo("#r15w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.18);
-  tl.to("#r15l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 35.55);
-  tl.set("#r15l", { autoAlpha: 0 }, 35.69);
-  tl.fromTo("#r16w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.69);
-  tl.fromTo("#r16w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.13);
-  tl.fromTo("#r16w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.97);
-  tl.fromTo("#r16w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.19);
-  tl.fromTo("#r16w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.32);
-  tl.to("#r16l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 37.54);
-  tl.set("#r16l", { autoAlpha: 0 }, 37.68);
-  tl.fromTo("#r17w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.68);
-  tl.fromTo("#r17w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.78);
-  tl.fromTo("#r17w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.17);
-  tl.fromTo("#r17w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.42);
-  tl.fromTo("#r17w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.66);
-  tl.fromTo("#r17w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.81);
-  tl.to("#r17l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 39.18);
-  tl.set("#r17l", { autoAlpha: 0 }, 39.32);
-  tl.fromTo("#r18w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 39.83);
-  tl.fromTo("#r18w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.46);
-  tl.fromTo("#r18w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.65);
-  tl.fromTo("#r18w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 41.09);
-  tl.fromTo("#r18w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 41.41);
-  tl.fromTo("#r18w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 41.73);
-  tl.to("#r18l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 42.34);
-  tl.set("#r18l", { autoAlpha: 0 }, 42.48);
-  tl.fromTo("#r19w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.85);
-  tl.fromTo("#r19w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.16);
-  tl.fromTo("#r19w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.72);
-  tl.fromTo("#r19w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.90);
-  tl.fromTo("#r19w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.03);
-  tl.to("#r19l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 44.54);
-  tl.set("#r19l", { autoAlpha: 0 }, 44.68);
-  tl.fromTo("#r20w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.68);
-  tl.fromTo("#r20w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.09);
-  tl.fromTo("#r20w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.75);
-  tl.fromTo("#r20w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.08);
-  tl.to("#r20l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 46.58);
-  tl.set("#r20l", { autoAlpha: 0 }, 46.72);
-  tl.fromTo("#r21w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.72);
-  tl.fromTo("#r21w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.99);
-  tl.fromTo("#r21w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.16);
-  tl.fromTo("#r21w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.43);
-  tl.fromTo("#r21w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.61);
-  tl.to("#r21l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 48.01);
-  tl.set("#r21l", { autoAlpha: 0 }, 48.15);
-  tl.fromTo("#r22w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.64);
-  tl.fromTo("#r22w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.85);
-  tl.fromTo("#r22w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.14);
-  tl.fromTo("#r22w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.27);
-  tl.fromTo("#r22w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.60);
-  tl.fromTo("#r22w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.89);
-  tl.fromTo("#r22w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.14);
-  tl.fromTo("#r22w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.27);
-  tl.to("#r22l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 50.88);
-  tl.set("#r22l", { autoAlpha: 0 }, 51.02);
-  tl.fromTo("#r23w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 51.02);
-  tl.fromTo("#r23w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 51.24);
-  tl.fromTo("#r23w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 51.41);
-  tl.fromTo("#r23w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 51.63);
-  tl.fromTo("#r23w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 51.81);
-  tl.fromTo("#r23w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 52.16);
-  tl.fromTo("#r23w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 52.29);
-  tl.fromTo("#r23w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 52.46);
-  tl.to("#r23l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 52.81);
-  tl.set("#r23l", { autoAlpha: 0 }, 52.95);
-  tl.fromTo("#r24w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 53.31);
-  tl.fromTo("#r24w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 53.49);
-  tl.fromTo("#r24w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 53.64);
-  tl.fromTo("#r24w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 53.90);
-  tl.fromTo("#r24w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 54.16);
-  tl.fromTo("#r24w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 54.56);
-  tl.fromTo("#r24w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 54.78);
-  tl.to("#r24l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 55.07);
-  tl.set("#r24l", { autoAlpha: 0 }, 55.21);
+  tl.fromTo("#r03w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 6.02);
+  tl.fromTo("#r03w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 6.33);
+  tl.fromTo("#r03w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 6.74);
+  tl.fromTo("#r03w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 6.87);
+  tl.fromTo("#r03w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.18);
+  tl.fromTo("#r03w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.32);
+  tl.fromTo("#r03w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.45);
+  tl.fromTo("#r03w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.63);
+  tl.fromTo("#r03w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.81);
+  tl.fromTo("#r03w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.12);
+  tl.fromTo("#r03w10", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.39);
+  tl.fromTo("#r03w11", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.57);
+  tl.fromTo("#r03w12", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.66);
+  tl.fromTo("#r03w13", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.88);
+  tl.to("#r03l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 9.20);
+  tl.set("#r03l", { autoAlpha: 0 }, 9.34);
+  tl.fromTo("#r04w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.34);
+  tl.fromTo("#r04w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.75);
+  tl.fromTo("#r04w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.85);
+  tl.to("#r04l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 10.29);
+  tl.set("#r04l", { autoAlpha: 0 }, 10.43);
+  tl.fromTo("#r05w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.43);
+  tl.fromTo("#r05w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.61);
+  tl.fromTo("#r05w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.72);
+  tl.fromTo("#r05w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.05);
+  tl.fromTo("#r05w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.16);
+  tl.to("#r05l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 11.35);
+  tl.set("#r05l", { autoAlpha: 0 }, 11.49);
+  tl.fromTo("#r06w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.49);
+  tl.fromTo("#r06w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.58);
+  tl.fromTo("#r06w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.96);
+  tl.fromTo("#r06w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.05);
+  tl.fromTo("#r06w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.52);
+  tl.fromTo("#r06w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.71);
+  tl.fromTo("#r06w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.13);
+  tl.fromTo("#r06w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.32);
+  tl.fromTo("#r06w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.46);
+  tl.to("#r06l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 13.82);
+  tl.set("#r06l", { autoAlpha: 0 }, 13.96);
+  tl.fromTo("#r07w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.13);
+  tl.fromTo("#r07w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.21);
+  tl.fromTo("#r07w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.37);
+  tl.fromTo("#r07w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.49);
+  tl.fromTo("#r07w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.78);
+  tl.fromTo("#r07w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.90);
+  tl.fromTo("#r07w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.38);
+  tl.fromTo("#r07w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.63);
+  tl.fromTo("#r07w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.79);
+  tl.fromTo("#r07w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.95);
+  tl.fromTo("#r07w10", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 16.31);
+  tl.to("#r07l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 16.86);
+  tl.set("#r07l", { autoAlpha: 0 }, 17.00);
+  tl.fromTo("#r08w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.00);
+  tl.fromTo("#r08w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.18);
+  tl.fromTo("#r08w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.31);
+  tl.fromTo("#r08w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.61);
+  tl.fromTo("#r08w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.97);
+  tl.fromTo("#r08w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.10);
+  tl.fromTo("#r08w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.49);
+  tl.fromTo("#r08w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.71);
+  tl.to("#r08l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 19.03);
+  tl.set("#r08l", { autoAlpha: 0 }, 19.17);
+  tl.fromTo("#r11w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 21.51);
+  tl.fromTo("#r11w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 21.65);
+  tl.fromTo("#r11w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 21.94);
+  tl.fromTo("#r11w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.09);
+  tl.fromTo("#r11w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.86);
+  tl.to("#r11l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 23.23);
+  tl.set("#r11l", { autoAlpha: 0 }, 23.37);
+  tl.fromTo("#r12w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.37);
+  tl.fromTo("#r12w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.57);
+  tl.fromTo("#r12w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.72);
+  tl.fromTo("#r12w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 24.12);
+  tl.fromTo("#r12w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 24.42);
+  tl.fromTo("#r12w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.02);
+  tl.fromTo("#r12w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.17);
+  tl.fromTo("#r12w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.47);
+  tl.to("#r12l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 26.03);
+  tl.set("#r12l", { autoAlpha: 0 }, 26.17);
+  tl.fromTo("#r13w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.17);
+  tl.fromTo("#r13w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.42);
+  tl.fromTo("#r13w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.61);
+  tl.fromTo("#r13w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.91);
+  tl.fromTo("#r13w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 27.06);
+  tl.fromTo("#r13w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 27.35);
+  tl.fromTo("#r13w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 27.70);
+  tl.fromTo("#r13w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.14);
+  tl.fromTo("#r13w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.29);
+  tl.to("#r13l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 28.63);
+  tl.set("#r13l", { autoAlpha: 0 }, 28.77);
+  tl.fromTo("#r14w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.77);
+  tl.fromTo("#r14w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.93);
+  tl.fromTo("#r14w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 29.25);
+  tl.fromTo("#r14w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 29.78);
+  tl.fromTo("#r14w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 30.00);
+  tl.fromTo("#r14w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 30.37);
+  tl.to("#r14l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 30.75);
+  tl.set("#r14l", { autoAlpha: 0 }, 30.89);
+  tl.fromTo("#r15w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.00);
+  tl.fromTo("#r15w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.09);
+  tl.fromTo("#r15w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.23);
+  tl.fromTo("#r15w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.37);
+  tl.fromTo("#r15w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.73);
+  tl.fromTo("#r15w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 32.28);
+  tl.fromTo("#r15w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 32.83);
+  tl.fromTo("#r15w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.02);
+  tl.fromTo("#r15w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.15);
+  tl.to("#r15l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 33.52);
+  tl.set("#r15l", { autoAlpha: 0 }, 33.66);
+  tl.fromTo("#r16w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.66);
+  tl.fromTo("#r16w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.10);
+  tl.fromTo("#r16w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.94);
+  tl.fromTo("#r16w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.16);
+  tl.fromTo("#r16w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.29);
+  tl.to("#r16l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 35.51);
+  tl.set("#r16l", { autoAlpha: 0 }, 35.65);
+  tl.fromTo("#r17w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.65);
+  tl.fromTo("#r17w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.75);
+  tl.fromTo("#r17w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.14);
+  tl.fromTo("#r17w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.39);
+  tl.fromTo("#r17w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.63);
+  tl.fromTo("#r17w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.78);
+  tl.to("#r17l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 37.15);
+  tl.set("#r17l", { autoAlpha: 0 }, 37.29);
+  tl.fromTo("#r18w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.48);
+  tl.fromTo("#r18w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.11);
+  tl.fromTo("#r18w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.30);
+  tl.fromTo("#r18w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.74);
+  tl.fromTo("#r18w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 39.06);
+  tl.fromTo("#r18w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 39.38);
+  tl.to("#r18l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 39.99);
+  tl.set("#r18l", { autoAlpha: 0 }, 40.13);
+  tl.fromTo("#r19w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.31);
+  tl.fromTo("#r19w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.60);
+  tl.fromTo("#r19w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 41.13);
+  tl.fromTo("#r19w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 41.29);
+  tl.fromTo("#r19w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 41.42);
+  tl.to("#r19l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 41.89);
+  tl.set("#r19l", { autoAlpha: 0 }, 42.03);
+  tl.fromTo("#r20w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.03);
+  tl.fromTo("#r20w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.42);
+  tl.fromTo("#r20w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.04);
+  tl.fromTo("#r20w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.35);
+  tl.to("#r20l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 43.81);
+  tl.set("#r20l", { autoAlpha: 0 }, 43.95);
+  tl.fromTo("#r21w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.95);
+  tl.fromTo("#r21w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.22);
+  tl.fromTo("#r21w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.39);
+  tl.fromTo("#r21w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.66);
+  tl.fromTo("#r21w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.84);
+  tl.to("#r21l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 45.24);
+  tl.set("#r21l", { autoAlpha: 0 }, 45.38);
+  tl.fromTo("#r22w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.56);
+  tl.fromTo("#r22w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.77);
+  tl.fromTo("#r22w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.06);
+  tl.fromTo("#r22w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.19);
+  tl.fromTo("#r22w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.52);
+  tl.fromTo("#r22w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.81);
+  tl.fromTo("#r22w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.06);
+  tl.fromTo("#r22w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.19);
+  tl.to("#r22l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 47.80);
+  tl.set("#r22l", { autoAlpha: 0 }, 47.94);
+  tl.fromTo("#r23w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.94);
+  tl.fromTo("#r23w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.16);
+  tl.fromTo("#r23w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.33);
+  tl.fromTo("#r23w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.55);
+  tl.fromTo("#r23w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.73);
+  tl.fromTo("#r23w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.08);
+  tl.fromTo("#r23w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.21);
+  tl.fromTo("#r23w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.38);
+  tl.to("#r23l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 49.73);
+  tl.set("#r23l", { autoAlpha: 0 }, 49.87);
+  tl.fromTo("#r24w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.04);
+  tl.fromTo("#r24w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.22);
+  tl.fromTo("#r24w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.37);
+  tl.fromTo("#r24w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.63);
+  tl.fromTo("#r24w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.89);
+  tl.fromTo("#r24w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 51.29);
+  tl.fromTo("#r24w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 51.51);
+  tl.to("#r24l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 51.80);
+  tl.set("#r24l", { autoAlpha: 0 }, 51.94);
   tl.fromTo("#hook-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 0.05);
   tl.fromTo("#hook-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 0.19);
   tl.fromTo("#hook-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 0.33);
   tl.fromTo("#hook-d", { y: -60, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 3.04);
-  tl.to("#hook-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 5.99);
-  tl.set("#hook-in", { autoAlpha: 0 }, 6.29);
-  tl.fromTo("#overfit-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 20.86);
-  tl.fromTo("#overfit-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 21.00);
-  tl.fromTo("#overfit-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 22.29);
-  tl.to("#overfit-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 23.13);
-  tl.set("#overfit-in", { autoAlpha: 0 }, 23.43);
-  tl.fromTo("#close-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 55.74);
-  tl.fromTo("#close-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 58.34);
-  tl.fromTo("#close-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 59.24);
-  tl.set(ghosts, { opacity: 0.55, x: 0, y: 0 }, 21.01);
+  tl.to("#hook-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 5.75);
+  tl.set("#hook-in", { autoAlpha: 0 }, 6.05);
+  tl.fromTo("#overfit-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 19.34);
+  tl.fromTo("#overfit-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 19.48);
+  tl.fromTo("#overfit-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 20.72);
+  tl.to("#overfit-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 21.51);
+  tl.set("#overfit-in", { autoAlpha: 0 }, 21.81);
+  tl.fromTo("#close-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 52.04);
+  tl.fromTo("#close-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 54.48);
+  tl.fromTo("#close-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 55.38);
+  tl.set(ghosts, { opacity: 0.55, x: 0, y: 0 }, 19.44);
   tl.fromTo(glitch, { amp: 1 }, { amp: 0, duration: 0.5, ease: "power2.in",
     onUpdate: () => {
       const step = Math.floor(tl.time() / 0.05);
@@ -347,124 +371,145 @@
         gsap.set(el, { x: (glitchHash(step * 13 + layer * 7) * 2 - 1) * 12 * glitch.amp,
                        y: (glitchHash(step * 29 + layer * 11) * 2 - 1) * 4 * glitch.amp });
       });
-    } }, 21.01);
-  tl.set(ghosts, { opacity: 0, x: 0, y: 0 }, 21.51);
-  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 0.18, ease: "expo.out" }, 10.41);
-  tl.to("#video-wrap", { scale: 1, duration: 1.4, ease: "power2.out" }, 10.59);
-  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 0.18, ease: "expo.out" }, 22.29);
-  tl.to("#video-wrap", { scale: 1, duration: 1.4, ease: "power2.out" }, 22.47);
-  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.04, duration: 0.16, ease: "expo.out" }, 41.38);
-  tl.to("#video-wrap", { scale: 1, duration: 1.2, ease: "power2.out" }, 41.54);
-  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 2.2, ease: "sine.inOut" }, 58.29);
-  tl.fromTo("#ofit-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 6.74);
-  tl.to("#ofit-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 20.41);
-  tl.set("#ofit-in", { autoAlpha: 0 }, 20.66);
-  tl.set(".of-d", { autoAlpha: 0 }, 6.74);
-  tl.set("#of-loop", { autoAlpha: 0 }, 6.74);
-  tl.set("#of-t", { autoAlpha: 0 }, 6.74);
-  tl.set("#of-n", { autoAlpha: 0 }, 6.74);
-  tl.set("#of-nt", { autoAlpha: 0 }, 6.74);
-  tl.fromTo(".of-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.07 }, 6.84);
-  tl.fromTo("#of-s", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out", stagger: 0.0 }, 7.54);
-  tl.fromTo("#of-loop", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 8.34);
-  tl.fromTo("#of-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 7.24);
-  tl.fromTo("#of-loop", { rotation: 0, svgOrigin: "984 104" }, { rotation: 1080, duration: 1.72, ease: "power1.inOut" }, 8.44);
-  tl.fromTo("#of-j", { strokeDasharray: "2200", strokeDashoffset: 2200 }, { strokeDashoffset: 0, duration: 0.7, ease: "power3.in", stagger: 0.0 }, 10.16);
-  tl.to("#of-s", { autoAlpha: 0.18, duration: 0.5, ease: "power2.inOut" }, 11.45);
-  tl.fromTo("#of-d0", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 12.88);
-  tl.fromTo("#of-d1", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 13.04);
-  tl.fromTo("#of-d2", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 13.20);
-  tl.fromTo("#of-d3", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 13.36);
-  tl.fromTo("#of-d4", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 13.52);
-  tl.fromTo("#of-d5", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 13.68);
-  tl.fromTo("#of-d6", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 13.84);
-  tl.fromTo("#of-d7", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 14.00);
-  tl.fromTo("#of-j", { strokeWidth: 7 }, { strokeWidth: 12, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 15.82);
-  tl.fromTo("#of-n", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 19.19);
-  tl.fromTo("#of-nt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 19.29);
-  tl.fromTo("#of-x1, #of-x2", { strokeDasharray: "90", strokeDashoffset: 90 }, { strokeDashoffset: 0, duration: 0.18, ease: "power2.out", stagger: 0.12 }, 19.79);
-  tl.fromTo("#brain-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 23.08);
-  tl.to("#brain-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 27.80);
-  tl.set("#brain-in", { autoAlpha: 0 }, 28.05);
-  tl.fromTo("#br-o", { strokeDasharray: "1500", strokeDashoffset: 1500 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out", stagger: 0.0 }, 23.13);
-  tl.fromTo("#br-f", { strokeDasharray: "320", strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 23.68);
-  tl.fromTo(".br-gy", { strokeDasharray: "140", strokeDashoffset: 140 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.08 }, 23.88);
-  tl.set("#br-y", { autoAlpha: 0 }, 23.08);
-  tl.set("#br-t", { autoAlpha: 0 }, 23.08);
-  tl.fromTo("#br-y", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 23.48);
-  tl.to("#br-y", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 25.14);
-  tl.fromTo("#br-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 25.34);
-  tl.fromTo("#br-j", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.6, ease: "power3.in", stagger: 0.0 }, 26.04);
-  tl.fromTo("#day-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 27.85);
-  tl.to("#day-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 35.64);
-  tl.set("#day-in", { autoAlpha: 0 }, 35.89);
-  tl.fromTo("#dy-ring", { strokeDasharray: "960", strokeDashoffset: 960 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out", stagger: 0.0 }, 27.90);
-  tl.set("#dy-orb", { autoAlpha: 0 }, 27.85);
-  tl.set(".dy-face", { autoAlpha: 0 }, 27.85);
-  tl.set("#dy-t", { autoAlpha: 0 }, 27.85);
-  tl.set("#dy-b", { autoAlpha: 0 }, 27.85);
-  tl.set("#dy-red", { autoAlpha: 0 }, 27.85);
-  tl.fromTo("#dy-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 28.35);
-  tl.fromTo("#dy-orb", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 28.65);
-  tl.fromTo("#dy-orb", { rotation: 0, svgOrigin: "540 250" }, { rotation: 720, duration: 3.86, ease: "none" }, 28.75);
-  tl.fromTo(".dy-face", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.14 }, 31.19);
-  tl.fromTo("#dy-red", { strokeDasharray: "960", strokeDashoffset: 960 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut", stagger: 0.0 }, 33.93);
-  tl.to("#dy-t", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 33.93);
-  tl.fromTo("#dy-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 34.03);
-  tl.fromTo("#dy-orb", { rotation: 720 }, { rotation: 1800, duration: 1.96, ease: "power2.in" }, 33.93);
-  tl.fromTo("#when-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 35.69);
-  tl.to("#when-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 39.27);
-  tl.set("#when-in", { autoAlpha: 0 }, 39.52);
-  tl.fromTo("#wh-a", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", stagger: 0.0 }, 35.74);
-  tl.set("#wh-ta", { autoAlpha: 0 }, 35.69);
-  tl.set("#wh-tb", { autoAlpha: 0 }, 35.69);
-  tl.set("#wh-b", { autoAlpha: 0 }, 35.69);
-  tl.fromTo("#wh-ta", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 36.09);
-  tl.fromTo("#wh-ok", { strokeDasharray: "220", strokeDashoffset: 220 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.0 }, 36.59);
-  tl.set("#wh-b", { autoAlpha: 1 }, 37.68);
-  tl.fromTo("#wh-b", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", stagger: 0.0 }, 37.73);
-  tl.fromTo("#wh-tb", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 38.08);
-  tl.fromTo("#wh-x1, #wh-x2", { strokeDasharray: "160", strokeDashoffset: 160 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out", stagger: 0.15 }, 38.58);
-  tl.fromTo("#night-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 39.83);
-  tl.to("#night-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 48.10);
-  tl.set("#night-in", { autoAlpha: 0 }, 48.35);
-  tl.fromTo("#nt-m", { strokeDasharray: "1200", strokeDashoffset: 1200 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out", stagger: 0.0 }, 39.88);
-  tl.set(".nt-sp", { autoAlpha: 0 }, 39.83);
-  tl.set("#nt-t", { autoAlpha: 0 }, 39.83);
-  tl.set("#nt-q", { autoAlpha: 0 }, 39.83);
-  tl.fromTo(".nt-sp", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.1 }, 41.33);
-  tl.fromTo("#nt-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 43.35);
-  tl.fromTo(".nt-c", { strokeDasharray: "500", strokeDashoffset: 500 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.06 }, 45.48);
-  tl.fromTo("#nt-w", { strokeDasharray: "260", strokeDashoffset: 260 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out", stagger: 0.0 }, 46.18);
-  tl.fromTo("#nt-f", { strokeDasharray: "460", strokeDashoffset: 460 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 46.82);
-  tl.fromTo("#nt-q", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 47.27);
-  tl.fromTo("#train-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 48.64);
-  tl.to("#train-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 55.16);
-  tl.set("#train-in", { autoAlpha: 0 }, 55.41);
-  tl.fromTo("#td-o", { strokeDasharray: "1500", strokeDashoffset: 1500 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out", stagger: 0.0 }, 48.69);
-  tl.fromTo("#td-f", { strokeDasharray: "320", strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 49.04);
-  tl.fromTo(".td-gy", { strokeDasharray: "140", strokeDashoffset: 140 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out", stagger: 0.06 }, 49.14);
-  tl.set(".td-p", { autoAlpha: 0 }, 48.64);
-  tl.set("#td-t", { autoAlpha: 0 }, 48.64);
-  tl.set("#td-bt", { autoAlpha: 0 }, 48.64);
-  tl.set("#td-box", { autoAlpha: 0 }, 48.64);
-  tl.fromTo("#td-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 49.64);
-  tl.set("#td-box", { autoAlpha: 1 }, 51.02);
-  tl.fromTo("#td-box", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 51.07);
-  tl.fromTo("#td-bt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 51.42);
-  tl.fromTo("#td-p0", { autoAlpha: 0, x: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 500, scale: 1, duration: 1.3, ease: "power1.inOut" }, 49.84);
-  tl.to("#td-p0", { autoAlpha: 0, duration: 0.15 }, 51.14);
-  tl.fromTo("#td-p1", { autoAlpha: 0, x: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 500, scale: 1, duration: 1.3, ease: "power1.inOut" }, 50.06);
-  tl.to("#td-p1", { autoAlpha: 0, duration: 0.15 }, 51.36);
-  tl.fromTo("#td-p2", { autoAlpha: 0, x: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 500, scale: 1, duration: 1.3, ease: "power1.inOut" }, 50.28);
-  tl.to("#td-p2", { autoAlpha: 0, duration: 0.15 }, 51.58);
-  tl.fromTo("#td-p3", { autoAlpha: 0, x: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 500, scale: 1, duration: 1.3, ease: "power1.inOut" }, 50.50);
-  tl.to("#td-p3", { autoAlpha: 0, duration: 0.15 }, 51.80);
-  tl.fromTo("#td-p4", { autoAlpha: 0, x: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 500, scale: 1, duration: 1.3, ease: "power1.inOut" }, 50.72);
-  tl.to("#td-p4", { autoAlpha: 0, duration: 0.15 }, 52.02);
-  tl.fromTo("#td-p5", { autoAlpha: 0, x: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 500, scale: 1, duration: 1.3, ease: "power1.inOut" }, 50.94);
-  tl.to("#td-p5", { autoAlpha: 0, duration: 0.15 }, 52.24);
-  tl.fromTo("#td-ok", { strokeDasharray: "220", strokeDashoffset: 220 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.0 }, 53.91);
+    } }, 19.44);
+  tl.set(ghosts, { opacity: 0, x: 0, y: 0 }, 19.94);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 0.18, ease: "expo.out" }, 20.72);
+  tl.to("#video-wrap", { scale: 1, duration: 1.4, ease: "power2.out" }, 20.90);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.04, duration: 0.16, ease: "expo.out" }, 31.90);
+  tl.to("#video-wrap", { scale: 1, duration: 1.2, ease: "power2.out" }, 32.06);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 2.2, ease: "sine.inOut" }, 54.43);
+  tl.fromTo("#scA-in", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" }, 6.02);
+  tl.to("#scA-in", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, 19.17);
+  tl.set("#scA-in", { autoAlpha: 0 }, 19.32);
+  tl.set(".sa-d, .cnt, #sa-t, #sa-n, #sa-nt, #sa-p, #sa-m", { autoAlpha: 0 }, 6.02);
+  tl.fromTo("#sa-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 6.27);
+  tl.fromTo(".sa-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.07 }, 6.37);
+  tl.fromTo("#sa-s", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out", stagger: 0.0 }, 7.02);
+  tl.fromTo("#sa-p", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 7.52);
+  tl.fromTo("#sa-c0", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.18, ease: "power3.out", stagger: 0.0 }, 7.72);
+  tl.set("#sa-c0", { autoAlpha: 0 }, 8.17);
+  tl.fromTo("#sa-c1", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.18, ease: "power3.out", stagger: 0.0 }, 8.17);
+  tl.set("#sa-c1", { autoAlpha: 0 }, 8.62);
+  tl.fromTo("#sa-c2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.18, ease: "power3.out", stagger: 0.0 }, 8.62);
+  tl.set("#sa-c2", { autoAlpha: 0 }, 9.02);
+  tl.fromTo("#sa-c3", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.18, ease: "power3.out", stagger: 0.0 }, 9.02);
+  tl.set("#sa-c3", { autoAlpha: 0 }, 9.44);
+  tl.fromTo("#sa-c4", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 9.44);
+  tl.fromTo("#scA-in", { scale: 1 }, { scale: 1.03, duration: 0.14, ease: "expo.out" }, 9.64);
+  tl.to("#scA-in", { scale: 1, duration: 1.0, ease: "power2.out" }, 9.78);
+  tl.fromTo("#sa-j", { strokeDasharray: "2200", strokeDashoffset: 2200 }, { strokeDashoffset: 0, duration: 0.7, ease: "power3.in", stagger: 0.0 }, 9.49);
+  tl.to("#sa-s", { autoAlpha: 0.18, duration: 0.5, ease: "power2.inOut" }, 10.73);
+  tl.fromTo("#sa-ps", { strokeDasharray: "180", strokeDashoffset: 180 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.0 }, 10.93);
+  tl.fromTo("#sa-m", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 12.09);
+  tl.fromTo("#sa-d0", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 12.19);
+  tl.fromTo("#sa-d1", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 12.35);
+  tl.fromTo("#sa-d2", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 12.51);
+  tl.fromTo("#sa-d3", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 12.67);
+  tl.fromTo("#sa-d4", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 12.83);
+  tl.fromTo("#sa-d5", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 12.99);
+  tl.fromTo("#sa-d6", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 13.15);
+  tl.fromTo("#sa-d7", { fill: "#1D1D1F", scale: 1, transformOrigin: "50% 50%" }, { fill: "#E1251B", scale: 1.6, duration: 0.14, yoyo: true, repeat: 1 }, 13.31);
+  tl.fromTo("#sa-j", { strokeWidth: 10 }, { strokeWidth: 16, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 14.53);
+  tl.fromTo("#sa-n", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 17.90);
+  tl.fromTo("#sa-nt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 18.00);
+  tl.fromTo("#sa-x1, #sa-x2", { strokeDasharray: "110", strokeDashoffset: 110 }, { strokeDashoffset: 0, duration: 0.18, ease: "power2.out", stagger: 0.12 }, 18.50);
+  tl.fromTo("#brain-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 21.51);
+  tl.to("#brain-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 26.12);
+  tl.set("#brain-in", { autoAlpha: 0 }, 26.37);
+  tl.fromTo("#br-o", { strokeDasharray: "1500", strokeDashoffset: 1500 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out", stagger: 0.0 }, 21.56);
+  tl.fromTo("#br-f", { strokeDasharray: "320", strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 22.11);
+  tl.fromTo(".br-gy", { strokeDasharray: "140", strokeDashoffset: 140 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.08 }, 22.31);
+  tl.set("#br-y", { autoAlpha: 0 }, 21.51);
+  tl.set("#br-t", { autoAlpha: 0 }, 21.51);
+  tl.fromTo("#br-y", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 21.91);
+  tl.to("#br-y", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 23.57);
+  tl.fromTo("#br-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 23.77);
+  tl.fromTo("#br-j", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.6, ease: "power3.in", stagger: 0.0 }, 24.47);
+  tl.fromTo("#day-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 26.17);
+  tl.to("#day-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 33.61);
+  tl.set("#day-in", { autoAlpha: 0 }, 33.86);
+  tl.fromTo("#dy-ring", { strokeDasharray: "960", strokeDashoffset: 960 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out", stagger: 0.0 }, 26.22);
+  tl.set("#dy-orb", { autoAlpha: 0 }, 26.17);
+  tl.set(".dy-face", { autoAlpha: 0 }, 26.17);
+  tl.set("#dy-t", { autoAlpha: 0 }, 26.17);
+  tl.set("#dy-b", { autoAlpha: 0 }, 26.17);
+  tl.set("#dy-red", { autoAlpha: 0 }, 26.17);
+  tl.fromTo("#dy-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 26.67);
+  tl.fromTo("#dy-orb", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 26.97);
+  tl.fromTo("#dy-orb", { rotation: 0, svgOrigin: "540 250" }, { rotation: 720, duration: 3.82, ease: "none" }, 27.07);
+  tl.fromTo(".dy-face", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.14 }, 29.47);
+  tl.fromTo("#dy-red", { strokeDasharray: "960", strokeDashoffset: 960 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut", stagger: 0.0 }, 31.90);
+  tl.to("#dy-t", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 31.90);
+  tl.fromTo("#dy-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 32.00);
+  tl.fromTo("#dy-orb", { rotation: 720 }, { rotation: 1800, duration: 1.96, ease: "power2.in" }, 31.90);
+  tl.fromTo("#when-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 33.66);
+  tl.to("#when-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 37.24);
+  tl.set("#when-in", { autoAlpha: 0 }, 37.49);
+  tl.fromTo("#wh-a", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", stagger: 0.0 }, 33.71);
+  tl.set("#wh-ta", { autoAlpha: 0 }, 33.66);
+  tl.set("#wh-tb", { autoAlpha: 0 }, 33.66);
+  tl.set("#wh-b", { autoAlpha: 0 }, 33.66);
+  tl.fromTo("#wh-ta", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 34.06);
+  tl.fromTo("#wh-ok", { strokeDasharray: "220", strokeDashoffset: 220 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.0 }, 34.56);
+  tl.set("#wh-b", { autoAlpha: 1 }, 35.65);
+  tl.fromTo("#wh-b", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", stagger: 0.0 }, 35.70);
+  tl.fromTo("#wh-tb", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 36.05);
+  tl.fromTo("#wh-x1, #wh-x2", { strokeDasharray: "160", strokeDashoffset: 160 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out", stagger: 0.15 }, 36.55);
+  tl.fromTo("#scB-in", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" }, 37.48);
+  tl.to("#scB-in", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, 49.87);
+  tl.set("#scB-in", { autoAlpha: 0 }, 50.02);
+  tl.set("#sb-t1, #sb-t2, #sb-t3, .sb-sp, #sb-mem, #sb-q, .sb-p, #sb-box, #sb-bt", { autoAlpha: 0 }, 37.48);
+  tl.fromTo("#sb-t1", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 37.73);
+  tl.fromTo("#sb-m", { strokeDasharray: "1400", strokeDashoffset: 1400 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out", stagger: 0.0 }, 37.68);
+  tl.fromTo(".sb-sp", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.1 }, 38.98);
+  tl.fromTo("#sb-o", { strokeDasharray: "1800", strokeDashoffset: 1800 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out", stagger: 0.0 }, 40.36);
+  tl.fromTo("#sb-f", { strokeDasharray: "400", strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 40.81);
+  tl.fromTo(".sb-gy", { strokeDasharray: "170", strokeDashoffset: 170 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out", stagger: 0.06 }, 40.91);
+  tl.to("#sb-t1", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 40.81);
+  tl.fromTo("#sb-t2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 40.91);
+  tl.set("#sb-mem", { autoAlpha: 1 }, 42.03);
+  tl.fromTo("#sb-mem path", { strokeDasharray: "700", strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.1 }, 42.13);
+  tl.fromTo(".sb-c", { strokeDasharray: "500", strokeDashoffset: 500 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.05 }, 43.03);
+  tl.fromTo("#sb-w", { strokeDasharray: "260", strokeDashoffset: 260 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out", stagger: 0.0 }, 43.63);
+  tl.fromTo("#sb-f", { strokeDasharray: "460", strokeDashoffset: 460 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 44.00);
+  tl.fromTo("#sb-q", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 44.45);
+  tl.to("#sb-t2", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 46.06);
+  tl.fromTo("#sb-t3", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 46.16);
+  tl.to("#sb-mem, .sb-c, #sb-w, #sb-f, #sb-q", { autoAlpha: 0.0, duration: 0.3, ease: "power2.inOut" }, 45.96);
+  tl.set("#sb-box", { autoAlpha: 1 }, 47.94);
+  tl.fromTo("#sb-box", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 47.99);
+  tl.fromTo("#sb-bt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 48.34);
+  tl.fromTo("#sb-p0", { autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 310, y: -290, scale: 1, duration: 1.2, ease: "power1.inOut" }, 46.36);
+  tl.to("#sb-p0", { autoAlpha: 0, duration: 0.15 }, 47.56);
+  tl.set("#sb-p0", { autoAlpha: 0 }, 47.71);
+  tl.fromTo("#sb-p1", { autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 310, y: -260, scale: 1, duration: 1.2, ease: "power1.inOut" }, 46.56);
+  tl.to("#sb-p1", { autoAlpha: 0, duration: 0.15 }, 47.76);
+  tl.set("#sb-p1", { autoAlpha: 0 }, 47.91);
+  tl.fromTo("#sb-p2", { autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 310, y: -320, scale: 1, duration: 1.2, ease: "power1.inOut" }, 46.76);
+  tl.to("#sb-p2", { autoAlpha: 0, duration: 0.15 }, 47.96);
+  tl.set("#sb-p2", { autoAlpha: 0 }, 48.11);
+  tl.fromTo("#sb-p3", { autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 310, y: -230, scale: 1, duration: 1.2, ease: "power1.inOut" }, 46.96);
+  tl.to("#sb-p3", { autoAlpha: 0, duration: 0.15 }, 48.16);
+  tl.set("#sb-p3", { autoAlpha: 0 }, 48.31);
+  tl.fromTo("#sb-p4", { autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 310, y: -350, scale: 1, duration: 1.2, ease: "power1.inOut" }, 47.16);
+  tl.to("#sb-p4", { autoAlpha: 0, duration: 0.15 }, 48.36);
+  tl.set("#sb-p4", { autoAlpha: 0 }, 48.51);
+  tl.fromTo("#sb-p5", { autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 310, y: -275, scale: 1, duration: 1.2, ease: "power1.inOut" }, 47.36);
+  tl.to("#sb-p5", { autoAlpha: 0, duration: 0.15 }, 48.56);
+  tl.set("#sb-p5", { autoAlpha: 0 }, 48.71);
+  tl.fromTo("#sb-p6", { autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 310, y: -305, scale: 1, duration: 1.2, ease: "power1.inOut" }, 47.56);
+  tl.to("#sb-p6", { autoAlpha: 0, duration: 0.15 }, 48.76);
+  tl.set("#sb-p6", { autoAlpha: 0 }, 48.91);
+  tl.fromTo("#sb-p7", { autoAlpha: 0, x: 0, y: 0, scale: 0.5, transformOrigin: "50% 50%" }, { autoAlpha: 1, x: 310, y: -335, scale: 1, duration: 1.2, ease: "power1.inOut" }, 47.76);
+  tl.to("#sb-p7", { autoAlpha: 0, duration: 0.15 }, 48.96);
+  tl.set("#sb-p7", { autoAlpha: 0 }, 49.11);
+  tl.fromTo("#newbox-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 50.04);
+  tl.to("#newbox-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 51.94);
+  tl.set("#newbox-in", { autoAlpha: 0 }, 52.19);
+  tl.fromTo("#nb-box", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.45, ease: "power2.out", stagger: 0.0 }, 50.09);
+  tl.set("#nb-t", { autoAlpha: 0 }, 50.04);
+  tl.fromTo("#nb-ok", { strokeDasharray: "220", strokeDashoffset: 220 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 50.54);
+  tl.fromTo("#nb-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 50.64);
       window.__timelines["main"] = tl;
     </script>
   </body>
