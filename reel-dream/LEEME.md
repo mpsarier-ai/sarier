@@ -5,11 +5,11 @@ dos explicaciones faceless cortas a pantalla completa (~4–5 s: "una y otra vez
 "genera experiencias que no ocurrieron…" sobre superficie oscura `#161618`), 6 gráficos de línea superpuestos sobre la cara
 (modelo roto, cerebro, el mismo día, ayer/mañana, luna, datos de entrenamiento) y fundido a negro final.
 El cerebro (vista lateral con lóbulos, cisura, cerebelo y tronco) se genera en `brain/brainpath.py`.
-Fuente: original HEVC 1080×1920 a 25 fps (la composición fija `data-fps="25"`). Duración ≈ 56.9 s (original 61.4 s).
+Fuente: original HEVC 1080×1920 a 25 fps (la composición fija `data-fps="25"`). Duración ≈ 57.4 s (original 61.4 s).
 
 ## Renders finales
-- `renders/sonamos-final.mp4`            master · 1080×1920 · 25 fps · 47 MB
-- `renders/sonamos-final-instagram.mp4`  copia para Instagram · 3 Mbps · 14 MB
+- `renders/sonamos-final.mp4`            master · 1080×1920 · 25 fps · 69 MB
+- `renders/sonamos-final-instagram.mp4`  copia para Instagram · 3 Mbps · 20 MB
 
 ## Regenerar
 1. `python3 cut.py` detecta las pausas del audio original (`audio16k.wav`, -28 dB / 0,22 s), escribe `cuts.json`,
