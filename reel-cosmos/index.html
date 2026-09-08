@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Sarier — Unfold y Cosmos</title>
+    <script src="public/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Archivo"; src: url("public/fonts/Archivo-600-latin.woff2") format("woff2"); font-weight: 500 700; font-display: block; }
+      :root { --ink: #1D1D1F; --on-dark: #FFFFFF; --red: #E1251B; --tr-display: -0.035em; --tr-body: -0.01em; --tr-caps: 0.08em;
+        --sh-rail: 0 2px 2px rgba(0,0,0,0.45), 0 4px 22px rgba(0,0,0,0.45); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000;
+        font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+      #video-wrap { position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 45%; }
+      #video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .scene { position: absolute; inset: 0; pointer-events: none; }
+      .scin { position: absolute; inset: 0; transform-origin: 50% 50%; opacity: 0; }
+      .scin svg { display: block; }
+      #fadeout { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+      .rail { position: absolute; left: 0; right: 0; top: 1300px; display: flex; justify-content: center; pointer-events: none; }
+      .rail .line { max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: 700; font-size: 62px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }
+      .rail .line.ink { color: var(--ink); text-shadow: none; }
+      .rail .w { display: inline-block; }
+      .rail .w.hot { color: var(--red); text-shadow: 0 0 2px rgba(255,255,255,0.55), 0 0 12px rgba(255,255,255,0.45), 0 2px 2px rgba(0,0,0,0.35); }
+      .rail .line.ink .w.hot { text-shadow: none; }
+      .card { position: absolute; left: 0; top: 0; width: 1080px; height: 700px; pointer-events: none; }
+      .stmt { position: absolute; inset: 0; }
+      .stmt .rot { position: absolute; white-space: nowrap; }
+      .piece { display: inline-block; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
+      .piece.white { color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }
+      .gstack { display: grid; }
+      .gstack > span { grid-area: 1 / 1; display: inline-block; font-size: inherit; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
+      .gstack .ghost { opacity: 0; }
+      .gstack .warm { color: #FF3332; }
+      .gstack .cool { color: #5470FD; }
+      .mg { position: absolute; left: 0; top: 0; width: 1080px; pointer-events: none; }
+      .gin { position: absolute; left: 0; top: 226px; transform: scale(0.58); transform-origin: top center; }
+      .mg svg { display: block; }
+      .wl, .wl2, .cnt, .big, .num { font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; }
+      .wl { font-size: 28px; letter-spacing: var(--tr-caps); }
+      .wl2 { font-size: 34px; letter-spacing: var(--tr-caps); }
+      .cnt { font-size: 200px; letter-spacing: -0.05em; }
+      .num { letter-spacing: -0.04em; }
+      .big { font-size: 96px; }
+      
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="84.3" data-fps="25" data-width="1080" data-height="1920">
+      <div id="video-wrap">
+        <video id="src" src="public/input-video.mp4" data-start="0" data-duration="84.3" data-track-index="1" muted playsinline></video>
+      </div>
+      <audio id="voice" src="public/input-video.mp4" data-start="0" data-duration="84.3" data-volume="1"></audio>
+
+      <div id="scA" class="scene clip" data-start="32.85" data-duration="4.98" data-track-index="5">
+        <div id="scA-in" class="scin" style="background:#F5F5F7"><svg width="1080" height="1920" viewBox="0 0 1080 1920">
+  <text id="ed-t" x="72" y="330" text-anchor="start" class="wl2" fill="#E1251B">FUE DETRÁS DE LA GENTE QUE QUERÍA</text>
+  <circle class="ed-d" id="ed-d0" cx="180" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d1" cx="324" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d2" cx="468" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d3" cx="612" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d4" cx="756" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d5" cx="900" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d6" cx="180" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d7" cx="324" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d8" cx="468" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d9" cx="612" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d10" cx="756" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d11" cx="900" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d12" cx="180" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d13" cx="324" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d14" cx="468" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d15" cx="612" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d16" cx="756" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d17" cx="900" cy="820" r="22" fill="#1D1D1F"/>
+  <rect id="ed-m" x="180" y="1030" width="720" height="240" rx="10" stroke="#1D1D1F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path id="ed-m1" d="M230 1090 H600" stroke="#1D1D1F" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path class="ed-ml" d="M230 1150 H850 M230 1185 H850 M230 1220 H700" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="ed-x" x="180" y="960" text-anchor="start" class="num" style="font-size:90px" fill="#E1251B">EDITORIAL</text>
+        </svg></div>
+      </div>
+      <div id="scB" class="scene clip" data-start="66.21" data-duration="4.57" data-track-index="5">
+        <div id="scB-in" class="scin" style="background:#161618"><svg width="1080" height="1920" viewBox="0 0 1080 1920">
+  <text id="cr-t" x="72" y="330" text-anchor="start" class="wl2" fill="#E1251B">LA APUNTA AL CRITERIO</text>
+  <rect class="cr-r" id="cr-r0" x="150" y="520" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r1" x="430" y="520" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r2" x="710" y="520" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r3" x="150" y="750" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r4" x="430" y="750" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r5" x="710" y="750" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r6" x="150" y="980" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r7" x="430" y="980" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r8" x="710" y="980" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text id="cr-n0" x="260" y="640" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">9</text><text id="cr-n1" x="540" y="640" text-anchor="middle" class="num" style="font-size:90px" fill="#E1251B">4</text><text id="cr-n2" x="820" y="640" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">8</text><text id="cr-n3" x="260" y="870" text-anchor="middle" class="num" style="font-size:90px" fill="#E1251B">3</text><text id="cr-n4" x="540" y="870" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">7</text><text id="cr-n5" x="820" y="870" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">9</text><text id="cr-n6" x="260" y="1100" text-anchor="middle" class="num" style="font-size:90px" fill="#E1251B">2</text><text id="cr-n7" x="540" y="1100" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">6</text><text id="cr-n8" x="820" y="1100" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">8</text><path id="cr-x1a" d="M480 550 L600 670" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x1b" d="M600 550 L480 670" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x3a" d="M200 780 L320 900" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x3b" d="M320 780 L200 900" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x6a" d="M200 1010 L320 1130" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x6b" d="M320 1010 L200 1130" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <text id="cr-b" x="72" y="1290" text-anchor="start" class="wl2" fill="#FFFFFF">CALIFICA · QUITA LO QUE PUNTÚA BAJO</text>
+        </svg></div>
+      </div>
+
+      <div id="r03" class="rail clip" data-start="5.80" data-duration="1.10" data-track-index="2"><div class="line" id="r03l"><span class="w" id="r03w0">La</span> <span class="w" id="r03w1">primera</span> <span class="w" id="r03w2">fue</span> <span class="w hot" id="r03w3">Unfold,</span></div></div>
+      <div id="r04" class="rail clip" data-start="6.90" data-duration="3.51" data-track-index="2"><div class="line" id="r04l"><span class="w" id="r04w0">&quot;un</span> <span class="w" id="r04w1">kit</span> <span class="w" id="r04w2">de</span> <span class="w" id="r04w3">herramientas</span> <span class="w" id="r04w4">para</span> <span class="w" id="r04w5">contadores</span> <span class="w" id="r04w6">de</span> <span class="w hot" id="r04w7">historias&quot;,</span> <span class="w" id="r04w8">como</span> <span class="w" id="r04w9">lo</span> <span class="w" id="r04w10">llamaban</span> <span class="w" id="r04w11">ellos.</span></div></div>
+      <div id="r05" class="rail clip" data-start="10.41" data-duration="2.21" data-track-index="2"><div class="line" id="r05l"><span class="w" id="r05w0">Básicamente,</span> <span class="w" id="r05w1">plantillas</span> <span class="w" id="r05w2">para</span> <span class="w" id="r05w3">Instagram</span> <span class="w hot" id="r05w4">Stories.</span></div></div>
+      <div id="r06" class="rail clip" data-start="12.62" data-duration="1.56" data-track-index="2"><div class="line" id="r06l"><span class="w" id="r06w0">Y</span> <span class="w" id="r06w1">la</span> <span class="w" id="r06w2">objeción</span> <span class="w" id="r06w3">aquí</span> <span class="w" id="r06w4">era</span> <span class="w hot" id="r06w5">brutal.</span></div></div>
+      <div id="r07" class="rail clip" data-start="14.18" data-duration="2.98" data-track-index="2"><div class="line" id="r07l"><span class="w" id="r07w0">O</span> <span class="w" id="r07w1">sea,</span> <span class="w" id="r07w2">Instagram</span> <span class="w" id="r07w3">ya</span> <span class="w" id="r07w4">le</span> <span class="w" id="r07w5">daba</span> <span class="w" id="r07w6">a</span> <span class="w" id="r07w7">todo</span> <span class="w" id="r07w8">el</span> <span class="w" id="r07w9">mundo</span> <span class="w hot" id="r07w10">stickers,</span> <span class="w" id="r07w11">tipografías</span></div></div>
+      <div id="r08" class="rail clip" data-start="17.16" data-duration="2.61" data-track-index="2"><div class="line" id="r08l"><span class="w" id="r08w0">y</span> <span class="w" id="r08w1">herramientas</span> <span class="w" id="r08w2">de</span> <span class="w" id="r08w3">texto</span> <span class="w hot" id="r08w4">gratis,</span> <span class="w" id="r08w5">integradas</span> <span class="w" id="r08w6">en</span> <span class="w" id="r08w7">la</span> <span class="w" id="r08w8">app.</span></div></div>
+      <div id="r09" class="rail clip" data-start="19.95" data-duration="2.63" data-track-index="2"><div class="line" id="r09l"><span class="w" id="r09w0">Y</span> <span class="w hot" id="r09w1">Canva</span> <span class="w" id="r09w2">estaba</span> <span class="w" id="r09w3">regalando</span> <span class="w" id="r09w4">miles</span> <span class="w" id="r09w5">de</span> <span class="w" id="r09w6">plantillas</span> <span class="w" id="r09w7">por</span> <span class="w" id="r09w8">casi</span> <span class="w" id="r09w9">nada.</span></div></div>
+      <div id="r10" class="rail clip" data-start="22.76" data-duration="2.35" data-track-index="2"><div class="line" id="r10l"><span class="w" id="r10w0">Entonces,</span> <span class="w" id="r10w1">¿por</span> <span class="w" id="r10w2">qué</span> <span class="w hot" id="r10w3">pagar</span> <span class="w" id="r10w4">por</span> <span class="w" id="r10w5">una</span> <span class="w" id="r10w6">tercera</span> <span class="w" id="r10w7">opción</span></div></div>
+      <div id="r11" class="rail clip" data-start="25.28" data-duration="2.12" data-track-index="2"><div class="line" id="r11l"><span class="w" id="r11w0">que</span> <span class="w" id="r11w1">los</span> <span class="w" id="r11w2">dos</span> <span class="w" id="r11w3">gigantes</span> <span class="w" id="r11w4">ya</span> <span class="w" id="r11w5">hacían</span> <span class="w hot" id="r11w6">gratis?</span></div></div>
+      <div id="r13" class="rail clip" data-start="30.62" data-duration="2.23" data-track-index="2"><div class="line" id="r13l"><span class="w" id="r13w0">Unfold</span> <span class="w" id="r13w1">no</span> <span class="w" id="r13w2">persiguió</span> <span class="w" id="r13w3">a</span> <span class="w hot" id="r13w4">todo</span> <span class="w" id="r13w5">el</span> <span class="w" id="r13w6">mundo.</span></div></div>
+      <div id="r14" class="rail clip" data-start="32.85" data-duration="2.83" data-track-index="2"><div class="line ink" id="r14l"><span class="w" id="r14w0">Fue</span> <span class="w" id="r14w1">detrás</span> <span class="w" id="r14w2">de</span> <span class="w" id="r14w3">la</span> <span class="w" id="r14w4">gente</span> <span class="w" id="r14w5">que</span> <span class="w" id="r14w6">quería</span> <span class="w" id="r14w7">algo</span> <span class="w hot" id="r14w8">editorial,</span></div></div>
+      <div id="r15" class="rail clip" data-start="35.68" data-duration="2.00" data-track-index="2"><div class="line ink" id="r15l"><span class="w" id="r15w0">con</span> <span class="w" id="r15w1">calidad</span> <span class="w" id="r15w2">de</span> <span class="w hot" id="r15w3">revista,</span> <span class="w" id="r15w4">pensado.</span></div></div>
+      <div id="r16" class="rail clip" data-start="37.80" data-duration="3.02" data-track-index="2"><div class="line" id="r16l"><span class="w" id="r16w0">Bootstrapped,</span> <span class="w hot" id="r16w1">12</span> <span class="w" id="r16w2">millones</span> <span class="w" id="r16w3">de</span> <span class="w" id="r16w4">usuarios</span> <span class="w" id="r16w5">en</span> <span class="w" id="r16w6">apenas</span> <span class="w" id="r16w7">ocho</span> <span class="w" id="r16w8">meses,</span></div></div>
+      <div id="r17" class="rail clip" data-start="40.82" data-duration="3.07" data-track-index="2"><div class="line" id="r17l"><span class="w" id="r17w0">y</span> <span class="w" id="r17w1">después</span> <span class="w" id="r17w2">Squarespace</span> <span class="w" id="r17w3">los</span> <span class="w" id="r17w4">compró</span> <span class="w" id="r17w5">por</span> <span class="w hot" id="r17w6">50</span> <span class="w" id="r17w7">millones</span> <span class="w" id="r17w8">de</span> <span class="w" id="r17w9">dólares,</span></div></div>
+      <div id="r18" class="rail clip" data-start="43.89" data-duration="1.23" data-track-index="2"><div class="line" id="r18l"><span class="w" id="r18w0">creo</span> <span class="w" id="r18w1">que</span> <span class="w" id="r18w2">fue</span> <span class="w" id="r18w3">en</span> <span class="w hot" id="r18w4">2019.</span></div></div>
+      <div id="r19" class="rail clip" data-start="45.12" data-duration="3.07" data-track-index="2"><div class="line" id="r19l"><span class="w" id="r19w0">Y</span> <span class="w" id="r19w1">justo</span> <span class="w" id="r19w2">cuando</span> <span class="w" id="r19w3">crees</span> <span class="w" id="r19w4">que</span> <span class="w" id="r19w5">Andy</span> <span class="w" id="r19w6">está</span> <span class="w" id="r19w7">descansando</span> <span class="w" id="r19w8">en</span> <span class="w" id="r19w9">una</span> <span class="w hot" id="r19w10">playa,</span></div></div>
+      <div id="r20" class="rail clip" data-start="48.19" data-duration="1.09" data-track-index="2"><div class="line" id="r20l"><span class="w" id="r20w0">lo</span> <span class="w" id="r20w1">vuelve</span> <span class="w" id="r20w2">a</span> <span class="w hot" id="r20w3">hacer.</span></div></div>
+      <div id="r21" class="rail clip" data-start="49.28" data-duration="2.42" data-track-index="2"><div class="line" id="r21l"><span class="w hot" id="r21w0">Cosmos:</span> <span class="w" id="r21w1">guardar</span> <span class="w" id="r21w2">y</span> <span class="w" id="r21w3">curar</span> <span class="w" id="r21w4">referencias</span> <span class="w" id="r21w5">visuales.</span></div></div>
+      <div id="r22" class="rail clip" data-start="51.70" data-duration="3.41" data-track-index="2"><div class="line" id="r22l"><span class="w" id="r22w0">Lanzado</span> <span class="w" id="r22w1">directo</span> <span class="w" id="r22w2">a</span> <span class="w" id="r22w3">la</span> <span class="w" id="r22w4">categoría</span> <span class="w" id="r22w5">que</span> <span class="w hot" id="r22w6">Pinterest</span> <span class="w" id="r22w7">domina</span> <span class="w" id="r22w8">por</span> <span class="w" id="r22w9">completo.</span></div></div>
+      <div id="r23" class="rail clip" data-start="55.11" data-duration="1.52" data-track-index="2"><div class="line" id="r23l"><span class="w hot" id="r23w0">Misma</span> <span class="w" id="r23w1">objeción,</span> <span class="w hot" id="r23w2">misma</span> <span class="w" id="r23w3">respuesta.</span></div></div>
+      <div id="r24" class="rail clip" data-start="56.63" data-duration="2.77" data-track-index="2"><div class="line" id="r24l"><span class="w" id="r24w0">Fue</span> <span class="w" id="r24w1">detrás</span> <span class="w" id="r24w2">del</span> <span class="w" id="r24w3">segmento</span> <span class="w" id="r24w4">que</span> <span class="w" id="r24w5">Pinterest</span> <span class="w" id="r24w6">dejó</span> <span class="w" id="r24w7">de</span> <span class="w hot" id="r24w8">atender:</span></div></div>
+      <div id="r25" class="rail clip" data-start="59.40" data-duration="2.12" data-track-index="2"><div class="line" id="r25l"><span class="w" id="r25w0">los</span> <span class="w" id="r25w1">que</span> <span class="w" id="r25w2">sí</span> <span class="w" id="r25w3">les</span> <span class="w" id="r25w4">importa</span> <span class="w" id="r25w5">cómo</span> <span class="w" id="r25w6">se</span> <span class="w" id="r25w7">ve</span> <span class="w" id="r25w8">el</span> <span class="w hot" id="r25w9">muro.</span></div></div>
+      <div id="r26" class="rail clip" data-start="61.52" data-duration="2.62" data-track-index="2"><div class="line" id="r26l"><span class="w" id="r26w0">Y</span> <span class="w" id="r26w1">esta</span> <span class="w" id="r26w2">es</span> <span class="w" id="r26w3">la</span> <span class="w" id="r26w4">parte</span> <span class="w" id="r26w5">que</span> <span class="w" id="r26w6">no</span> <span class="w" id="r26w7">me</span> <span class="w" id="r26w8">deja</span> <span class="w" id="r26w9">de</span> <span class="w" id="r26w10">dar</span> <span class="w hot" id="r26w11">vueltas.</span></div></div>
+      <div id="r27" class="rail clip" data-start="64.14" data-duration="2.07" data-track-index="2"><div class="line" id="r27l"><span class="w" id="r27w0">Cosmos</span> <span class="w" id="r27w1">usa</span> <span class="w hot" id="r27w2">IA</span> <span class="w" id="r27w3">igual</span> <span class="w" id="r27w4">que</span> <span class="w" id="r27w5">todo</span> <span class="w" id="r27w6">el</span> <span class="w" id="r27w7">mundo.</span></div></div>
+      <div id="r28" class="rail clip" data-start="66.21" data-duration="1.51" data-track-index="2"><div class="line" id="r28l"><span class="w" id="r28w0">Solo</span> <span class="w" id="r28w1">que</span> <span class="w" id="r28w2">la</span> <span class="w" id="r28w3">apunta</span> <span class="w" id="r28w4">al</span> <span class="w hot" id="r28w5">criterio:</span></div></div>
+      <div id="r29" class="rail clip" data-start="67.72" data-duration="2.91" data-track-index="2"><div class="line" id="r29l"><span class="w" id="r29w0">califica</span> <span class="w" id="r29w1">el</span> <span class="w" id="r29w2">trabajo</span> <span class="w" id="r29w3">y</span> <span class="w" id="r29w4">después</span> <span class="w" id="r29w5">quita</span> <span class="w" id="r29w6">lo</span> <span class="w" id="r29w7">que</span> <span class="w" id="r29w8">puntúa</span> <span class="w hot" id="r29w9">bajo.</span></div></div>
+      <div id="r30" class="rail clip" data-start="70.63" data-duration="3.49" data-track-index="2"><div class="line" id="r30l"><span class="w" id="r30w0">La</span> <span class="w" id="r30w1">misma</span> <span class="w" id="r30w2">tecnología,</span> <span class="w" id="r30w3">pero</span> <span class="w" id="r30w4">dirigida</span> <span class="w" id="r30w5">a</span> <span class="w" id="r30w6">un</span> <span class="w hot" id="r30w7">estándar</span> <span class="w" id="r30w8">en</span> <span class="w" id="r30w9">vez</span> <span class="w" id="r30w10">de</span> <span class="w" id="r30w11">a</span> <span class="w" id="r30w12">un</span> <span class="w" id="r30w13">número.</span></div></div>
+      <div id="r31" class="rail clip" data-start="74.28" data-duration="3.71" data-track-index="2"><div class="line" id="r31l"><span class="w" id="r31w0">Cosmos</span> <span class="w" id="r31w1">ha</span> <span class="w" id="r31w2">levantado</span> <span class="w" id="r31w3">desde</span> <span class="w" id="r31w4">entonces</span> <span class="w hot" id="r31w5">21</span> <span class="w" id="r31w6">millones</span> <span class="w" id="r31w7">de</span> <span class="w" id="r31w8">dólares</span></div></div>
+      <div id="r32" class="rail clip" data-start="77.99" data-duration="2.81" data-track-index="2"><div class="line" id="r32l"><span class="w" id="r32w0">y</span> <span class="w" id="r32w1">lo</span> <span class="w" id="r32w2">usan</span> <span class="w" id="r32w3">equipos</span> <span class="w" id="r32w4">en</span> <span class="w" id="r32w5">Apple,</span> <span class="w" id="r32w6">Nike</span> <span class="w" id="r32w7">y</span> <span class="w hot" id="r32w8">Chanel.</span></div></div>
+
+      <div id="unfold" class="mg clip" data-start="5.80" data-duration="7.02" data-track-index="3">
+        <div id="unfold-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><g transform="translate(540 250) scale(1.25) translate(-540 -235)">
+  <rect id="uf-ph" x="440" y="30" width="200" height="380" rx="28" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect class="uf-f" x="470" y="70" width="140" height="90" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect class="uf-f" x="470" y="175" width="140" height="90" rx="8" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect class="uf-f" x="470" y="280" width="140" height="90" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path class="uf-l" d="M490 110 H590 M490 130 H560" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path class="uf-l" d="M490 215 H590 M490 235 H560" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path class="uf-l" d="M490 320 H590 M490 340 H560" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g><text id="uf-t" x="540" y="500" text-anchor="middle" class="wl" fill="#1D1D1F">UNFOLD · PLANTILLAS PARA STORIES</text>
+        </svg></div>
+      </div>
+      <div id="obj" class="mg clip" data-start="12.62" data-duration="14.98" data-track-index="3">
+        <div id="obj-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><rect id="ob-a" x="60" y="90" width="380" height="220" rx="22" stroke="#1D1D1F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text id="ob-at" x="250.0" y="212" text-anchor="middle" class="wl2" fill="#1D1D1F">INSTAGRAM</text><rect id="ob-b" x="640" y="90" width="380" height="220" rx="22" stroke="#1D1D1F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text id="ob-bt" x="830.0" y="212" text-anchor="middle" class="wl2" fill="#1D1D1F">CANVA</text>
+  <text id="ob-fa" x="250" y="50" text-anchor="middle" class="wl2" fill="#E1251B">GRATIS</text><text id="ob-fb" x="830" y="50" text-anchor="middle" class="wl2" fill="#E1251B">GRATIS</text>
+  <rect id="ob-c" x="470" y="140" width="140" height="120" rx="14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="ob-cs" x="540" y="215" text-anchor="middle" class="big" fill="#E1251B" style="font-size:64px">$</text>
+  <text id="ob-ct" x="540" y="310" text-anchor="middle" class="wl" fill="#1D1D1F">UNFOLD</text>
+  <text id="ob-q" x="540" y="420" text-anchor="middle" class="wl2" fill="#E1251B">¿POR QUÉ PAGAR?</text>
+        </svg></div>
+      </div>
+      <div id="crowd" class="mg clip" data-start="30.62" data-duration="2.21" data-track-index="3">
+        <div id="crowd-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><circle class="cr-d" cx="200" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="276" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="352" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="428" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="504" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="580" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="656" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="732" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="808" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="884" cy="140" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="200" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="276" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="352" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="428" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="504" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="580" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="656" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="732" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="808" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="884" cy="216" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="200" cy="292" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="276" cy="292" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="352" cy="292" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="428" cy="292" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="504" cy="292" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="580" cy="292" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="656" cy="292" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="732" cy="292" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="808" cy="292" r="16" fill="#1D1D1F"/><circle class="cr-d" cx="884" cy="292" r="16" fill="#1D1D1F"/><text id="cr-t" x="540" y="440" text-anchor="middle" class="wl" fill="#1D1D1F">NO A TODO EL MUNDO</text>
+        </svg></div>
+      </div>
+      <div id="stats" class="mg clip" data-start="37.80" data-duration="7.52" data-track-index="3">
+        <div id="stats-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <text id="st-12" x="72" y="250" text-anchor="start" class="num" style="font-size:200px" fill="#1D1D1F">12M</text>
+  <text id="st-u" x="72" y="330" text-anchor="start" class="wl" fill="#1D1D1F">USUARIOS · 8 MESES · BOOTSTRAPPED</text>
+  <text id="st-50" x="1008" y="250" text-anchor="end" class="num" style="font-size:200px" fill="#E1251B">$50M</text>
+  <text id="st-s" x="1008" y="330" text-anchor="end" class="wl" fill="#E1251B">SQUARESPACE · 2019</text>
+        </svg></div>
+      </div>
+      <div id="beach" class="mg clip" data-start="45.12" data-duration="4.36" data-track-index="3">
+        <div id="beach-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <path id="bc-u" d="M400 250 A140 140 0 0 1 680 250 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path id="bc-p" d="M540 250 V400 M540 110 V250" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path id="bc-w" d="M300 430 Q360 400 420 430 T540 430 T660 430 T780 430" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <g id="bc-r"><path d="M880 140 A60 60 0 1 1 940 200" stroke="#E1251B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M915 180 L940 200 L960 175" stroke="#E1251B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
+  <text id="bc-t" x="540" y="500" text-anchor="middle" class="wl" fill="#E1251B">LO VUELVE A HACER</text>
+        </svg></div>
+      </div>
+      <div id="cosmos" class="mg clip" data-start="49.28" data-duration="12.44" data-track-index="3">
+        <div id="cosmos-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><rect class="cs-t" id="cs-t0" x="150" y="60" width="180" height="130" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t1" x="350" y="60" width="140" height="200" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t2" x="510" y="60" width="200" height="110" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t3" x="730" y="60" width="200" height="160" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t4" x="150" y="210" width="180" height="150" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t5" x="510" y="190" width="200" height="170" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t6" x="730" y="240" width="200" height="120" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t7" x="350" y="280" width="140" height="90" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect id="cs-p" x="110" y="20" width="860" height="360" rx="14" stroke="#1D1D1F" stroke-width="4" stroke-dasharray="14 12" fill="none"/>
+  <text id="cs-pt" x="930" y="435" text-anchor="end" class="wl" fill="#1D1D1F">PINTEREST</text>
+  <text id="cs-t" x="150" y="470" text-anchor="start" class="wl" fill="#E1251B">COSMOS · REFERENCIAS VISUALES</text>
+        </svg></div>
+      </div>
+      <div id="chip" class="mg clip" data-start="61.52" data-duration="4.89" data-track-index="3">
+        <div id="chip-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <rect id="ia-c" x="420" y="130" width="240" height="240" rx="20" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect id="ia-i" x="480" y="190" width="120" height="120" rx="10" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path class="ia-p" d="M460 130 V100 M460 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ia-p" d="M500 130 V100 M500 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ia-p" d="M540 130 V100 M540 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ia-p" d="M580 130 V100 M580 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ia-p" d="M620 130 V100 M620 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="ia-t" x="540" y="470" text-anchor="middle" class="wl" fill="#1D1D1F">IA · IGUAL QUE TODO EL MUNDO</text>
+        </svg></div>
+      </div>
+      <div id="std" class="mg clip" data-start="70.63" data-duration="3.69" data-track-index="3">
+        <div id="std-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <text id="sd-a" x="540" y="220" text-anchor="middle" class="num" style="font-size:96px" fill="#1D1D1F">UN ESTÁNDAR</text>
+  <text id="sd-b" x="540" y="380" text-anchor="middle" class="num" style="font-size:96px" fill="#1D1D1F">UN NÚMERO</text>
+  <path id="sd-s" d="M250 350 H830" stroke="#E1251B" stroke-width="14" stroke-linecap="round" fill="none"/>
+        </svg></div>
+      </div>
+      <div id="money" class="mg clip" data-start="74.28" data-duration="6.72" data-track-index="3">
+        <div id="money-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <text id="mo-n" x="540" y="250" text-anchor="middle" class="num" style="font-size:220px" fill="#E1251B">$21M</text>
+  <text id="mo-t" x="540" y="330" text-anchor="middle" class="wl" fill="#1D1D1F">LEVANTADOS</text>
+  <text id="mo-a" x="300" y="460" text-anchor="middle" class="wl2" fill="#1D1D1F">APPLE</text><text id="mo-b" x="540" y="460" text-anchor="middle" class="wl2" fill="#1D1D1F">NIKE</text><text id="mo-c" x="790" y="460" text-anchor="middle" class="wl2" fill="#1D1D1F">CHANEL</text>
+        </svg></div>
+      </div>
+
+      <div id="hook" class="card clip" data-start="0.00" data-duration="5.90" data-track-index="3">
+        <div class="stmt" id="hook-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="hook-a" data-layout-allow-overlap style="font-size:56px;">Se enfrentó a</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:298px;"><span class="piece white" id="hook-b" data-layout-allow-overlap style="font-size:80px;">Instagram, Canva</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:364px;"><span class="piece white" id="hook-c" data-layout-allow-overlap style="font-size:100px;">y Pinterest.</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:458px;"><span class="piece white" id="hook-d" data-layout-allow-overlap style="font-size:52px;">Y ganó todas las veces.</span></div></div>
+      </div>
+      <div id="free" class="card clip" data-start="27.35" data-duration="3.37" data-track-index="3">
+        <div class="stmt" id="free-in"><div class="rot" data-layout-allow-overlap style="left:40px;top:252px;"><span class="gstack" id="free-stack" style="font-size:100px;"><span class="ghost warm" aria-hidden="true">Gratis y bueno</span><span class="ghost cool" aria-hidden="true">Gratis y bueno</span><span class="piece white" id="free-a" data-layout-allow-overlap>Gratis y bueno</span></span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:340px;"><span class="piece white" id="free-b" data-layout-allow-overlap style="font-size:70px;">son productos</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:398px;"><span class="piece white" id="free-c" data-layout-allow-overlap style="font-size:110px;">distintos.</span></div></div>
+      </div>
+      <div id="close" class="card clip" data-start="80.70" data-duration="3.60" data-track-index="3">
+        <div class="stmt" id="close-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="close-a" data-layout-allow-overlap style="font-size:56px;">Dos veces contra gigantes,</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:300px;"><span class="piece white" id="close-b" data-layout-allow-overlap style="font-size:100px;">sin tecnología</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:388px;"><span class="piece white" id="close-c" data-layout-allow-overlap style="font-size:140px;">nueva.</span></div></div>
+      </div>
+      <div id="fadeout" class="clip" data-start="83.70" data-duration="0.60" data-track-index="6"></div>
+    </div>
+    <script>
+      const glitchHash = (n) => { const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); };
+      const ghosts = gsap.utils.toArray("#free-stack .ghost");
+      const glitch = { amp: 0 };
+      const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#r03w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 5.80);
+  tl.fromTo("#r03w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 5.93);
+  tl.fromTo("#r03w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 6.29);
+  tl.fromTo("#r03w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 6.47);
+  tl.to("#r03l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 6.76);
+  tl.set("#r03l", { autoAlpha: 0 }, 6.90);
+  tl.fromTo("#r04w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 6.90);
+  tl.fromTo("#r04w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.07);
+  tl.fromTo("#r04w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.23);
+  tl.fromTo("#r04w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.35);
+  tl.fromTo("#r04w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.89);
+  tl.fromTo("#r04w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.10);
+  tl.fromTo("#r04w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.55);
+  tl.fromTo("#r04w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.68);
+  tl.fromTo("#r04w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.17);
+  tl.fromTo("#r04w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.38);
+  tl.fromTo("#r04w10", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.50);
+  tl.fromTo("#r04w11", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.88);
+  tl.to("#r04l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 10.27);
+  tl.set("#r04l", { autoAlpha: 0 }, 10.41);
+  tl.fromTo("#r05w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.41);
+  tl.fromTo("#r05w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.97);
+  tl.fromTo("#r05w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.44);
+  tl.fromTo("#r05w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.65);
+  tl.fromTo("#r05w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.08);
+  tl.to("#r05l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 12.48);
+  tl.set("#r05l", { autoAlpha: 0 }, 12.62);
+  tl.fromTo("#r06w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.62);
+  tl.fromTo("#r06w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.71);
+  tl.fromTo("#r06w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.85);
+  tl.fromTo("#r06w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.28);
+  tl.fromTo("#r06w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.51);
+  tl.fromTo("#r06w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.70);
+  tl.to("#r06l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 14.04);
+  tl.set("#r06l", { autoAlpha: 0 }, 14.18);
+  tl.fromTo("#r07w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.18);
+  tl.fromTo("#r07w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.26);
+  tl.fromTo("#r07w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.47);
+  tl.fromTo("#r07w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.89);
+  tl.fromTo("#r07w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.02);
+  tl.fromTo("#r07w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.15);
+  tl.fromTo("#r07w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.36);
+  tl.fromTo("#r07w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.44);
+  tl.fromTo("#r07w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.65);
+  tl.fromTo("#r07w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.78);
+  tl.fromTo("#r07w10", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 16.03);
+  tl.fromTo("#r07w11", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 16.45);
+  tl.to("#r07l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 17.02);
+  tl.set("#r07l", { autoAlpha: 0 }, 17.16);
+  tl.fromTo("#r08w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.16);
+  tl.fromTo("#r08w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.25);
+  tl.fromTo("#r08w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.83);
+  tl.fromTo("#r08w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.97);
+  tl.fromTo("#r08w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.24);
+  tl.fromTo("#r08w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.60);
+  tl.fromTo("#r08w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 19.09);
+  tl.fromTo("#r08w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 19.23);
+  tl.fromTo("#r08w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 19.36);
+  tl.to("#r08l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 19.63);
+  tl.set("#r08l", { autoAlpha: 0 }, 19.77);
+  tl.fromTo("#r09w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 19.95);
+  tl.fromTo("#r09w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 20.03);
+  tl.fromTo("#r09w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 20.28);
+  tl.fromTo("#r09w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 20.56);
+  tl.fromTo("#r09w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 20.97);
+  tl.fromTo("#r09w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 21.21);
+  tl.fromTo("#r09w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 21.34);
+  tl.fromTo("#r09w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 21.78);
+  tl.fromTo("#r09w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 21.95);
+  tl.fromTo("#r09w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.15);
+  tl.to("#r09l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 22.44);
+  tl.set("#r09l", { autoAlpha: 0 }, 22.58);
+  tl.fromTo("#r10w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.76);
+  tl.fromTo("#r10w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.22);
+  tl.fromTo("#r10w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.44);
+  tl.fromTo("#r10w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.63);
+  tl.fromTo("#r10w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.90);
+  tl.fromTo("#r10w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 24.08);
+  tl.fromTo("#r10w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 24.26);
+  tl.fromTo("#r10w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 24.63);
+  tl.to("#r10l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 24.97);
+  tl.set("#r10l", { autoAlpha: 0 }, 25.11);
+  tl.fromTo("#r11w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.28);
+  tl.fromTo("#r11w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.48);
+  tl.fromTo("#r11w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.68);
+  tl.fromTo("#r11w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.89);
+  tl.fromTo("#r11w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.34);
+  tl.fromTo("#r11w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.49);
+  tl.fromTo("#r11w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.85);
+  tl.to("#r11l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 27.26);
+  tl.set("#r11l", { autoAlpha: 0 }, 27.40);
+  tl.fromTo("#r13w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 30.62);
+  tl.fromTo("#r13w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.01);
+  tl.fromTo("#r13w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.18);
+  tl.fromTo("#r13w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.74);
+  tl.fromTo("#r13w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.85);
+  tl.fromTo("#r13w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 32.13);
+  tl.fromTo("#r13w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 32.30);
+  tl.to("#r13l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 32.71);
+  tl.set("#r13l", { autoAlpha: 0 }, 32.85);
+  tl.fromTo("#r14w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 32.85);
+  tl.fromTo("#r14w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.06);
+  tl.fromTo("#r14w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.43);
+  tl.fromTo("#r14w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.59);
+  tl.fromTo("#r14w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.74);
+  tl.fromTo("#r14w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.06);
+  tl.fromTo("#r14w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.27);
+  tl.fromTo("#r14w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.64);
+  tl.fromTo("#r14w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.90);
+  tl.to("#r14l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 35.54);
+  tl.set("#r14l", { autoAlpha: 0 }, 35.68);
+  tl.fromTo("#r15w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.68);
+  tl.fromTo("#r15w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.91);
+  tl.fromTo("#r15w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.36);
+  tl.fromTo("#r15w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.53);
+  tl.fromTo("#r15w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.03);
+  tl.to("#r15l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 37.54);
+  tl.set("#r15l", { autoAlpha: 0 }, 37.68);
+  tl.fromTo("#r16w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.80);
+  tl.fromTo("#r16w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.46);
+  tl.fromTo("#r16w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.60);
+  tl.fromTo("#r16w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 39.02);
+  tl.fromTo("#r16w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 39.16);
+  tl.fromTo("#r16w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 39.58);
+  tl.fromTo("#r16w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 39.72);
+  tl.fromTo("#r16w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.05);
+  tl.fromTo("#r16w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.28);
+  tl.to("#r16l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 40.68);
+  tl.set("#r16l", { autoAlpha: 0 }, 40.82);
+  tl.fromTo("#r17w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.82);
+  tl.fromTo("#r17w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.91);
+  tl.fromTo("#r17w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 41.29);
+  tl.fromTo("#r17w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 41.85);
+  tl.fromTo("#r17w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.04);
+  tl.fromTo("#r17w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.36);
+  tl.fromTo("#r17w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.55);
+  tl.fromTo("#r17w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.69);
+  tl.fromTo("#r17w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.11);
+  tl.fromTo("#r17w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.25);
+  tl.to("#r17l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 43.75);
+  tl.set("#r17l", { autoAlpha: 0 }, 43.89);
+  tl.fromTo("#r18w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.89);
+  tl.fromTo("#r18w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.15);
+  tl.fromTo("#r18w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.36);
+  tl.fromTo("#r18w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.57);
+  tl.fromTo("#r18w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.72);
+  tl.to("#r18l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 44.98);
+  tl.set("#r18l", { autoAlpha: 0 }, 45.12);
+  tl.fromTo("#r19w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.12);
+  tl.fromTo("#r19w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.21);
+  tl.fromTo("#r19w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.49);
+  tl.fromTo("#r19w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.82);
+  tl.fromTo("#r19w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.10);
+  tl.fromTo("#r19w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.29);
+  tl.fromTo("#r19w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.52);
+  tl.fromTo("#r19w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.76);
+  tl.fromTo("#r19w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.32);
+  tl.fromTo("#r19w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.46);
+  tl.fromTo("#r19w10", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.65);
+  tl.to("#r19l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 48.05);
+  tl.set("#r19l", { autoAlpha: 0 }, 48.19);
+  tl.fromTo("#r20w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.19);
+  tl.fromTo("#r20w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.35);
+  tl.fromTo("#r20w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.72);
+  tl.fromTo("#r20w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.83);
+  tl.to("#r20l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 49.14);
+  tl.set("#r20l", { autoAlpha: 0 }, 49.28);
+  tl.fromTo("#r21w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.28);
+  tl.fromTo("#r21w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.67);
+  tl.fromTo("#r21w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.06);
+  tl.fromTo("#r21w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.16);
+  tl.fromTo("#r21w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 50.45);
+  tl.fromTo("#r21w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 51.04);
+  tl.to("#r21l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 51.56);
+  tl.set("#r21l", { autoAlpha: 0 }, 51.70);
+  tl.fromTo("#r22w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 51.70);
+  tl.fromTo("#r22w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 52.08);
+  tl.fromTo("#r22w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 52.47);
+  tl.fromTo("#r22w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 52.56);
+  tl.fromTo("#r22w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 52.71);
+  tl.fromTo("#r22w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 53.19);
+  tl.fromTo("#r22w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 53.38);
+  tl.fromTo("#r22w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 53.86);
+  tl.fromTo("#r22w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 54.20);
+  tl.fromTo("#r22w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 54.39);
+  tl.to("#r22l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 54.97);
+  tl.set("#r22l", { autoAlpha: 0 }, 55.11);
+  tl.fromTo("#r23w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 55.11);
+  tl.fromTo("#r23w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 55.37);
+  tl.fromTo("#r23w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 55.80);
+  tl.fromTo("#r23w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 56.05);
+  tl.to("#r23l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 56.49);
+  tl.set("#r23l", { autoAlpha: 0 }, 56.63);
+  tl.fromTo("#r24w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 56.63);
+  tl.fromTo("#r24w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 56.82);
+  tl.fromTo("#r24w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 57.15);
+  tl.fromTo("#r24w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 57.33);
+  tl.fromTo("#r24w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 57.75);
+  tl.fromTo("#r24w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 57.94);
+  tl.fromTo("#r24w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 58.41);
+  tl.fromTo("#r24w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 58.64);
+  tl.fromTo("#r24w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 58.78);
+  tl.to("#r24l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 59.26);
+  tl.set("#r24l", { autoAlpha: 0 }, 59.40);
+  tl.fromTo("#r25w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 59.40);
+  tl.fromTo("#r25w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 59.58);
+  tl.fromTo("#r25w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 59.77);
+  tl.fromTo("#r25w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 59.90);
+  tl.fromTo("#r25w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 60.09);
+  tl.fromTo("#r25w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 60.45);
+  tl.fromTo("#r25w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 60.68);
+  tl.fromTo("#r25w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 60.82);
+  tl.fromTo("#r25w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 60.96);
+  tl.fromTo("#r25w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 61.10);
+  tl.to("#r25l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 61.38);
+  tl.set("#r25l", { autoAlpha: 0 }, 61.52);
+  tl.fromTo("#r26w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 61.52);
+  tl.fromTo("#r26w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 61.62);
+  tl.fromTo("#r26w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 61.86);
+  tl.fromTo("#r26w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 62.01);
+  tl.fromTo("#r26w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 62.15);
+  tl.fromTo("#r26w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 62.45);
+  tl.fromTo("#r26w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 62.64);
+  tl.fromTo("#r26w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 62.79);
+  tl.fromTo("#r26w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 62.93);
+  tl.fromTo("#r26w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 63.18);
+  tl.fromTo("#r26w10", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 63.32);
+  tl.fromTo("#r26w11", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 63.52);
+  tl.to("#r26l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 64.00);
+  tl.set("#r26l", { autoAlpha: 0 }, 64.14);
+  tl.fromTo("#r27w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 64.14);
+  tl.fromTo("#r27w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 64.49);
+  tl.fromTo("#r27w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 64.68);
+  tl.fromTo("#r27w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 64.83);
+  tl.fromTo("#r27w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 65.13);
+  tl.fromTo("#r27w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 65.32);
+  tl.fromTo("#r27w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 65.57);
+  tl.fromTo("#r27w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 65.72);
+  tl.to("#r27l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 66.07);
+  tl.set("#r27l", { autoAlpha: 0 }, 66.21);
+  tl.fromTo("#r28w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 66.21);
+  tl.fromTo("#r28w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 66.43);
+  tl.fromTo("#r28w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 66.60);
+  tl.fromTo("#r28w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 66.74);
+  tl.fromTo("#r28w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 67.04);
+  tl.fromTo("#r28w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 67.18);
+  tl.to("#r28l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 67.58);
+  tl.set("#r28l", { autoAlpha: 0 }, 67.72);
+  tl.fromTo("#r29w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 67.72);
+  tl.fromTo("#r29w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 68.15);
+  tl.fromTo("#r29w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 68.30);
+  tl.fromTo("#r29w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 68.69);
+  tl.fromTo("#r29w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 68.78);
+  tl.fromTo("#r29w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 69.17);
+  tl.fromTo("#r29w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 69.46);
+  tl.fromTo("#r29w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 69.60);
+  tl.fromTo("#r29w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 69.80);
+  tl.fromTo("#r29w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 70.14);
+  tl.to("#r29l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 70.49);
+  tl.set("#r29l", { autoAlpha: 0 }, 70.63);
+  tl.fromTo("#r30w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 70.63);
+  tl.fromTo("#r30w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 70.77);
+  tl.fromTo("#r30w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 71.04);
+  tl.fromTo("#r30w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 71.58);
+  tl.fromTo("#r30w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 71.80);
+  tl.fromTo("#r30w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 72.21);
+  tl.fromTo("#r30w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 72.30);
+  tl.fromTo("#r30w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 72.43);
+  tl.fromTo("#r30w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 72.84);
+  tl.fromTo("#r30w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 72.97);
+  tl.fromTo("#r30w10", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 73.15);
+  tl.fromTo("#r30w11", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 73.29);
+  tl.fromTo("#r30w12", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 73.38);
+  tl.fromTo("#r30w13", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 73.52);
+  tl.to("#r30l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 73.98);
+  tl.set("#r30l", { autoAlpha: 0 }, 74.12);
+  tl.fromTo("#r31w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 74.28);
+  tl.fromTo("#r31w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 74.70);
+  tl.fromTo("#r31w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 74.87);
+  tl.fromTo("#r31w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 75.47);
+  tl.fromTo("#r31w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 75.83);
+  tl.fromTo("#r31w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 76.36);
+  tl.fromTo("#r31w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 76.54);
+  tl.fromTo("#r31w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 77.08);
+  tl.fromTo("#r31w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 77.25);
+  tl.to("#r31l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 77.85);
+  tl.set("#r31l", { autoAlpha: 0 }, 77.99);
+  tl.fromTo("#r32w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 77.99);
+  tl.fromTo("#r32w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 78.11);
+  tl.fromTo("#r32w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 78.29);
+  tl.fromTo("#r32w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 78.60);
+  tl.fromTo("#r32w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 79.08);
+  tl.fromTo("#r32w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 79.27);
+  tl.fromTo("#r32w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 79.69);
+  tl.fromTo("#r32w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 80.00);
+  tl.fromTo("#r32w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 80.12);
+  tl.to("#r32l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 80.66);
+  tl.set("#r32l", { autoAlpha: 0 }, 80.80);
+  tl.fromTo("#hook-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 0.05);
+  tl.fromTo("#hook-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 0.90);
+  tl.fromTo("#hook-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 2.20);
+  tl.fromTo("#hook-d", { y: -60, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 4.01);
+  tl.to("#hook-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 5.60);
+  tl.set("#hook-in", { autoAlpha: 0 }, 5.90);
+  tl.fromTo("#free-a", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 27.40);
+  tl.fromTo("#free-b", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 28.30);
+  tl.fromTo("#free-c", { y: -60, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 28.80);
+  tl.to("#free-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 30.42);
+  tl.set("#free-in", { autoAlpha: 0 }, 30.72);
+  tl.set(ghosts, { opacity: 0.55, x: 0, y: 0 }, 27.55);
+  tl.fromTo(glitch, { amp: 1 }, { amp: 0, duration: 0.5, ease: "power2.in",
+    onUpdate: () => {
+      const step = Math.floor(tl.time() / 0.05);
+      ghosts.forEach((el, layer) => {
+        gsap.set(el, { x: (glitchHash(step * 13 + layer * 7) * 2 - 1) * 12 * glitch.amp,
+                       y: (glitchHash(step * 29 + layer * 11) * 2 - 1) * 4 * glitch.amp });
+      });
+    } }, 27.55);
+  tl.set(ghosts, { opacity: 0, x: 0, y: 0 }, 28.05);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 0.18, ease: "expo.out" }, 27.65);
+  tl.to("#video-wrap", { scale: 1, duration: 1.4, ease: "power2.out" }, 27.83);
+  tl.fromTo("#close-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 80.75);
+  tl.fromTo("#close-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 81.80);
+  tl.fromTo("#close-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 82.50);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 2.2, ease: "sine.inOut" }, 80.80);
+  tl.fromTo("#fadeout", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: "power1.in" }, 83.75);
+  tl.fromTo("#unfold-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 5.80);
+  tl.to("#unfold-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 12.57);
+  tl.set("#unfold-in", { autoAlpha: 0 }, 12.82);
+  tl.set(".uf-f, .uf-l, #uf-t", { autoAlpha: 0 }, 5.80);
+  tl.fromTo("#uf-ph", { strokeDasharray: "1200", strokeDashoffset: 1200 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", stagger: 0.0 }, 5.85);
+  tl.fromTo(".uf-f", { strokeDasharray: "480", strokeDashoffset: 480 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.15 }, 7.20);
+  tl.fromTo(".uf-l", { strokeDasharray: "200", strokeDashoffset: 200 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 7.70);
+  tl.fromTo("#uf-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 11.01);
+  tl.fromTo("#obj-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 12.62);
+  tl.to("#obj-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 27.35);
+  tl.set("#obj-in", { autoAlpha: 0 }, 27.60);
+  tl.set("#ob-at, #ob-bt, #ob-fa, #ob-fb, #ob-c, #ob-cs, #ob-ct, #ob-q", { autoAlpha: 0 }, 12.62);
+  tl.fromTo("#ob-a", { strokeDasharray: "1000", strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 14.28);
+  tl.fromTo("#ob-at", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 14.58);
+  tl.fromTo("#ob-fa", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 18.16);
+  tl.fromTo("#ob-b", { strokeDasharray: "1000", strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 20.00);
+  tl.fromTo("#ob-bt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 20.30);
+  tl.fromTo("#ob-fb", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 21.55);
+  tl.set("#ob-c", { autoAlpha: 1 }, 23.26);
+  tl.fromTo("#ob-c", { strokeDasharray: "560", strokeDashoffset: 560 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 23.26);
+  tl.fromTo("#ob-cs", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 23.66);
+  tl.fromTo("#ob-ct", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 23.76);
+  tl.fromTo("#ob-q", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 25.58);
+  tl.fromTo("#crowd-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 30.62);
+  tl.to("#crowd-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 32.58);
+  tl.set("#crowd-in", { autoAlpha: 0 }, 32.83);
+  tl.set("#cr-t", { autoAlpha: 0 }, 30.62);
+  tl.fromTo(".cr-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.02 }, 30.67);
+  tl.fromTo("#cr-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 31.62);
+  tl.fromTo("#scA-in", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" }, 32.85);
+  tl.to("#scA-in", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, 37.68);
+  tl.set("#scA-in", { autoAlpha: 0 }, 37.83);
+  tl.set("#ed-m1, .ed-ml, #ed-x, #ed-t", { autoAlpha: 0 }, 32.85);
+  tl.fromTo("#ed-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 33.05);
+  tl.fromTo(".ed-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.03 }, 33.15);
+  tl.to("#ed-d2", { fill: "#E1251B", scale: 1.5, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, 34.95);
+  tl.to("#ed-d7", { fill: "#E1251B", scale: 1.5, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, 35.05);
+  tl.to("#ed-d9", { fill: "#E1251B", scale: 1.5, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, 34.85);
+  tl.to("#ed-d14", { fill: "#E1251B", scale: 1.5, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, 34.95);
+  tl.to(".ed-d", { autoAlpha: 0.35, duration: 0.3, ease: "power2.inOut" }, 35.15);
+  tl.to("#ed-d2", { autoAlpha: 1, duration: 0.3, ease: "power2.out" }, 35.15);
+  tl.to("#ed-d7", { autoAlpha: 1, duration: 0.3, ease: "power2.out" }, 35.15);
+  tl.to("#ed-d9", { autoAlpha: 1, duration: 0.3, ease: "power2.out" }, 35.15);
+  tl.to("#ed-d14", { autoAlpha: 1, duration: 0.3, ease: "power2.out" }, 35.15);
+  tl.fromTo("#ed-x", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 35.05);
+  tl.fromTo("#ed-m", { strokeDasharray: "2000", strokeDashoffset: 2000 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", stagger: 0.0 }, 35.73);
+  tl.fromTo("#ed-m1", { strokeDasharray: "380", strokeDashoffset: 380 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out", stagger: 0.0 }, 36.18);
+  tl.fromTo(".ed-ml", { strokeDasharray: "700", strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 36.38);
+  tl.fromTo("#stats-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 37.80);
+  tl.to("#stats-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 45.07);
+  tl.set("#stats-in", { autoAlpha: 0 }, 45.32);
+  tl.set("#st-12, #st-u, #st-50, #st-s", { autoAlpha: 0 }, 37.80);
+  tl.fromTo("#st-12", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 38.60);
+  tl.fromTo("#st-u", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 39.60);
+  tl.to("#st-12, #st-u", { x: -1000, duration: 0.4, ease: "power2.in" }, 41.82);
+  tl.fromTo("#st-50", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 42.42);
+  tl.fromTo("#st-s", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 44.19);
+  tl.fromTo("#beach-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 45.12);
+  tl.to("#beach-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 49.23);
+  tl.set("#beach-in", { autoAlpha: 0 }, 49.48);
+  tl.set("#bc-r, #bc-t", { autoAlpha: 0 }, 45.12);
+  tl.fromTo("#bc-u", { strokeDasharray: "700", strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 45.17);
+  tl.fromTo("#bc-p", { strokeDasharray: "320", strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 45.42);
+  tl.fromTo("#bc-w", { strokeDasharray: "600", strokeDashoffset: 600 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 45.62);
+  tl.fromTo("#bc-r", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 48.29);
+  tl.fromTo("#bc-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 48.59);
+  tl.fromTo("#bc-r", { rotation: 0, svgOrigin: "910 170" }, { rotation: 720, duration: 1.0900000000000034, ease: "power2.inOut" }, 48.39);
+  tl.fromTo("#cosmos-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 49.28);
+  tl.to("#cosmos-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 61.47);
+  tl.set("#cosmos-in", { autoAlpha: 0 }, 61.72);
+  tl.set("#cs-p, #cs-pt, #cs-t", { autoAlpha: 0 }, 49.28);
+  tl.fromTo(".cs-t", { strokeDasharray: "700", strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.08 }, 49.38);
+  tl.fromTo("#cs-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 49.78);
+  tl.set("#cs-p", { autoAlpha: 1 }, 52.70);
+  tl.fromTo("#cs-p", { strokeDasharray: "2500", strokeDashoffset: 2500 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out", stagger: 0.0 }, 52.70);
+  tl.fromTo("#cs-pt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 53.30);
+  tl.to("#cs-t1", { stroke: "#E1251B", strokeWidth: 9, duration: 0.3, ease: "power2.out" }, 57.95);
+  tl.to("#cs-t5", { stroke: "#E1251B", strokeWidth: 9, duration: 0.3, ease: "power2.out" }, 58.07);
+  tl.to("#cs-t6", { stroke: "#E1251B", strokeWidth: 9, duration: 0.3, ease: "power2.out" }, 57.83);
+  tl.to("#cs-t0", { x: 0, y: 0, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.30);
+  tl.to("#cs-t1", { x: 10, y: 0, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.34);
+  tl.to("#cs-t2", { x: 60, y: 0, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.38);
+  tl.to("#cs-t3", { x: 50, y: 0, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.42);
+  tl.to("#cs-t4", { x: 0, y: 20, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.46);
+  tl.to("#cs-t5", { x: -150, y: 40, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.50);
+  tl.to("#cs-t6", { x: -160, y: -10, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.54);
+  tl.to("#cs-t7", { x: 430, y: -50, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.58);
+  tl.fromTo("#chip-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 61.52);
+  tl.to("#chip-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 66.16);
+  tl.set("#chip-in", { autoAlpha: 0 }, 66.41);
+  tl.set("#ia-i, .ia-p, #ia-t", { autoAlpha: 0 }, 61.52);
+  tl.fromTo("#ia-c", { strokeDasharray: "1000", strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 64.19);
+  tl.fromTo(".ia-p", { strokeDasharray: "40", strokeDashoffset: 40 }, { strokeDashoffset: 0, duration: 0.15, ease: "power2.out", stagger: 0.04 }, 64.54);
+  tl.fromTo("#ia-i", { strokeDasharray: "500", strokeDashoffset: 500 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 64.84);
+  tl.fromTo("#ia-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 65.34);
+  tl.fromTo("#scB-in", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" }, 66.21);
+  tl.to("#scB-in", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, 70.63);
+  tl.set("#scB-in", { autoAlpha: 0 }, 70.78);
+  tl.set("#cr-t, .num, #cr-b", { autoAlpha: 0 }, 66.21);
+  tl.set("#cr-x1a, #cr-x1b", { autoAlpha: 0 }, 66.21);
+  tl.set("#cr-x3a, #cr-x3b", { autoAlpha: 0 }, 66.21);
+  tl.set("#cr-x6a, #cr-x6b", { autoAlpha: 0 }, 66.21);
+  tl.fromTo("#cr-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 66.41);
+  tl.fromTo(".cr-r", { strokeDasharray: "800", strokeDashoffset: 800 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.05 }, 66.46);
+  tl.fromTo("#cr-n0", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.02);
+  tl.fromTo("#cr-n1", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.11);
+  tl.fromTo("#cr-n2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.20);
+  tl.fromTo("#cr-n3", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.29);
+  tl.fromTo("#cr-n4", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.38);
+  tl.fromTo("#cr-n5", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.47);
+  tl.fromTo("#cr-n6", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.56);
+  tl.fromTo("#cr-n7", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.65);
+  tl.fromTo("#cr-n8", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.74);
+  tl.fromTo("#cr-x1a, #cr-x1b", { strokeDasharray: "180", strokeDashoffset: 180 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 69.50);
+  tl.to("#cr-r1, #cr-n1", { autoAlpha: 0.25, duration: 0.3, ease: "power2.inOut" }, 70.00);
+  tl.fromTo("#cr-x3a, #cr-x3b", { strokeDasharray: "180", strokeDashoffset: 180 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 69.66);
+  tl.to("#cr-r3, #cr-n3", { autoAlpha: 0.25, duration: 0.3, ease: "power2.inOut" }, 70.16);
+  tl.fromTo("#cr-x6a, #cr-x6b", { strokeDasharray: "180", strokeDashoffset: 180 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 69.90);
+  tl.to("#cr-r6, #cr-n6", { autoAlpha: 0.25, duration: 0.3, ease: "power2.inOut" }, 70.40);
+  tl.fromTo("#cr-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 69.22);
+  tl.fromTo("#std-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 70.63);
+  tl.to("#std-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 74.07);
+  tl.set("#std-in", { autoAlpha: 0 }, 74.32);
+  tl.set("#sd-a, #sd-b", { autoAlpha: 0 }, 70.63);
+  tl.fromTo("#sd-a", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 72.13);
+  tl.fromTo("#sd-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 73.03);
+  tl.fromTo("#sd-s", { strokeDasharray: "600", strokeDashoffset: 600 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 73.43);
+  tl.fromTo("#money-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 74.28);
+  tl.to("#money-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 80.75);
+  tl.set("#money-in", { autoAlpha: 0 }, 81.00);
+  tl.set("#mo-n, #mo-t, #mo-a, #mo-b, #mo-c", { autoAlpha: 0 }, 74.28);
+  tl.fromTo("#mo-n", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 76.18);
+  tl.fromTo("#mo-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 76.68);
+  tl.fromTo("#mo-a", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 79.19);
+  tl.fromTo("#mo-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 79.69);
+  tl.fromTo("#mo-c", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 80.19);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

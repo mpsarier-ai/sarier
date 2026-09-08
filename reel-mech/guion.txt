@@ -1,0 +1,24 @@
+¿Has oído hablar de mech interp?
+Bueno, es la investigación que intenta resolver
+uno de los mayores misterios de nuestro tiempo.
+Piensa en una planta.
+Sabemos cómo empieza y cómo hacerla crecer.
+Pero durante mucho tiempo no supimos qué pasaba adentro.
+Ahora pasa lo mismo con la IA:
+sabemos de qué arquitectura parte y cómo hacerla crecer,
+pero todavía no sabemos qué ocurre adentro.
+Mech interp intenta responder: ¿cómo piensa la IA?
+Y es como abrir una mente hecha enteramente de números.
+Nuestro lenguaje se vuelve matemáticas.
+Direcciones en el espacio. Ordenadas en geometrías.
+Por ejemplo, unos investigadores encontraron
+que la IA representaba los días de la semana
+en una variedad circular parecida a un reloj.
+Y cuando empujaban un poco esas posiciones alrededor del círculo,
+las respuestas cambiaban de forma bellísima.
+Entender todo esto importa porque,
+si la IA va a enseñarnos, aconsejarnos
+y tomar decisiones en el mundo que nos rodea,
+necesitamos saber cómo piensa.
+Y al hacerlo, podríamos entender algo más profundo:
+qué es realmente pensar.

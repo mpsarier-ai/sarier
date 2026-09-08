@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Sarier — Mech interp</title>
+    <script src="public/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Archivo"; src: url("public/fonts/Archivo-600-latin.woff2") format("woff2"); font-weight: 500 700; font-display: block; }
+      :root { --ink: #1D1D1F; --on-dark: #FFFFFF; --red: #E1251B; --tr-display: -0.035em; --tr-body: -0.01em; --tr-caps: 0.08em;
+        --sh-rail: 0 2px 2px rgba(0,0,0,0.45), 0 4px 22px rgba(0,0,0,0.45); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000;
+        font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+      #video-wrap { position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 45%; }
+      #video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .scene { position: absolute; inset: 0; pointer-events: none; }
+      .scin { position: absolute; inset: 0; transform-origin: 50% 50%; opacity: 0; }
+      .scin svg { display: block; }
+      #fadeout { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+      .rail { position: absolute; left: 0; right: 0; top: 1300px; display: flex; justify-content: center; pointer-events: none; }
+      .rail .line { max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: 700; font-size: 62px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }
+      .rail .line.ink { color: var(--ink); text-shadow: none; }
+      .rail .w { display: inline-block; }
+      .rail .w.hot { color: var(--red); text-shadow: 0 0 2px rgba(255,255,255,0.55), 0 0 12px rgba(255,255,255,0.45), 0 2px 2px rgba(0,0,0,0.35); }
+      .rail .line.ink .w.hot { text-shadow: none; }
+      .card { position: absolute; left: 0; top: 0; width: 1080px; height: 700px; pointer-events: none; }
+      .stmt { position: absolute; inset: 0; }
+      .stmt .rot { position: absolute; white-space: nowrap; }
+      .piece { display: inline-block; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
+      .piece.white { color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }
+      .gstack { display: grid; }
+      .gstack > span { grid-area: 1 / 1; display: inline-block; font-size: inherit; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }
+      .gstack .ghost { opacity: 0; }
+      .gstack .warm { color: #FF3332; }
+      .gstack .cool { color: #5470FD; }
+      .mg { position: absolute; left: 0; top: 0; width: 1080px; pointer-events: none; }
+      .gin { position: absolute; left: 0; top: 226px; transform: scale(0.5); transform-origin: top center; }
+      .mg svg { display: block; }
+      .wl, .wl2, .cnt, .big, .num { font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; }
+      .wl { font-size: 28px; letter-spacing: var(--tr-caps); }
+      .wl2 { font-size: 34px; letter-spacing: var(--tr-caps); }
+      .cnt { font-size: 200px; letter-spacing: -0.05em; }
+      .num { letter-spacing: -0.04em; }
+      .big { font-size: 96px; }
+      
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="55.3" data-fps="25" data-width="1080" data-height="1920">
+      <div id="video-wrap">
+        <video id="src" src="public/input-video.mp4" data-start="0" data-duration="55.3" data-track-index="1" muted playsinline></video>
+      </div>
+      <audio id="voice" src="public/input-video.mp4" data-start="0" data-duration="55.3" data-volume="1"></audio>
+
+      <div id="scA" class="scene clip" data-start="22.07" data-duration="4.91" data-track-index="5">
+        <div id="scA-in" class="scin" style="background:#161618"><svg width="1080" height="1920" viewBox="0 0 1080 1920">
+  <text id="nm-t" x="72" y="330" text-anchor="start" class="wl2" fill="#E1251B">UNA MENTE HECHA DE NÚMEROS</text>
+  <g id="nm-g" transform="translate(-125 480) scale(1.2)"><path id="nm-o" d="M330 262 A51.4 51.4 0 0 1 352 182 A57.0 57.0 0 0 1 418 118 A57.9 57.9 0 0 1 505 84 A59.0 59.0 0 0 1 600 80 A54.8 54.8 0 0 1 685 104 A50.6 50.6 0 0 1 748 156 A47.1 47.1 0 0 1 772 228 A47.1 47.1 0 0 1 748 300 A45.5 45.5 0 0 1 690 345 A56.8 56.8 0 0 1 600 362 A59.0 59.0 0 0 1 505 366 A52.4 52.4 0 0 1 422 350 A43.3 43.3 0 0 1 360 318 A39.4 39.4 0 0 1 330 262 Z" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path id="nm-c" d="M690 360 A37.1 37.1 0 0 1 742 350 A34.7 34.7 0 0 1 778 384 A34.4 34.4 0 0 1 756 428 A38.0 38.0 0 0 1 702 434 A32.7 32.7 0 0 1 668 402 A33.2 33.2 0 0 1 690 360 Z" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path id="nm-s" d="M604 366 C598 398 604 428 618 452 M652 370 C656 402 646 430 636 452" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path id="nm-f" d="M372 306 C440 272 510 292 580 270 C610 262 636 250 660 234" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nm-gy" d="M400 190 C425 215 455 170 480 200" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nm-gy" d="M520 130 C548 160 582 118 612 148" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nm-gy" d="M655 190 C680 220 705 178 730 208" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nm-gy" d="M430 228 C458 254 490 212 518 238" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nm-gy" d="M560 312 C588 338 620 300 648 326" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="nm-gy" d="M690 266 C712 292 738 256 752 286" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
+  <text class="nm-d" x="360" y="736" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="360" y="784" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="360" y="832" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="360" y="880" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="410" y="688" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="410" y="736" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="410" y="784" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="410" y="832" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="410" y="880" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="410" y="928" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="460" y="688" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="460" y="736" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="460" y="784" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="460" y="832" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="460" y="880" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="460" y="928" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="510" y="688" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="510" y="736" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="510" y="784" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="510" y="832" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="510" y="880" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="510" y="928" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="560" y="688" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="560" y="736" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="560" y="784" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="560" y="832" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="560" y="880" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="560" y="928" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="610" y="688" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="610" y="736" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="610" y="784" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="610" y="832" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="610" y="880" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="610" y="928" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="660" y="688" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="660" y="736" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="660" y="784" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="660" y="832" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="660" y="880" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="660" y="928" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="710" y="736" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="710" y="784" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text><text class="nm-d" x="710" y="832" text-anchor="middle" fill="#E1251B" style="font-size:40px;font-weight:700">0</text><text class="nm-d" x="710" y="880" text-anchor="middle" fill="#FFFFFF" style="font-size:40px;font-weight:700">1</text>
+  <text id="nm-a" x="72" y="1180" text-anchor="start" class="num" style="font-size:90px" fill="#FFFFFF">LENGUAJE</text>
+  <text id="nm-e" x="640" y="1180" text-anchor="middle" class="num" style="font-size:90px" fill="#E1251B">=</text>
+  <text id="nm-b" x="72" y="1290" text-anchor="start" class="num" style="font-size:90px" fill="#E1251B">MATEMÁTICAS</text>
+        </svg></div>
+      </div>
+
+      <div id="r02" class="rail clip" data-start="1.76" data-duration="2.29" data-track-index="2"><div class="line" id="r02l"><span class="w" id="r02w0">Bueno,</span> <span class="w" id="r02w1">es</span> <span class="w" id="r02w2">la</span> <span class="w hot" id="r02w3">investigación</span> <span class="w" id="r02w4">que</span> <span class="w" id="r02w5">intenta</span> <span class="w" id="r02w6">resolver</span></div></div>
+      <div id="r03" class="rail clip" data-start="4.05" data-duration="2.49" data-track-index="2"><div class="line" id="r03l"><span class="w" id="r03w0">uno</span> <span class="w" id="r03w1">de</span> <span class="w" id="r03w2">los</span> <span class="w" id="r03w3">mayores</span> <span class="w hot" id="r03w4">misterios</span> <span class="w" id="r03w5">de</span> <span class="w" id="r03w6">nuestro</span> <span class="w" id="r03w7">tiempo.</span></div></div>
+      <div id="r04" class="rail clip" data-start="6.70" data-duration="1.02" data-track-index="2"><div class="line" id="r04l"><span class="w" id="r04w0">Piensa</span> <span class="w" id="r04w1">en</span> <span class="w" id="r04w2">una</span> <span class="w hot" id="r04w3">planta.</span></div></div>
+      <div id="r05" class="rail clip" data-start="7.72" data-duration="2.19" data-track-index="2"><div class="line" id="r05l"><span class="w" id="r05w0">Sabemos</span> <span class="w" id="r05w1">cómo</span> <span class="w" id="r05w2">empieza</span> <span class="w" id="r05w3">y</span> <span class="w" id="r05w4">cómo</span> <span class="w" id="r05w5">hacerla</span> <span class="w hot" id="r05w6">crecer.</span></div></div>
+      <div id="r06" class="rail clip" data-start="9.91" data-duration="2.79" data-track-index="2"><div class="line" id="r06l"><span class="w" id="r06w0">Pero</span> <span class="w" id="r06w1">durante</span> <span class="w" id="r06w2">mucho</span> <span class="w" id="r06w3">tiempo</span> <span class="w" id="r06w4">no</span> <span class="w" id="r06w5">supimos</span> <span class="w" id="r06w6">qué</span> <span class="w" id="r06w7">pasaba</span> <span class="w hot" id="r06w8">adentro.</span></div></div>
+      <div id="r07" class="rail clip" data-start="12.88" data-duration="1.28" data-track-index="2"><div class="line" id="r07l"><span class="w" id="r07w0">Ahora</span> <span class="w" id="r07w1">pasa</span> <span class="w" id="r07w2">lo</span> <span class="w" id="r07w3">mismo</span> <span class="w" id="r07w4">con</span> <span class="w" id="r07w5">la</span> <span class="w hot" id="r07w6">IA:</span></div></div>
+      <div id="r08" class="rail clip" data-start="14.30" data-duration="2.83" data-track-index="2"><div class="line" id="r08l"><span class="w" id="r08w0">sabemos</span> <span class="w" id="r08w1">de</span> <span class="w" id="r08w2">qué</span> <span class="w hot" id="r08w3">arquitectura</span> <span class="w" id="r08w4">parte</span> <span class="w" id="r08w5">y</span> <span class="w" id="r08w6">cómo</span> <span class="w" id="r08w7">hacerla</span> <span class="w" id="r08w8">crecer,</span></div></div>
+      <div id="r09" class="rail clip" data-start="17.13" data-duration="2.15" data-track-index="2"><div class="line" id="r09l"><span class="w" id="r09w0">pero</span> <span class="w" id="r09w1">todavía</span> <span class="w" id="r09w2">no</span> <span class="w" id="r09w3">sabemos</span> <span class="w" id="r09w4">qué</span> <span class="w" id="r09w5">ocurre</span> <span class="w hot" id="r09w6">adentro.</span></div></div>
+      <div id="r11" class="rail clip" data-start="22.07" data-duration="2.78" data-track-index="2"><div class="line" id="r11l"><span class="w" id="r11w0">Y</span> <span class="w" id="r11w1">es</span> <span class="w" id="r11w2">como</span> <span class="w" id="r11w3">abrir</span> <span class="w" id="r11w4">una</span> <span class="w" id="r11w5">mente</span> <span class="w" id="r11w6">hecha</span> <span class="w" id="r11w7">enteramente</span> <span class="w" id="r11w8">de</span> <span class="w hot" id="r11w9">números.</span></div></div>
+      <div id="r12" class="rail clip" data-start="25.00" data-duration="1.83" data-track-index="2"><div class="line" id="r12l"><span class="w" id="r12w0">Nuestro</span> <span class="w" id="r12w1">lenguaje</span> <span class="w" id="r12w2">se</span> <span class="w" id="r12w3">vuelve</span> <span class="w hot" id="r12w4">matemáticas.</span></div></div>
+      <div id="r13" class="rail clip" data-start="26.83" data-duration="2.43" data-track-index="2"><div class="line" id="r13l"><span class="w" id="r13w0">Direcciones</span> <span class="w" id="r13w1">en</span> <span class="w" id="r13w2">el</span> <span class="w" id="r13w3">espacio.</span> <span class="w" id="r13w4">Ordenadas</span> <span class="w" id="r13w5">en</span> <span class="w hot" id="r13w6">geometrías.</span></div></div>
+      <div id="r14" class="rail clip" data-start="29.39" data-duration="2.21" data-track-index="2"><div class="line" id="r14l"><span class="w" id="r14w0">Por</span> <span class="w" id="r14w1">ejemplo,</span> <span class="w" id="r14w2">unos</span> <span class="w hot" id="r14w3">investigadores</span> <span class="w" id="r14w4">encontraron</span></div></div>
+      <div id="r15" class="rail clip" data-start="31.60" data-duration="2.20" data-track-index="2"><div class="line" id="r15l"><span class="w" id="r15w0">que</span> <span class="w" id="r15w1">la</span> <span class="w" id="r15w2">IA</span> <span class="w" id="r15w3">representaba</span> <span class="w" id="r15w4">los</span> <span class="w" id="r15w5">días</span> <span class="w" id="r15w6">de</span> <span class="w" id="r15w7">la</span> <span class="w hot" id="r15w8">semana</span></div></div>
+      <div id="r16" class="rail clip" data-start="33.80" data-duration="2.46" data-track-index="2"><div class="line" id="r16l"><span class="w" id="r16w0">en</span> <span class="w" id="r16w1">una</span> <span class="w" id="r16w2">variedad</span> <span class="w" id="r16w3">circular</span> <span class="w" id="r16w4">parecida</span> <span class="w" id="r16w5">a</span> <span class="w" id="r16w6">un</span> <span class="w hot" id="r16w7">reloj.</span></div></div>
+      <div id="r17" class="rail clip" data-start="36.44" data-duration="2.98" data-track-index="2"><div class="line" id="r17l"><span class="w" id="r17w0">Y</span> <span class="w" id="r17w1">cuando</span> <span class="w hot" id="r17w2">empujaban</span> <span class="w" id="r17w3">un</span> <span class="w" id="r17w4">poco</span> <span class="w" id="r17w5">esas</span> <span class="w" id="r17w6">posiciones</span> <span class="w" id="r17w7">alrededor</span> <span class="w" id="r17w8">del</span> <span class="w" id="r17w9">círculo,</span></div></div>
+      <div id="r18" class="rail clip" data-start="39.42" data-duration="2.10" data-track-index="2"><div class="line" id="r18l"><span class="w" id="r18w0">las</span> <span class="w" id="r18w1">respuestas</span> <span class="w" id="r18w2">cambiaban</span> <span class="w" id="r18w3">de</span> <span class="w" id="r18w4">forma</span> <span class="w hot" id="r18w5">bellísima.</span></div></div>
+      <div id="r19" class="rail clip" data-start="41.71" data-duration="1.86" data-track-index="2"><div class="line" id="r19l"><span class="w" id="r19w0">Entender</span> <span class="w" id="r19w1">todo</span> <span class="w" id="r19w2">esto</span> <span class="w hot" id="r19w3">importa</span> <span class="w" id="r19w4">porque,</span></div></div>
+      <div id="r20" class="rail clip" data-start="43.57" data-duration="2.13" data-track-index="2"><div class="line" id="r20l"><span class="w" id="r20w0">si</span> <span class="w" id="r20w1">la</span> <span class="w" id="r20w2">IA</span> <span class="w" id="r20w3">va</span> <span class="w" id="r20w4">a</span> <span class="w hot" id="r20w5">enseñarnos,</span> <span class="w" id="r20w6">aconsejarnos</span></div></div>
+      <div id="r21" class="rail clip" data-start="45.70" data-duration="2.63" data-track-index="2"><div class="line" id="r21l"><span class="w" id="r21w0">y</span> <span class="w" id="r21w1">tomar</span> <span class="w hot" id="r21w2">decisiones</span> <span class="w" id="r21w3">en</span> <span class="w" id="r21w4">el</span> <span class="w" id="r21w5">mundo</span> <span class="w" id="r21w6">que</span> <span class="w" id="r21w7">nos</span> <span class="w" id="r21w8">rodea,</span></div></div>
+      <div id="r22" class="rail clip" data-start="48.33" data-duration="1.79" data-track-index="2"><div class="line" id="r22l"><span class="w" id="r22w0">necesitamos</span> <span class="w" id="r22w1">saber</span> <span class="w" id="r22w2">cómo</span> <span class="w hot" id="r22w3">piensa.</span></div></div>
+
+      <div id="myst" class="mg clip" data-start="1.76" data-duration="4.98" data-track-index="3">
+        <div id="myst-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <circle id="my-c" cx="500" cy="220" r="130" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(-90 500 220)"/>
+  <path id="my-h" d="M595 315 L700 420" stroke="#1D1D1F" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <text id="my-q" x="500" y="258" text-anchor="middle" class="big" fill="#E1251B">?</text>
+  <text id="my-t" x="540" y="500" text-anchor="middle" class="wl" fill="#1D1D1F">UNO DE LOS MAYORES MISTERIOS</text>
+        </svg></div>
+      </div>
+      <div id="plant" class="mg clip" data-start="6.70" data-duration="6.20" data-track-index="3">
+        <div id="plant-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <path id="pl-g" d="M300 420 H780" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle id="pl-seed" cx="540" cy="405" r="14" fill="#1D1D1F"/>
+  <path id="pl-s" d="M540 405 C540 320 535 240 545 150" stroke="#1D1D1F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path id="pl-l1" d="M541 300 C480 300 450 250 455 220 C500 225 540 260 541 300 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path id="pl-l2" d="M543 230 C600 230 635 180 630 150 C585 155 545 190 543 230 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect id="pl-box" x="470" y="140" width="150" height="270" rx="12" stroke="#E1251B" stroke-width="5" stroke-dasharray="14 10" fill="none"/>
+  <text id="pl-q" x="640" y="300" text-anchor="middle" class="big" fill="#E1251B">?</text>
+  <text id="pl-t" x="540" y="480" text-anchor="middle" class="wl" fill="#E1251B">¿QUÉ PASA ADENTRO?</text>
+        </svg></div>
+      </div>
+      <div id="net" class="mg clip" data-start="12.88" data-duration="6.60" data-track-index="3">
+        <div id="net-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><path class="nn-l" d="M300 140 L540 100" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 140 L540 200" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 140 L540 300" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 140 L540 400" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 260 L540 100" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 260 L540 200" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 260 L540 300" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 260 L540 400" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 380 L540 100" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 380 L540 200" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 380 L540 300" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M300 380 L540 400" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M540 100 L780 180" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M540 100 L780 320" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M540 200 L780 180" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M540 200 L780 320" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M540 300 L780 180" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M540 300 L780 320" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M540 400 L780 180" stroke="#1D1D1F" stroke-width="3" fill="none"/><path class="nn-l" d="M540 400 L780 320" stroke="#1D1D1F" stroke-width="3" fill="none"/><circle class="nn-n nn-c0" cx="300" cy="140" r="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle class="nn-n nn-c0" cx="300" cy="260" r="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle class="nn-n nn-c0" cx="300" cy="380" r="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle class="nn-n nn-c1" cx="540" cy="100" r="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle class="nn-n nn-c1" cx="540" cy="200" r="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle class="nn-n nn-c1" cx="540" cy="300" r="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle class="nn-n nn-c1" cx="540" cy="400" r="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle class="nn-n nn-c2" cx="780" cy="180" r="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle class="nn-n nn-c2" cx="780" cy="320" r="16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text class="nn-q" x="540" y="112" text-anchor="middle" fill="#E1251B" style="font-size:36px;font-weight:700">?</text><text class="nn-q" x="540" y="212" text-anchor="middle" fill="#E1251B" style="font-size:36px;font-weight:700">?</text><text class="nn-q" x="540" y="312" text-anchor="middle" fill="#E1251B" style="font-size:36px;font-weight:700">?</text><text class="nn-q" x="540" y="412" text-anchor="middle" fill="#E1251B" style="font-size:36px;font-weight:700">?</text><text id="nn-t" x="540" y="470" text-anchor="middle" class="wl" fill="#1D1D1F">SABEMOS LA ARQUITECTURA</text><text id="nn-t2" x="540" y="470" text-anchor="middle" class="wl" fill="#E1251B">NO SABEMOS QUÉ OCURRE ADENTRO</text>
+        </svg></div>
+      </div>
+      <div id="vec" class="mg clip" data-start="26.83" data-duration="2.68" data-track-index="3">
+        <div id="vec-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <circle cx="540" cy="250" r="10" fill="#1D1D1F"/><path class="vc-v" d="M540 250 L566 102" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="vc-v" d="M540 250 L670 175" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="vc-v" d="M540 250 L681 301" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="vc-v" d="M540 250 L591 391" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="vc-v" d="M540 250 L444 365" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="vc-v" d="M540 250 L399 199" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="vc-v" d="M540 250 L489 109" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <polygon id="vc-g" points="566,102 670,175 681,301 591,391 444,365 399,199 489,109" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="vc-t" x="540" y="470" text-anchor="middle" class="wl" fill="#E1251B">ORDENADAS EN GEOMETRÍAS</text>
+        </svg></div>
+      </div>
+      <div id="clock" class="mg clip" data-start="29.39" data-duration="12.33" data-track-index="3">
+        <div id="clock-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <circle id="dy-r" cx="540" cy="250" r="160" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(-90 540 250)"/>
+  <g class="dy-n" id="dy-n0" transform="rotate(0.0 540 250)"><circle cx="540" cy="90" r="26" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="540" y="100" text-anchor="middle" fill="#1D1D1F" style="font-size:28px;font-weight:700" transform="rotate(0.0 540 90)">L</text></g><g class="dy-n" id="dy-n1" transform="rotate(51.42857142857143 540 250)"><circle cx="540" cy="90" r="26" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="540" y="100" text-anchor="middle" fill="#1D1D1F" style="font-size:28px;font-weight:700" transform="rotate(-51.42857142857143 540 90)">M</text></g><g class="dy-n" id="dy-n2" transform="rotate(102.85714285714286 540 250)"><circle cx="540" cy="90" r="26" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="540" y="100" text-anchor="middle" fill="#1D1D1F" style="font-size:28px;font-weight:700" transform="rotate(-102.85714285714286 540 90)">X</text></g><g class="dy-n" id="dy-n3" transform="rotate(154.28571428571428 540 250)"><circle cx="540" cy="90" r="26" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="540" y="100" text-anchor="middle" fill="#1D1D1F" style="font-size:28px;font-weight:700" transform="rotate(-154.28571428571428 540 90)">J</text></g><g class="dy-n" id="dy-n4" transform="rotate(205.71428571428572 540 250)"><circle cx="540" cy="90" r="26" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="540" y="100" text-anchor="middle" fill="#1D1D1F" style="font-size:28px;font-weight:700" transform="rotate(-205.71428571428572 540 90)">V</text></g><g class="dy-n" id="dy-n5" transform="rotate(257.14285714285717 540 250)"><circle cx="540" cy="90" r="26" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="540" y="100" text-anchor="middle" fill="#1D1D1F" style="font-size:28px;font-weight:700" transform="rotate(-257.14285714285717 540 90)">S</text></g><g class="dy-n" id="dy-n6" transform="rotate(308.57142857142856 540 250)"><circle cx="540" cy="90" r="26" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="540" y="100" text-anchor="middle" fill="#1D1D1F" style="font-size:28px;font-weight:700" transform="rotate(-308.57142857142856 540 90)">D</text></g>
+  <path id="dy-h" d="M540 250 L540 140" stroke="#E1251B" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <circle cx="540" cy="250" r="8" fill="#E1251B"/>
+  <path class="dy-sp" d="M760 98 L767 113 L782 120 L767 127 L760 142 L753 127 L738 120 L753 113 Z" fill="#E1251B"/><path class="dy-sp" d="M800 178 L804 186 L812 190 L804 194 L800 202 L796 194 L788 190 L796 186 Z" fill="#E1251B"/><path class="dy-sp" d="M300 136 L304 146 L314 150 L304 154 L300 164 L296 154 L286 150 L296 146 Z" fill="#E1251B"/>
+  <text id="dy-t" x="540" y="470" text-anchor="middle" class="wl" fill="#1D1D1F">LOS DÍAS DE LA SEMANA</text>
+  <text id="dy-b" x="540" y="470" text-anchor="middle" class="wl" fill="#E1251B">BELLÍSIMO</text>
+        </svg></div>
+      </div>
+      <div id="why" class="mg clip" data-start="41.71" data-duration="8.61" data-track-index="3">
+        <div id="why-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <g class="wy wy0" transform="translate(260 220)"><path d="M-50 -34 H-6 Q0 -34 0 -28 V36 Q0 30 -6 30 H-50 Z M50 -34 H6 Q0 -34 0 -28 V36 Q0 30 6 30 H50 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="wy wy1" transform="translate(540 220)"><path d="M-50 -36 H50 Q60 -36 60 -26 V14 Q60 24 50 24 H-6 L-30 44 V24 H-50 Q-60 24 -60 14 V-26 Q-60 -36 -50 -36 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="wy wy2" transform="translate(820 220)"><rect x="-44" y="-44" width="88" height="88" rx="14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M-22 0 L-6 16 L24 -18" stroke="#E1251B" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
+  <text id="wy-t0" x="260" y="330" text-anchor="middle" class="wl" fill="#1D1D1F">ENSEÑAR</text><text id="wy-t1" x="540" y="330" text-anchor="middle" class="wl" fill="#1D1D1F">ACONSEJAR</text><text id="wy-t2" x="820" y="330" text-anchor="middle" class="wl" fill="#1D1D1F">DECIDIR</text>
+  <text id="wy-b" x="540" y="470" text-anchor="middle" class="wl" fill="#E1251B">NECESITAMOS SABER CÓMO PIENSA</text>
+        </svg></div>
+      </div>
+
+      <div id="hook" class="card clip" data-start="0.00" data-duration="2.16" data-track-index="3">
+        <div class="stmt" id="hook-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="hook-a" data-layout-allow-overlap style="font-size:56px;">¿Has oído hablar de</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:298px;"><span class="gstack" id="hook-stack" style="font-size:130px;"><span class="ghost warm" aria-hidden="true">mech interp?</span><span class="ghost cool" aria-hidden="true">mech interp?</span><span class="piece white" id="hook-b" data-layout-allow-overlap>mech interp?</span></span></div></div>
+      </div>
+      <div id="q" class="card clip" data-start="19.31" data-duration="2.86" data-track-index="3">
+        <div class="stmt" id="q-in"><div class="rot" data-layout-allow-overlap style="left:40px;top:252px;"><span class="piece white" id="q-a" data-layout-allow-overlap style="font-size:100px;">¿Cómo piensa</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:340px;"><span class="piece white" id="q-b" data-layout-allow-overlap style="font-size:150px;">la IA?</span></div></div>
+      </div>
+      <div id="close" class="card clip" data-start="50.16" data-duration="5.14" data-track-index="3">
+        <div class="stmt" id="close-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="close-a" data-layout-allow-overlap style="font-size:56px;">Podríamos entender</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:300px;"><span class="piece white" id="close-b" data-layout-allow-overlap style="font-size:84px;">qué es realmente</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:370px;"><span class="piece white" id="close-c" data-layout-allow-overlap style="font-size:150px;">pensar.</span></div></div>
+      </div>
+      <div id="fadeout" class="clip" data-start="54.70" data-duration="0.60" data-track-index="6"></div>
+    </div>
+    <script>
+      const glitchHash = (n) => { const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); };
+      const ghosts = gsap.utils.toArray("#hook-stack .ghost");
+      const glitch = { amp: 0 };
+      const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#r02w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 1.76);
+  tl.fromTo("#r02w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 2.07);
+  tl.fromTo("#r02w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 2.20);
+  tl.fromTo("#r02w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 2.34);
+  tl.fromTo("#r02w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 2.96);
+  tl.fromTo("#r02w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 3.14);
+  tl.fromTo("#r02w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 3.49);
+  tl.to("#r02l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 3.91);
+  tl.set("#r02l", { autoAlpha: 0 }, 4.05);
+  tl.fromTo("#r03w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 4.05);
+  tl.fromTo("#r03w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 4.24);
+  tl.fromTo("#r03w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 4.39);
+  tl.fromTo("#r03w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 4.58);
+  tl.fromTo("#r03w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 4.97);
+  tl.fromTo("#r03w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 5.45);
+  tl.fromTo("#r03w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 5.59);
+  tl.fromTo("#r03w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 5.98);
+  tl.to("#r03l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 6.40);
+  tl.set("#r03l", { autoAlpha: 0 }, 6.54);
+  tl.fromTo("#r04w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 6.70);
+  tl.fromTo("#r04w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.00);
+  tl.fromTo("#r04w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.13);
+  tl.fromTo("#r04w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.30);
+  tl.to("#r04l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 7.58);
+  tl.set("#r04l", { autoAlpha: 0 }, 7.72);
+  tl.fromTo("#r05w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 7.72);
+  tl.fromTo("#r05w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.09);
+  tl.fromTo("#r05w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.32);
+  tl.fromTo("#r05w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.69);
+  tl.fromTo("#r05w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 8.78);
+  tl.fromTo("#r05w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.02);
+  tl.fromTo("#r05w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.39);
+  tl.to("#r05l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 9.77);
+  tl.set("#r05l", { autoAlpha: 0 }, 9.91);
+  tl.fromTo("#r06w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 9.91);
+  tl.fromTo("#r06w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.14);
+  tl.fromTo("#r06w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.50);
+  tl.fromTo("#r06w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 10.77);
+  tl.fromTo("#r06w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.09);
+  tl.fromTo("#r06w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.23);
+  tl.fromTo("#r06w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.59);
+  tl.fromTo("#r06w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 11.78);
+  tl.fromTo("#r06w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.10);
+  tl.to("#r06l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 12.56);
+  tl.set("#r06l", { autoAlpha: 0 }, 12.70);
+  tl.fromTo("#r07w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 12.88);
+  tl.fromTo("#r07w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.11);
+  tl.fromTo("#r07w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.30);
+  tl.fromTo("#r07w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.42);
+  tl.fromTo("#r07w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.65);
+  tl.fromTo("#r07w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.80);
+  tl.fromTo("#r07w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 13.92);
+  tl.to("#r07l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 14.02);
+  tl.set("#r07l", { autoAlpha: 0 }, 14.16);
+  tl.fromTo("#r08w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.30);
+  tl.fromTo("#r08w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.67);
+  tl.fromTo("#r08w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.81);
+  tl.fromTo("#r08w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 14.99);
+  tl.fromTo("#r08w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.59);
+  tl.fromTo("#r08w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.87);
+  tl.fromTo("#r08w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 15.96);
+  tl.fromTo("#r08w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 16.19);
+  tl.fromTo("#r08w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 16.56);
+  tl.to("#r08l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 16.99);
+  tl.set("#r08l", { autoAlpha: 0 }, 17.13);
+  tl.fromTo("#r09w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.13);
+  tl.fromTo("#r09w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.36);
+  tl.fromTo("#r09w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.72);
+  tl.fromTo("#r09w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 17.86);
+  tl.fromTo("#r09w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.22);
+  tl.fromTo("#r09w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.40);
+  tl.fromTo("#r09w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 18.72);
+  tl.to("#r09l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 19.14);
+  tl.set("#r09l", { autoAlpha: 0 }, 19.28);
+  tl.fromTo("#r11w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.07);
+  tl.fromTo("#r11w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.16);
+  tl.fromTo("#r11w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.30);
+  tl.fromTo("#r11w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.53);
+  tl.fromTo("#r11w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.81);
+  tl.fromTo("#r11w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 22.99);
+  tl.fromTo("#r11w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.27);
+  tl.fromTo("#r11w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 23.55);
+  tl.fromTo("#r11w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 24.10);
+  tl.fromTo("#r11w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 24.24);
+  tl.to("#r11l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 24.71);
+  tl.set("#r11l", { autoAlpha: 0 }, 24.85);
+  tl.fromTo("#r12w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.00);
+  tl.fromTo("#r12w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.34);
+  tl.fromTo("#r12w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.72);
+  tl.fromTo("#r12w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 25.85);
+  tl.fromTo("#r12w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.15);
+  tl.to("#r12l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 26.69);
+  tl.set("#r12l", { autoAlpha: 0 }, 26.83);
+  tl.fromTo("#r13w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 26.83);
+  tl.fromTo("#r13w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 27.35);
+  tl.fromTo("#r13w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 27.48);
+  tl.fromTo("#r13w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 27.61);
+  tl.fromTo("#r13w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.00);
+  tl.fromTo("#r13w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.44);
+  tl.fromTo("#r13w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 28.57);
+  tl.to("#r13l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 29.12);
+  tl.set("#r13l", { autoAlpha: 0 }, 29.26);
+  tl.fromTo("#r14w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 29.39);
+  tl.fromTo("#r14w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 29.57);
+  tl.fromTo("#r14w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 29.98);
+  tl.fromTo("#r14w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 30.21);
+  tl.fromTo("#r14w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 30.90);
+  tl.to("#r14l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 31.46);
+  tl.set("#r14l", { autoAlpha: 0 }, 31.60);
+  tl.fromTo("#r15w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.60);
+  tl.fromTo("#r15w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.78);
+  tl.fromTo("#r15w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 31.92);
+  tl.fromTo("#r15w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 32.05);
+  tl.fromTo("#r15w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 32.65);
+  tl.fromTo("#r15w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 32.83);
+  tl.fromTo("#r15w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.05);
+  tl.fromTo("#r15w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.19);
+  tl.fromTo("#r15w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.33);
+  tl.to("#r15l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 33.66);
+  tl.set("#r15l", { autoAlpha: 0 }, 33.80);
+  tl.fromTo("#r16w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.80);
+  tl.fromTo("#r16w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 33.95);
+  tl.fromTo("#r16w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.15);
+  tl.fromTo("#r16w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 34.60);
+  tl.fromTo("#r16w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.04);
+  tl.fromTo("#r16w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.49);
+  tl.fromTo("#r16w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.59);
+  tl.fromTo("#r16w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 35.74);
+  tl.to("#r16l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 36.12);
+  tl.set("#r16l", { autoAlpha: 0 }, 36.26);
+  tl.fromTo("#r17w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.44);
+  tl.fromTo("#r17w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.52);
+  tl.fromTo("#r17w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 36.82);
+  tl.fromTo("#r17w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.24);
+  tl.fromTo("#r17w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.36);
+  tl.fromTo("#r17w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.57);
+  tl.fromTo("#r17w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 37.78);
+  tl.fromTo("#r17w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.25);
+  tl.fromTo("#r17w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.67);
+  tl.fromTo("#r17w9", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 38.83);
+  tl.to("#r17l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 39.28);
+  tl.set("#r17l", { autoAlpha: 0 }, 39.42);
+  tl.fromTo("#r18w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 39.42);
+  tl.fromTo("#r18w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 39.59);
+  tl.fromTo("#r18w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.07);
+  tl.fromTo("#r18w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.51);
+  tl.fromTo("#r18w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.64);
+  tl.fromTo("#r18w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 40.90);
+  tl.to("#r18l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 41.38);
+  tl.set("#r18l", { autoAlpha: 0 }, 41.52);
+  tl.fromTo("#r19w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 41.71);
+  tl.fromTo("#r19w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.15);
+  tl.fromTo("#r19w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.40);
+  tl.fromTo("#r19w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 42.65);
+  tl.fromTo("#r19w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.04);
+  tl.to("#r19l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 43.43);
+  tl.set("#r19l", { autoAlpha: 0 }, 43.57);
+  tl.fromTo("#r20w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.57);
+  tl.fromTo("#r20w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.72);
+  tl.fromTo("#r20w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 43.87);
+  tl.fromTo("#r20w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.03);
+  tl.fromTo("#r20w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.18);
+  tl.fromTo("#r20w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.28);
+  tl.fromTo("#r20w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 44.89);
+  tl.to("#r20l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 45.56);
+  tl.set("#r20l", { autoAlpha: 0 }, 45.70);
+  tl.fromTo("#r21w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.70);
+  tl.fromTo("#r21w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 45.81);
+  tl.fromTo("#r21w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.13);
+  tl.fromTo("#r21w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.71);
+  tl.fromTo("#r21w4", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 46.87);
+  tl.fromTo("#r21w5", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.03);
+  tl.fromTo("#r21w6", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.35);
+  tl.fromTo("#r21w7", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.56);
+  tl.fromTo("#r21w8", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 47.77);
+  tl.to("#r21l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 48.19);
+  tl.set("#r21l", { autoAlpha: 0 }, 48.33);
+  tl.fromTo("#r22w0", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.33);
+  tl.fromTo("#r22w1", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 48.97);
+  tl.fromTo("#r22w2", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.30);
+  tl.fromTo("#r22w3", { autoAlpha: 0, y: 14, scale: 0.82 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }, 49.57);
+  tl.to("#r22l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 49.98);
+  tl.set("#r22l", { autoAlpha: 0 }, 50.12);
+  tl.fromTo("#hook-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 0.05);
+  tl.fromTo("#hook-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 0.55);
+  tl.to("#hook-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 1.86);
+  tl.set("#hook-in", { autoAlpha: 0 }, 2.16);
+  tl.set(ghosts, { opacity: 0.55, x: 0, y: 0 }, 0.60);
+  tl.fromTo(glitch, { amp: 1 }, { amp: 0, duration: 0.5, ease: "power2.in",
+    onUpdate: () => {
+      const step = Math.floor(tl.time() / 0.05);
+      ghosts.forEach((el, layer) => {
+        gsap.set(el, { x: (glitchHash(step * 13 + layer * 7) * 2 - 1) * 12 * glitch.amp,
+                       y: (glitchHash(step * 29 + layer * 11) * 2 - 1) * 4 * glitch.amp });
+      });
+    } }, 0.60);
+  tl.set(ghosts, { opacity: 0, x: 0, y: 0 }, 1.10);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 0.18, ease: "expo.out" }, 0.70);
+  tl.to("#video-wrap", { scale: 1, duration: 1.4, ease: "power2.out" }, 0.88);
+  tl.fromTo("#q-a", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 20.66);
+  tl.fromTo("#q-b", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 21.16);
+  tl.to("#q-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 21.87);
+  tl.set("#q-in", { autoAlpha: 0 }, 22.17);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 0.18, ease: "expo.out" }, 21.21);
+  tl.to("#video-wrap", { scale: 1, duration: 1.4, ease: "power2.out" }, 21.39);
+  tl.fromTo("#close-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 50.21);
+  tl.fromTo("#close-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 51.76);
+  tl.fromTo("#close-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 53.64);
+  tl.fromTo("#video-wrap", { scale: 1 }, { scale: 1.05, duration: 2.2, ease: "sine.inOut" }, 53.59);
+  tl.fromTo("#fadeout", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: "power1.in" }, 54.75);
+  tl.fromTo("#myst-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 1.76);
+  tl.to("#myst-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 6.49);
+  tl.set("#myst-in", { autoAlpha: 0 }, 6.74);
+  tl.set("#my-q, #my-t", { autoAlpha: 0 }, 1.76);
+  tl.fromTo("#my-c", { strokeDasharray: "850", strokeDashoffset: 850 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out", stagger: 0.0 }, 1.81);
+  tl.fromTo("#my-h", { strokeDasharray: "160", strokeDashoffset: 160 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 2.36);
+  tl.fromTo("#my-q", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 4.25);
+  tl.fromTo("#my-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 5.05);
+  tl.fromTo("#plant-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 6.70);
+  tl.to("#plant-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 12.65);
+  tl.set("#plant-in", { autoAlpha: 0 }, 12.90);
+  tl.set("#pl-seed, #pl-box, #pl-q, #pl-t", { autoAlpha: 0 }, 6.70);
+  tl.fromTo("#pl-g", { strokeDasharray: "500", strokeDashoffset: 500 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 6.75);
+  tl.fromTo("#pl-seed", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 8.12);
+  tl.fromTo("#pl-s", { strokeDasharray: "300", strokeDashoffset: 300 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out", stagger: 0.0 }, 8.72);
+  tl.fromTo("#pl-l1", { strokeDasharray: "300", strokeDashoffset: 300 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.0 }, 9.22);
+  tl.fromTo("#pl-l2", { strokeDasharray: "300", strokeDashoffset: 300 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.0 }, 9.42);
+  tl.set("#pl-box", { autoAlpha: 1 }, 11.51);
+  tl.fromTo("#pl-box", { strokeDasharray: "900", strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 11.51);
+  tl.fromTo("#pl-q", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 11.91);
+  tl.fromTo("#pl-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 12.11);
+  tl.fromTo("#net-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 12.88);
+  tl.to("#net-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 19.23);
+  tl.set("#net-in", { autoAlpha: 0 }, 19.48);
+  tl.set(".nn-q, #nn-t, #nn-t2", { autoAlpha: 0 }, 12.88);
+  tl.fromTo(".nn-c0", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.06 }, 14.80);
+  tl.fromTo(".nn-c1", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.06 }, 15.20);
+  tl.fromTo(".nn-c2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.06 }, 15.60);
+  tl.fromTo(".nn-l", { strokeDasharray: "300", strokeDashoffset: 300 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.02 }, 15.00);
+  tl.fromTo("#nn-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 15.30);
+  tl.to(".nn-c1", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 18.33);
+  tl.fromTo(".nn-q", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.06 }, 18.43);
+  tl.to("#nn-t", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 18.33);
+  tl.fromTo("#nn-t2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 18.53);
+  tl.fromTo("#scA-in", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" }, 22.07);
+  tl.to("#scA-in", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, 26.83);
+  tl.set("#scA-in", { autoAlpha: 0 }, 26.98);
+  tl.set("#nm-t, .nm-d, .nm-gy, #nm-f, #nm-a, #nm-e, #nm-b", { autoAlpha: 0 }, 22.07);
+  tl.fromTo("#nm-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 22.27);
+  tl.fromTo("#nm-o", { strokeDasharray: "2100", strokeDashoffset: 2100 }, { strokeDashoffset: 0, duration: 0.63, ease: "power2.out", stagger: 0.0 }, 22.12);
+  tl.fromTo("#nm-c", { strokeDasharray: "450", strokeDashoffset: 450 }, { strokeDashoffset: 0, duration: 0.24499999999999997, ease: "power2.out", stagger: 0.0 }, 22.51);
+  tl.fromTo("#nm-s", { strokeDasharray: "220", strokeDashoffset: 220 }, { strokeDashoffset: 0, duration: 0.21, ease: "power2.out", stagger: 0.0 }, 22.64);
+  tl.fromTo("#nm-f", { strokeDasharray: "360", strokeDashoffset: 360 }, { strokeDashoffset: 0, duration: 0.27999999999999997, ease: "power2.out", stagger: 0.0 }, 22.47);
+  tl.fromTo(".nm-gy", { strokeDasharray: "120", strokeDashoffset: 120 }, { strokeDashoffset: 0, duration: 0.175, ease: "power2.out", stagger: 0.041999999999999996 }, 22.61);
+  tl.set(".nm-gy, #nm-f", { autoAlpha: 0 }, 22.12);
+  tl.fromTo(".nm-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.15, ease: "power3.out", stagger: 0.02 }, 23.37);
+  tl.fromTo("#nm-a", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 25.20);
+  tl.fromTo("#nm-e", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 25.90);
+  tl.fromTo("#nm-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 26.10);
+  tl.fromTo("#vec-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 26.83);
+  tl.to("#vec-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 29.26);
+  tl.set("#vec-in", { autoAlpha: 0 }, 29.51);
+  tl.set("#vc-t", { autoAlpha: 0 }, 26.83);
+  tl.fromTo(".vc-v", { strokeDasharray: "160", strokeDashoffset: 160 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.08 }, 26.93);
+  tl.fromTo("#vc-g", { strokeDasharray: "1100", strokeDashoffset: 1100 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", stagger: 0.0 }, 28.13);
+  tl.fromTo("#vc-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 28.43);
+  tl.fromTo("#clock-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 29.39);
+  tl.to("#clock-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 41.47);
+  tl.set("#clock-in", { autoAlpha: 0 }, 41.72);
+  tl.set(".dy-n, #dy-h, .dy-sp, #dy-t, #dy-b", { autoAlpha: 0 }, 29.39);
+  tl.fromTo("#dy-r", { strokeDasharray: "1050", strokeDashoffset: 1050 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out", stagger: 0.0 }, 31.90);
+  tl.fromTo(".dy-n", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.07 }, 32.50);
+  tl.fromTo("#dy-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 32.80);
+  tl.fromTo("#dy-h", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 35.30);
+  tl.fromTo("#dy-h", { rotation: 0, svgOrigin: "540 250" }, { rotation: 360, duration: 4.020000000000005, ease: "none" }, 35.40);
+  tl.to("#dy-n2", { attr: { transform: "rotate(132.85714285714286 540 250)" }, duration: 0.5, ease: "back.out(2)" }, 37.64);
+  tl.to("#dy-n2 circle", { fill: "#E1251B", duration: 0.3, ease: "power2.out" }, 37.64);
+  tl.fromTo(".dy-sp", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.1 }, 40.22);
+  tl.to("#dy-t", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 40.12);
+  tl.fromTo("#dy-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 40.32);
+  tl.fromTo("#why-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 41.71);
+  tl.to("#why-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 50.07);
+  tl.set("#why-in", { autoAlpha: 0 }, 50.32);
+  tl.set(".wy, #wy-t0, #wy-t1, #wy-t2, #wy-b", { autoAlpha: 0 }, 41.71);
+  tl.fromTo(".wy0", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.28, ease: "power3.out", stagger: 0.0 }, 44.17);
+  tl.fromTo("#wy-t0", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 44.27);
+  tl.fromTo(".wy1", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.28, ease: "power3.out", stagger: 0.0 }, 44.97);
+  tl.fromTo("#wy-t1", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 45.07);
+  tl.fromTo(".wy2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.28, ease: "power3.out", stagger: 0.0 }, 46.30);
+  tl.fromTo("#wy-t2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 46.40);
+  tl.fromTo("#wy-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 48.83);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
