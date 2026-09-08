@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=1080, height=1920" />
     <title>Sarier — Unfold y Cosmos</title>
     <script src="public/vendor/gsap.min.js"></script>
+    <script src="public/vendor/three.min.js"></script>
     <style>
       @font-face { font-family: "Archivo"; src: url("public/fonts/Archivo-600-latin.woff2") format("woff2"); font-weight: 500 700; font-display: block; }
       :root { --ink: #1D1D1F; --on-dark: #FFFFFF; --red: #E1251B; --tr-display: -0.035em; --tr-body: -0.01em; --tr-caps: 0.08em;
@@ -19,6 +20,7 @@
       .scin { position: absolute; inset: 0; transform-origin: 50% 50%; opacity: 0; }
       .scin svg { display: block; }
       #fadeout { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+      #gl { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; display: block; pointer-events: none; }
       .rail { position: absolute; left: 0; right: 0; top: 1300px; display: flex; justify-content: center; pointer-events: none; }
       .rail .line { max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: 700; font-size: 62px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }
       .rail .line.ink { color: var(--ink); text-shadow: none; }
@@ -57,20 +59,16 @@
       <div id="scA" class="scene clip" data-start="32.85" data-duration="4.98" data-track-index="5">
         <div id="scA-in" class="scin" style="background:#F5F5F7"><svg width="1080" height="1920" viewBox="0 0 1080 1920">
   <text id="ed-t" x="72" y="330" text-anchor="start" class="wl2" fill="#E1251B">FUE DETRÁS DE LA GENTE QUE QUERÍA</text>
-  <circle class="ed-d" id="ed-d0" cx="180" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d1" cx="324" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d2" cx="468" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d3" cx="612" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d4" cx="756" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d5" cx="900" cy="560" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d6" cx="180" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d7" cx="324" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d8" cx="468" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d9" cx="612" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d10" cx="756" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d11" cx="900" cy="690" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d12" cx="180" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d13" cx="324" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d14" cx="468" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d15" cx="612" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d16" cx="756" cy="820" r="22" fill="#1D1D1F"/><circle class="ed-d" id="ed-d17" cx="900" cy="820" r="22" fill="#1D1D1F"/>
-  <rect id="ed-m" x="180" y="1030" width="720" height="240" rx="10" stroke="#1D1D1F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path id="ed-m1" d="M230 1090 H600" stroke="#1D1D1F" stroke-width="16" stroke-linecap="round" fill="none"/>
-  <path class="ed-ml" d="M230 1150 H850 M230 1185 H850 M230 1220 H700" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="ed-x" x="180" y="960" text-anchor="start" class="num" style="font-size:90px" fill="#E1251B">EDITORIAL</text>
+  <text id="ed-x" x="180" y="1000" text-anchor="start" class="num" style="font-size:90px" fill="#E1251B">EDITORIAL</text>
         </svg></div>
       </div>
       <div id="scB" class="scene clip" data-start="66.21" data-duration="4.57" data-track-index="5">
         <div id="scB-in" class="scin" style="background:#161618"><svg width="1080" height="1920" viewBox="0 0 1080 1920">
   <text id="cr-t" x="72" y="330" text-anchor="start" class="wl2" fill="#E1251B">LA APUNTA AL CRITERIO</text>
-  <rect class="cr-r" id="cr-r0" x="150" y="520" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r1" x="430" y="520" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r2" x="710" y="520" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r3" x="150" y="750" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r4" x="430" y="750" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r5" x="710" y="750" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r6" x="150" y="980" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r7" x="430" y="980" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cr-r" id="cr-r8" x="710" y="980" width="220" height="180" rx="14" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text id="cr-n0" x="260" y="640" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">9</text><text id="cr-n1" x="540" y="640" text-anchor="middle" class="num" style="font-size:90px" fill="#E1251B">4</text><text id="cr-n2" x="820" y="640" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">8</text><text id="cr-n3" x="260" y="870" text-anchor="middle" class="num" style="font-size:90px" fill="#E1251B">3</text><text id="cr-n4" x="540" y="870" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">7</text><text id="cr-n5" x="820" y="870" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">9</text><text id="cr-n6" x="260" y="1100" text-anchor="middle" class="num" style="font-size:90px" fill="#E1251B">2</text><text id="cr-n7" x="540" y="1100" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">6</text><text id="cr-n8" x="820" y="1100" text-anchor="middle" class="num" style="font-size:90px" fill="#FFFFFF">8</text><path id="cr-x1a" d="M480 550 L600 670" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x1b" d="M600 550 L480 670" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x3a" d="M200 780 L320 900" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x3b" d="M320 780 L200 900" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x6a" d="M200 1010 L320 1130" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/><path id="cr-x6b" d="M320 1010 L200 1130" stroke="#E1251B" stroke-width="12" stroke-linecap="round" fill="none"/>
   <text id="cr-b" x="72" y="1290" text-anchor="start" class="wl2" fill="#FFFFFF">CALIFICA · QUITA LO QUE PUNTÚA BAJO</text>
         </svg></div>
       </div>
+      <canvas id="gl" width="1080" height="1920"></canvas>
 
       <div id="r03" class="rail clip" data-start="5.80" data-duration="1.10" data-track-index="2"><div class="line" id="r03l"><span class="w" id="r03w0">La</span> <span class="w" id="r03w1">primera</span> <span class="w" id="r03w2">fue</span> <span class="w hot" id="r03w3">Unfold,</span></div></div>
       <div id="r04" class="rail clip" data-start="6.90" data-duration="3.51" data-track-index="2"><div class="line" id="r04l"><span class="w" id="r04w0">&quot;un</span> <span class="w" id="r04w1">kit</span> <span class="w" id="r04w2">de</span> <span class="w" id="r04w3">herramientas</span> <span class="w" id="r04w4">para</span> <span class="w" id="r04w5">contadores</span> <span class="w" id="r04w6">de</span> <span class="w hot" id="r04w7">historias&quot;,</span> <span class="w" id="r04w8">como</span> <span class="w" id="r04w9">lo</span> <span class="w" id="r04w10">llamaban</span> <span class="w" id="r04w11">ellos.</span></div></div>
@@ -103,24 +101,14 @@
       <div id="r32" class="rail clip" data-start="77.99" data-duration="2.81" data-track-index="2"><div class="line" id="r32l"><span class="w" id="r32w0">y</span> <span class="w" id="r32w1">lo</span> <span class="w" id="r32w2">usan</span> <span class="w" id="r32w3">equipos</span> <span class="w" id="r32w4">en</span> <span class="w" id="r32w5">Apple,</span> <span class="w" id="r32w6">Nike</span> <span class="w" id="r32w7">y</span> <span class="w hot" id="r32w8">Chanel.</span></div></div>
 
       <div id="unfold" class="mg clip" data-start="5.80" data-duration="7.02" data-track-index="3">
-        <div id="unfold-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><g transform="translate(540 250) scale(1.25) translate(-540 -235)">
-  <rect id="uf-ph" x="440" y="30" width="200" height="380" rx="28" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <rect class="uf-f" x="470" y="70" width="140" height="90" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <rect class="uf-f" x="470" y="175" width="140" height="90" rx="8" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <rect class="uf-f" x="470" y="280" width="140" height="90" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path class="uf-l" d="M490 110 H590 M490 130 H560" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path class="uf-l" d="M490 215 H590 M490 235 H560" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path class="uf-l" d="M490 320 H590 M490 340 H560" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  </g><text id="uf-t" x="540" y="500" text-anchor="middle" class="wl" fill="#1D1D1F">UNFOLD · PLANTILLAS PARA STORIES</text>
+        <div id="unfold-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><text id="uf-t" x="540" y="500" text-anchor="middle" class="wl" fill="#1D1D1F">UNFOLD · PLANTILLAS PARA STORIES</text>
         </svg></div>
       </div>
       <div id="obj" class="mg clip" data-start="12.62" data-duration="14.98" data-track-index="3">
-        <div id="obj-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><rect id="ob-a" x="60" y="90" width="380" height="220" rx="22" stroke="#1D1D1F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text id="ob-at" x="250.0" y="212" text-anchor="middle" class="wl2" fill="#1D1D1F">INSTAGRAM</text><rect id="ob-b" x="640" y="90" width="380" height="220" rx="22" stroke="#1D1D1F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text id="ob-bt" x="830.0" y="212" text-anchor="middle" class="wl2" fill="#1D1D1F">CANVA</text>
-  <text id="ob-fa" x="250" y="50" text-anchor="middle" class="wl2" fill="#E1251B">GRATIS</text><text id="ob-fb" x="830" y="50" text-anchor="middle" class="wl2" fill="#E1251B">GRATIS</text>
-  <rect id="ob-c" x="470" y="140" width="140" height="120" rx="14" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="ob-cs" x="540" y="215" text-anchor="middle" class="big" fill="#E1251B" style="font-size:64px">$</text>
-  <text id="ob-ct" x="540" y="310" text-anchor="middle" class="wl" fill="#1D1D1F">UNFOLD</text>
-  <text id="ob-q" x="540" y="420" text-anchor="middle" class="wl2" fill="#E1251B">¿POR QUÉ PAGAR?</text>
+        <div id="obj-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
+  <text id="ob-fa" x="250" y="440" text-anchor="middle" class="wl2" fill="#E1251B">GRATIS</text><text id="ob-fb" x="830" y="440" text-anchor="middle" class="wl2" fill="#E1251B">GRATIS</text>
+  <text id="ob-cs" x="540" y="120" text-anchor="middle" class="big" fill="#E1251B" style="font-size:72px">$</text>
+  <text id="ob-q" x="540" y="470" text-anchor="middle" class="wl2" fill="#E1251B">¿POR QUÉ PAGAR?</text>
         </svg></div>
       </div>
       <div id="crowd" class="mg clip" data-start="30.62" data-duration="2.21" data-track-index="3">
@@ -131,32 +119,20 @@
         <div id="stats-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
   <text id="st-12" x="72" y="250" text-anchor="start" class="num" style="font-size:200px" fill="#1D1D1F">12M</text>
   <text id="st-u" x="72" y="330" text-anchor="start" class="wl" fill="#1D1D1F">USUARIOS · 8 MESES · BOOTSTRAPPED</text>
-  <text id="st-50" x="1008" y="250" text-anchor="end" class="num" style="font-size:200px" fill="#E1251B">$50M</text>
+  <text id="st-50" x="1008" y="250" text-anchor="end" class="num" style="font-size:180px" fill="#E1251B">$50M</text>
   <text id="st-s" x="1008" y="330" text-anchor="end" class="wl" fill="#E1251B">SQUARESPACE · 2019</text>
         </svg></div>
       </div>
       <div id="beach" class="mg clip" data-start="45.12" data-duration="4.36" data-track-index="3">
-        <div id="beach-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
-  <path id="bc-u" d="M400 250 A140 140 0 0 1 680 250 Z" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path id="bc-p" d="M540 250 V400 M540 110 V250" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path id="bc-w" d="M300 430 Q360 400 420 430 T540 430 T660 430 T780 430" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <g id="bc-r"><path d="M880 140 A60 60 0 1 1 940 200" stroke="#E1251B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M915 180 L940 200 L960 175" stroke="#E1251B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-  <text id="bc-t" x="540" y="500" text-anchor="middle" class="wl" fill="#E1251B">LO VUELVE A HACER</text>
+        <div id="beach-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><text id="bc-t" x="540" y="500" text-anchor="middle" class="wl" fill="#E1251B">LO VUELVE A HACER</text>
         </svg></div>
       </div>
       <div id="cosmos" class="mg clip" data-start="49.28" data-duration="12.44" data-track-index="3">
-        <div id="cosmos-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><rect class="cs-t" id="cs-t0" x="150" y="60" width="180" height="130" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t1" x="350" y="60" width="140" height="200" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t2" x="510" y="60" width="200" height="110" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t3" x="730" y="60" width="200" height="160" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t4" x="150" y="210" width="180" height="150" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t5" x="510" y="190" width="200" height="170" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t6" x="730" y="240" width="200" height="120" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect class="cs-t" id="cs-t7" x="350" y="280" width="140" height="90" rx="8" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <rect id="cs-p" x="110" y="20" width="860" height="360" rx="14" stroke="#1D1D1F" stroke-width="4" stroke-dasharray="14 12" fill="none"/>
-  <text id="cs-pt" x="930" y="435" text-anchor="end" class="wl" fill="#1D1D1F">PINTEREST</text>
-  <text id="cs-t" x="150" y="470" text-anchor="start" class="wl" fill="#E1251B">COSMOS · REFERENCIAS VISUALES</text>
+        <div id="cosmos-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><text id="cs-t" x="72" y="480" text-anchor="start" class="wl" fill="#E1251B">COSMOS · REFERENCIAS VISUALES</text><text id="cs-pt" x="1008" y="480" text-anchor="end" class="wl" fill="#1D1D1F">PINTEREST</text><text id="cs-w" x="1008" y="480" text-anchor="end" class="wl" fill="#E1251B">EL MURO</text>
         </svg></div>
       </div>
       <div id="chip" class="mg clip" data-start="61.52" data-duration="4.89" data-track-index="3">
-        <div id="chip-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
-  <rect id="ia-c" x="420" y="130" width="240" height="240" rx="20" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <rect id="ia-i" x="480" y="190" width="120" height="120" rx="10" stroke="#E1251B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path class="ia-p" d="M460 130 V100 M460 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ia-p" d="M500 130 V100 M500 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ia-p" d="M540 130 V100 M540 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ia-p" d="M580 130 V100 M580 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="ia-p" d="M620 130 V100 M620 370 V400" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="ia-t" x="540" y="470" text-anchor="middle" class="wl" fill="#1D1D1F">IA · IGUAL QUE TODO EL MUNDO</text>
+        <div id="chip-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><text id="ia-t" x="540" y="480" text-anchor="middle" class="wl" fill="#1D1D1F">IA · IGUAL QUE TODO EL MUNDO</text>
         </svg></div>
       </div>
       <div id="std" class="mg clip" data-start="70.63" data-duration="3.69" data-track-index="3">
@@ -166,16 +142,13 @@
   <path id="sd-s" d="M250 350 H830" stroke="#E1251B" stroke-width="14" stroke-linecap="round" fill="none"/>
         </svg></div>
       </div>
-      <div id="money" class="mg clip" data-start="74.28" data-duration="6.72" data-track-index="3">
-        <div id="money-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">
-  <text id="mo-n" x="540" y="250" text-anchor="middle" class="num" style="font-size:220px" fill="#E1251B">$21M</text>
-  <text id="mo-t" x="540" y="330" text-anchor="middle" class="wl" fill="#1D1D1F">LEVANTADOS</text>
-  <text id="mo-a" x="300" y="460" text-anchor="middle" class="wl2" fill="#1D1D1F">APPLE</text><text id="mo-b" x="540" y="460" text-anchor="middle" class="wl2" fill="#1D1D1F">NIKE</text><text id="mo-c" x="790" y="460" text-anchor="middle" class="wl2" fill="#1D1D1F">CHANEL</text>
+      <div id="money" class="mg clip" data-start="74.28" data-duration="6.37" data-track-index="3">
+        <div id="money-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520"><text id="mo-n" x="540" y="200" text-anchor="middle" class="num" style="font-size:200px" fill="#E1251B">$21M</text><text id="mo-t" x="540" y="270" text-anchor="middle" class="wl" fill="#1D1D1F">LEVANTADOS</text>
         </svg></div>
       </div>
 
       <div id="hook" class="card clip" data-start="0.00" data-duration="5.90" data-track-index="3">
-        <div class="stmt" id="hook-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="hook-a" data-layout-allow-overlap style="font-size:56px;">Se enfrentó a</span></div><div class="rot" data-layout-allow-overlap style="left:40px;top:298px;"><span class="piece white" id="hook-b" data-layout-allow-overlap style="font-size:80px;">Instagram, Canva</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:364px;"><span class="piece white" id="hook-c" data-layout-allow-overlap style="font-size:100px;">y Pinterest.</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:458px;"><span class="piece white" id="hook-d" data-layout-allow-overlap style="font-size:52px;">Y ganó todas las veces.</span></div></div>
+        <div class="stmt" id="hook-in"><div class="rot" data-layout-allow-overlap style="left:72px;top:252px;"><span class="piece white" id="hook-a" data-layout-allow-overlap style="font-size:56px;">Se enfrentó a</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:470px;"><span class="piece white" id="hook-d" data-layout-allow-overlap style="font-size:52px;">Y ganó todas las veces.</span></div></div>
       </div>
       <div id="free" class="card clip" data-start="27.35" data-duration="3.37" data-track-index="3">
         <div class="stmt" id="free-in"><div class="rot" data-layout-allow-overlap style="left:40px;top:252px;"><span class="gstack" id="free-stack" style="font-size:100px;"><span class="ghost warm" aria-hidden="true">Gratis y bueno</span><span class="ghost cool" aria-hidden="true">Gratis y bueno</span><span class="piece white" id="free-a" data-layout-allow-overlap>Gratis y bueno</span></span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:340px;"><span class="piece white" id="free-b" data-layout-allow-overlap style="font-size:70px;">son productos</span></div><div class="rot" data-layout-allow-overlap style="right:60px;top:398px;"><span class="piece white" id="free-c" data-layout-allow-overlap style="font-size:110px;">distintos.</span></div></div>
@@ -185,6 +158,207 @@
       </div>
       <div id="fadeout" class="clip" data-start="83.70" data-duration="0.60" data-track-index="6"></div>
     </div>
+    <script>
+      const GL = { beats: [] };
+      const glCanvas = document.getElementById("gl");
+      const renderer = new THREE.WebGLRenderer({ canvas: glCanvas, alpha: true, antialias: true, preserveDrawingBuffer: true });
+      renderer.setSize(1080, 1920, false); renderer.setPixelRatio(1); renderer.outputEncoding = THREE.sRGBEncoding;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(30, 1080 / 1920, 0.1, 100); camera.position.set(0, 0, 20);
+      const PX = 1920 / (2 * 20 * Math.tan(Math.PI * 15 / 180));      // world units → px
+      const U = (px) => px / PX;                                       // px → world units
+      const X = (px) => U(px - 540), Y = (px) => -U(px - 960);         // frame px → world coords
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x9a9a9a, 0.55));
+      const KEY = new THREE.DirectionalLight(0xffffff, 1.35); KEY.position.set(4, 6, 8); scene.add(KEY);
+      const FILL = new THREE.DirectionalLight(0xffffff, 0.35); FILL.position.set(-6, -2, 6); scene.add(FILL);
+      const M = {
+        ink: new THREE.MeshStandardMaterial({ color: 0x050506, roughness: 0.62, metalness: 0.0 }),
+        red: new THREE.MeshStandardMaterial({ color: 0xE1251B, roughness: 0.5, metalness: 0.05 }),
+        white: new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.6, metalness: 0.0 }),
+        light: new THREE.MeshStandardMaterial({ color: 0xF5F5F7, roughness: 0.7 }),
+        grey: new THREE.MeshStandardMaterial({ color: 0xC9C9CE, roughness: 0.7 }),
+      };
+      const TEX = {}; const TEXL = new THREE.TextureLoader(); const LAZY = [];
+  TEXL.load("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMUQxRDFGIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcuMDMwMS4wODRjLTEuMjc2OC4wNjAyLTIuMTQ4Ny4yNjQtMi45MTEuNTYzNC0uNzg4OC4zMDc1LTEuNDU3NS43Mi0yLjEyMjggMS4zODc3LS42NjUyLjY2NzctMS4wNzUgMS4zMzY4LTEuMzgwMiAyLjEyNy0uMjk1NC43NjM4LS40OTU2IDEuNjM2NS0uNTUyIDIuOTE0LS4wNTY0IDEuMjc3NS0uMDY4OSAxLjY4ODItLjA2MjYgNC45NDcuMDA2MiAzLjI1ODYuMDIwNiAzLjY2NzEuMDgyNSA0Ljk0NzMuMDYxIDEuMjc2NS4yNjQgMi4xNDgyLjU2MzUgMi45MTA3LjMwOC43ODg5LjcyIDEuNDU3MyAxLjM4OCAyLjEyMjguNjY3OS42NjU1IDEuMzM2NSAxLjA3NDMgMi4xMjg1IDEuMzguNzYzMi4yOTUgMS42MzYxLjQ5NjEgMi45MTM0LjU1MiAxLjI3NzMuMDU2IDEuNjg4NC4wNjkgNC45NDYyLjA2MjcgMy4yNTc4LS4wMDYyIDMuNjY4LS4wMjA3IDQuOTQ3OC0uMDgxNCAxLjI4LS4wNjA3IDIuMTQ3LS4yNjUyIDIuOTA5OC0uNTYzMy43ODg5LS4zMDg2IDEuNDU3OC0uNzIgMi4xMjI4LTEuMzg4MS42NjUtLjY2ODIgMS4wNzQ1LTEuMzM3OCAxLjM3OTUtMi4xMjg0LjI5NTctLjc2MzIuNDk2Ni0xLjYzNi41NTItMi45MTI0LjA1Ni0xLjI4MDkuMDY5Mi0xLjY4OTguMDYzLTQuOTQ4LS4wMDYzLTMuMjU4My0uMDIxLTMuNjY2OC0uMDgxNy00Ljk0NjUtLjA2MDctMS4yNzk3LS4yNjQtMi4xNDg3LS41NjMzLTIuOTExNy0uMzA4NC0uNzg4OS0uNzItMS40NTY4LTEuMzg3Ni0yLjEyMjhDMjEuMjk4MiAxLjMzIDIwLjYyOC45MjA4IDE5LjgzNzguNjE2NSAxOS4wNzQuMzIxIDE4LjIwMTcuMTE5NyAxNi45MjQ0LjA2NDUgMTUuNjQ3MS4wMDkzIDE1LjIzNi0uMDA1IDExLjk3Ny4wMDE0IDguNzE4LjAwNzYgOC4zMS4wMjE1IDcuMDMwMS4wODM5bS4xNDAyIDIxLjY5MzJjLTEuMTctLjA1MDktMS44MDUzLS4yNDUzLTIuMjI4Ny0uNDA4LS41NjA2LS4yMTYtLjk2LS40NzcxLTEuMzgxOS0uODk1LS40MjItLjQxNzgtLjY4MTEtLjgxODYtLjktMS4zNzgtLjE2NDQtLjQyMzQtLjM2MjQtMS4wNTgtLjQxNzEtMi4yMjgtLjA1OTUtMS4yNjQ1LS4wNzItMS42NDQyLS4wNzktNC44NDgtLjAwNy0zLjIwMzcuMDA1My0zLjU4My4wNjA3LTQuODQ4LjA1LTEuMTY5LjI0NTYtMS44MDUuNDA4LTIuMjI4Mi4yMTYtLjU2MTMuNDc2Mi0uOTYuODk1LTEuMzgxNi40MTg4LS40MjE3LjgxODQtLjY4MTQgMS4zNzgzLS45MDAzLjQyMy0uMTY1MSAxLjA1NzUtLjM2MTQgMi4yMjctLjQxNzEgMS4yNjU1LS4wNiAxLjY0NDctLjA3MiA0Ljg0OC0uMDc5IDMuMjAzMy0uMDA3IDMuNTgzNS4wMDUgNC44NDk1LjA2MDggMS4xNjkuMDUwOCAxLjgwNTMuMjQ0NSAyLjIyOC40MDguNTYwOC4yMTYuOTYuNDc1NCAxLjM4MTYuODk1LjQyMTcuNDE5NC42ODE2LjgxNzYuOTAwNSAxLjM3ODcuMTY1My40MjE3LjM2MTcgMS4wNTYuNDE2OSAyLjIyNjMuMDYwMiAxLjI2NTUuMDczOSAxLjY0NS4wNzk2IDQuODQ4LjAwNTggMy4yMDMtLjAwNTUgMy41ODM0LS4wNjEgNC44NDgtLjA1MSAxLjE3LS4yNDUgMS44MDU1LS40MDggMi4yMjk0LS4yMTYuNTYwNC0uNDc2My45Ni0uODk1NCAxLjM4MTQtLjQxOS40MjE1LS44MTgxLjY4MTEtMS4zNzgzLjktLjQyMjQuMTY0OS0xLjA1NzcuMzYxNy0yLjIyNjIuNDE3NC0xLjI2NTYuMDU5NS0xLjY0NDguMDcyLTQuODQ5My4wNzktMy4yMDQ1LjAwNy0zLjU4MjUtLjAwNi00Ljg0OC0uMDYwOE0xNi45NTMgNS41ODY0QTEuNDQgMS40NCAwIDEgMCAxOC4zOSA0LjE0NGExLjQ0IDEuNDQgMCAwIDAtMS40MzcgMS40NDI0TTUuODM4NSAxMi4wMTJjLjAwNjcgMy40MDMyIDIuNzcwNiA2LjE1NTcgNi4xNzMgNi4xNDkzIDMuNDAyNi0uMDA2NSA2LjE1Ny0yLjc3MDEgNi4xNTA2LTYuMTczMy0uMDA2NS0zLjQwMzItMi43NzEtNi4xNTY1LTYuMTc0LTYuMTQ5OC0zLjQwMy4wMDY3LTYuMTU2IDIuNzcxLTYuMTQ5NiA2LjE3MzhNOCAxMi4wMDc3YTQgNCAwIDEgMSA0LjAwOCAzLjk5MjFBMy45OTk2IDMuOTk5NiAwIDAgMSA4IDEyLjAwNzciLz48L3N2Zz4=", (t) => { t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["instagram"] = t; });
+  TEXL.load("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMUQxRDFGIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDBDNS4zNzMgMCAwIDUuMzczIDAgMTJzNS4zNzMgMTIgMTIgMTIgMTItNS4zNzMgMTItMTJTMTguNjI3IDAgMTIgMHpNNi45NjIgNy42OGMuNzU0IDAgMS4zMzcuNTQ5IDEuNDA1IDEuMi4wNjkuNTgzLS4xNzEgMS4wOTctLjgyMiAxLjQwNi0uMzQzLjE3MS0uNDguMTcyLS41NDkuMDY5LS4wMzQtLjA2OSAwLS4xMzcuMDY5LS4yMDYuNjE3LS41MTQuNjE3LS45MjYuNTQ4LTEuNTA4LS4wMzQtLjM3OC0uMzA4LS42MTgtLjU4My0uNjE4LTEuMiAwLTIuOTE0IDIuNjc0LTIuNjc0IDQuNjI5LjEwMy43NTQuNTQ5IDEuNjQ2IDEuNTA5IDEuNjQ2LjMwOCAwIC42NS0uMTAzLjk2LS4yNC41LS4yNjQuNzk5LS40NyAxLjA5Ny0uOC0uMDczLS44ODUuNzA0LTIuMDQ2IDEuODUxLTIuMDQ2LjUxNSAwIC45MjYuMjA1Ljk2LjU4My4wNjguNTE0LS4zNzcuNTgyLS41MTQuNTgycy0uMzc4LS4wMzQtLjM3OC0uMTdjLS4wMzQtLjEzOC4zMDktLjA3LjI3NS0uMzc4LS4wMzUtLjIwNi0uMjQtLjI3NC0uNDQ2LS4yNzQtLjcyIDAtMS4xMzEuOTk0LTEuMDI5IDEuNjExLjAzNS4yNzUuMTcyLjU0OS40NDcuNTQ5LjIwNSAwIC41MTQtLjMxLjYxNy0uNzU1LjA2OC0uMzA4LjM0My0uNTE0LjU4My0uNTE0LjEwMiAwIC4xNy4wMzQuMjA1LjE3MXYuMTM4Yy0uMDM0LjEzNy0uMTM3LjU0OC0uMTAyLjY1MSAwIC4wNjkuMDM0LjE3MS4xNy4xNzEuMDkyIDAgLjQzNi0uMTguNzc3LS40NTkuMTE3LS41OS4yNTMtMS4yOTguMjUzLTEuMzU3LjAzNC0uMjQuMTM3LS40OC42MTctLjQ4LjEwMyAwIC4xNzEuMDM0LjIwNS4xNzF2LjEzOGwtLjEzNi42MTdjLjQ0NS0uNTgzIDEuMDk3LS45OTQgMS41MDgtLjk5NC4xNzIgMCAuMzA5LjEwMi4zMDkuMjc0IDAgLjEwMyAwIC4yNzQtLjA2OS40NDYtLjEzNy4zNzctLjMwOS45Ni0uNDEyIDEuNDc0IDAgLjEzNy4wMzUuMjc0LjIwNy4yNzQuMTcxIDAgLjY4NS0uMjA2IDEuMDk2LS43NTRsLjAwNy0uMDA0Yy0uMDAyLS4wNjgtLjAwNy0uMTM0LS4wMDctLjIwMiAwLS40MTEuMDM1LS43NTQuMTA0LS45OTQuMDY4LS4yNzQuNDExLS41MTQuNjE3LS41MTQuMTAzIDAgLjIwNS4wNjkuMjA1LjE3MSAwIC4wMzUgMCAuMTAzLS4wMzQuMTM3LS4xMzcuNDQ2LS4yNC44NTctLjI0IDEuMjY5IDAgLjI0LjAzNC41ODIuMTAyLjc4OCAwIC4wMzQuMDM1LjA2OS4wNy4wNjkuMDY4IDAgLjU0OC0uNDQ1Ljg5LTEuMDI4LS4zMDgtLjIwNi0uNDgtLjU0OS0uNDgtLjk2IDAtLjcyLjQ0Ni0xLjA5Ny44NTgtMS4wOTcuMzQzIDAgLjYxNy4yNC42MTcuNzIgMCAuMzA4LS4xMDMuNjUtLjI3NC45NmguMTAyYS43Ny43NyAwIDAgMCAuNTg0LS4yNC4yOTMuMjkzIDAgMCAxIC4xMzQtLjExN2MuMzM1LS40MjUuODMtLjc0IDEuNDEtLjc0LjQ4IDAgLjkyNC4yMDUuOTU5LjU4Mi4wNjguNTE1LS4zNzguNjE4LS41MTUuNjE4bC0uMDAyLS4wMDJjLS4xMzggMC0uMzc3LS4wMzUtLjM3Ny0uMTcyIDAtLjEzNy4zMDktLjA2OC4yNzQtLjM3Ni0uMDM0LS4yMDYtLjI0LS4yNzUtLjQ0Ni0uMjc1LS42ODYgMC0xLjEzLjg5MS0xLjAyOCAxLjYxMS4wMzQuMjc1LjE3MS41ODMuNDQ1LjU4My4yMDYgMCAuNTE1LS4zMDguNjUyLS43NTQuMDY4LS4yNzQuMzQzLS41MTQuNTgzLS41MTQuMTAzIDAgLjE3LjAzNC4yMDUuMTcxIDAgLjA2OSAwIC4yMDYtLjEzNy42NTItLjE3LjMwOC0uMTcxLjQ4LS4xMzcuNjE3LjAzNC4yNzQuMTcxLjQ4LjMwOS41ODMuMDM0LjAzNC4wNjguMTAyLjA2OC4xMDIgMCAuMDY5LS4wMzQuMTM4LS4xMzcuMTM4LS4wMzQgMC0uMDY4IDAtLjEwMy0uMDM1LS41MTQtLjIwNS0uNzItLjU0OC0uNzg5LS44OTEtLjIwNS4yNC0uNDQ1LjM3Ny0uNzIuMzc3LS40NDUgMC0uODktLjQxMS0uOTYtLjkyNmExLjYwOSAxLjYwOSAwIDAgMSAuMDc1LS42NDljLS4yMDMuMTMtLjQyMi4yMDMtLjYyMy4yMDNoLS4xN2MtLjQ0Ny42NTItLjkyNyAxLjA5OC0xLjI3IDEuMzAzYS44OTYuODk2IDAgMCAxLS4zNzcuMTA0Yy0uMDY4IDAtLjE3MS0uMDM1LS4yMDUtLjEwNC0uMDk1LS4xNTItLjE1Ni0uMzkyLS4xOTMtLjY2Ny0uNDgxLjUyNy0xLjE0NS44MDUtMS40NTMuODA1LS4zNDMgMC0uNTQ4LS4yMDYtLjU4Mi0uNTV2LS4zNzZjLjEwMi0uNzU0LjM3Ny0xLjIuMzc3LTEuMzM3YS4wNzQuMDc0IDAgMCAwLS4wNjktLjA3Yy0uMjQgMC0xLjAyOC44MjQtMS4xNjYgMS4zNzNsLS4xMDMuNDQ1Yy0uMDY4LjMwOS0uMzc3LjUxNS0uNTgyLjUxNS0uMTAzIDAtLjE3Mi0uMDM1LS4yMDYtLjE3MnYtLjEzN2wuMDQ2LS4yMzNjLS40MzUuMzEtLjg3LjUwOC0xLjA3NS41MDgtLjMwOCAwLS40OC0uMTcyLS41MTQtLjQxMi0uMjA2LjI3NC0uNDQ1LjQxMi0uNzU0LjQxMi0uMzUyIDAtLjY5Ni0uMjQtLjg2Mi0uNTkzLS4yNDQuMjc1LS41MjMuNTUzLS44NTIuNzY0LS40OC4zMDktMS4wMjguNTQ5LTEuNjguNTQ5LS41ODIgMC0xLjA5Ny0uMzA5LTEuMzcxLS41ODMtLjQxMi0uMzc3LS42NTEtLjk2LS42ODYtMS41MDktLjIwNS0xLjY4LjgyMy0zLjg0IDIuNC00LjguMzc4LS4yMDUuNzU1LS4zNDMgMS4xMzItLjM0M3ptOS43NyAzLjI5MWMtLjEwNCAwLS4xNzIuMTcyLS4xNzIuMzQzIDAgLjI3NC4xMzcuNTgzLjMwOS43NTVhMS43NCAxLjc0IDAgMCAwIC4xMDItLjU4M2MwLS4zNDMtLjEzNy0uNTE1LS4yNC0uNTE1eiIvPjwvc3ZnPg==", (t) => { t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["canva"] = t; });
+  TEXL.load("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMUQxRDFGIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyLjAxNyAwQzUuMzk2IDAgLjAyOSA1LjM2Ny4wMjkgMTEuOTg3YzAgNS4wNzkgMy4xNTggOS40MTcgNy42MTggMTEuMTYyLS4xMDUtLjk0OS0uMTk5LTIuNDAzLjA0MS0zLjQzOS4yMTktLjkzNyAxLjQwNi01Ljk1NyAxLjQwNi01Ljk1N3MtLjM1OS0uNzItLjM1OS0xLjc4MWMwLTEuNjYzLjk2Ny0yLjkxMSAyLjE2OC0yLjkxMSAxLjAyNCAwIDEuNTE4Ljc2OSAxLjUxOCAxLjY4OCAwIDEuMDI5LS42NTMgMi41NjctLjk5MiAzLjk5Mi0uMjg1IDEuMTkzLjYgMi4xNjUgMS43NzUgMi4xNjUgMi4xMjggMCAzLjc2OC0yLjI0NSAzLjc2OC01LjQ4NyAwLTIuODYxLTIuMDYzLTQuODY5LTUuMDA4LTQuODY5LTMuNDEgMC01LjQwOSAyLjU2Mi01LjQwOSA1LjE5OSAwIDEuMDMzLjM5NCAyLjE0My44ODkgMi43NDEuMDk5LjEyLjExMi4yMjUuMDg1LjM0NS0uMDkuMzc1LS4yOTMgMS4xOTktLjMzNCAxLjM2My0uMDUzLjIyNS0uMTcyLjI3MS0uNDAxLjE2NS0xLjQ5NS0uNjktMi40MzMtMi44NzgtMi40MzMtNC42NDYgMC0zLjc3NiAyLjc0OC03LjI1MiA3LjkyLTcuMjUyIDQuMTU4IDAgNy4zOTIgMi45NjcgNy4zOTIgNi45MjMgMCA0LjEzNS0yLjYwNyA3LjQ2Mi02LjIzMyA3LjQ2Mi0xLjIxNCAwLTIuMzU0LS42MjktMi43NTgtMS4zNzlsLS43NDkgMi44NDhjLS4yNjkgMS4wNDUtMS4wMDQgMi4zNTItMS40OTggMy4xNDYgMS4xMjMuMzQ1IDIuMzA2LjUzNSAzLjU1LjUzNSA2LjYwNyAwIDExLjk4NS01LjM2NSAxMS45ODUtMTEuOTg3QzIzLjk3IDUuMzkgMTguNTkyLjAyNiAxMS45ODUuMDI2TDEyLjAxNyAweiIvPjwvc3ZnPg==", (t) => { t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["pinterest"] = t; });
+  TEXL.load("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjQwIDI0MCI+PHJlY3QgeD0iMjAiIHk9IjIwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcng9IjQ0IiBmaWxsPSIjMUQxRDFGIi8+PHBhdGggZD0iTTc4IDcwIFYxMzggQTQyIDQyIDAgMCAwIDE2MiAxMzggVjcwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMjIiIHN0cm9rZS1saW5lY2FwPSJidXR0Ii8+PHBhdGggZD0iTTc4IDcwIEwxMDggOTIgVjEzOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjIyIi8+PC9zdmc+", (t) => { t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["unfold"] = t; });
+  TEXL.load("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMUQxRDFGIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIyLjY1NSA4LjcxOWMtMS44MDItMS44MDEtNC43MjYtMS44MDEtNi41NjQgMGwtNy4zNTEgNy4zNWMtLjQ1LjQ1LS40NSAxLjIgMCAxLjY1LjQ1LjQ0OSAxLjIuNDQ5IDEuNjUgMGw3LjM1MS03LjM1MWMuODk5LS44OTkgMi4zNjItLjg5OSAzLjI2NCAwIC45LjkuOSAyLjM2NCAwIDMuMjY0bC03LjIzOSA3LjIzOWMuOS44OTkgMi4zNjIuODk5IDMuMjYzIDBsNS41ODktNS41ODljMS44MzYtMS44MzggMS44MzYtNC43NjMuMDM3LTYuNTYzem0tMi40NzUgMi40MzdjLS40NTEtLjQ1LTEuMjAxLS40NS0xLjY1IDBsLTcuMzU0IDcuMzg5Yy0uOS44OTktMi4zNjEuODk5LTMuMjYyIDAtLjQ1LS40NS0xLjItLjQ1LTEuNjUgMHMtLjQ1IDEuMiAwIDEuNjQ5YzEuODAxIDEuODAxIDQuNzI2IDEuODAxIDYuNTY0IDBsNy4zNTEtNy4zNWMuNDQ5LS40ODcuNDQ5LTEuMjM5LjAwMS0xLjY4OHptLTIuNDM5LTcuMzVjLTEuODAxLTEuODAxLTQuNzI2LTEuODAxLTYuNTY0IDBsLTcuMzUxIDcuMzUxYy0uNDUuNDQ5LS40NSAxLjE5OSAwIDEuNjQ5czEuMi40NSAxLjY1IDBsNy4zOTUtNy4zNTFjLjktLjg5OSAyLjM3MS0uODk5IDMuMjcgMCAuNDUxLjQ1IDEuMjAxLjQ1IDEuNjUgMCAuNDIxLS40ODcuNDIxLTEuMTk5LS4wMjktMS42NDloLS4wMjF6bS0yLjQ3NSAyLjQzN2MtLjQ1LS40NS0xLjItLjQ1LTEuNjUgMGwtNy4zNTEgNy4zODljLS44OTkuOS0yLjM2My45LTMuMjY1IDAtLjktLjg5OS0uOS0yLjM2MyAwLTMuMjY0bDcuMjM5LTcuMjM5Yy0uOS0uOS0yLjM2Mi0uOS0zLjI2MyAwTDEuMzUgOC43MTljLTEuOCAxLjgtMS44IDQuNzI1IDAgNi41NjMgMS44MDEgMS44MDEgNC43MjUgMS44MDEgNi41NjQgMGw3LjM1LTcuMzUxYy40NTEtLjQ4OC40NTEtMS4yMzggMC0xLjY4OGguMDAyeiIvPjwvc3ZnPg==", (t) => { t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["squarespace"] = t; });
+  TEXL.load("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMUQxRDFGIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyLjE1MiA2Ljg5NmMtLjk0OCAwLTIuNDE1LTEuMDc4LTMuOTYtMS4wNC0yLjA0LjAyNy0zLjkxIDEuMTgzLTQuOTYxIDMuMDE0LTIuMTE3IDMuNjc1LS41NDYgOS4xMDMgMS41MTkgMTIuMDkgMS4wMTMgMS40NTQgMi4yMDggMy4wOSAzLjc5MiAzLjAzOSAxLjUyLS4wNjUgMi4wOS0uOTg3IDMuOTM1LS45ODcgMS44MzEgMCAyLjM1Ljk4NyAzLjk2Ljk0OCAxLjYzNy0uMDI2IDIuNjc2LTEuNDggMy42NzYtMi45NDggMS4xNTYtMS42ODggMS42MzYtMy4zMjUgMS42NjItMy40MTUtLjAzOS0uMDEzLTMuMTgyLTEuMjIxLTMuMjItNC44NTctLjAyNi0zLjA0IDIuNDgtNC40OTQgMi41OTctNC41NTktMS40MjktMi4wOS0zLjYyMy0yLjMyNC00LjM5LTIuMzc2LTItLjE1Ni0zLjY3NSAxLjA5LTQuNjEgMS4wOXpNMTUuNTMgMy44M2MuODQzLTEuMDEyIDEuNC0yLjQyNyAxLjI0NS0zLjgzLTEuMjA3LjA1Mi0yLjY2Mi44MDUtMy41MzIgMS44MTgtLjc4Ljg5Ni0xLjQ1NCAyLjMzOC0xLjI3MyAzLjcxNCAxLjMzOC4xMDQgMi43MTUtLjY4OCAzLjU1OS0xLjcwMSIvPjwvc3ZnPg==", (t) => { t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["apple"] = t; });
+  TEXL.load("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMUQxRDFGIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTI0IDcuOEw2LjQ0MiAxNS4yNzZjLTEuNDU2LjYxNi0yLjY3OS45MjUtMy42NjguOTI1LTEuMTIgMC0xLjkzMy0uMzkyLTIuNDM3LTEuMTc3LS4zMTctLjUwNC0uNDEtMS4xNDMtLjI4LTEuOTE4LjEzLS43NzUuNDc2LTEuNiAxLjAzNi0yLjQ3OC40NjctLjcxIDEuMjMyLTEuNjQzIDIuMjk3LTIuOGE2LjEyMiA2LjEyMiAwIDAwLS43ODQgMS44NDhjLS4yOCAxLjE5NS0uMDI4IDIuMDcyLjc1NiAyLjYzMi4zNzMuMjYxLjg4Ni4zOTIgMS41NC4zOTIuNTIyIDAgMS4xMS0uMDg0IDEuNzY0LS4yNTJMMjQgNy44eiIvPjwvc3ZnPg==", (t) => { t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["nike"] = t; });
+  TEXL.load("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjQwIDI0MCI+PHBhdGggZD0iTTEzMiA3OCBBNTIgNTIgMCAxIDAgMTMyIDE2MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMUQxRDFGIiBzdHJva2Utd2lkdGg9IjE2Ii8+PHBhdGggZD0iTTEwOCA3OCBBNTIgNTIgMCAxIDEgMTA4IDE2MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMUQxRDFGIiBzdHJva2Utd2lkdGg9IjE2Ii8+PC9zdmc+", (t) => { t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["chanel"] = t; });
+  TEXL.load("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjQwIDI0MCI+PHBhdGggZD0iTTk2IDU4IEE2MiA2MiAwIDEgMCA5NiAxODIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFEMUQxRiIgc3Ryb2tlLXdpZHRoPSIxMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTE0NCA1OCBBNjIgNjIgMCAxIDEgMTQ0IDE4MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMUQxRDFGIiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMTQ0IDU4IFYxMTAgTDk2IDE0MCBWMTgyIE05NiA1OCBMMTQ0IDExMCBNOTYgMTQwIEwxNDQgMTgyIiBmaWxsPSJub25lIiBzdHJva2U9IiMxRDFEMUYiIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==", (t) => { t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["cosmos"] = t; });
+
+      // a coin: white disc with a logo texture on both caps
+      function coin(name, r = 1, h = 0.18) {
+        const g = new THREE.Group();
+        g.add(new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 72), [M.grey, M.white, M.white]).rotateX(Math.PI / 2));
+        const mat = new THREE.MeshBasicMaterial({ transparent: true }); LAZY.push({ mat, name });
+        const f = new THREE.Mesh(new THREE.PlaneGeometry(r * 1.2, r * 1.2), mat); f.position.z = h / 2 + 0.002; g.add(f);
+        const b = f.clone(); b.rotation.y = Math.PI; b.position.z = -h / 2 - 0.002; g.add(b);
+        return g;
+      }
+      function tube(len, r = 0.11, mat = M.ink) { return new THREE.Mesh(new THREE.CylinderGeometry(r, r, len, 24), mat); }
+      function arc(R, r, a0, a1, mat = M.ink) { const m = new THREE.Mesh(new THREE.TorusGeometry(R, r, 24, 96, a1 - a0), mat); m.rotation.z = a0; return m; }
+      const easeOut = (u) => 1 - Math.pow(1 - Math.max(0, Math.min(1, u)), 3);
+      const easeInOut = (u) => { u = Math.max(0, Math.min(1, u)); return u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; };
+      const clamp01 = (u) => Math.max(0, Math.min(1, u));
+      const seg = (t, a, b) => clamp01((t - a) / (b - a));
+
+      // text on a canvas texture (numbers / short labels)
+      function textTex(str, color = "#1D1D1F", size = 220, w = 512, h = 512) {
+        const c = document.createElement("canvas"); c.width = w; c.height = h; const x = c.getContext("2d");
+        x.fillStyle = color; x.font = `700 ${size}px Archivo, "Helvetica Neue", Helvetica, Arial, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle";
+        x.fillText(str, w / 2, h / 2 + size * 0.05); const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; return t;
+      }
+      function tile(w, h, d = 0.06, mat = M.light) { return new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); }
+      function seg2(a, b, r = 0.06, mat = M.ink) {      // tube between two points (x,y) in the XY plane + round joints
+        const g = new THREE.Group(); const dx = b[0] - a[0], dy = b[1] - a[1]; const len = Math.hypot(dx, dy);
+        const m = tube(len, r, mat); m.position.set((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, 0); m.rotation.z = Math.atan2(dy, dx) - Math.PI / 2; g.add(m);
+        const s = new THREE.Mesh(new THREE.SphereGeometry(r, 16, 16), mat); s.position.set(b[0], b[1], 0); g.add(s); return g;
+      }
+      // the Cosmos mark as 3D tubes (two arcs + Z band), ~2.2 units tall
+      function cosmosMark(s = 0.00917, r = 0.06, mat = M.ink) {
+        const g = new THREE.Group(); const P = (x, y) => [(x - 120) * s, -(y - 120) * s];
+        const R0 = 62 * s;
+        const la = arc(R0, r, Math.PI / 2, Math.PI * 1.5, mat); la.position.set(...P(96, 120), 0); g.add(la);
+        const ra = arc(R0, r, -Math.PI / 2, Math.PI / 2, mat); ra.position.set(...P(144, 120), 0); g.add(ra);
+        [[P(144, 58), P(144, 110)], [P(96, 58), P(144, 110)], [P(144, 110), P(96, 140)], [P(96, 140), P(96, 182)], [P(96, 140), P(144, 182)]]
+          .forEach(([a, b]) => g.add(seg2(a, b, r, mat)));
+        return g;
+      }
+      function phone() {                                   // a phone with a light screen + the Unfold mark
+        const g = new THREE.Group(); const body = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.8, 0.09), M.ink); g.add(body);
+        const scr = new THREE.Mesh(new THREE.PlaneGeometry(0.76, 1.56), M.light); scr.position.z = 0.047; g.add(scr);
+        const logo = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.42), new THREE.MeshBasicMaterial({ map: TEX.unfold, transparent: true })); logo.position.set(0, 0.55, 0.05); g.add(logo);
+        g.frames = [0, 1, 2].map((k) => { const f = tile(0.6, 0.26, 0.02, k === 1 ? M.red : M.white); f.position.set(0, 0.05 - k * 0.33, 0.06); f.visible = false; g.add(f); return f; });
+        return g;
+      }
+      function chip() {
+        const g = new THREE.Group(); g.add(new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.1, 0.16), M.ink));
+        const core = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.04), M.red); core.position.z = 0.1; g.add(core);
+        for (let i = 0; i < 6; i++) { const p = 0.72 * (i / 5 - 0.5) * 1.35;
+          [[p, 0.66], [p, -0.66]].forEach(([x, y]) => { const pin = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.2, 0.06), M.grey); pin.position.set(x, y, 0); g.add(pin); });
+          [[0.66, p], [-0.66, p]].forEach(([x, y]) => { const pin = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.06, 0.06), M.grey); pin.position.set(x, y, 0); g.add(pin); }); }
+        return g;
+      }
+      function umbrella() {
+        const g = new THREE.Group(); const top = new THREE.Mesh(new THREE.ConeGeometry(0.75, 0.42, 48, 1, true), M.red); top.position.y = 0.45; g.add(top);
+        const pole = tube(1.5, 0.03, M.ink); pole.position.y = -0.25; g.add(pole); return g;
+      }
+
+  GL.beats.push({ s: 0.00, e: 5.90, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.coins = ["instagram", "canva", "pinterest"].map((n, k) => { const c = coin(n, 0.44); c.position.set(X(230 + k * 310), Y(385), 0); g.add(c); return c; }); }
+    g.coins.forEach((c, k) => { const u0 = easeOut(seg(t, 0.55 + k * 0.45, 0.55 + k * 0.45 + 0.75));
+      c.visible = u0 > 0; c.position.x = X(230 + k * 310) + (1 - u0) * 7; c.rotation.y = (1 - u0) * Math.PI * 2.5 + Math.sin(t * 1.3 + k) * 0.18; c.rotation.x = Math.sin(t * 0.9 + k) * 0.08;
+      const bump = 1 + 0.18 * Math.sin(Math.PI * seg(t, 4.16 + k * 0.12, 4.16 + k * 0.12 + 0.35)); c.scale.setScalar(u0 * bump); });
+
+  } });
+  GL.beats.push({ s: 5.80, e: 12.82, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.ph = phone(); g.ph.position.set(X(330), Y(380), 0); g.add(g.ph); g.cn = coin("unfold", 0.5); g.cn.position.set(X(780), Y(380), 0); g.add(g.cn); }
+    const u0 = easeOut(seg(t, 0.05, 0.8)); g.ph.scale.setScalar(u0); g.ph.rotation.y = -0.95 + 0.7 * u0 + Math.sin(t * 0.7) * 0.08; g.ph.rotation.x = 0.12;
+    const u1 = easeOut(seg(t, 0.35, 1.0)); g.cn.visible = u1 > 0; g.cn.scale.setScalar(u1); g.cn.rotation.y = (1 - u1) * Math.PI * 2 + Math.sin(t) * 0.2;
+    g.ph.frames.forEach((f, k) => { const uf = easeOut(seg(t, 1.40 + k * 0.18, 1.40 + k * 0.18 + 0.4)); f.visible = uf > 0; f.position.y = 0.05 - k * 0.33 - (1 - uf) * 0.8; f.scale.setScalar(0.6 + 0.4 * uf);
+      const pulse = 1 + 0.12 * Math.sin(Math.PI * seg(t, 5.11 + k * 0.15, 5.11 + k * 0.15 + 0.3)); f.scale.multiplyScalar(pulse); });
+
+  } });
+  GL.beats.push({ s: 12.62, e: 27.60, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.a = coin("instagram", 0.5); g.a.position.set(X(250), Y(330), 0); g.b = coin("canva", 0.5); g.b.position.set(X(830), Y(330), 0);
+      g.c = coin("unfold", 0.3); g.c.position.set(X(540), Y(345), 0); g.add(g.a, g.b, g.c); }
+    const ua = easeOut(seg(t, 1.66, 1.66 + 0.7)), ub = easeOut(seg(t, 7.38, 7.38 + 0.7)), uc = easeOut(seg(t, 10.64, 10.64 + 0.6));
+    const fa = easeInOut(seg(t, 5.54, 5.54 + 0.8)), fb = easeInOut(seg(t, 8.93, 8.93 + 0.8));
+    g.a.visible = ua > 0; g.a.scale.setScalar(ua); g.a.rotation.y = (1 - ua) * Math.PI * 2 + fa * Math.PI * 2 + Math.sin(t) * 0.15;
+    g.b.visible = ub > 0; g.b.scale.setScalar(ub); g.b.rotation.y = (1 - ub) * Math.PI * 2 + fb * Math.PI * 2 + Math.sin(t + 1) * 0.15;
+    g.c.visible = uc > 0; g.c.scale.setScalar(uc); g.c.rotation.y = (1 - uc) * Math.PI * 3 + Math.sin(t * 1.4) * 0.3; g.c.position.y = Y(345) + Math.sin(t * 2) * 0.03;
+
+  } });
+  GL.beats.push({ s: 32.85, e: 37.83, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.dots = []; const dim = new THREE.MeshStandardMaterial({ color: 0x1D1D1F, roughness: 0.6, transparent: true, opacity: 1 }); g.dim = dim;
+      for (let k = 0; k < 18; k++) { const d = new THREE.Mesh(new THREE.SphereGeometry(0.13, 24, 24), dim); d.position.set(X(180 + (k % 6) * 144), Y(560 + Math.floor(k / 6) * 130), 0); g.dots.push(d); g.add(d); }
+      g.mag = new THREE.Group(); const cover = tile(4.0, 1.34, 0.06, M.white); g.mag.add(cover);
+      const bar = tile(2.0, 0.12, 0.02, M.ink); bar.position.set(-0.8, 0.42, 0.04); g.mag.add(bar);
+      [0.1, -0.1, -0.3].forEach((y, i) => { const ln = tile(3.4 - i * 0.6, 0.04, 0.02, M.ink); ln.position.set(-0.3 - i * 0.3, y, 0.04); g.mag.add(ln); });
+      g.mag.position.set(X(540), Y(1160), 0); g.add(g.mag); }
+    g.dots.forEach((d, k) => { const u0 = easeOut(seg(t, 0.3 + k * 0.03, 0.55 + k * 0.03)); const hot = [2, 7, 9, 14].includes(k);
+      const uh = easeOut(seg(t, 1.90 + (k % 4) * 0.1, 1.90 + 0.4 + (k % 4) * 0.1)); d.visible = u0 > 0; d.scale.setScalar(u0 * (1 + 0.6 * (hot ? uh : 0)));
+      d.material = hot && uh > 0.3 ? M.red : g.dim; d.position.z = hot ? uh * 1.4 : 0; });
+    g.dim.opacity = 1 - 0.65 * easeOut(seg(t, 1.90 + 0.4, 1.90 + 0.8));
+    const um = easeOut(seg(t, 2.88, 2.88 + 0.7)); g.mag.visible = um > 0; g.mag.rotation.x = (1 - um) * -1.3; g.mag.scale.setScalar(0.7 + 0.3 * um); g.mag.rotation.y = Math.sin(t) * 0.06;
+
+  } });
+  GL.beats.push({ s: 41.82, e: 45.32, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.c = coin("squarespace", 0.42); g.c.position.set(X(250), Y(330), 0); g.add(g.c); }
+    const u0 = easeOut(seg(t, 0.2, 0.9)); g.c.scale.setScalar(u0); g.c.rotation.y = (1 - u0) * Math.PI * 3 + Math.sin(t) * 0.2;
+
+  } });
+  GL.beats.push({ s: 45.12, e: 49.48, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.u = umbrella(); g.u.position.set(X(300), Y(330), 0); g.add(g.u);
+      g.rep = cosmosMark(0.004, 0.035, M.red); g.rep.position.set(X(860), Y(330), 0); g.add(g.rep); }
+    const u0 = easeOut(seg(t, 0.05, 0.7)); g.u.scale.setScalar(u0 * 1.25); g.u.rotation.z = -0.25 + Math.sin(t * 1.5) * 0.06; g.u.rotation.y = Math.sin(t) * 0.3;
+    const u1 = easeOut(seg(t, 3.17, 3.17 + 0.6)); g.rep.visible = u1 > 0; g.rep.scale.setScalar(u1); g.rep.rotation.y = (t - 3.17) * 4;
+
+  } });
+  GL.beats.push({ s: 49.28, e: 61.72, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.mk = cosmosMark(); g.mk.position.set(X(540), Y(360), 0); g.add(g.mk);
+      g.wall = new THREE.Group(); g.tiles = [];
+      for (let k = 0; k < 12; k++) { const tl_ = tile(0.6, 0.28 + (k % 3) * 0.06, 0.05, M.white); tl_.userData.gy = Y(290 + Math.floor(k / 4) * 90); tl_.userData.gx = X(560 + (k % 4) * 130);
+        tl_.userData.sy = tl_.userData.gy + ((k * 7) % 5 - 2) * 0.12; tl_.userData.sx = tl_.userData.gx + ((k * 3) % 4 - 1.5) * 0.06; tl_.position.set(tl_.userData.sx, tl_.userData.sy, -0.3 - (k % 3) * 0.25);
+        g.wall.add(tl_); g.tiles.push(tl_); }
+      g.wall.visible = false; g.add(g.wall); g.pin = coin("pinterest", 0.34); g.pin.position.set(X(950), Y(440), 0.5); g.pin.visible = false; g.add(g.pin); }
+    const u0 = easeOut(seg(t, 0.05, 0.9)); g.mk.scale.setScalar(u0 * 1.0); g.mk.rotation.y = (1 - u0) * Math.PI + Math.sin(t * 0.8) * 0.45; g.mk.rotation.x = Math.sin(t * 0.5) * 0.15;
+    const um = easeInOut(seg(t, 3.22 - 0.4, 3.22 + 0.3)); g.mk.position.x = X(540) + (X(260) - X(540)) * um; g.mk.scale.setScalar(u0 * (1 - 0.25 * um));
+    const uw = easeOut(seg(t, 3.22, 3.22 + 0.8)); g.wall.visible = uw > 0; g.wall.rotation.y = -0.55 * (1 - 0.0) ;
+    const ua = easeInOut(seg(t, 11.02, 11.02 + 0.7)); g.wall.rotation.y = -0.55 + 0.55 * ua;
+    g.tiles.forEach((tl_, k) => { const ut = easeOut(seg(t, 3.22 + k * 0.05, 3.22 + 0.5 + k * 0.05)); tl_.scale.setScalar(ut); tl_.visible = ut > 0;
+      const hot = [1, 6, 9].includes(k); const uh = easeOut(seg(t, 8.55 + (k % 3) * 0.12, 8.55 + 0.4 + (k % 3) * 0.12)); tl_.material = hot && uh > 0.3 ? M.red : M.white;
+      tl_.position.x = tl_.userData.sx + (tl_.userData.gx - tl_.userData.sx) * ua; tl_.position.y = tl_.userData.sy + (tl_.userData.gy - tl_.userData.sy) * ua; tl_.position.z = (-0.3 - (k % 3) * 0.25) * (1 - ua) + (hot ? uh * 0.35 : 0); });
+    const up = easeOut(seg(t, 3.22 + 0.6, 3.22 + 1.3)); g.pin.visible = up > 0; g.pin.scale.setScalar(up); g.pin.rotation.y = (1 - up) * Math.PI * 3 + Math.sin(t) * 0.2;
+
+  } });
+  GL.beats.push({ s: 61.52, e: 66.41, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.ch = chip(); g.ch.position.set(X(540), Y(340), 0); g.add(g.ch); }
+    const u0 = easeOut(seg(t, 2.67, 2.67 + 0.8)); g.ch.visible = u0 > 0; g.ch.scale.setScalar(u0); g.ch.rotation.x = 0.55 - 0.2 * u0; g.ch.rotation.y = (1 - u0) * Math.PI + t * 0.9; g.ch.rotation.z = 0.1;
+
+  } });
+  GL.beats.push({ s: 66.21, e: 70.78, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.tiles = []; const SC = [9, 4, 8, 3, 7, 9, 2, 6, 8];
+      SC.forEach((v, k) => { const tg = new THREE.Group(); const b = tile(1.15, 0.95, 0.08, M.white); tg.add(b);
+        const n = new THREE.Mesh(new THREE.PlaneGeometry(0.7, 0.7), new THREE.MeshBasicMaterial({ map: textTex(String(v), v < 5 ? "#E1251B" : "#1D1D1F", 300), transparent: true })); n.position.z = 0.05; n.visible = false; tg.add(n); tg.num = n;
+        if (v < 5) { const x1 = tile(0.9, 0.09, 0.03, M.red), x2 = tile(0.9, 0.09, 0.03, M.red); x1.rotation.z = Math.PI / 4; x2.rotation.z = -Math.PI / 4; x1.position.z = x2.position.z = 0.08; x1.visible = x2.visible = false; tg.add(x1, x2); tg.xs = [x1, x2]; }
+        tg.userData.x = X(260 + (k % 3) * 280); tg.userData.y = Y(640 + Math.floor(k / 3) * 230); tg.position.set(tg.userData.x, tg.userData.y, 0); tg.low = v < 5; g.add(tg); g.tiles.push(tg); });
+      g.rotation.x = -0.28; }
+    g.tiles.forEach((tg, k) => { const u0 = easeOut(seg(t, 0.25 + k * 0.05, 0.6 + k * 0.05)); tg.scale.setScalar(u0); tg.visible = u0 > 0;
+      const un = seg(t, 1.81 + k * 0.09, 1.81 + 0.2 + k * 0.09); tg.num.visible = un > 0; tg.num.scale.setScalar(0.6 + 0.4 * easeOut(un));
+      if (tg.low) { const ux = seg(t, 3.21 + k * 0.08, 3.21 + 0.25 + k * 0.08); tg.xs.forEach((x, i) => { x.visible = ux > 0; x.scale.x = easeOut(seg(ux, i * 0.4, i * 0.4 + 0.6)); });
+        const uf = seg(t, 3.81 + k * 0.08, 3.81 + 1.2 + k * 0.08); tg.position.y = tg.userData.y - 9 * uf * uf; tg.rotation.z = -1.4 * uf; tg.rotation.x = 1.2 * uf; } });
+
+  } });
+  GL.beats.push({ s: 77.99, e: 80.65, g: new THREE.Group(), fn: (t, u, g) => {
+
+    if (!g.built) { g.built = true; g.coins = ["apple", "nike", "chanel"].map((n, k) => { const c = coin(n, 0.36); c.position.set(X(270 + k * 270), Y(470), 0); g.add(c); return c; }); }
+    g.coins.forEach((c, k) => { const u0 = easeOut(seg(t, 1.2 + k * 0.5, 1.9 + k * 0.5)); c.visible = u0 > 0; c.scale.setScalar(u0); c.rotation.y = (1 - u0) * Math.PI * 3 + Math.sin(t + k) * 0.2; });
+
+  } });
+
+      GL.beats.forEach((b) => { b.g.visible = false; scene.add(b.g); });
+      function glRender(time) {
+        LAZY.forEach((l) => { if (!l.mat.map && TEX[l.name]) { l.mat.map = TEX[l.name]; l.mat.needsUpdate = true; } });
+        let any = false;
+        GL.beats.forEach((b) => { const on = time >= b.s && time < b.e; b.g.visible = on; if (on) { b.fn(time - b.s, (time - b.s) / (b.e - b.s), b.g); any = true; } });
+        renderer.clear();
+        if (any) renderer.render(scene, camera);
+      }
+      window.addEventListener("hf-seek", (e) => glRender(e.detail.time));
+    </script>
     <script>
       const glitchHash = (n) => { const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); };
       const ghosts = gsap.utils.toArray("#free-stack .ghost");
@@ -489,8 +663,6 @@
   tl.to("#r32l", { autoAlpha: 0, y: -8, duration: 0.14, ease: "power2.in" }, 80.66);
   tl.set("#r32l", { autoAlpha: 0 }, 80.80);
   tl.fromTo("#hook-a", { x: -80, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.72, duration: 0.6, ease: "expo.out" }, 0.05);
-  tl.fromTo("#hook-b", { scale: 0.6, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 0.90);
-  tl.fromTo("#hook-c", { x: 90, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 0.86, duration: 0.6, ease: "expo.out" }, 2.20);
   tl.fromTo("#hook-d", { y: -60, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1.0, duration: 0.6, ease: "expo.out" }, 4.01);
   tl.to("#hook-in", { autoAlpha: 0, y: -20, duration: 0.30, ease: "power2.in" }, 5.60);
   tl.set("#hook-in", { autoAlpha: 0 }, 5.90);
@@ -519,25 +691,15 @@
   tl.fromTo("#unfold-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 5.80);
   tl.to("#unfold-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 12.57);
   tl.set("#unfold-in", { autoAlpha: 0 }, 12.82);
-  tl.set(".uf-f, .uf-l, #uf-t", { autoAlpha: 0 }, 5.80);
-  tl.fromTo("#uf-ph", { strokeDasharray: "1200", strokeDashoffset: 1200 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", stagger: 0.0 }, 5.85);
-  tl.fromTo(".uf-f", { strokeDasharray: "480", strokeDashoffset: 480 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.15 }, 7.20);
-  tl.fromTo(".uf-l", { strokeDasharray: "200", strokeDashoffset: 200 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 7.70);
+  tl.set("#uf-t", { autoAlpha: 0 }, 5.80);
   tl.fromTo("#uf-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 11.01);
   tl.fromTo("#obj-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 12.62);
   tl.to("#obj-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 27.35);
   tl.set("#obj-in", { autoAlpha: 0 }, 27.60);
-  tl.set("#ob-at, #ob-bt, #ob-fa, #ob-fb, #ob-c, #ob-cs, #ob-ct, #ob-q", { autoAlpha: 0 }, 12.62);
-  tl.fromTo("#ob-a", { strokeDasharray: "1000", strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 14.28);
-  tl.fromTo("#ob-at", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 14.58);
+  tl.set("#ob-fa, #ob-fb, #ob-cs, #ob-q", { autoAlpha: 0 }, 12.62);
   tl.fromTo("#ob-fa", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 18.16);
-  tl.fromTo("#ob-b", { strokeDasharray: "1000", strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 20.00);
-  tl.fromTo("#ob-bt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 20.30);
   tl.fromTo("#ob-fb", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 21.55);
-  tl.set("#ob-c", { autoAlpha: 1 }, 23.26);
-  tl.fromTo("#ob-c", { strokeDasharray: "560", strokeDashoffset: 560 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 23.26);
   tl.fromTo("#ob-cs", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 23.66);
-  tl.fromTo("#ob-ct", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 23.76);
   tl.fromTo("#ob-q", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 25.58);
   tl.fromTo("#crowd-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 30.62);
   tl.to("#crowd-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 32.58);
@@ -548,22 +710,9 @@
   tl.fromTo("#scA-in", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" }, 32.85);
   tl.to("#scA-in", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, 37.68);
   tl.set("#scA-in", { autoAlpha: 0 }, 37.83);
-  tl.set("#ed-m1, .ed-ml, #ed-x, #ed-t", { autoAlpha: 0 }, 32.85);
+  tl.set("#ed-x, #ed-t", { autoAlpha: 0 }, 32.85);
   tl.fromTo("#ed-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 33.05);
-  tl.fromTo(".ed-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.03 }, 33.15);
-  tl.to("#ed-d2", { fill: "#E1251B", scale: 1.5, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, 34.95);
-  tl.to("#ed-d7", { fill: "#E1251B", scale: 1.5, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, 35.05);
-  tl.to("#ed-d9", { fill: "#E1251B", scale: 1.5, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, 34.85);
-  tl.to("#ed-d14", { fill: "#E1251B", scale: 1.5, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, 34.95);
-  tl.to(".ed-d", { autoAlpha: 0.35, duration: 0.3, ease: "power2.inOut" }, 35.15);
-  tl.to("#ed-d2", { autoAlpha: 1, duration: 0.3, ease: "power2.out" }, 35.15);
-  tl.to("#ed-d7", { autoAlpha: 1, duration: 0.3, ease: "power2.out" }, 35.15);
-  tl.to("#ed-d9", { autoAlpha: 1, duration: 0.3, ease: "power2.out" }, 35.15);
-  tl.to("#ed-d14", { autoAlpha: 1, duration: 0.3, ease: "power2.out" }, 35.15);
   tl.fromTo("#ed-x", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 35.05);
-  tl.fromTo("#ed-m", { strokeDasharray: "2000", strokeDashoffset: 2000 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", stagger: 0.0 }, 35.73);
-  tl.fromTo("#ed-m1", { strokeDasharray: "380", strokeDashoffset: 380 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out", stagger: 0.0 }, 36.18);
-  tl.fromTo(".ed-ml", { strokeDasharray: "700", strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 36.38);
   tl.fromTo("#stats-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 37.80);
   tl.to("#stats-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 45.07);
   tl.set("#stats-in", { autoAlpha: 0 }, 45.32);
@@ -576,65 +725,26 @@
   tl.fromTo("#beach-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 45.12);
   tl.to("#beach-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 49.23);
   tl.set("#beach-in", { autoAlpha: 0 }, 49.48);
-  tl.set("#bc-r, #bc-t", { autoAlpha: 0 }, 45.12);
-  tl.fromTo("#bc-u", { strokeDasharray: "700", strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 45.17);
-  tl.fromTo("#bc-p", { strokeDasharray: "320", strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 45.42);
-  tl.fromTo("#bc-w", { strokeDasharray: "600", strokeDashoffset: 600 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 45.62);
-  tl.fromTo("#bc-r", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 48.29);
+  tl.set("#bc-t", { autoAlpha: 0 }, 45.12);
   tl.fromTo("#bc-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 48.59);
-  tl.fromTo("#bc-r", { rotation: 0, svgOrigin: "910 170" }, { rotation: 720, duration: 1.0900000000000034, ease: "power2.inOut" }, 48.39);
   tl.fromTo("#cosmos-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 49.28);
   tl.to("#cosmos-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 61.47);
   tl.set("#cosmos-in", { autoAlpha: 0 }, 61.72);
-  tl.set("#cs-p, #cs-pt, #cs-t", { autoAlpha: 0 }, 49.28);
-  tl.fromTo(".cs-t", { strokeDasharray: "700", strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.08 }, 49.38);
+  tl.set("#cs-t, #cs-pt, #cs-w", { autoAlpha: 0 }, 49.28);
   tl.fromTo("#cs-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 49.78);
-  tl.set("#cs-p", { autoAlpha: 1 }, 52.70);
-  tl.fromTo("#cs-p", { strokeDasharray: "2500", strokeDashoffset: 2500 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out", stagger: 0.0 }, 52.70);
   tl.fromTo("#cs-pt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 53.30);
-  tl.to("#cs-t1", { stroke: "#E1251B", strokeWidth: 9, duration: 0.3, ease: "power2.out" }, 57.95);
-  tl.to("#cs-t5", { stroke: "#E1251B", strokeWidth: 9, duration: 0.3, ease: "power2.out" }, 58.07);
-  tl.to("#cs-t6", { stroke: "#E1251B", strokeWidth: 9, duration: 0.3, ease: "power2.out" }, 57.83);
-  tl.to("#cs-t0", { x: 0, y: 0, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.30);
-  tl.to("#cs-t1", { x: 10, y: 0, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.34);
-  tl.to("#cs-t2", { x: 60, y: 0, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.38);
-  tl.to("#cs-t3", { x: 50, y: 0, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.42);
-  tl.to("#cs-t4", { x: 0, y: 20, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.46);
-  tl.to("#cs-t5", { x: -150, y: 40, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.50);
-  tl.to("#cs-t6", { x: -160, y: -10, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.54);
-  tl.to("#cs-t7", { x: 430, y: -50, attr: { width: 180, height: 140 }, duration: 0.5, ease: "power3.inOut" }, 60.58);
+  tl.to("#cs-pt", { autoAlpha: 0.0, duration: 0.2, ease: "power2.inOut" }, 60.30);
+  tl.fromTo("#cs-w", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 60.40);
   tl.fromTo("#chip-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 61.52);
   tl.to("#chip-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 66.16);
   tl.set("#chip-in", { autoAlpha: 0 }, 66.41);
-  tl.set("#ia-i, .ia-p, #ia-t", { autoAlpha: 0 }, 61.52);
-  tl.fromTo("#ia-c", { strokeDasharray: "1000", strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 64.19);
-  tl.fromTo(".ia-p", { strokeDasharray: "40", strokeDashoffset: 40 }, { strokeDashoffset: 0, duration: 0.15, ease: "power2.out", stagger: 0.04 }, 64.54);
-  tl.fromTo("#ia-i", { strokeDasharray: "500", strokeDashoffset: 500 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 64.84);
+  tl.set("#ia-t", { autoAlpha: 0 }, 61.52);
   tl.fromTo("#ia-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 65.34);
   tl.fromTo("#scB-in", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" }, 66.21);
   tl.to("#scB-in", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, 70.63);
   tl.set("#scB-in", { autoAlpha: 0 }, 70.78);
-  tl.set("#cr-t, .num, #cr-b", { autoAlpha: 0 }, 66.21);
-  tl.set("#cr-x1a, #cr-x1b", { autoAlpha: 0 }, 66.21);
-  tl.set("#cr-x3a, #cr-x3b", { autoAlpha: 0 }, 66.21);
-  tl.set("#cr-x6a, #cr-x6b", { autoAlpha: 0 }, 66.21);
+  tl.set("#cr-t, #cr-b", { autoAlpha: 0 }, 66.21);
   tl.fromTo("#cr-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 66.41);
-  tl.fromTo(".cr-r", { strokeDasharray: "800", strokeDashoffset: 800 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.05 }, 66.46);
-  tl.fromTo("#cr-n0", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.02);
-  tl.fromTo("#cr-n1", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.11);
-  tl.fromTo("#cr-n2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.20);
-  tl.fromTo("#cr-n3", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.29);
-  tl.fromTo("#cr-n4", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.38);
-  tl.fromTo("#cr-n5", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.47);
-  tl.fromTo("#cr-n6", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.56);
-  tl.fromTo("#cr-n7", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.65);
-  tl.fromTo("#cr-n8", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.0 }, 68.74);
-  tl.fromTo("#cr-x1a, #cr-x1b", { strokeDasharray: "180", strokeDashoffset: 180 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 69.50);
-  tl.to("#cr-r1, #cr-n1", { autoAlpha: 0.25, duration: 0.3, ease: "power2.inOut" }, 70.00);
-  tl.fromTo("#cr-x3a, #cr-x3b", { strokeDasharray: "180", strokeDashoffset: 180 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 69.66);
-  tl.to("#cr-r3, #cr-n3", { autoAlpha: 0.25, duration: 0.3, ease: "power2.inOut" }, 70.16);
-  tl.fromTo("#cr-x6a, #cr-x6b", { strokeDasharray: "180", strokeDashoffset: 180 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 69.90);
-  tl.to("#cr-r6, #cr-n6", { autoAlpha: 0.25, duration: 0.3, ease: "power2.inOut" }, 70.40);
   tl.fromTo("#cr-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 69.22);
   tl.fromTo("#std-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 70.63);
   tl.to("#std-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 74.07);
@@ -644,14 +754,14 @@
   tl.fromTo("#sd-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 73.03);
   tl.fromTo("#sd-s", { strokeDasharray: "600", strokeDashoffset: 600 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 73.43);
   tl.fromTo("#money-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 74.28);
-  tl.to("#money-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 80.75);
-  tl.set("#money-in", { autoAlpha: 0 }, 81.00);
-  tl.set("#mo-n, #mo-t, #mo-a, #mo-b, #mo-c", { autoAlpha: 0 }, 74.28);
+  tl.to("#money-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 80.40);
+  tl.set("#money-in", { autoAlpha: 0 }, 80.65);
+  tl.set("#mo-n, #mo-t", { autoAlpha: 0 }, 74.28);
   tl.fromTo("#mo-n", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 76.18);
   tl.fromTo("#mo-t", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 76.68);
-  tl.fromTo("#mo-a", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 79.19);
-  tl.fromTo("#mo-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 79.69);
-  tl.fromTo("#mo-c", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.0 }, 80.19);
+      const glProxy = { t: 0 };
+      tl.to(glProxy, { t: 1, duration: 84.3, ease: "none", onUpdate: () => glRender(tl.time()) }, 0);
+      glRender(0);
       window.__timelines["main"] = tl;
     </script>
   </body>

@@ -32,6 +32,7 @@ class Reel:
         self.glitch_stack = None
         self.gin_top, self.gin_scale = gin_top, gin_scale
         self.extra_css = ""
+        self.gl_on, self.gl_tex, self.gl_setup_js, self.gl_beats = False, {}, [], []
     def S(self, i): return self.FR[i]["start"]
     def E(self, i): return self.FR[i]["end"]
 
@@ -155,6 +156,82 @@ class Reel:
         self.draw(f"#{p}-o", 2100, at, 0.9 * k); self.draw(f"#{p}-c", 450, at + 0.55 * k, 0.35 * k); self.draw(f"#{p}-s", 220, at + 0.75 * k, 0.3 * k)
         self.draw(f"#{p}-f", 360, at + 0.5 * k, 0.4 * k); self.draw(f".{p}-gy", 120, at + 0.7 * k, 0.25 * k, stagger=0.06 * k)
 
+    # ------------------------------------------------------------ WebGL layer (three.js, seek-safe)
+    def gl(self, textures=None):
+        """Enable the three.js layer. textures: {name: svg_path} → THREE textures (ink on transparent, 512px)."""
+        import base64, re as _re
+        self.gl_on = True
+        for name, path in (textures or {}).items():
+            svg = open(path, encoding="utf-8").read()
+            svg = _re.sub(r"<title>.*?</title>", "", svg)
+            if 'width="' not in svg.split(">", 1)[0]:
+                svg = svg.replace("<svg ", '<svg width="512" height="512" ', 1)
+            if "fill=" not in svg.split(">", 1)[0] and "stroke=" not in svg:
+                svg = svg.replace("<svg ", f'<svg fill="{INK}" ', 1)
+            self.gl_tex[name] = "data:image/svg+xml;base64," + base64.b64encode(svg.encode("utf-8")).decode("ascii")
+    def gl_add(self, js): self.gl_setup_js.append(js)
+    def gl_beat(self, st, en, js):
+        """js: body of (t, u, g) => {...}; t = seconds since st, u = 0..1, g = the beat's THREE.Group (auto-shown)."""
+        self.gl_beats.append((st, en, js))
+
+    def _gl_html(self):
+        if not self.gl_on: return "", "", ""
+        tex = "".join(f'  TEXL.load("{url}", (t) => {{ t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; TEX["{n}"] = t; }});\n' for n, url in self.gl_tex.items())
+        beats = "".join(f"  GL.beats.push({{ s: {st:.2f}, e: {en:.2f}, g: new THREE.Group(), fn: (t, u, g) => {{\n{js}\n  }} }});\n" for st, en, js in self.gl_beats)
+        script = f"""
+    <script>
+      const GL = {{ beats: [] }};
+      const glCanvas = document.getElementById("gl");
+      const renderer = new THREE.WebGLRenderer({{ canvas: glCanvas, alpha: true, antialias: true, preserveDrawingBuffer: true }});
+      renderer.setSize({W}, {H}, false); renderer.setPixelRatio(1); renderer.outputEncoding = THREE.sRGBEncoding;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(30, {W} / {H}, 0.1, 100); camera.position.set(0, 0, 20);
+      const PX = 1920 / (2 * 20 * Math.tan(Math.PI * 15 / 180));      // world units → px
+      const U = (px) => px / PX;                                       // px → world units
+      const X = (px) => U(px - 540), Y = (px) => -U(px - 960);         // frame px → world coords
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x9a9a9a, 0.55));
+      const KEY = new THREE.DirectionalLight(0xffffff, 1.35); KEY.position.set(4, 6, 8); scene.add(KEY);
+      const FILL = new THREE.DirectionalLight(0xffffff, 0.35); FILL.position.set(-6, -2, 6); scene.add(FILL);
+      const M = {{
+        ink: new THREE.MeshStandardMaterial({{ color: 0x050506, roughness: 0.62, metalness: 0.0 }}),
+        red: new THREE.MeshStandardMaterial({{ color: 0xE1251B, roughness: 0.5, metalness: 0.05 }}),
+        white: new THREE.MeshStandardMaterial({{ color: 0xFFFFFF, roughness: 0.6, metalness: 0.0 }}),
+        light: new THREE.MeshStandardMaterial({{ color: 0xF5F5F7, roughness: 0.7 }}),
+        grey: new THREE.MeshStandardMaterial({{ color: 0xC9C9CE, roughness: 0.7 }}),
+      }};
+      const TEX = {{}}; const TEXL = new THREE.TextureLoader(); const LAZY = [];
+{tex}
+      // a coin: white disc with a logo texture on both caps
+      function coin(name, r = 1, h = 0.18) {{
+        const g = new THREE.Group();
+        g.add(new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 72), [M.grey, M.white, M.white]).rotateX(Math.PI / 2));
+        const mat = new THREE.MeshBasicMaterial({{ transparent: true }}); LAZY.push({{ mat, name }});
+        const f = new THREE.Mesh(new THREE.PlaneGeometry(r * 1.2, r * 1.2), mat); f.position.z = h / 2 + 0.002; g.add(f);
+        const b = f.clone(); b.rotation.y = Math.PI; b.position.z = -h / 2 - 0.002; g.add(b);
+        return g;
+      }}
+      function tube(len, r = 0.11, mat = M.ink) {{ return new THREE.Mesh(new THREE.CylinderGeometry(r, r, len, 24), mat); }}
+      function arc(R, r, a0, a1, mat = M.ink) {{ const m = new THREE.Mesh(new THREE.TorusGeometry(R, r, 24, 96, a1 - a0), mat); m.rotation.z = a0; return m; }}
+      const easeOut = (u) => 1 - Math.pow(1 - Math.max(0, Math.min(1, u)), 3);
+      const easeInOut = (u) => {{ u = Math.max(0, Math.min(1, u)); return u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; }};
+      const clamp01 = (u) => Math.max(0, Math.min(1, u));
+      const seg = (t, a, b) => clamp01((t - a) / (b - a));
+{chr(10).join(self.gl_setup_js)}
+{beats}
+      GL.beats.forEach((b) => {{ b.g.visible = false; scene.add(b.g); }});
+      function glRender(time) {{
+        LAZY.forEach((l) => {{ if (!l.mat.map && TEX[l.name]) {{ l.mat.map = TEX[l.name]; l.mat.needsUpdate = true; }} }});
+        let any = false;
+        GL.beats.forEach((b) => {{ const on = time >= b.s && time < b.e; b.g.visible = on; if (on) {{ b.fn(time - b.s, (time - b.s) / (b.e - b.s), b.g); any = true; }} }});
+        renderer.clear();
+        if (any) renderer.render(scene, camera);
+      }}
+      window.addEventListener("hf-seek", (e) => glRender(e.detail.time));
+    </script>"""
+        canvas = f'      <canvas id="gl" width="{W}" height="{H}"></canvas>\n'
+        tick = f'      const glProxy = {{ t: 0 }};\n      tl.to(glProxy, {{ t: 1, duration: {self.DUR}, ease: "none", onUpdate: () => glRender(tl.time()) }}, 0);\n      glRender(0);\n'
+        return canvas, script, tick
+
     # ------------------------------------------------------------ assemble
     def write(self, out="index.html"):
         g_html = []
@@ -166,6 +243,8 @@ class Reel:
             s_html.append(f'      <div id="{sid}" class="scene clip" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="5">\n'
                           f'        <div id="{sid}-in" class="scin" style="background:{bg}"><svg width="{W}" height="{H}" viewBox="0 0 {W} {H}">{inner}\n        </svg></div>\n      </div>')
         ghosts = f'gsap.utils.toArray("#{self.glitch_stack} .ghost")' if self.glitch_stack else "[]"
+        gl_canvas, gl_script, gl_tick = self._gl_html()
+        three_tag = '<script src="public/vendor/three.min.js"></script>' if self.gl_on else ""
         DUR, FPS = self.DUR, self.FPS
         page = f'''<!doctype html>
 <html lang="es">
@@ -174,6 +253,7 @@ class Reel:
     <meta name="viewport" content="width={W}, height={H}" />
     <title>{esc(self.title)}</title>
     <script src="public/vendor/gsap.min.js"></script>
+    {three_tag}
     <style>
       @font-face {{ font-family: "Archivo"; src: url("public/fonts/Archivo-600-latin.woff2") format("woff2"); font-weight: 500 700; font-display: block; }}
       :root {{ --ink: {INK}; --on-dark: #FFFFFF; --red: {RED}; --tr-display: -0.035em; --tr-body: -0.01em; --tr-caps: 0.08em;
@@ -188,6 +268,7 @@ class Reel:
       .scin {{ position: absolute; inset: 0; transform-origin: 50% 50%; opacity: 0; }}
       .scin svg {{ display: block; }}
       #fadeout {{ position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }}
+      #gl {{ position: absolute; left: 0; top: 0; width: {W}px; height: {H}px; display: block; pointer-events: none; }}
       .rail {{ position: absolute; left: 0; right: 0; top: 1300px; display: flex; justify-content: center; pointer-events: none; }}
       .rail .line {{ max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: 700; font-size: 62px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }}
       .rail .line.ink {{ color: var(--ink); text-shadow: none; }}
@@ -224,21 +305,21 @@ class Reel:
       <audio id="voice" src="{self.video}" data-start="0" data-duration="{DUR}" data-volume="1"></audio>
 
 {chr(10).join(s_html)}
-
+{gl_canvas}
 {chr(10).join(self.rail_html)}
 
 {chr(10).join(g_html)}
 
 {chr(10).join(self.cards_html)}
       <div id="fadeout" class="clip" data-start="{DUR - 0.6:.2f}" data-duration="0.60" data-track-index="6"></div>
-    </div>
+    </div>{gl_script}
     <script>
       const glitchHash = (n) => {{ const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); }};
       const ghosts = {ghosts};
       const glitch = {{ amp: 0 }};
       const tl = gsap.timeline({{ paused: true }});
 {chr(10).join(self.tl)}
-      window.__timelines["main"] = tl;
+{gl_tick}      window.__timelines["main"] = tl;
     </script>
   </body>
 </html>
