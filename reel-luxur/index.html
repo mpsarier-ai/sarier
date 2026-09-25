@@ -11,6 +11,7 @@
       @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }
       @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Medium.ttf") format("truetype"); font-weight: 500; font-display: block; }
       @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; font-display: block; }
+      @font-face { font-family: "Montserrat"; src: url("public/fonts/Montserrat-var.ttf") format("truetype-variations"); font-weight: 100 900; font-display: block; }
       :root { --ink: #1C1C1C; --on-dark: #FFFFFF; --red: #EECDCC; --accent: #EECDCC; --light: #EDEBE6; --dark: #1C1C1C;
         --pill-bg: #EDEBE6; --pill-fg: #1C1C1C;
         --tr-display: -0.04em; --tr-body: 0.01em; --tr-caps: 0.18em;
@@ -62,8 +63,9 @@
       .wl { font-size: 26px; font-weight: 500; }
       .wl2 { font-size: 32px; font-weight: 500; }
       #logo { position: absolute; left: 0; right: 0; top: 250px; text-align: center; pointer-events: none; }
-      #logo span { display: inline-block; font-weight: 500; font-size: 54px; letter-spacing: 0.42em;
-        color: #1C1C1C; text-shadow: 0 0 14px rgba(255,255,255,0.95), 0 0 34px rgba(255,255,255,0.7); padding-left: 0.42em; }
+      #logo span { display: inline-block; font-family: Montserrat, Poppins, sans-serif; font-weight: 600;
+        font-size: 58px; letter-spacing: 0.02em; color: #1C1C1C;
+        text-shadow: 0 0 14px rgba(255,255,255,0.95), 0 0 34px rgba(255,255,255,0.7); }
 
     </style>
   </head>
@@ -133,10 +135,10 @@
       </div>
       <div id="scC" class="scene clip" data-start="83.58" data-duration="6.40" data-track-index="5">
         <div id="scC-in" class="scin" style="background:#EDEBE6"><svg width="1080" height="1920" viewBox="0 0 1080 1920">
-  <text id="cs-w" x="540" y="900" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:92px;letter-spacing:0.22em;font-weight:400">L U X U R</text>
-  <path id="cs-r" d="M280 960 L800 960" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="cs-u" x="540" y="1030" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:34px">LUXURJEANS.COM</text>
-  <g id="cs-p"><rect x="330" y="1100" width="420" height="76" rx="60" fill="#EECDCC"/><text x="540" y="1147" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">ENVÍOS A TODO EL PAÍS</text></g>
+  <text id="cs-w" x="540" y="900" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:128px;font-family:Montserrat;font-weight:600;letter-spacing:0.02em">LUXUR</text>
+  <path id="cs-r" d="M320 962 L760 962" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="cs-u" x="540" y="1032" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:34px">LUXURJEANS.COM</text>
+  <g id="cs-p"><rect x="330" y="1104" width="420" height="76" rx="60" fill="#EECDCC"/><text x="540" y="1151" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">ENVÍOS A TODO EL PAÍS</text></g>
         </svg></div>
       </div>
       <canvas id="gl" width="1080" height="1920"></canvas>
@@ -179,8 +181,8 @@
         </svg></div>
       </div>
       <div id="tk" class="mg clip" data-start="4.97" data-duration="5.79" data-track-index="3">
-        <div id="tk-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920">
-  <rect id="tk-c" x="580" y="300" width="440" height="250" rx="34" fill="#EDEBE6"/>
+        <div id="tk-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter><filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#1C1C1C" flood-opacity="0.18"/></filter></defs>
+  <g filter="url(#soft)"><rect id="tk-c" x="580" y="300" width="440" height="250" rx="34" fill="#EDEBE6"/></g>
   <text id="tk-a" x="620" y="372" text-anchor="start" class="wl" fill="#1C1C1C" style="font-size:26px">EN TIKTOK</text>
   <path id="tk-r" d="M620 400 L980 400" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <text id="tk-b" x="620" y="452" text-anchor="start" class="wl" fill="#1C1C1C" style="font-size:34px;font-weight:400">TODO EL MUNDO</text>
@@ -188,47 +190,33 @@
         </svg></div>
       </div>
       <div id="duo" class="mg clip" data-start="10.51" data-duration="7.54" data-track-index="3">
-        <div id="duo-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter></defs><g filter="url(#halo)">
-  <g class="dj1" transform="translate(210 560) scale(0.52)"><path class="dj1-o" d="M-94 0 L94 0 L124 640 L26 640 L6 360 L-6 360 L-26 640 L-124 640 Z" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="dj1-w" d="M-94 30 L94 30" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="dj1-p" d="M-72 48 q22 30 0 54 M72 48 q-22 30 0 54" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="dj1-z" d="M0 30 L0 150" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-  <g class="dj2" transform="translate(870 560) scale(0.52)"><path class="dj2-o" d="M-94 44 L94 44 L149 640 L26 640 L6 400 L-6 400 L-26 640 L-149 640 Z" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="dj2-w" d="M-94 74 L94 74" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="dj2-p" d="M-72 92 q22 30 0 54 M72 92 q-22 30 0 54" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="dj2-z" d="M0 74 L0 190" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-  <text id="du-1" x="210" y="940" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">RELAXED FIT</text>
-  <text id="du-2" x="870" y="940" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">LOW WIDE FIT</text>
-  <path id="du-x" d="M498 760 L582 760 M540 718 L540 802" stroke="#EECDCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  </g><g id="du-p"><rect x="380" y="1230" width="320" height="64" rx="60" fill="#EECDCC"/><text x="540" y="1271" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">EL DÚO PERFECTO</text></g>
+        <div id="duo-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter><filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#1C1C1C" flood-opacity="0.18"/></filter></defs><g class="d1" filter="url(#soft)"><rect class="d1-bg" x="34" y="470" width="330" height="520" rx="34" fill="#EDEBE6"/><rect class="d1-img" x="56" y="492" width="286" height="400" rx="18" fill="#FFFFFF" fill-opacity="0.5" stroke="#1C1C1C" stroke-opacity="0.25" stroke-dasharray="10 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="199" y="692" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.45" style="font-size:22px">FOTO RELAXED</text><text x="199" y="948" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">RELAXED FIT</text><text x="199" y="976" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.55" style="font-size:20px">TIRO ALTO</text></g><g class="d2" filter="url(#soft)"><rect class="d2-bg" x="716" y="470" width="330" height="520" rx="34" fill="#EDEBE6"/><rect class="d2-img" x="738" y="492" width="286" height="400" rx="18" fill="#FFFFFF" fill-opacity="0.5" stroke="#1C1C1C" stroke-opacity="0.25" stroke-dasharray="10 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="881" y="692" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.45" style="font-size:22px">FOTO LOW</text><text x="881" y="948" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">LOW WIDE FIT</text><text x="881" y="976" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.55" style="font-size:20px">TIRO BAJO</text></g><path id="du-x" d="M498 726 L582 726 M540 684 L540 768" stroke="#EECDCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <g id="du-p"><rect x="380" y="1040" width="320" height="64" rx="60" fill="#EECDCC"/><text x="540" y="1081" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">EL DÚO PERFECTO</text></g>
         </svg></div>
       </div>
       <div id="f1" class="mg clip" data-start="22.69" data-duration="13.24" data-track-index="3">
-        <div id="f1-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter></defs><g filter="url(#halo)">
-  <g class="f1j" transform="translate(270 470) scale(0.72)"><path class="f1j-o" d="M-94 0 L94 0 L124 640 L26 640 L6 360 L-6 360 L-26 640 L-124 640 Z" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="f1j-w" d="M-94 30 L94 30" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="f1j-p" d="M-72 48 q22 30 0 54 M72 48 q-22 30 0 54" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="f1j-z" d="M0 30 L0 150" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-  <path id="f1-line" d="M96 470 L520 470" stroke="#1C1C1C" stroke-dasharray="8 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="f1-lt" x="96" y="446" text-anchor="start" class="wl" fill="#1C1C1C" style="font-size:24px">TIRO ALTO</text>
-  <text id="f1-n" x="620" y="700" text-anchor="start" class="wl" fill="#1C1C1C" style="font-size:44px;letter-spacing:0.12em">RELAXED FIT</text>
-  <path id="f1-r" d="M620 736 L980 736" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="f1-d" x="620" y="790" text-anchor="start" class="wl" fill="#1C1C1C" style="font-size:22px">RELAJADO · PARA USARLO BONITO</text>
-  </g><g id="f1-p"><rect x="620" y="840" width="250" height="64" rx="60" fill="#EDEBE6"/><text x="745" y="883" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:30px">$199.000</text></g>
+        <div id="f1-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter><filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#1C1C1C" flood-opacity="0.18"/></filter></defs><g class="f1c" filter="url(#soft)"><rect class="f1c-bg" x="40" y="430" width="400" height="640" rx="34" fill="#EDEBE6"/><rect class="f1c-img" x="62" y="452" width="356" height="520" rx="18" fill="#FFFFFF" fill-opacity="0.5" stroke="#1C1C1C" stroke-opacity="0.25" stroke-dasharray="10 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="240" y="712" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.45" style="font-size:22px">FOTO RELAXED</text><text x="240" y="1028" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">RELAXED FIT</text><text x="240" y="1056" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.55" style="font-size:20px">$199.000</text></g><g filter="url(#halo)">
+  <path id="f1-line" d="M470 560 L1000 560" stroke="#1C1C1C" stroke-dasharray="8 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="f1-lt" x="1000" y="536" text-anchor="end" class="wl" fill="#1C1C1C" style="font-size:24px">TIRO ALTO</text>
+  <text id="f1-n" x="1000" y="700" text-anchor="end" class="wl" fill="#1C1C1C" style="font-size:44px;letter-spacing:0.12em">RELAJADO</text>
+  <path id="f1-r" d="M640 736 L1000 736" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="f1-d" x="1000" y="786" text-anchor="end" class="wl" fill="#1C1C1C" style="font-size:22px">HECHO PARA USARLO BONITO</text></g>
+  <g id="f1-p"><rect x="700" y="830" width="300" height="64" rx="60" fill="#EDEBE6"/><text x="850" y="871" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:24px">PARA QUE LO ANOTEN</text></g>
         </svg></div>
       </div>
       <div id="f2" class="mg clip" data-start="35.68" data-duration="8.84" data-track-index="3">
-        <div id="f2-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter></defs><g filter="url(#halo)">
-  <g class="f2j" transform="translate(820 470) scale(0.72)"><path class="f2j-o" d="M-94 44 L94 44 L149 640 L26 640 L6 400 L-6 400 L-26 640 L-149 640 Z" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="f2j-w" d="M-94 74 L94 74" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="f2j-p" d="M-72 92 q22 30 0 54 M72 92 q-22 30 0 54" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="f2j-z" d="M0 74 L0 190" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-  <text id="f2-n" x="460" y="700" text-anchor="end" class="wl" fill="#1C1C1C" style="font-size:44px;letter-spacing:0.12em">LOW WIDE FIT</text>
-  <path id="f2-r" d="M100 736 L460 736" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="f2-d" x="460" y="790" text-anchor="end" class="wl" fill="#1C1C1C" style="font-size:24px">TIRO BAJO · ANCHO</text>
-  </g><g id="f2-p"><rect x="210" y="840" width="250" height="64" rx="60" fill="#EDEBE6"/><text x="335" y="883" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:30px">$199.000</text></g>
-  <g id="f2-b"><rect x="100" y="936" width="360" height="64" rx="60" fill="#EECDCC"/><text x="280" y="977" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">2º MÁS VENDIDO</text></g>
+        <div id="f2-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter><filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#1C1C1C" flood-opacity="0.18"/></filter></defs><g class="f2c" filter="url(#soft)"><rect class="f2c-bg" x="640" y="430" width="400" height="640" rx="34" fill="#EDEBE6"/><rect class="f2c-img" x="662" y="452" width="356" height="520" rx="18" fill="#FFFFFF" fill-opacity="0.5" stroke="#1C1C1C" stroke-opacity="0.25" stroke-dasharray="10 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="840" y="712" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.45" style="font-size:22px">FOTO LOW</text><text x="840" y="1028" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">LOW WIDE FIT</text><text x="840" y="1056" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.55" style="font-size:20px">$199.000</text></g><g filter="url(#halo)">
+  <text id="f2-n" x="80" y="700" text-anchor="start" class="wl" fill="#1C1C1C" style="font-size:44px;letter-spacing:0.12em">EL SEGUNDO</text>
+  <path id="f2-r" d="M80 736 L440 736" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="f2-d" x="80" y="786" text-anchor="start" class="wl" fill="#1C1C1C" style="font-size:22px">TIRO BAJO · ANCHO</text></g>
+  <g id="f2-b"><rect x="80" y="830" width="360" height="64" rx="60" fill="#EECDCC"/><text x="260" y="871" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">2º MÁS VENDIDO</text></g>
         </svg></div>
       </div>
       <div id="rise" class="mg clip" data-start="57.15" data-duration="8.67" data-track-index="3">
-        <div id="rise-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter></defs><g filter="url(#halo)">
-  <g class="rj1" transform="translate(235 520) scale(0.5)"><path class="rj1-o" d="M-94 0 L94 0 L124 640 L26 640 L6 360 L-6 360 L-26 640 L-124 640 Z" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rj1-w" d="M-94 30 L94 30" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rj1-p" d="M-72 48 q22 30 0 54 M72 48 q-22 30 0 54" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rj1-z" d="M0 30 L0 150" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-  <g class="rj2" transform="translate(845 520) scale(0.5)"><path class="rj2-o" d="M-94 44 L94 44 L149 640 L26 640 L6 400 L-6 400 L-26 640 L-149 640 Z" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rj2-w" d="M-94 74 L94 74" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rj2-p" d="M-72 92 q22 30 0 54 M72 92 q-22 30 0 54" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="rj2-z" d="M0 74 L0 190" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-  <path id="rs-1" d="M96 520 L380 520" stroke="#1C1C1C" stroke-dasharray="8 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path id="rs-2" d="M700 542 L990 542" stroke="#1C1C1C" stroke-dasharray="8 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="rs-t1" x="96" y="498" text-anchor="start" class="wl" fill="#1C1C1C" style="font-size:24px">TIRO ALTO</text>
-  <text id="rs-t2" x="990" y="520" text-anchor="end" class="wl" fill="#1C1C1C" style="font-size:24px">TIRO BAJO</text>
-  <path id="rs-om" d="M150 690 L930 690" stroke="#1C1C1C" stroke-opacity="0.75" stroke-dasharray="4 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text id="rs-omt" x="540" y="672" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:22px">OMBLIGO</text>
-  </g><g id="rs-p"><rect x="330" y="1230" width="420" height="64" rx="60" fill="#EECDCC"/><text x="540" y="1271" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">MÁS BAJITO Y ANCHITO</text></g>
+        <div id="rise-in" class="gin"><svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter><filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#1C1C1C" flood-opacity="0.18"/></filter></defs><g class="r1c" filter="url(#soft)"><rect class="r1c-bg" x="34" y="430" width="330" height="520" rx="34" fill="#EDEBE6"/><rect class="r1c-img" x="56" y="452" width="286" height="400" rx="18" fill="#FFFFFF" fill-opacity="0.5" stroke="#1C1C1C" stroke-opacity="0.25" stroke-dasharray="10 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="199" y="652" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.45" style="font-size:22px">FOTO RELAXED</text><text x="199" y="908" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">TIRO ALTO</text><text x="199" y="936" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.55" style="font-size:20px">RELAXED</text></g><g class="r2c" filter="url(#soft)"><rect class="r2c-bg" x="716" y="430" width="330" height="520" rx="34" fill="#EDEBE6"/><rect class="r2c-img" x="738" y="452" width="286" height="400" rx="18" fill="#FFFFFF" fill-opacity="0.5" stroke="#1C1C1C" stroke-opacity="0.25" stroke-dasharray="10 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="881" y="652" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.45" style="font-size:22px">FOTO LOW</text><text x="881" y="908" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">TIRO BAJO</text><text x="881" y="936" text-anchor="middle" class="wl" fill="#1C1C1C" fill-opacity="0.55" style="font-size:20px">LOW WIDE</text></g><g filter="url(#halo)">
+  <path id="rs-om" d="M150 700 L930 700" stroke="#1C1C1C" stroke-opacity="0.7" stroke-dasharray="4 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text id="rs-omt" x="540" y="684" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:22px">OMBLIGO</text></g>
+  <g id="rs-p"><rect x="330" y="1040" width="420" height="64" rx="60" fill="#EECDCC"/><text x="540" y="1081" text-anchor="middle" class="wl" fill="#1C1C1C" style="font-size:26px">MÁS BAJITO Y ANCHITO</text></g>
         </svg></div>
       </div>
 
@@ -624,37 +612,30 @@
   tl.fromTo("#duo-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 10.51);
   tl.to("#duo-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 17.80);
   tl.set("#duo-in", { autoAlpha: 0 }, 18.05);
-  tl.set(".dj1, .dj2, #du-1, #du-2, #du-x, #du-p", { autoAlpha: 0 }, 10.51);
-  tl.set(".dj1", { autoAlpha: 1 }, 10.61);
-  tl.fromTo(".dj1 path", { strokeDasharray: "1600", strokeDashoffset: 1600 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out", stagger: 0.08 }, 10.61);
-  tl.fromTo("#du-1", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 11.21);
-  tl.set(".dj2", { autoAlpha: 1 }, 11.31);
-  tl.fromTo(".dj2 path", { strokeDasharray: "1600", strokeDashoffset: 1600 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out", stagger: 0.08 }, 11.31);
-  tl.fromTo("#du-2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 11.91);
+  tl.set(".d1, .d2, #du-x, #du-p", { autoAlpha: 0 }, 10.51);
+  tl.fromTo(".d1", { autoAlpha: 0, x: -60 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "expo.out" }, 10.61);
+  tl.fromTo(".d2", { autoAlpha: 0, x: 60 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "expo.out" }, 11.26);
   tl.fromTo("#du-x", { strokeDasharray: "180", strokeDashoffset: 180 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out", stagger: 0.0 }, 12.94);
   tl.fromTo("#du-p", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power3.out", stagger: 0.0 }, 15.44);
   tl.fromTo("#f1-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 22.69);
   tl.to("#f1-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 35.68);
   tl.set("#f1-in", { autoAlpha: 0 }, 35.93);
-  tl.set(".f1j, #f1-line, #f1-lt, #f1-n, #f1-r, #f1-d, #f1-p", { autoAlpha: 0 }, 22.69);
-  tl.set(".f1j", { autoAlpha: 1 }, 22.79);
-  tl.fromTo(".f1j path", { strokeDasharray: "2000", strokeDashoffset: 2000 }, { strokeDashoffset: 0, duration: 1.0, ease: "power2.out", stagger: 0.1 }, 22.79);
-  tl.fromTo("#f1-line", { strokeDasharray: "470", strokeDashoffset: 470 }, { strokeDashoffset: 0, duration: 0.45, ease: "power2.out", stagger: 0.0 }, 25.65);
+  tl.set(".f1c, #f1-line, #f1-lt, #f1-n, #f1-r, #f1-d, #f1-p", { autoAlpha: 0 }, 22.69);
+  tl.fromTo(".f1c", { autoAlpha: 0, x: -60 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "expo.out" }, 22.79);
+  tl.fromTo("#f1-line", { strokeDasharray: "540", strokeDashoffset: 540 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 25.65);
   tl.fromTo("#f1-lt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 25.90);
-  tl.fromTo("#f1-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "power3.out", stagger: 0.0 }, 28.47);
-  tl.fromTo("#f1-n", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power3.out", stagger: 0.0 }, 32.96);
-  tl.fromTo("#f1-r", { strokeDasharray: "360", strokeDashoffset: 360 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 33.16);
-  tl.fromTo("#f1-p", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "power3.out", stagger: 0.0 }, 33.46);
+  tl.fromTo("#f1-n", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power3.out", stagger: 0.0 }, 31.05);
+  tl.fromTo("#f1-r", { strokeDasharray: "360", strokeDashoffset: 360 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 31.25);
+  tl.fromTo("#f1-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 31.45);
+  tl.fromTo("#f1-p", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "power3.out", stagger: 0.0 }, 33.36);
   tl.fromTo("#f2-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 35.68);
   tl.to("#f2-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 44.27);
   tl.set("#f2-in", { autoAlpha: 0 }, 44.52);
-  tl.set(".f2j, #f2-n, #f2-r, #f2-d, #f2-p, #f2-b", { autoAlpha: 0 }, 35.68);
-  tl.set(".f2j", { autoAlpha: 1 }, 35.78);
-  tl.fromTo(".f2j path", { strokeDasharray: "2000", strokeDashoffset: 2000 }, { strokeDashoffset: 0, duration: 1.0, ease: "power2.out", stagger: 0.1 }, 35.78);
+  tl.set(".f2c, #f2-n, #f2-r, #f2-d, #f2-b", { autoAlpha: 0 }, 35.68);
+  tl.fromTo(".f2c", { autoAlpha: 0, x: 60 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "expo.out" }, 35.78);
   tl.fromTo("#f2-n", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power3.out", stagger: 0.0 }, 36.58);
   tl.fromTo("#f2-r", { strokeDasharray: "360", strokeDashoffset: 360 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", stagger: 0.0 }, 36.78);
   tl.fromTo("#f2-d", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 36.98);
-  tl.fromTo("#f2-p", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "power3.out", stagger: 0.0 }, 38.54);
   tl.fromTo("#f2-b", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power3.out", stagger: 0.0 }, 39.14);
   tl.fromTo("#scA-in", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" }, 45.58);
   tl.to("#scA-in", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, 50.13);
@@ -670,14 +651,9 @@
   tl.fromTo("#rise-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, 57.15);
   tl.to("#rise-in", { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 65.57);
   tl.set("#rise-in", { autoAlpha: 0 }, 65.82);
-  tl.set(".rj1, .rj2, #rs-1, #rs-2, #rs-t1, #rs-t2, #rs-om, #rs-omt, #rs-p", { autoAlpha: 0 }, 57.15);
-  tl.set(".rj1", { autoAlpha: 1 }, 57.25);
-  tl.set(".rj2", { autoAlpha: 1 }, 57.25);
-  tl.fromTo(".rj1 path, .rj2 path", { strokeDasharray: "1800", strokeDashoffset: 1800 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out", stagger: 0.06 }, 57.25);
-  tl.fromTo("#rs-1", { strokeDasharray: "310", strokeDashoffset: 310 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.0 }, 57.85);
-  tl.fromTo("#rs-t1", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 58.05);
-  tl.fromTo("#rs-2", { strokeDasharray: "310", strokeDashoffset: 310 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", stagger: 0.0 }, 60.55);
-  tl.fromTo("#rs-t2", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 60.75);
+  tl.set(".r1c, .r2c, #rs-om, #rs-omt, #rs-p", { autoAlpha: 0 }, 57.15);
+  tl.fromTo(".r1c", { autoAlpha: 0, x: -50 }, { autoAlpha: 1, x: 0, duration: 0.55, ease: "expo.out" }, 57.25);
+  tl.fromTo(".r2c", { autoAlpha: 0, x: 50 }, { autoAlpha: 1, x: 0, duration: 0.55, ease: "expo.out" }, 57.40);
   tl.fromTo("#rs-p", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power3.out", stagger: 0.0 }, 61.35);
   tl.fromTo("#rs-om", { strokeDasharray: "800", strokeDashoffset: 800 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 63.01);
   tl.fromTo("#rs-omt", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out", stagger: 0.0 }, 63.31);
@@ -702,12 +678,12 @@
   tl.to("#scC-in", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, 89.83);
   tl.set("#scC-in", { autoAlpha: 0 }, 89.98);
   tl.set("#cs-w, #cs-r, #cs-u, #cs-p", { autoAlpha: 0 }, 83.58);
-  tl.fromTo("#cs-w", { autoAlpha: 0, scaleX: 1.22, transformOrigin: '50% 50%' }, { autoAlpha: 1, scaleX: 1, duration: 0.8, ease: "expo.out" }, 83.73);
-  tl.fromTo("#cs-r", { strokeDasharray: "520", strokeDashoffset: 520 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 84.08);
+  tl.fromTo("#cs-w", { autoAlpha: 0, scale: 0.94, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.7, ease: "expo.out" }, 83.73);
+  tl.fromTo("#cs-r", { strokeDasharray: "440", strokeDashoffset: 440 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", stagger: 0.0 }, 84.08);
   tl.fromTo("#cs-u", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power3.out", stagger: 0.0 }, 85.40);
   tl.fromTo("#cs-p", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: "power3.out", stagger: 0.0 }, 87.08);
   tl.fromTo("#fadeout", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.45, ease: "power1.in" }, 89.48);
-  tl.fromTo("#logo-w", { autoAlpha: 0, y: -14 }, { autoAlpha: 0.9, y: 0, duration: 0.6, ease: "expo.out" }, 0.15);
+  tl.fromTo("#logo-w", { autoAlpha: 0, y: -14 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "expo.out" }, 0.15);
   tl.to("#logo-w", { autoAlpha: 0, duration: 0.3 }, 4.87);
   tl.set("#logo-w", { autoAlpha: 0 }, 5.22);
       const glProxy = { t: 0 };

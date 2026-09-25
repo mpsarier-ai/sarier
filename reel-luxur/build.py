@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 """LUXUR — reel "el dúo perfecto" (RELAXED FIT + LOW WIDE FIT).
 Sistema de diseño LUXUR leído del tema de Shopify: fondo beige #EDEBE6, tinta #1C1C1C, blush #EECDCC,
-Poppins (300/400/500), píldoras r60, trazo fino. Nada del sistema de Sarier.
-Stock y nombres de color vienen del catálogo real de luxurjeans.com."""
+Poppins (300/400/500), píldoras r60, trazo fino. Wordmark en Montserrat SemiBold con espaciado mínimo.
+Las fichas usan la foto real de cada fit (public/fit-relaxed.png, public/fit-low.png); mientras no estén,
+se dibuja el encaje marcado. Stock y nombres de color vienen del catálogo real de luxurjeans.com."""
 import sys, os; sys.path.insert(0, "..")
 from reelkit import *
 
 R = Reel("LUXUR — el dúo perfecto", theme="luxur", gin_top=0, gin_scale=1.0, gin_h=1920)
 S, E, L = R.S, R.E, Reel.label
-SW, SW8 = R.SW, R.SW8
 INK, BEIGE, BLUSH = "#1C1C1C", "#EDEBE6", "#EECDCC"
 SAGE, CREAM, GREY, WHITE = "#B9B6A2", "#ECE4D1", "#EFEFEF", "#FFFFFF"
-DENIM_D, DENIM_DIRTY, CARBON = "#34435A", "#6E7F93", "#3A3A3C"
+DENIM_D, DENIM_DIRTY, CARBON, ROSA = "#34435A", "#6E7F93", "#3A3A3C", "#E0BDB9"
 THIN = 'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"'
 HALO = ('<defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%">'
         '<feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FFFFFF" flood-opacity="0.95"/>'
-        '<feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter></defs>')
+        '<feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFFFFF" flood-opacity="0.65"/></filter>'
+        '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%">'
+        '<feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#1C1C1C" flood-opacity="0.18"/></filter></defs>')
+MONT = ";font-family:Montserrat;font-weight:600;letter-spacing:0.02em"
 
 R.card_frags = {1, 2, 35, 36, 37}
 R.ink_frags = {20, 21, 29, 30, 31, 32, 33, 34}
@@ -24,7 +27,7 @@ R.punch = {3:"TikTok", 5:"GAP", 6:"perfecto", 8:"vendidos", 11:"perfecto", 12:"a
            26:"anchito,", 27:"ombligo.", 28:"clóset", 30:"rosado,", 31:"time.", 32:"dirty,", 33:"grisáceo,", 34:"azul"}
 R.rail()
 
-# el sujeto está de pie y ocupa el centro: subtítulos abajo, tarjetas a los lados, datos en escenas beige
+# el sujeto está de pie y ocupa el centro: subtítulos abajo, fichas a los lados, datos en escenas beige
 R.extra_css = """
       .card { height: 1920px; }
       .rail { top: 1420px; }
@@ -34,8 +37,9 @@ R.extra_css = """
       .wl { font-size: 26px; font-weight: 500; }
       .wl2 { font-size: 32px; font-weight: 500; }
       #logo { position: absolute; left: 0; right: 0; top: 250px; text-align: center; pointer-events: none; }
-      #logo span { display: inline-block; font-weight: 500; font-size: 54px; letter-spacing: 0.42em;
-        color: #1C1C1C; text-shadow: 0 0 14px rgba(255,255,255,0.95), 0 0 34px rgba(255,255,255,0.7); padding-left: 0.42em; }
+      #logo span { display: inline-block; font-family: Montserrat, Poppins, sans-serif; font-weight: 600;
+        font-size: 58px; letter-spacing: 0.02em; color: #1C1C1C;
+        text-shadow: 0 0 14px rgba(255,255,255,0.95), 0 0 34px rgba(255,255,255,0.7); }
 """
 
 def J(js, **kw):
@@ -47,18 +51,22 @@ def pill(id_, x, y, w, h, text, bg=BEIGE, fg=INK, size=26, rx=60):
 def caps(id_, text, x, y, color=WHITE, size=26, anchor="start", extra=""):
     return f'<text id="{id_}" x="{x}" y="{y}" text-anchor="{anchor}" class="wl" fill="{color}" style="font-size:{size}px{extra}">{esc(text)}</text>'
 
-# ------------------------------------------------------------------ silueta de jean (línea fina, 260x420)
-def jean(prefix, x, y, s=1.0, rise="high", color=INK, wide=1.0):
-    """rise: high = cintura alta y pierna recta; low = tiro bajo y pierna ancha."""
-    waist_y, hip = (0, 150) if rise == "high" else (44, 190)
-    ow, bot = 124 * wide, 640
-    d = (f'M{-94:.0f} {waist_y} L{94:.0f} {waist_y} L{ow:.0f} {bot} L{26:.0f} {bot} L{6:.0f} {hip + 210} '
-         f'L{-6:.0f} {hip + 210} L{-26:.0f} {bot} L{-ow:.0f} {bot} Z')
-    return (f'<g class="{prefix}" transform="translate({x} {y}) scale({s})">'
-            f'<path class="{prefix}-o" d="{d}" stroke="{color}" {THIN}/>'
-            f'<path class="{prefix}-w" d="M{-94:.0f} {waist_y + 30} L{94:.0f} {waist_y + 30}" stroke="{color}" {THIN}/>'
-            f'<path class="{prefix}-p" d="M{-72:.0f} {waist_y + 48} q22 30 0 54 M{72:.0f} {waist_y + 48} q-22 30 0 54" stroke="{color}" {THIN}/>'
-            f'<path class="{prefix}-z" d="M0 {waist_y + 30} L0 {hip}" stroke="{color}" {THIN}/></g>')
+# ------------------------------------------------------------------ ficha de producto con la foto del fit
+FIT_SRC = {"relaxed": "public/fit-relaxed.png", "low": "public/fit-low.png"}
+def fitcard(cid, fit, x, y, w, h, title, sub="", pad=22):
+    """Tarjeta beige (como la de la tienda) con la foto del fit. Sin foto todavía, deja el encaje marcado."""
+    src = FIT_SRC[fit]
+    iw = w - pad * 2
+    ih = h - pad * 2 - (76 if title else 0)
+    if os.path.exists(src):
+        art = f'<image class="{cid}-img" href="{src}" x="{x + pad}" y="{y + pad}" width="{iw}" height="{ih}" preserveAspectRatio="xMidYMid meet"/>'
+    else:
+        art = (f'<rect class="{cid}-img" x="{x + pad}" y="{y + pad}" width="{iw}" height="{ih}" rx="18" fill="{WHITE}" fill-opacity="0.5" stroke="{INK}" stroke-opacity="0.25" stroke-dasharray="10 10" {THIN}/>'
+               f'<text x="{x + w/2:.0f}" y="{y + pad + ih/2:.0f}" text-anchor="middle" class="wl" fill="{INK}" fill-opacity="0.45" style="font-size:22px">FOTO {esc(fit.upper())}</text>')
+    lab = (f'<text x="{x + w/2:.0f}" y="{y + h - 42:.0f}" text-anchor="middle" class="wl" fill="{INK}" style="font-size:26px">{esc(title)}</text>'
+           f'<text x="{x + w/2:.0f}" y="{y + h - 14:.0f}" text-anchor="middle" class="wl" fill="{INK}" fill-opacity="0.55" style="font-size:20px">{esc(sub)}</text>') if title else ""
+    return (f'<g class="{cid}" filter="url(#soft)"><rect class="{cid}-bg" x="{x}" y="{y}" width="{w}" height="{h}" rx="34" fill="{BEIGE}"/>'
+            f'{art}{lab}</g>')
 
 # ================================================================== 1 · HOOK
 R.card("hook", 0.0, E(2) + 0.25, [
@@ -70,8 +78,8 @@ R.hidden("#hp", 0.35); R.pop("#hp", 0.5, 0.35)
 
 # ================================================================== 2 · TIKTOK · BIEBER × GAP
 st, en = S(3), E(5) + 0.25
-R.clip("tk", st, en, f'''
-  <rect id="tk-c" x="580" y="300" width="440" height="250" rx="34" fill="{BEIGE}"/>
+R.clip("tk", st, en, HALO + f'''
+  <g filter="url(#soft)"><rect id="tk-c" x="580" y="300" width="440" height="250" rx="34" fill="{BEIGE}"/></g>
   {caps("tk-a", "EN TIKTOK", 620, 372, INK, 26)}
   <path id="tk-r" d="M620 400 L980 400" stroke="{INK}" {THIN}/>
   {caps("tk-b", "TODO EL MUNDO", 620, 452, INK, 34, extra=";font-weight:400")}
@@ -81,53 +89,52 @@ R.fromTo("#tk-c", "autoAlpha: 0, scaleX: 0.6, transformOrigin: '100% 50%'", "aut
 R.pop("#tk-a", st + 0.3, 0.3); R.draw("#tk-r", 360, st + 0.45, 0.4)
 R.pop("#tk-b", S(4) + 0.2, 0.35); R.pop("#tk-c", S(5) + 0.1, 0.35)
 
-# ================================================================== 3 · EL DÚO PERFECTO — dos siluetas
+# ================================================================== 3 · EL DÚO PERFECTO — dos fichas
 st, en = S(6), E(8) + 0.25
-R.clip("duo", st, en, HALO + f'''<g filter="url(#halo)">
-  {jean("dj1", 210, 560, 0.52, "high")}
-  {jean("dj2", 870, 560, 0.52, "low", wide=1.2)}
-  {caps("du-1", "RELAXED FIT", 210, 940, INK, 26, "middle")}
-  {caps("du-2", "LOW WIDE FIT", 870, 940, INK, 26, "middle")}
-  <path id="du-x" d="M498 760 L582 760 M540 718 L540 802" stroke="{BLUSH}" {THIN}/>
-  </g>{pill("du-p", 380, 1230, 320, 64, "EL DÚO PERFECTO", BLUSH, INK, 26)}''')
-R.hidden(".dj1, .dj2, #du-1, #du-2, #du-x, #du-p", st)
-R.show(".dj1", st + 0.1); R.draw(".dj1 path", 1600, st + 0.1, 0.9, stagger=0.08); R.pop("#du-1", st + 0.7, 0.3)
-R.show(".dj2", S(6) + 0.8); R.draw(".dj2 path", 1600, S(6) + 0.8, 0.9, stagger=0.08); R.pop("#du-2", S(6) + 1.4, 0.3)
+R.clip("duo", st, en, HALO
+  + fitcard("d1", "relaxed", 34, 470, 330, 520, "RELAXED FIT", "TIRO ALTO")
+  + fitcard("d2", "low", 716, 470, 330, 520, "LOW WIDE FIT", "TIRO BAJO")
+  + f'''<path id="du-x" d="M498 726 L582 726 M540 684 L540 768" stroke="{BLUSH}" {THIN}/>
+  {pill("du-p", 380, 1040, 320, 64, "EL DÚO PERFECTO", BLUSH, INK, 26)}''')
+R.hidden(".d1, .d2, #du-x, #du-p", st)
+R.fromTo(".d1", "autoAlpha: 0, x: -60", "autoAlpha: 1, x: 0", st + 0.1, 0.6, "expo.out")
+R.fromTo(".d2", "autoAlpha: 0, x: 60", "autoAlpha: 1, x: 0", S(6) + 0.75, 0.6, "expo.out")
 R.draw("#du-x", 180, S(7) + 0.2, 0.3); R.pop("#du-p", S(8) + 0.3, 0.4)
 
 # ================================================================== 4 · FIT 1 · RELAXED (tiro alto)
 st, en = S(11), E(15) + 0.25
-R.clip("f1", st, en, HALO + f'''<g filter="url(#halo)">
-  {jean("f1j", 270, 470, 0.72, "high")}
-  <path id="f1-line" d="M96 470 L520 470" stroke="{INK}" stroke-dasharray="8 10" {THIN}/>
-  {caps("f1-lt", "TIRO ALTO", 96, 446, INK, 24)}
-  {caps("f1-n", "RELAXED FIT", 620, 700, INK, 44, extra=";letter-spacing:0.12em")}
-  <path id="f1-r" d="M620 736 L980 736" stroke="{INK}" {THIN}/>
-  {caps("f1-d", "RELAJADO · PARA USARLO BONITO", 620, 790, INK, 22)}
-  </g>{pill("f1-p", 620, 840, 250, 64, "$199.000", BEIGE, INK, 30)}''')
-R.hidden(".f1j, #f1-line, #f1-lt, #f1-n, #f1-r, #f1-d, #f1-p", st)
-R.show(".f1j", st + 0.1); R.draw(".f1j path", 2000, st + 0.1, 1.0, stagger=0.1)
-R.draw("#f1-line", 470, S(12) + 0.35, 0.45); R.pop("#f1-lt", S(12) + 0.6, 0.3)
-R.pop("#f1-d", S(13) + 0.4, 0.35)
-R.pop("#f1-n", S(15) + 0.1, 0.4); R.draw("#f1-r", 360, S(15) + 0.3, 0.4); R.pop("#f1-p", S(15) + 0.6, 0.35)
+R.clip("f1", st, en, HALO
+  + fitcard("f1c", "relaxed", 40, 430, 400, 640, "RELAXED FIT", "$199.000")
+  + f'''<g filter="url(#halo)">
+  <path id="f1-line" d="M470 560 L1000 560" stroke="{INK}" stroke-dasharray="8 10" {THIN}/>
+  {caps("f1-lt", "TIRO ALTO", 1000, 536, INK, 24, "end")}
+  {caps("f1-n", "RELAJADO", 1000, 700, INK, 44, "end", extra=";letter-spacing:0.12em")}
+  <path id="f1-r" d="M640 736 L1000 736" stroke="{INK}" {THIN}/>
+  {caps("f1-d", "HECHO PARA USARLO BONITO", 1000, 786, INK, 22, "end")}</g>
+  {pill("f1-p", 700, 830, 300, 64, "PARA QUE LO ANOTEN", BEIGE, INK, 24)}''')
+R.hidden(".f1c, #f1-line, #f1-lt, #f1-n, #f1-r, #f1-d, #f1-p", st)
+R.fromTo(".f1c", "autoAlpha: 0, x: -60", "autoAlpha: 1, x: 0", st + 0.1, 0.6, "expo.out")
+R.draw("#f1-line", 540, S(12) + 0.35, 0.5); R.pop("#f1-lt", S(12) + 0.6, 0.3)
+R.pop("#f1-n", S(14) + 0.1, 0.4); R.draw("#f1-r", 360, S(14) + 0.3, 0.4); R.pop("#f1-d", S(14) + 0.5, 0.3)
+R.pop("#f1-p", S(15) + 0.5, 0.35)
 
 # ================================================================== 5 · FIT 2 · LOW WIDE (2º más vendido)
 st, en = S(16), E(18) + 0.25
-R.clip("f2", st, en, HALO + f'''<g filter="url(#halo)">
-  {jean("f2j", 820, 470, 0.72, "low", wide=1.2)}
-  {caps("f2-n", "LOW WIDE FIT", 460, 700, INK, 44, "end", extra=";letter-spacing:0.12em")}
-  <path id="f2-r" d="M100 736 L460 736" stroke="{INK}" {THIN}/>
-  {caps("f2-d", "TIRO BAJO · ANCHO", 460, 790, INK, 24, "end")}
-  </g>{pill("f2-p", 210, 840, 250, 64, "$199.000", BEIGE, INK, 30)}
-  {pill("f2-b", 100, 936, 360, 64, "2º MÁS VENDIDO", BLUSH, INK, 26)}''')
-R.hidden(".f2j, #f2-n, #f2-r, #f2-d, #f2-p, #f2-b", st)
-R.show(".f2j", st + 0.1); R.draw(".f2j path", 2000, st + 0.1, 1.0, stagger=0.1)
+R.clip("f2", st, en, HALO
+  + fitcard("f2c", "low", 640, 430, 400, 640, "LOW WIDE FIT", "$199.000")
+  + f'''<g filter="url(#halo)">
+  {caps("f2-n", "EL SEGUNDO", 80, 700, INK, 44, extra=";letter-spacing:0.12em")}
+  <path id="f2-r" d="M80 736 L440 736" stroke="{INK}" {THIN}/>
+  {caps("f2-d", "TIRO BAJO · ANCHO", 80, 786, INK, 22)}</g>
+  {pill("f2-b", 80, 830, 360, 64, "2º MÁS VENDIDO", BLUSH, INK, 26)}''')
+R.hidden(".f2c, #f2-n, #f2-r, #f2-d, #f2-b", st)
+R.fromTo(".f2c", "autoAlpha: 0, x: 60", "autoAlpha: 1, x: 0", st + 0.1, 0.6, "expo.out")
 R.pop("#f2-n", S(16) + 0.9, 0.4); R.draw("#f2-r", 360, S(16) + 1.1, 0.4); R.pop("#f2-d", S(16) + 1.3, 0.3)
-R.pop("#f2-p", S(17) + 0.3, 0.35); R.pop("#f2-b", S(17) + 0.9, 0.4)
+R.pop("#f2-b", S(17) + 0.9, 0.4)
 
 # ================================================================== 6 · ESCENA · ÚLTIMAS UNIDADES (stock real)
 st, en = S(20), E(21) + 0.3
-STOCK = [("AZUL OSCURO", 1, DENIM_D), ("AZUL DIRTY", 10, DENIM_DIRTY), ("NEGRO", 15, CARBON), ("ROSADO", 22, "#E0BDB9")]
+STOCK = [("AZUL OSCURO", 1, DENIM_D), ("AZUL DIRTY", 10, DENIM_DIRTY), ("NEGRO", 15, CARBON), ("ROSADO", 22, ROSA)]
 rows = "".join(f'''
   <g class="sk-r" id="sk-r{k}">
     <circle cx="150" cy="{700 + k * 170}" r="34" fill="{col}"/>
@@ -146,37 +153,32 @@ for k in range(4):
     R.fromTo(f"#sk-r{k}", "autoAlpha: 0, x: 40", "autoAlpha: 1, x: 0", st + 0.45 + k * 0.22, 0.5, "expo.out")
 R.pop("#sk-p", S(21) + 0.6, 0.4)
 
-# ================================================================== 7 · TIRO ALTO vs TIRO BAJO
+# ================================================================== 7 · TIRO ALTO vs TIRO BAJO (las dos fotos)
 st, en = S(25), E(27) + 0.3
-R.clip("rise", st, en, HALO + f'''<g filter="url(#halo)">
-  {jean("rj1", 235, 520, 0.5, "high")}
-  {jean("rj2", 845, 520, 0.5, "low", wide=1.2)}
-  <path id="rs-1" d="M96 520 L380 520" stroke="{INK}" stroke-dasharray="8 10" {THIN}/>
-  <path id="rs-2" d="M700 542 L990 542" stroke="{INK}" stroke-dasharray="8 10" {THIN}/>
-  {caps("rs-t1", "TIRO ALTO", 96, 498, INK, 24)}
-  {caps("rs-t2", "TIRO BAJO", 990, 520, INK, 24, "end")}
-  <path id="rs-om" d="M150 690 L930 690" stroke="{INK}" stroke-opacity="0.75" stroke-dasharray="4 12" {THIN}/>
-  {caps("rs-omt", "OMBLIGO", 540, 672, INK, 22, "middle")}
-  </g>{pill("rs-p", 330, 1230, 420, 64, "MÁS BAJITO Y ANCHITO", BLUSH, INK, 26)}''')
-R.hidden(".rj1, .rj2, #rs-1, #rs-2, #rs-t1, #rs-t2, #rs-om, #rs-omt, #rs-p", st)
-R.show(".rj1", st + 0.1); R.show(".rj2", st + 0.1)
-R.draw(".rj1 path, .rj2 path", 1800, st + 0.1, 0.8, stagger=0.06)
-R.draw("#rs-1", 310, st + 0.7, 0.35); R.pop("#rs-t1", st + 0.9, 0.3)
-R.draw("#rs-2", 310, S(26) + 0.3, 0.35); R.pop("#rs-t2", S(26) + 0.5, 0.3)
+R.clip("rise", st, en, HALO
+  + fitcard("r1c", "relaxed", 34, 430, 330, 520, "TIRO ALTO", "RELAXED")
+  + fitcard("r2c", "low", 716, 430, 330, 520, "TIRO BAJO", "LOW WIDE")
+  + f'''<g filter="url(#halo)">
+  <path id="rs-om" d="M150 700 L930 700" stroke="{INK}" stroke-opacity="0.7" stroke-dasharray="4 12" {THIN}/>
+  {caps("rs-omt", "OMBLIGO", 540, 684, INK, 22, "middle")}</g>
+  {pill("rs-p", 330, 1040, 420, 64, "MÁS BAJITO Y ANCHITO", BLUSH, INK, 26)}''')
+R.hidden(".r1c, .r2c, #rs-om, #rs-omt, #rs-p", st)
+R.fromTo(".r1c", "autoAlpha: 0, x: -50", "autoAlpha: 1, x: 0", st + 0.1, 0.55, "expo.out")
+R.fromTo(".r2c", "autoAlpha: 0, x: 50", "autoAlpha: 1, x: 0", st + 0.25, 0.55, "expo.out")
 R.pop("#rs-p", S(26) + 1.1, 0.4)
 R.draw("#rs-om", 800, S(27) + 0.2, 0.5); R.pop("#rs-omt", S(27) + 0.5, 0.3)
 
 # ================================================================== 8 · ESCENA · LOS COLORES (discos 3D)
 st, en = S(29), E(34) + 0.3
-COLORS = [("ROSADO", "FULLY BLUSH", "#E0BDB9"), ("AZUL DIRTY", "DIRTY WASHED", DENIM_DIRTY),
+COLORS = [("ROSADO", "FULLY BLUSH", ROSA), ("AZUL DIRTY", "DIRTY WASHED", DENIM_DIRTY),
           ("NEGRO", "GRISÁCEO", CARBON), ("AZUL", "AZUL OSCURO", DENIM_D)]
 labels = "".join(f'''
   <g class="cl-l" id="cl-l{k}">
-    <text x="540" y="{1150 + k * 0}" text-anchor="middle" class="wl" fill="{INK}" style="font-size:44px;font-weight:400;letter-spacing:0.14em">{nm}</text>
+    <text x="540" y="1150" text-anchor="middle" class="wl" fill="{INK}" style="font-size:44px;font-weight:400;letter-spacing:0.14em">{nm}</text>
     <text x="540" y="1208" text-anchor="middle" class="wl" fill="{INK}" fill-opacity="0.55" style="font-size:26px">{sub}</text>
   </g>''' for k, (nm, sub, _) in enumerate(COLORS))
 R.scene("scB", st, en, BEIGE, f'''
-  <circle id="cl-ring" cx="540" cy="840" r="196" stroke="#1C1C1C" stroke-opacity="0.22" stroke-width="2" fill="none"/>
+  <circle id="cl-ring" cx="540" cy="840" r="196" stroke="{INK}" stroke-opacity="0.22" stroke-width="2" fill="none"/>
   {caps("cl-t", "LOS COLORES", 540, 520, INK, 34, "middle")}
   <path id="cl-tr" d="M330 560 L750 560" stroke="{INK}" {THIN}/>
   {labels}
@@ -185,9 +187,8 @@ R.hidden("#cl-t, #cl-tr, .cl-l, #cl-p, #cl-ring", st)
 R.pop("#cl-t", st + 0.15, 0.35); R.draw("#cl-tr", 430, st + 0.3, 0.45); R.draw("#cl-ring", 1240, st + 0.3, 0.9)
 BEATS = [S(30) + 0.2, S(32) + 0.2, S(33) + 0.2, S(34) + 0.2]
 for k, at in enumerate(BEATS):
-    nxt = BEATS[k + 1] if k + 1 < len(BEATS) else en - 0.3
     R.fromTo(f"#cl-l{k}", "autoAlpha: 0, y: 26", "autoAlpha: 1, y: 0", at, 0.45, "expo.out")
-    if k + 1 < len(BEATS): R.to(f"#cl-l{k}", "autoAlpha: 0, y: -22", nxt - 0.18, 0.25, "power2.in")
+    if k + 1 < len(BEATS): R.to(f"#cl-l{k}", "autoAlpha: 0, y: -22", BEATS[k + 1] - 0.18, 0.25, "power2.in")
 R.pop("#cl-p", S(31) + 0.3, 0.45); R.fade("#cl-p", S(32) - 0.45, 0.0, 0.25); R.hidden("#cl-p", S(32) - 0.15)
 
 R.gl({})
@@ -218,19 +219,19 @@ R.gl_beat(st + 0.25, en, J(r"""
 # ================================================================== 9 · CIERRE · LUXURJEANS.COM
 st, en = S(35) - 0.1, R.DUR
 R.scene("scC", st, en, BEIGE, f'''
-  {caps("cs-w", "L U X U R", 540, 900, INK, 92, "middle", extra=";letter-spacing:0.22em;font-weight:400")}
-  <path id="cs-r" d="M280 960 L800 960" stroke="{INK}" {THIN}/>
-  {caps("cs-u", "LUXURJEANS.COM", 540, 1030, INK, 34, "middle")}
-  {pill("cs-p", 330, 1100, 420, 76, "ENVÍOS A TODO EL PAÍS", BLUSH, INK, 26)}''')
+  {caps("cs-w", "LUXUR", 540, 900, INK, 128, "middle", extra=MONT)}
+  <path id="cs-r" d="M320 962 L760 962" stroke="{INK}" {THIN}/>
+  {caps("cs-u", "LUXURJEANS.COM", 540, 1032, INK, 34, "middle")}
+  {pill("cs-p", 330, 1104, 420, 76, "ENVÍOS A TODO EL PAÍS", BLUSH, INK, 26)}''')
 R.hidden("#cs-w, #cs-r, #cs-u, #cs-p", st)
-R.fromTo("#cs-w", "autoAlpha: 0, scaleX: 1.22, transformOrigin: '50% 50%'", "autoAlpha: 1, scaleX: 1", st + 0.15, 0.8, "expo.out")
-R.draw("#cs-r", 520, st + 0.5, 0.5)
+R.fromTo("#cs-w", "autoAlpha: 0, scale: 0.94, transformOrigin: '50% 50%'", "autoAlpha: 1, scale: 1", st + 0.15, 0.7, "expo.out")
+R.draw("#cs-r", 440, st + 0.5, 0.5)
 R.pop("#cs-u", S(36) + 0.2, 0.4); R.pop("#cs-p", S(37) + 0.3, 0.45)
 R.fadeout(0.45)
 
-# marca de agua tipográfica arriba (se reemplaza por el logo oficial cuando llegue)
+# wordmark de apertura (Montserrat SemiBold, espaciado mínimo)
 R.cards_html.append(f'      <div id="logo" class="clip" data-start="0" data-duration="{E(2) + 0.25:.2f}" data-track-index="4"><span id="logo-w">LUXUR</span></div>')
-R.raw(f'  tl.fromTo("#logo-w", {{ autoAlpha: 0, y: -14 }}, {{ autoAlpha: 0.9, y: 0, duration: 0.6, ease: "expo.out" }}, 0.15);')
+R.raw('  tl.fromTo("#logo-w", { autoAlpha: 0, y: -14 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "expo.out" }, 0.15);')
 R.raw(f'  tl.to("#logo-w", {{ autoAlpha: 0, duration: 0.3 }}, {E(2) - 0.1:.2f});')
 R.raw(f'  tl.set("#logo-w", {{ autoAlpha: 0 }}, {E(2) + 0.25:.2f});')
 

@@ -10,6 +10,7 @@ de la tienda (Shopify → tema `LUXUR DEV - Menú FITS`, `config/settings_data.j
 | Blush | `#EECDCC` | píldoras de acento (badge custom del tema) |
 | Crema / salvia | `#ECE4D1` / `#B9B6A2` | reserva |
 | Tipografía | Poppins 300/400/500 | títulos −0.04em, versalitas +0.18em |
+| Wordmark | Montserrat SemiBold, tracking 0.02em | apertura y cierre |
 | Botón / píldora | radio 60px, mayúsculas +0.02em | todas las píldoras |
 | Trazo de icono | 1.6–2px | siluetas y reglas |
 
@@ -22,8 +23,10 @@ todos LOW WIDE FIT a $199.000. Si el video se publica semanas después, hay que 
 
 ## Estado
 - `luxur-diseno.jpg` es la lámina de diseño aprobada sobre un **fotograma de relleno** (sacado del pantallazo del chat).
-- Falta el video original (`Facetune…-esv2-50p-bg-m-music-10p`) y el logo oficial: el proxy de red bloquea
-  `cdn.shopify.com` y `luxurjeans.com`, así que ambos tienen que subirse a una release del repo.
+- Las fichas de producto esperan `public/fit-relaxed.png` y `public/fit-low.png` (una foto por fit).
+  Sin ellas, `fitcard()` dibuja el encaje marcado y el resto del reel funciona igual.
+- Falta el video original (`Facetune…-esv2-50p-bg-m-music-10p`): el proxy de red bloquea `cdn.shopify.com` y `luxurjeans.com`,
+  así que tiene que subirse a una release del repo.
 - Los tiempos de `captions.cut.json` son provisionales (repartidos por longitud sobre 90 s); se recalculan
   con el audio real usando `cut.py` + `align.py` + `retime2.py`.
 

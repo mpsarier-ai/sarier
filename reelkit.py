@@ -28,7 +28,8 @@ THEMES = {
         face=('@font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Light.ttf") format("truetype"); font-weight: 300; font-display: block; }\n'
               '      @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }\n'
               '      @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Medium.ttf") format("truetype"); font-weight: 500; font-display: block; }\n'
-              '      @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; font-display: block; }'),
+              '      @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; font-display: block; }\n'
+              '      @font-face { font-family: "Montserrat"; src: url("public/fonts/Montserrat-var.ttf") format("truetype-variations"); font-weight: 100 900; font-display: block; }'),
         stack='"Poppins", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif',
         ink="#1C1C1C", accent="#EECDCC", light="#EDEBE6", dark="#1C1C1C",
         tr_display="-0.04em", tr_body="0.01em", tr_caps="0.18em",
