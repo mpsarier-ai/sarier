@@ -11,6 +11,33 @@ LIGHT, DARK, WHITE = "#F5F5F7", "#161618", "#FFFFFF"
 SW = 'stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"'
 SW8 = 'stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"'
 
+# ---------------------------------------------------------------- brand themes
+# A theme carries the brand's type, palette and caption treatment. "sarier" is the default
+# (Archivo · ink/red · hot word in red); "luxur" is the store's own system read from the
+# Shopify theme: Poppins, warm beige ground, ink #1C1C1C, blush #EECDCC, pill badges, thin strokes.
+THEMES = {
+    "sarier": dict(
+        face='@font-face { font-family: "Archivo"; src: url("public/fonts/Archivo-600-latin.woff2") format("woff2"); font-weight: 500 700; font-display: block; }',
+        stack='"Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif',
+        ink="#1D1D1F", accent="#E1251B", light="#F5F5F7", dark="#161618",
+        tr_display="-0.035em", tr_body="-0.01em", tr_caps="0.08em",
+        rail_weight=700, rail_size=62, piece_weight=600, label_weight=700,
+        hot="color", pill_bg="#E1251B", pill_fg="#FFFFFF",
+        sw=6, sw8=8, swl=6),
+    "luxur": dict(
+        face=('@font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Light.ttf") format("truetype"); font-weight: 300; font-display: block; }\n'
+              '      @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }\n'
+              '      @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Medium.ttf") format("truetype"); font-weight: 500; font-display: block; }\n'
+              '      @font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; font-display: block; }'),
+        stack='"Poppins", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif',
+        ink="#1C1C1C", accent="#EECDCC", light="#EDEBE6", dark="#1C1C1C",
+        tr_display="-0.04em", tr_body="0.01em", tr_caps="0.18em",
+        rail_weight=500, rail_size=56, piece_weight=400, label_weight=400,
+        hot="pill", pill_bg="#EDEBE6", pill_fg="#1C1C1C",
+        sw=3, sw8=4, swl=2),
+}
+def stroke(w): return f'stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round" fill="none"'
+
 def esc(s): return html.escape(s, quote=True)
 def norm(w): return re.sub(r"[^\wáéíóúüñ]", "", w.lower())
 def probe(video, entries):
@@ -21,8 +48,10 @@ ENTER = {"left": "{ x: -80, autoAlpha: 0 }", "right": "{ x: 90, autoAlpha: 0 }",
          "scale": "{ scale: 0.6, autoAlpha: 0 }", "drop": "{ y: -60, autoAlpha: 0 }"}
 
 class Reel:
-    def __init__(self, title, captions="captions.cut.json", video="public/input-video.mp4", gin_top=226, gin_scale=0.66):
+    def __init__(self, title, captions="captions.cut.json", video="public/input-video.mp4", gin_top=226, gin_scale=0.66, gin_h=520, theme="sarier"):
         self.title, self.video = title, video
+        self.T = THEMES[theme]
+        self.SW, self.SW8 = stroke(self.T["sw"]), stroke(self.T["sw8"])
         fr = probe(video, "stream=r_frame_rate"); a, b = fr.split("/"); self.FPS = round(int(a) / int(b))
         self.DUR = round(float(probe(video, "format=duration").splitlines()[-1]) - 0.02, 2)
         self.frags = json.load(open(captions, encoding="utf-8"))
@@ -30,7 +59,7 @@ class Reel:
         self.tl, self.graphics, self.scenes, self.cards_html, self.rail_html = [], [], [], [], []
         self.card_frags, self.ink_frags, self.punch = set(), set(), {}
         self.glitch_stack = None
-        self.gin_top, self.gin_scale = gin_top, gin_scale
+        self.gin_top, self.gin_scale, self.gin_h = gin_top, gin_scale, gin_h
         self.extra_css = ""
         self.gl_on, self.gl_tex, self.gl_setup_js, self.gl_beats = False, {}, [], []
     def S(self, i): return self.FR[i]["start"]
@@ -48,7 +77,8 @@ class Reel:
             spans, t = [], st
             punch = self.punch.get(f["i"])
             for k, (w, wt) in enumerate(zip(words, weights)):
-                cls = "w hot" if punch and norm(w) == norm(punch) else "w"
+                hotcls = "w hot pill" if self.T["hot"] == "pill" else "w hot"
+                cls = hotcls if punch and norm(w) == norm(punch) else "w"
                 spans.append(f'<span class="{cls}" id="{rid}w{k}">{esc(w)}</span>')
                 tl.append(f'  tl.fromTo("#{rid}w{k}", {{ autoAlpha: 0, y: 14, scale: 0.82 }}, {{ autoAlpha: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out" }}, {t:.2f});')
                 t += (en - st) * wt / tot * 0.93
@@ -184,6 +214,7 @@ class Reel:
       const glCanvas = document.getElementById("gl");
       const renderer = new THREE.WebGLRenderer({{ canvas: glCanvas, alpha: true, antialias: true, preserveDrawingBuffer: true }});
       renderer.setSize({W}, {H}, false); renderer.setPixelRatio(1); renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.setClearColor(0x000000, 0); renderer.setClearAlpha(0); renderer.autoClear = true;
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(30, {W} / {H}, 0.1, 100); camera.position.set(0, 0, 20);
       const PX = 1920 / (2 * 20 * Math.tan(Math.PI * 15 / 180));      // world units → px
@@ -237,13 +268,14 @@ class Reel:
         g_html = []
         for gid, st, en, inner in self.graphics:
             g_html.append(f'      <div id="{gid}" class="mg clip" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="3">\n'
-                          f'        <div id="{gid}-in" class="gin"><svg width="1080" height="520" viewBox="0 0 1080 520">{inner}\n        </svg></div>\n      </div>')
+                          f'        <div id="{gid}-in" class="gin"><svg width="1080" height="{self.gin_h}" viewBox="0 0 1080 {self.gin_h}">{inner}\n        </svg></div>\n      </div>')
         s_html = []
         for sid, st, en, bg, inner in self.scenes:
             s_html.append(f'      <div id="{sid}" class="scene clip" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="5">\n'
                           f'        <div id="{sid}-in" class="scin" style="background:{bg}"><svg width="{W}" height="{H}" viewBox="0 0 {W} {H}">{inner}\n        </svg></div>\n      </div>')
         ghosts = f'gsap.utils.toArray("#{self.glitch_stack} .ghost")' if self.glitch_stack else "[]"
         gl_canvas, gl_script, gl_tick = self._gl_html()
+        T = self.T
         three_tag = '<script src="public/vendor/three.min.js"></script>' if self.gl_on else ""
         DUR, FPS = self.DUR, self.FPS
         page = f'''<!doctype html>
@@ -255,12 +287,14 @@ class Reel:
     <script src="public/vendor/gsap.min.js"></script>
     {three_tag}
     <style>
-      @font-face {{ font-family: "Archivo"; src: url("public/fonts/Archivo-600-latin.woff2") format("woff2"); font-weight: 500 700; font-display: block; }}
-      :root {{ --ink: {INK}; --on-dark: #FFFFFF; --red: {RED}; --tr-display: -0.035em; --tr-body: -0.01em; --tr-caps: 0.08em;
+      {T["face"]}
+      :root {{ --ink: {T["ink"]}; --on-dark: #FFFFFF; --red: {T["accent"]}; --accent: {T["accent"]}; --light: {T["light"]}; --dark: {T["dark"]};
+        --pill-bg: {T["pill_bg"]}; --pill-fg: {T["pill_fg"]};
+        --tr-display: {T["tr_display"]}; --tr-body: {T["tr_body"]}; --tr-caps: {T["tr_caps"]};
         --sh-rail: 0 2px 2px rgba(0,0,0,0.45), 0 4px 22px rgba(0,0,0,0.45); }}
       * {{ box-sizing: border-box; }}
       html, body {{ margin: 0; width: {W}px; height: {H}px; overflow: hidden; background: #000;
-        font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; -webkit-font-smoothing: antialiased; }}
+        font-family: {T["stack"]}; -webkit-font-smoothing: antialiased; }}
       #root {{ position: relative; width: {W}px; height: {H}px; overflow: hidden; }}
       #video-wrap {{ position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 45%; }}
       #video-wrap video {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
@@ -270,25 +304,27 @@ class Reel:
       #fadeout {{ position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }}
       #gl {{ position: absolute; left: 0; top: 0; width: {W}px; height: {H}px; display: block; pointer-events: none; }}
       .rail {{ position: absolute; left: 0; right: 0; top: 1300px; display: flex; justify-content: center; pointer-events: none; }}
-      .rail .line {{ max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: 700; font-size: 62px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }}
+      .rail .line {{ max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: {T["rail_weight"]}; font-size: {T["rail_size"]}px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }}
       .rail .line.ink {{ color: var(--ink); text-shadow: none; }}
       .rail .w {{ display: inline-block; }}
       .rail .w.hot {{ color: var(--red); text-shadow: 0 0 2px rgba(255,255,255,0.55), 0 0 12px rgba(255,255,255,0.45), 0 2px 2px rgba(0,0,0,0.35); }}
       .rail .line.ink .w.hot {{ text-shadow: none; }}
+      .rail .w.hot.pill {{ color: var(--pill-fg); background: var(--pill-bg); text-shadow: none;
+        padding: 0.06em 0.34em 0.12em; border-radius: 60px; margin: 0 0.04em; }}
       .card {{ position: absolute; left: 0; top: 0; width: {W}px; height: 700px; pointer-events: none; }}
       .stmt {{ position: absolute; inset: 0; }}
       .stmt .rot {{ position: absolute; white-space: nowrap; }}
-      .piece {{ display: inline-block; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }}
+      .piece {{ display: inline-block; font-weight: {T["piece_weight"]}; line-height: 0.9; letter-spacing: var(--tr-display); }}
       .piece.white {{ color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }}
       .gstack {{ display: grid; }}
-      .gstack > span {{ grid-area: 1 / 1; display: inline-block; font-size: inherit; font-weight: 600; line-height: 0.9; letter-spacing: var(--tr-display); }}
+      .gstack > span {{ grid-area: 1 / 1; display: inline-block; font-size: inherit; font-weight: {T["piece_weight"]}; line-height: 0.9; letter-spacing: var(--tr-display); }}
       .gstack .ghost {{ opacity: 0; }}
       .gstack .warm {{ color: #FF3332; }}
       .gstack .cool {{ color: #5470FD; }}
       .mg {{ position: absolute; left: 0; top: 0; width: {W}px; pointer-events: none; }}
       .gin {{ position: absolute; left: 0; top: {self.gin_top}px; transform: scale({self.gin_scale}); transform-origin: top center; }}
       .mg svg {{ display: block; }}
-      .wl, .wl2, .cnt, .big, .num {{ font-family: "Archivo", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif; font-weight: 700; }}
+      .wl, .wl2, .cnt, .big, .num {{ font-family: {T["stack"]}; font-weight: {T["label_weight"]}; }}
       .wl {{ font-size: 28px; letter-spacing: var(--tr-caps); }}
       .wl2 {{ font-size: 34px; letter-spacing: var(--tr-caps); }}
       .cnt {{ font-size: 200px; letter-spacing: -0.05em; }}
