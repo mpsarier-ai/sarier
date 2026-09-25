@@ -49,7 +49,7 @@ def pill(id_, x, y, w, h, text, bg=BEIGE, fg=INK, size=26, rx=60):
     return (f'<g id="{id_}"><rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" fill="{bg}"/>'
             f'<text x="{x + w/2:.0f}" y="{y + h/2 + size*0.36:.0f}" text-anchor="middle" class="wl" fill="{fg}" style="font-size:{size}px">{esc(text)}</text></g>')
 def caps(id_, text, x, y, color=WHITE, size=26, anchor="start", extra=""):
-    return f'<text id="{id_}" x="{x}" y="{y}" text-anchor="{anchor}" class="wl" fill="{color}" style="font-size:{size}px{extra}">{esc(text)}</text>'
+    return f'<text id="{id_}" x="{x}" y="{y}" text-anchor="{anchor}" class="wl" fill="{color}" data-layout-allow-overlap style="font-size:{size}px{extra}">{esc(text)}</text>'
 
 # ------------------------------------------------------------------ ficha de producto con la foto del fit
 FIT_SRC = {"relaxed": "public/fit-relaxed.png", "low": "public/fit-low.png"}
@@ -61,8 +61,12 @@ def fitcard(cid, fit, x, y, w, h, title, sub="", pad=22):
     if os.path.exists(src):
         art = f'<image class="{cid}-img" href="{src}" x="{x + pad}" y="{y + pad}" width="{iw}" height="{ih}" preserveAspectRatio="xMidYMid meet"/>'
     else:
-        art = (f'<rect class="{cid}-img" x="{x + pad}" y="{y + pad}" width="{iw}" height="{ih}" rx="18" fill="{WHITE}" fill-opacity="0.5" stroke="{INK}" stroke-opacity="0.25" stroke-dasharray="10 10" {THIN}/>'
-               f'<text x="{x + w/2:.0f}" y="{y + pad + ih/2:.0f}" text-anchor="middle" class="wl" fill="{INK}" fill-opacity="0.45" style="font-size:22px">FOTO {esc(fit.upper())}</text>')
+        # sin foto todavía: ficha tipográfica de la tienda (nombre grande + specs), no un hueco vacío
+        cx, cy = x + w / 2, y + pad + ih / 2
+        spec = {"relaxed": ["TIRO ALTO", "PIERNA RECTA", "RELAJADO"], "low": ["TIRO BAJO", "PIERNA ANCHA", "OVERSIZE"]}[fit]
+        lines = "".join(f'<text x="{cx:.0f}" y="{cy - 4 + k * 42:.0f}" text-anchor="middle" class="wl" fill="{INK}" fill-opacity="0.62" style="font-size:24px">{t}</text>' for k, t in enumerate(spec))
+        art = (f'<text x="{cx:.0f}" y="{cy - 86:.0f}" text-anchor="middle" class="wl" fill="{INK}" style="font-size:46px{MONT}">LUXUR</text>'
+               f'<path d="M{x + pad + 30:.0f} {cy - 52:.0f} L{x + w - pad - 30:.0f} {cy - 52:.0f}" stroke="{INK}" stroke-opacity="0.3" {THIN}/>{lines}')
     lab = (f'<text x="{x + w/2:.0f}" y="{y + h - 42:.0f}" text-anchor="middle" class="wl" fill="{INK}" style="font-size:26px">{esc(title)}</text>'
            f'<text x="{x + w/2:.0f}" y="{y + h - 14:.0f}" text-anchor="middle" class="wl" fill="{INK}" fill-opacity="0.55" style="font-size:20px">{esc(sub)}</text>') if title else ""
     return (f'<g class="{cid}" filter="url(#soft)"><rect class="{cid}-bg" x="{x}" y="{y}" width="{w}" height="{h}" rx="34" fill="{BEIGE}"/>'
@@ -70,10 +74,10 @@ def fitcard(cid, fit, x, y, w, h, title, sub="", pad=22):
 
 # ================================================================== 1 · HOOK
 R.card("hook", 0.0, E(2) + 0.25, [
-    ("a", "Dos cosas", 118, 72, 1020, "left", "left", 1.0),
-    ("b", "antes de comprar", 62, 72, 1128, "left", "left", 0.86, S(2) + 0.05),
-    ("c", "tu LUXUR.", 92, 72, 1188, "left", "scale", 1.0, S(2) + 0.5)])
-R.clip("hookp", 0.35, E(2) + 0.25, pill("hp", 72, 920, 210, 62, "SÍ O SÍ", BLUSH, INK, 26))
+    ("a", "Dos cosas", 112, 72, 1000, "left", "left", 1.0),
+    ("b", "antes de comprar", 60, 72, 1104, "left", "left", 0.86, S(2) + 0.05),
+    ("c", "tu LUXUR.", 88, 72, 1162, "left", "scale", 1.0, S(2) + 0.5)])
+R.clip("hookp", 0.35, E(2) + 0.25, pill("hp", 72, 908, 210, 62, "SÍ O SÍ", BLUSH, INK, 26))
 R.hidden("#hp", 0.35); R.pop("#hp", 0.5, 0.35)
 
 # ================================================================== 2 · TIKTOK · BIEBER × GAP
@@ -92,10 +96,10 @@ R.pop("#tk-b", S(4) + 0.2, 0.35); R.pop("#tk-c", S(5) + 0.1, 0.35)
 # ================================================================== 3 · EL DÚO PERFECTO — dos fichas
 st, en = S(6), E(8) + 0.25
 R.clip("duo", st, en, HALO
-  + fitcard("d1", "relaxed", 34, 470, 330, 520, "RELAXED FIT", "TIRO ALTO")
-  + fitcard("d2", "low", 716, 470, 330, 520, "LOW WIDE FIT", "TIRO BAJO")
-  + f'''<path id="du-x" d="M498 726 L582 726 M540 684 L540 768" stroke="{BLUSH}" {THIN}/>
-  {pill("du-p", 380, 1040, 320, 64, "EL DÚO PERFECTO", BLUSH, INK, 26)}''')
+  + fitcard("d1", "relaxed", 40, 300, 300, 430, "RELAXED FIT", "TIRO ALTO")
+  + fitcard("d2", "low", 740, 300, 300, 430, "LOW WIDE FIT", "TIRO BAJO")
+  + f'''<path id="du-x" d="M498 515 L582 515 M540 473 L540 557" stroke="{BLUSH}" {THIN}/>
+  {pill("du-p", 380, 790, 320, 64, "EL DÚO PERFECTO", BLUSH, INK, 26)}''')
 R.hidden(".d1, .d2, #du-x, #du-p", st)
 R.fromTo(".d1", "autoAlpha: 0, x: -60", "autoAlpha: 1, x: 0", st + 0.1, 0.6, "expo.out")
 R.fromTo(".d2", "autoAlpha: 0, x: 60", "autoAlpha: 1, x: 0", S(6) + 0.75, 0.6, "expo.out")
@@ -104,14 +108,14 @@ R.draw("#du-x", 180, S(7) + 0.2, 0.3); R.pop("#du-p", S(8) + 0.3, 0.4)
 # ================================================================== 4 · FIT 1 · RELAXED (tiro alto)
 st, en = S(11), E(15) + 0.25
 R.clip("f1", st, en, HALO
-  + fitcard("f1c", "relaxed", 40, 430, 400, 640, "RELAXED FIT", "$199.000")
+  + fitcard("f1c", "relaxed", 40, 300, 320, 470, "RELAXED FIT", "$199.000")
   + f'''<g filter="url(#halo)">
-  <path id="f1-line" d="M470 560 L1000 560" stroke="{INK}" stroke-dasharray="8 10" {THIN}/>
-  {caps("f1-lt", "TIRO ALTO", 1000, 536, INK, 24, "end")}
-  {caps("f1-n", "RELAJADO", 1000, 700, INK, 44, "end", extra=";letter-spacing:0.12em")}
-  <path id="f1-r" d="M640 736 L1000 736" stroke="{INK}" {THIN}/>
-  {caps("f1-d", "HECHO PARA USARLO BONITO", 1000, 786, INK, 22, "end")}</g>
-  {pill("f1-p", 700, 830, 300, 64, "PARA QUE LO ANOTEN", BEIGE, INK, 24)}''')
+  <path id="f1-line" d="M390 392 L1000 392" stroke="{INK}" stroke-dasharray="8 10" {THIN}/>
+  {caps("f1-lt", "TIRO ALTO", 1000, 368, INK, 24, "end")}
+  {caps("f1-n", "RELAJADO", 1000, 540, INK, 40, "end", extra=";letter-spacing:0.12em")}
+  <path id="f1-r" d="M660 576 L1000 576" stroke="{INK}" {THIN}/>
+  {caps("f1-d", "HECHO PARA USARLO BONITO", 1000, 624, INK, 22, "end")}</g>
+  {pill("f1-p", 700, 664, 300, 62, "PARA QUE LO ANOTEN", BEIGE, INK, 24)}''')
 R.hidden(".f1c, #f1-line, #f1-lt, #f1-n, #f1-r, #f1-d, #f1-p", st)
 R.fromTo(".f1c", "autoAlpha: 0, x: -60", "autoAlpha: 1, x: 0", st + 0.1, 0.6, "expo.out")
 R.draw("#f1-line", 540, S(12) + 0.35, 0.5); R.pop("#f1-lt", S(12) + 0.6, 0.3)
@@ -121,12 +125,12 @@ R.pop("#f1-p", S(15) + 0.5, 0.35)
 # ================================================================== 5 · FIT 2 · LOW WIDE (2º más vendido)
 st, en = S(16), E(18) + 0.25
 R.clip("f2", st, en, HALO
-  + fitcard("f2c", "low", 640, 430, 400, 640, "LOW WIDE FIT", "$199.000")
+  + fitcard("f2c", "low", 720, 300, 320, 470, "LOW WIDE FIT", "$199.000")
   + f'''<g filter="url(#halo)">
-  {caps("f2-n", "EL SEGUNDO", 80, 700, INK, 44, extra=";letter-spacing:0.12em")}
-  <path id="f2-r" d="M80 736 L440 736" stroke="{INK}" {THIN}/>
-  {caps("f2-d", "TIRO BAJO · ANCHO", 80, 786, INK, 22)}</g>
-  {pill("f2-b", 80, 830, 360, 64, "2º MÁS VENDIDO", BLUSH, INK, 26)}''')
+  {caps("f2-n", "EL SEGUNDO", 60, 540, INK, 40, extra=";letter-spacing:0.12em")}
+  <path id="f2-r" d="M60 576 L400 576" stroke="{INK}" {THIN}/>
+  {caps("f2-d", "TIRO BAJO · ANCHO", 60, 624, INK, 22)}</g>
+  {pill("f2-b", 60, 664, 340, 62, "2º MÁS VENDIDO", BLUSH, INK, 26)}''')
 R.hidden(".f2c, #f2-n, #f2-r, #f2-d, #f2-b", st)
 R.fromTo(".f2c", "autoAlpha: 0, x: 60", "autoAlpha: 1, x: 0", st + 0.1, 0.6, "expo.out")
 R.pop("#f2-n", S(16) + 0.9, 0.4); R.draw("#f2-r", 360, S(16) + 1.1, 0.4); R.pop("#f2-d", S(16) + 1.3, 0.3)
@@ -156,12 +160,12 @@ R.pop("#sk-p", S(21) + 0.6, 0.4)
 # ================================================================== 7 · TIRO ALTO vs TIRO BAJO (las dos fotos)
 st, en = S(25), E(27) + 0.3
 R.clip("rise", st, en, HALO
-  + fitcard("r1c", "relaxed", 34, 430, 330, 520, "TIRO ALTO", "RELAXED")
-  + fitcard("r2c", "low", 716, 430, 330, 520, "TIRO BAJO", "LOW WIDE")
+  + fitcard("r1c", "relaxed", 40, 300, 300, 430, "TIRO ALTO", "RELAXED")
+  + fitcard("r2c", "low", 740, 300, 300, 430, "TIRO BAJO", "LOW WIDE")
   + f'''<g filter="url(#halo)">
-  <path id="rs-om" d="M150 700 L930 700" stroke="{INK}" stroke-opacity="0.7" stroke-dasharray="4 12" {THIN}/>
-  {caps("rs-omt", "OMBLIGO", 540, 684, INK, 22, "middle")}</g>
-  {pill("rs-p", 330, 1040, 420, 64, "MÁS BAJITO Y ANCHITO", BLUSH, INK, 26)}''')
+  <path id="rs-om" d="M150 790 L930 790" stroke="{INK}" stroke-opacity="0.7" stroke-dasharray="4 12" {THIN}/>
+  {caps("rs-omt", "OMBLIGO", 540, 774, INK, 22, "middle")}</g>
+  {pill("rs-p", 330, 830, 420, 64, "MÁS BAJITO Y ANCHITO", BLUSH, INK, 26)}''')
 R.hidden(".r1c, .r2c, #rs-om, #rs-omt, #rs-p", st)
 R.fromTo(".r1c", "autoAlpha: 0, x: -50", "autoAlpha: 1, x: 0", st + 0.1, 0.55, "expo.out")
 R.fromTo(".r2c", "autoAlpha: 0, x: 50", "autoAlpha: 1, x: 0", st + 0.25, 0.55, "expo.out")
@@ -177,8 +181,10 @@ labels = "".join(f'''
     <text x="540" y="1150" text-anchor="middle" class="wl" fill="{INK}" style="font-size:44px;font-weight:400;letter-spacing:0.14em">{nm}</text>
     <text x="540" y="1208" text-anchor="middle" class="wl" fill="{INK}" fill-opacity="0.55" style="font-size:26px">{sub}</text>
   </g>''' for k, (nm, sub, _) in enumerate(COLORS))
+# el fondo va en la escena; los textos van en un clip por encima del lienzo 3D
 R.scene("scB", st, en, BEIGE, f'''
-  <circle id="cl-ring" cx="540" cy="840" r="196" stroke="{INK}" stroke-opacity="0.22" stroke-width="2" fill="none"/>
+  <circle id="cl-ring" cx="540" cy="840" r="196" stroke="{INK}" stroke-opacity="0.22" stroke-width="2" fill="none"/>''')
+R.clip("clt", st, en, f'''
   {caps("cl-t", "LOS COLORES", 540, 520, INK, 34, "middle")}
   <path id="cl-tr" d="M330 560 L750 560" stroke="{INK}" {THIN}/>
   {labels}
@@ -211,8 +217,8 @@ R.gl_beat(st + 0.25, en, J(r"""
       d.visible = inU > 0 && outU < 1;
       d.scale.setScalar(inU * (1 - 0.35 * outU));
       d.position.y = Y(840) + (1 - inU) * -0.9 + outU * 1.1;
-      d.rotation.y = (1 - inU) * 1.5 + (t - B[k]) * 0.5;
-      d.rotation.x = 0.16 + Math.sin((t - B[k]) * 0.8) * 0.07;
+      d.rotation.y = (1 - inU) * 1.4 + Math.sin((t - B[k]) * 0.55) * 0.30;
+      d.rotation.x = 0.14 + Math.sin((t - B[k]) * 0.7) * 0.06;
     });
 """, st=st, b0=BEATS[0], b1=BEATS[1], b2=BEATS[2], b3=BEATS[3]))
 

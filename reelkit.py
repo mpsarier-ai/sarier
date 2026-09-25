@@ -260,7 +260,7 @@ class Reel:
       }}
       window.addEventListener("hf-seek", (e) => glRender(e.detail.time));
     </script>"""
-        canvas = f'      <canvas id="gl" width="{W}" height="{H}"></canvas>\n'
+        canvas = f'      <canvas id="gl" width="{W}" height="{H}" data-layout-allow-overlap></canvas>\n'
         tick = f'      const glProxy = {{ t: 0 }};\n      tl.to(glProxy, {{ t: 1, duration: {self.DUR}, ease: "none", onUpdate: () => glRender(tl.time()) }}, 0);\n      glRender(0);\n'
         return canvas, script, tick
 

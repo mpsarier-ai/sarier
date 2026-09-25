@@ -22,13 +22,12 @@ El stock y los nombres de color salen del catálogo vivo: AZUL OSCURO 1 · AZUL 
 todos LOW WIDE FIT a $199.000. Si el video se publica semanas después, hay que volver a consultarlos.
 
 ## Estado
-- `luxur-diseno.jpg` es la lámina de diseño aprobada sobre un **fotograma de relleno** (sacado del pantallazo del chat).
-- Las fichas de producto esperan `public/fit-relaxed.png` y `public/fit-low.png` (una foto por fit).
-  Sin ellas, `fitcard()` dibuja el encaje marcado y el resto del reel funciona igual.
-- Falta el video original (`Facetune…-esv2-50p-bg-m-music-10p`): el proxy de red bloquea `cdn.shopify.com` y `luxurjeans.com`,
-  así que tiene que subirse a una release del repo.
-- Los tiempos de `captions.cut.json` son provisionales (repartidos por longitud sobre 90 s); se recalculan
-  con el audio real usando `cut.py` + `align.py` + `retime2.py`.
+- Montado sobre el original real (release `reel-luxur`, 1080×1920 HEVC 25 fps, 90.32 s).
+- Pausas: el audio trae música de fondo, así que se cortan solo las largas (−32 dB / 0.30 s):
+  7.54 s en 16 cortes → 82.9 s. Cortar más rompería la continuidad de la música.
+- Las fichas de producto usan `public/fit-relaxed.png` y `public/fit-low.png` si existen. Mientras no estén,
+  `fitcard()` pinta una ficha tipográfica (LUXUR + specs + precio), no un hueco. Las fotos no se pudieron
+  descargar de Shopify: la política de red del entorno deniega `cdn.shopify.com`.
 
 ## Regenerar
 1. `../reel-tools/prep.sh reel-luxur <url> <sha256>` (descarga, alinea, corta pausas, codifica).

@@ -2,8 +2,8 @@
 """Cut the pauses: speech runs from silencedetect (+pads) become the kept segments.
 Writes cuts.json, captions.cut.json (remapped) and re-encodes the source into public/input-video.mp4."""
 import json, subprocess, re, sys
-PRE, POST, MINGAP = 0.07, 0.12, 0.10
-out = subprocess.run(["ffmpeg","-hide_banner","-i","audio16k.wav","-af","silencedetect=noise=-28dB:d=0.22","-f","null","-"],capture_output=True,text=True).stderr
+PRE, POST, MINGAP = 0.10, 0.14, 0.12
+out = subprocess.run(["ffmpeg","-hide_banner","-i","audio16k.wav","-af","silencedetect=noise=-32dB:d=0.30","-f","null","-"],capture_output=True,text=True).stderr
 ss = [float(x) for x in re.findall(r"silence_start: ([0-9.]+)", out)]
 se = [float(x) for x in re.findall(r"silence_end: ([0-9.]+)", out)]
 total = float(subprocess.run(["ffprobe","-v","error","-show_entries","format=duration","-of","csv=p=0","orig.mov"],capture_output=True,text=True).stdout)
@@ -17,7 +17,7 @@ for a,b in runs:
     a=max(0.0,a-PRE); b=min(total,b+POST)
     if segs and a-segs[-1][1] < MINGAP: segs[-1][1]=b
     else: segs.append([a,b])
-segs[-1][1]=min(total, segs[-1][1]+1.1)   # hold the closing statement
+segs[-1][1]=min(total, segs[-1][1]+0.9)   # hold the closing statement
 kept=sum(b-a for a,b in segs)
 print(f"total {total:.2f}s → kept {kept:.2f}s (removed {total-kept:.2f}s in {len(segs)-1} cuts)", file=sys.stderr)
 for a,b in segs: print(f"  keep {a:6.2f}-{b:6.2f}", file=sys.stderr)
