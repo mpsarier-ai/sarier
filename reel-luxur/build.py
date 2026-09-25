@@ -21,7 +21,6 @@ HALO = ('<defs><filter id="halo" x="-30%" y="-30%" width="160%" height="160%">'
 MONT = ";font-family:Montserrat;font-weight:600;letter-spacing:0.02em"
 
 R.card_frags = {1, 2, 35, 36, 37}
-R.ink_frags = {20, 21, 29, 30, 31, 32, 33, 34}
 R.punch = {3:"TikTok", 5:"GAP", 6:"perfecto", 8:"vendidos", 11:"perfecto", 12:"alto", 13:"bonito", 15:"relaxed",
            16:"segundo", 17:"vendido", 19:"Demasiado.", 21:"poquitas", 23:"otra", 24:"espectacular.", 25:"bajito",
            26:"anchito,", 27:"ombligo.", 28:"clóset", 30:"rosado,", 31:"time.", 32:"dirty,", 33:"grisáceo,", 34:"azul"}
@@ -80,19 +79,6 @@ R.card("hook", 0.0, E(2) + 0.25, [
 R.clip("hookp", 0.35, E(2) + 0.25, pill("hp", 72, 908, 210, 62, "SÍ O SÍ", BLUSH, INK, 26))
 R.hidden("#hp", 0.35); R.pop("#hp", 0.5, 0.35)
 
-# ================================================================== 2 · TIKTOK · BIEBER × GAP
-st, en = S(3), E(5) + 0.25
-R.clip("tk", st, en, HALO + f'''
-  <g filter="url(#soft)"><rect id="tk-c" x="580" y="300" width="440" height="250" rx="34" fill="{BEIGE}"/></g>
-  {caps("tk-a", "EN TIKTOK", 620, 372, INK, 26)}
-  <path id="tk-r" d="M620 400 L980 400" stroke="{INK}" {THIN}/>
-  {caps("tk-b", "TODO EL MUNDO", 620, 452, INK, 34, extra=";font-weight:400")}
-  {caps("tk-c", "HABLA DEL BIEBER", 620, 500, INK, 24)}''')
-R.hidden("#tk-c, #tk-a, #tk-b, #tk-r", st)
-R.fromTo("#tk-c", "autoAlpha: 0, scaleX: 0.6, transformOrigin: '100% 50%'", "autoAlpha: 1, scaleX: 1", st + 0.05, 0.45, "expo.out")
-R.pop("#tk-a", st + 0.3, 0.3); R.draw("#tk-r", 360, st + 0.45, 0.4)
-R.pop("#tk-b", S(4) + 0.2, 0.35); R.pop("#tk-c", S(5) + 0.1, 0.35)
-
 # ================================================================== 3 · EL DÚO PERFECTO — dos fichas
 st, en = S(6), E(8) + 0.25
 R.clip("duo", st, en, HALO
@@ -136,25 +122,28 @@ R.fromTo(".f2c", "autoAlpha: 0, x: 60", "autoAlpha: 1, x: 0", st + 0.1, 0.6, "ex
 R.pop("#f2-n", S(16) + 0.9, 0.4); R.draw("#f2-r", 360, S(16) + 1.1, 0.4); R.pop("#f2-d", S(16) + 1.3, 0.3)
 R.pop("#f2-b", S(17) + 0.9, 0.4)
 
-# ================================================================== 6 · ESCENA · ÚLTIMAS UNIDADES (stock real)
+# ================================================================== 6 · ÚLTIMAS UNIDADES (panel lateral)
 st, en = S(20), E(21) + 0.3
 STOCK = [("AZUL OSCURO", 1, DENIM_D), ("AZUL DIRTY", 10, DENIM_DIRTY), ("NEGRO", 15, CARBON), ("ROSADO", 22, ROSA)]
+PX, PY, PW = 48, 300, 520
 rows = "".join(f'''
   <g class="sk-r" id="sk-r{k}">
-    <circle cx="150" cy="{700 + k * 170}" r="34" fill="{col}"/>
-    <text x="230" y="{712 + k * 170}" class="wl" fill="{INK}" style="font-size:38px;font-weight:400;letter-spacing:0.1em">{name}</text>
-    <text x="930" y="{716 + k * 170}" text-anchor="end" class="wl" fill="{INK}" style="font-size:54px;font-weight:500;letter-spacing:-0.02em">{n}</text>
-    <path d="M150 {760 + k * 170} L930 {760 + k * 170}" stroke="{INK}" stroke-opacity="0.18" {THIN}/>
+    <circle cx="{PX + 66}" cy="{PY + 186 + k * 96}" r="24" fill="{col}"/>
+    <text x="{PX + 116}" y="{PY + 197 + k * 96}" class="wl" fill="{INK}" style="font-size:26px;font-weight:400;letter-spacing:0.1em">{name}</text>
+    <text x="{PX + PW - 44}" y="{PY + 200 + k * 96}" text-anchor="end" class="wl" fill="{INK}" style="font-size:40px;font-weight:500;letter-spacing:-0.02em">{n}</text>
+    <path d="M{PX + 44} {PY + 228 + k * 96} L{PX + PW - 44} {PY + 228 + k * 96}" stroke="{INK}" stroke-opacity="0.16" {THIN}/>
   </g>''' for k, (name, n, col) in enumerate(STOCK))
-R.scene("scA", st, en, BEIGE, f'''
-  {caps("sk-t", "ÚLTIMAS UNIDADES", 150, 520, INK, 34)}
-  <path id="sk-tr" d="M150 560 L930 560" stroke="{INK}" {THIN}/>
+R.clip("stock", st, en, HALO + f'''
+  <g filter="url(#soft)"><rect id="sk-bg" x="{PX}" y="{PY}" width="{PW}" height="656" rx="34" fill="{BEIGE}"/></g>
+  {caps("sk-t", "ÚLTIMAS UNIDADES", PX + 44, PY + 88, INK, 28)}
+  <path id="sk-tr" d="M{PX + 44} {PY + 118} L{PX + PW - 44} {PY + 118}" stroke="{INK}" {THIN}/>
   {rows}
-  {pill("sk-p", 150, 1310, 420, 76, "QUEDAN POQUITAS", BLUSH, INK, 30)}''')
-R.hidden("#sk-t, #sk-tr, .sk-r, #sk-p", st)
-R.pop("#sk-t", st + 0.15, 0.35); R.draw("#sk-tr", 800, st + 0.3, 0.5)
+  {pill("sk-p", PX + 44, PY + 546, PW - 88, 64, "QUEDAN POQUITAS", BLUSH, INK, 26)}''')
+R.hidden("#sk-bg, #sk-t, #sk-tr, .sk-r, #sk-p", st)
+R.fromTo("#sk-bg", "autoAlpha: 0, x: -50", "autoAlpha: 1, x: 0", st + 0.05, 0.5, "expo.out")
+R.pop("#sk-t", st + 0.3, 0.35); R.draw("#sk-tr", 440, st + 0.4, 0.45)
 for k in range(4):
-    R.fromTo(f"#sk-r{k}", "autoAlpha: 0, x: 40", "autoAlpha: 1, x: 0", st + 0.45 + k * 0.22, 0.5, "expo.out")
+    R.fromTo(f"#sk-r{k}", "autoAlpha: 0, x: 30", "autoAlpha: 1, x: 0", st + 0.5 + k * 0.2, 0.45, "expo.out")
 R.pop("#sk-p", S(21) + 0.6, 0.4)
 
 # ================================================================== 7 · TIRO ALTO vs TIRO BAJO (las dos fotos)
@@ -172,29 +161,33 @@ R.fromTo(".r2c", "autoAlpha: 0, x: 50", "autoAlpha: 1, x: 0", st + 0.25, 0.55, "
 R.pop("#rs-p", S(26) + 1.1, 0.4)
 R.draw("#rs-om", 800, S(27) + 0.2, 0.5); R.pop("#rs-omt", S(27) + 0.5, 0.3)
 
-# ================================================================== 8 · ESCENA · LOS COLORES (discos 3D)
+# ================================================================== 8 · LOS COLORES (tarjeta lateral + disco 3D)
 st, en = S(29), E(34) + 0.3
 COLORS = [("ROSADO", "FULLY BLUSH", ROSA), ("AZUL DIRTY", "DIRTY WASHED", DENIM_DIRTY),
           ("NEGRO", "GRISÁCEO", CARBON), ("AZUL", "AZUL OSCURO", DENIM_D)]
+CX, CY, CW, CH = 596, 286, 440, 620          # tarjeta a la derecha
+DCX, DCY = CX + CW / 2, CY + 250             # centro del disco 3D
+# el fondo va en una escena transparente (queda debajo del lienzo 3D)
+R.scene("scB", st, en, "transparent", f'''
+  <rect id="cl-bg" x="{CX}" y="{CY}" width="{CW}" height="{CH}" rx="34" fill="{BEIGE}"/>
+  <circle id="cl-ring" cx="{DCX:.0f}" cy="{DCY:.0f}" r="132" stroke="{INK}" stroke-opacity="0.2" stroke-width="2" fill="none"/>''')
 labels = "".join(f'''
   <g class="cl-l" id="cl-l{k}">
-    <text x="540" y="1150" text-anchor="middle" class="wl" fill="{INK}" style="font-size:44px;font-weight:400;letter-spacing:0.14em">{nm}</text>
-    <text x="540" y="1208" text-anchor="middle" class="wl" fill="{INK}" fill-opacity="0.55" style="font-size:26px">{sub}</text>
+    <text x="{DCX:.0f}" y="{CY + 452}" text-anchor="middle" class="wl" fill="{INK}" style="font-size:34px;font-weight:400;letter-spacing:0.14em">{nm}</text>
+    <text x="{DCX:.0f}" y="{CY + 492}" text-anchor="middle" class="wl" fill="{INK}" fill-opacity="0.55" style="font-size:22px">{sub}</text>
   </g>''' for k, (nm, sub, _) in enumerate(COLORS))
-# el fondo va en la escena; los textos van en un clip por encima del lienzo 3D
-R.scene("scB", st, en, BEIGE, f'''
-  <circle id="cl-ring" cx="540" cy="840" r="196" stroke="{INK}" stroke-opacity="0.22" stroke-width="2" fill="none"/>''')
 R.clip("clt", st, en, f'''
-  {caps("cl-t", "LOS COLORES", 540, 520, INK, 34, "middle")}
-  <path id="cl-tr" d="M330 560 L750 560" stroke="{INK}" {THIN}/>
+  {caps("cl-t", "LOS COLORES", DCX, CY + 74, INK, 28, "middle")}
+  <path id="cl-tr" d="M{CX + 60} {CY + 104} L{CX + CW - 60} {CY + 104}" stroke="{INK}" {THIN}/>
   {labels}
-  {pill("cl-p", 300, 1268, 480, 72, "MEJOR VENDIDO ALL TIME", BLUSH, INK, 26)}''')
-R.hidden("#cl-t, #cl-tr, .cl-l, #cl-p, #cl-ring", st)
-R.pop("#cl-t", st + 0.15, 0.35); R.draw("#cl-tr", 430, st + 0.3, 0.45); R.draw("#cl-ring", 1240, st + 0.3, 0.9)
+  {pill("cl-p", CX + 40, CY + 524, CW - 80, 62, "MEJOR VENDIDO ALL TIME", BLUSH, INK, 22)}''')
+R.hidden("#cl-bg, #cl-ring, #cl-t, #cl-tr, .cl-l, #cl-p", st)
+R.fromTo("#cl-bg", "autoAlpha: 0, x: 50", "autoAlpha: 1, x: 0", st + 0.05, 0.5, "expo.out")
+R.pop("#cl-t", st + 0.3, 0.35); R.draw("#cl-tr", 320, st + 0.4, 0.45); R.draw("#cl-ring", 840, st + 0.4, 0.8)
 BEATS = [S(30) + 0.2, S(32) + 0.2, S(33) + 0.2, S(34) + 0.2]
 for k, at in enumerate(BEATS):
-    R.fromTo(f"#cl-l{k}", "autoAlpha: 0, y: 26", "autoAlpha: 1, y: 0", at, 0.45, "expo.out")
-    if k + 1 < len(BEATS): R.to(f"#cl-l{k}", "autoAlpha: 0, y: -22", BEATS[k + 1] - 0.18, 0.25, "power2.in")
+    R.fromTo(f"#cl-l{k}", "autoAlpha: 0, y: 22", "autoAlpha: 1, y: 0", at, 0.45, "expo.out")
+    if k + 1 < len(BEATS): R.to(f"#cl-l{k}", "autoAlpha: 0, y: -18", BEATS[k + 1] - 0.18, 0.25, "power2.in")
 R.pop("#cl-p", S(31) + 0.3, 0.45); R.fade("#cl-p", S(32) - 0.45, 0.0, 0.25); R.hidden("#cl-p", S(32) - 0.15)
 
 R.gl({})
@@ -202,38 +195,41 @@ R.gl_add(f"""
       KEY.intensity = 0.40; FILL.intensity = 0.18; scene.children.forEach((o) => {{ if (o.isHemisphereLight) o.intensity = 1.05; }});
       const shade = (hex, f) => {{ const c = new THREE.Color(hex); c.multiplyScalar(f); return c; }};
       const LUX = ["{COLORS[0][2]}", "{COLORS[1][2]}", "{COLORS[2][2]}", "{COLORS[3][2]}"].map((c) => [new THREE.MeshBasicMaterial({{ color: shade(c, 0.86) }}), new THREE.MeshBasicMaterial({{ color: new THREE.Color(c) }}), new THREE.MeshBasicMaterial({{ color: shade(c, 0.94) }})]);
-      function disc(mat, r = 0.95, h = 0.16) {{
+      function disc(mat, r = 0.62, h = 0.12) {{
         const g = new THREE.Group();
         const d = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 96), mat); d.rotation.x = Math.PI / 2; g.add(d);
         return g;
       }}
 """)
 R.gl_beat(st + 0.25, en, J(r"""
-    if (!g.built) { g.built = true; g.ds = LUX.map((m, k) => { const d = disc(m); d.position.set(X(540), Y(840), 0); d.visible = false; g.add(d); return d; }); }
+    if (!g.built) { g.built = true; g.ds = LUX.map((m, k) => { const d = disc(m); d.position.set(X($dcx), Y($dcy), 0); d.visible = false; g.add(d); return d; }); }
     const B = [$b0, $b1, $b2, $b3].map((x) => x - $st);
     g.ds.forEach((d, k) => {
       const inU = easeOut(seg(t, B[k], B[k] + 0.55));
       const outU = k + 1 < B.length ? easeInOut(seg(t, B[k + 1] - 0.3, B[k + 1] + 0.1)) : 0;
       d.visible = inU > 0 && outU < 1;
       d.scale.setScalar(inU * (1 - 0.35 * outU));
-      d.position.y = Y(840) + (1 - inU) * -0.9 + outU * 1.1;
+      d.position.y = Y($dcy) + (1 - inU) * -0.6 + outU * 0.8;
       d.rotation.y = (1 - inU) * 1.4 + Math.sin((t - B[k]) * 0.55) * 0.30;
       d.rotation.x = 0.14 + Math.sin((t - B[k]) * 0.7) * 0.06;
     });
-""", st=st, b0=BEATS[0], b1=BEATS[1], b2=BEATS[2], b3=BEATS[3]))
+""", st=st, b0=BEATS[0], b1=BEATS[1], b2=BEATS[2], b3=BEATS[3], dcx=DCX, dcy=DCY))
 
-# ================================================================== 9 · CIERRE · LUXURJEANS.COM
+# ================================================================== 9 · CIERRE · LUXURJEANS.COM (tarjeta)
 st, en = S(35) - 0.1, R.DUR
-R.scene("scC", st, en, BEIGE, f'''
-  {caps("cs-w", "LUXUR", 540, 900, INK, 128, "middle", extra=MONT)}
-  <path id="cs-r" d="M320 962 L760 962" stroke="{INK}" {THIN}/>
-  {caps("cs-u", "LUXURJEANS.COM", 540, 1032, INK, 34, "middle")}
-  {pill("cs-p", 330, 1104, 420, 76, "ENVÍOS A TODO EL PAÍS", BLUSH, INK, 26)}''')
-R.hidden("#cs-w, #cs-r, #cs-u, #cs-p", st)
-R.fromTo("#cs-w", "autoAlpha: 0, scale: 0.94, transformOrigin: '50% 50%'", "autoAlpha: 1, scale: 1", st + 0.15, 0.7, "expo.out")
-R.draw("#cs-r", 440, st + 0.5, 0.5)
+BX, BY, BW, BH = 130, 620, 820, 420
+R.clip("cta", st, en, HALO + f'''
+  <g filter="url(#soft)"><rect id="cs-bg" x="{BX}" y="{BY}" width="{BW}" height="{BH}" rx="40" fill="{BEIGE}"/></g>
+  {caps("cs-w", "LUXUR", 540, BY + 168, INK, 104, "middle", extra=MONT)}
+  <path id="cs-r" d="M{BX + 150} {BY + 218} L{BX + BW - 150} {BY + 218}" stroke="{INK}" {THIN}/>
+  {caps("cs-u", "LUXURJEANS.COM", 540, BY + 272, INK, 30, "middle")}
+  {pill("cs-p", BX + 200, BY + 306, BW - 400, 70, "ENVÍOS A TODO EL PAÍS", BLUSH, INK, 24)}''')
+R.hidden("#cs-bg, #cs-w, #cs-r, #cs-u, #cs-p", st)
+R.fromTo("#cs-bg", "autoAlpha: 0, scale: 0.94, transformOrigin: '50% 50%'", "autoAlpha: 1, scale: 1", st + 0.05, 0.6, "expo.out")
+R.fromTo("#cs-w", "autoAlpha: 0, scale: 0.94, transformOrigin: '50% 50%'", "autoAlpha: 1, scale: 1", st + 0.2, 0.6, "expo.out")
+R.draw("#cs-r", 520, st + 0.5, 0.5)
 R.pop("#cs-u", S(36) + 0.2, 0.4); R.pop("#cs-p", S(37) + 0.3, 0.45)
-R.fadeout(0.45)
+R.fadeout(0.4)
 
 # wordmark de apertura (Montserrat SemiBold, espaciado mínimo)
 R.cards_html.append(f'      <div id="logo" class="clip" data-start="0" data-duration="{E(2) + 0.25:.2f}" data-track-index="4"><span id="logo-w">LUXUR</span></div>')

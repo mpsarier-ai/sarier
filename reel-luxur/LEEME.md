@@ -14,8 +14,12 @@ de la tienda (Shopify → tema `LUXUR DEV - Menú FITS`, `config/settings_data.j
 | Botón / píldora | radio 60px, mayúsculas +0.02em | todas las píldoras |
 | Trazo de icono | 1.6–2px | siluetas y reglas |
 
-La palabra destacada de los subtítulos no va en rojo (eso es Sarier): va en **píldora**, beige sobre video
-y tinta sobre las escenas beige, igual que los badges de la tienda.
+La palabra destacada de los subtítulos no va en rojo (eso es Sarier): va en **píldora** beige, igual que los
+badges de la tienda.
+
+**Regla de composición: nunca se tapa la pantalla completa.** Todo gráfico es un panel o tarjeta beige sobre el
+video (fichas de fit arriba, panel de stock a la izquierda, tarjeta de colores a la derecha, tarjeta de cierre
+centrada). La parte de TikTok se cuenta solo con subtítulos, sin gráfico.
 
 ## Datos reales
 El stock y los nombres de color salen del catálogo vivo: AZUL OSCURO 1 · AZUL DIRTY 10 · NEGRO 15 · ROSADO 22,
