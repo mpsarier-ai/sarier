@@ -29,9 +29,11 @@ todos LOW WIDE FIT a $199.000. Si el video se publica semanas después, hay que 
 - Montado sobre el original real (release `reel-luxur`, 1080×1920 HEVC 25 fps, 90.32 s).
 - Pausas: el audio trae música de fondo, así que se cortan solo las largas (−32 dB / 0.30 s):
   7.54 s en 16 cortes → 82.9 s. Cortar más rompería la continuidad de la música.
-- Las fichas de producto usan `public/fit-relaxed.png` y `public/fit-low.png` si existen. Mientras no estén,
-  `fitcard()` pinta una ficha tipográfica (LUXUR + specs + precio), no un hueco. Las fotos no se pudieron
-  descargar de Shopify: la política de red del entorno deniega `cdn.shopify.com`.
+- Las fichas de producto usan fotos reales: `public/fit-low.png` (azul, low wide) y `public/fit-relaxed.png`
+  (negro, relaxed). Llegaron por release de GitHub porque la política de red del entorno deniega
+  `cdn.shopify.com`. Se recortaron con `hyperframes remove-background` (u2net_human_seg) y se ajustaron al
+  bounding box del canal alfa, así que quedan sobre el beige sin fondo. Si las fotos faltan, `fitcard()` cae a
+  una ficha tipográfica (LUXUR + specs + precio) en vez de dejar un hueco.
 
 ## Regenerar
 1. `../reel-tools/prep.sh reel-luxur <url> <sha256>` (descarga, alinea, corta pausas, codifica).

@@ -217,7 +217,7 @@ R.gl_beat(st + 0.25, en, J(r"""
 
 # ================================================================== 9 · CIERRE · LUXURJEANS.COM (tarjeta)
 st, en = S(35) - 0.1, R.DUR
-BX, BY, BW, BH = 130, 620, 820, 420
+BX, BY, BW, BH = 130, 940, 820, 400
 R.clip("cta", st, en, HALO + f'''
   <g filter="url(#soft)"><rect id="cs-bg" x="{BX}" y="{BY}" width="{BW}" height="{BH}" rx="40" fill="{BEIGE}"/></g>
   {caps("cs-w", "LUXUR", 540, BY + 168, INK, 104, "middle", extra=MONT)}
