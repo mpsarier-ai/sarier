@@ -44,14 +44,36 @@ Solo los de `tokens.json`, siempre de rojo a negro pasando por vino y oxblood:
 - `fundido-abajo` — base permanente desde y=820 para sentar el texto perla sobre el video sin usar sombras.
 - `luz-foto` — el lavado del anillo.
 - `luz-cierre` — resplandor `fuego` desde la esquina inferior derecha, con el texto a la izquierda sobre la
-  zona oscura, exactamente como lo pide el brand book.
+  zona oscura, exactamente como lo pide el brand book. Va con alfa: **el cierre es una capa de luz sobre el
+  plano, no una lámina**, así que el video se ve hasta el último fotograma. Ningún gráfico del reel tapa la
+  imagen.
+
+## Iconos — excepción al brand book
+
+`BRAND.md` dice: *"La marca no usa iconos. Las listas se separan con puntos medios (·) o con los puntos del
+anillo."* El cliente pidió iconos, así que se usan **Material Symbols (outlined)** de Google dibujados en el
+lenguaje de la marca: perla plano, sin color propio, sin sombra y al mismo grosor visual que la línea de 1px.
+
+Están en `icons/` y se colocan con `icon()`. Dónde aparecen:
+
+| Beat | Icono | Para qué |
+| --- | --- | --- |
+| 2 · razones equivocadas | `groups` · `timer` · `sentiment_dissatisfied` | tres motivos que se tachan uno a uno |
+| 3 · cero resultados | `trending_flat` | la flecha plana del progreso que no se mueve |
+| 4 · una rutina | `calendar_month` | la rutina |
+| 5 · anillo | `device_thermostat` · `sports_gymnastics` · `fitness_center` · `spa` · `timer` · `self_improvement` | un símbolo por atributo, en un anillo interior |
+| 6 y 8 · ubicación | `location_on` | Pinares, Pereira |
+| 7 · enciende tu fuego | `local_fire_department` | late con la caligrafía |
+
+Para volver al brand book puro basta con borrar las llamadas a `icon()` en `build.py`.
 
 ## Datos de marca
 
 Salieron del propio video (en los últimos segundos aparece el perfil de la marca en pantalla) y del
 design system: **@ambarsculptstudio · ÁMBAR | Hot Pilates & Sculpt · Pinares, Pereira · The Ámbar Method™**.
-El cierre reemplaza esa captura de pantalla del perfil, que en un anuncio se veía como un pantallazo de
-administrador ("Your dashboard", "Edit profile").
+El original termina con una captura del perfil en vista de administrador ("Your dashboard", "Edit profile").
+Se deja a la vista, porque el cierre ya no tapa el plano; si se quiere esconder, hay que recortar esa cola
+del video en vez de poner una lámina encima.
 
 ## Subtítulos
 
