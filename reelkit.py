@@ -36,6 +36,24 @@ THEMES = {
         rail_weight=500, rail_size=56, piece_weight=400, label_weight=400,
         hot="pill", pill_bg="#EDEBE6", pill_fg="#1C1C1C",
         sw=3, sw8=4, swl=2),
+    # Ámbar Sculpt Studio — tokens.json / BRAND.md del paquete oficial de la marca.
+    # Negro cálido, un solo acento fuego por pieza, todo el texto perla, sin sombras ni esquinas redondas.
+    "ambar": dict(
+        face=("\n      ".join([
+            '@font-face { font-family: "Sackers Gothic Std"; src: url("public/fonts/SackersGothic-Light.woff2") format("woff2"); font-weight: 300; font-display: block; }',
+            '@font-face { font-family: "Sackers Gothic Std"; src: url("public/fonts/SackersGothic-Medium.woff2") format("woff2"); font-weight: 500; font-display: block; }',
+            '@font-face { font-family: "Sackers Gothic Std"; src: url("public/fonts/SackersGothic-Heavy.woff2") format("woff2"); font-weight: 900; font-display: block; }',
+            '@font-face { font-family: "Anton"; src: url("public/fonts/Anton-Regular.woff2") format("woff2"); font-weight: 400; font-display: block; }',
+            '@font-face { font-family: "Pinyon Script"; src: url("public/fonts/PinyonScript-Regular.woff2") format("woff2"); font-weight: 400; font-display: block; }',
+            '@font-face { font-family: "Cormorant Garamond"; src: url("public/fonts/CormorantGaramond-Light.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: block; }',
+            '@font-face { font-family: "Cormorant Garamond"; src: url("public/fonts/CormorantGaramond-LightItalic.woff2") format("woff2"); font-weight: 300; font-style: italic; font-display: block; }',
+            '@font-face { font-family: "Cormorant Garamond"; src: url("public/fonts/CormorantGaramond-Medium.woff2") format("woff2"); font-weight: 500; font-display: block; }'])),
+        stack='"Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif',
+        ink="#070100", accent="#dc3023", light="#fcfbf2", dark="#070100",
+        tr_display="-0.02em", tr_body="0.02em", tr_caps="0.10em",
+        rail_weight=400, rail_size=44, piece_weight=700, label_weight=500,
+        hot="color", pill_bg="#dc3023", pill_fg="#fcfbf2",
+        sw=1, sw8=1, swl=1),
 }
 def stroke(w): return f'stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round" fill="none"'
 

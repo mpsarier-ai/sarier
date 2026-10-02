@@ -1,0 +1,56 @@
+@font-face{font-family:"Sackers Gothic Std";src:url("fonts/SackersGothic-Light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Sackers Gothic Std";src:url("fonts/SackersGothic-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Sackers Gothic Std";src:url("fonts/SackersGothic-Heavy.woff2") format("woff2");font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:"Anton";src:url("fonts/Anton-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Pinyon Script";src:url("fonts/PinyonScript-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("fonts/CormorantGaramond-Light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("fonts/CormorantGaramond-LightItalic.woff2") format("woff2");font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url("fonts/CormorantGaramond-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+:root{
+  /* color */
+  --negro: #070100;
+  --oxblood: #250202;
+  --vino: #4c0c09;
+  --brasa: #982a21;
+  --fuego: #dc3023;
+  --senal: #de433e;
+  --ambar: #c25030;
+  --arena: #89644d;
+  --taupe: #bda692;
+  --perla: #fcfbf2;
+  --perla-suave: #bfb3a8;
+  /* gradient */
+  --luz-hero: radial-gradient(110% 95% at 88% 8%, #982a21 0%, #4c0c09 30%, #250202 58%, #070100 85%);
+  --fundido-abajo: linear-gradient(180deg, #4c0c09 0%, #250202 45%, #070100 100%);
+  --fundido-arriba: linear-gradient(180deg, #070100 0%, #250202 50%, #4c0c09 100%);
+  --luz-cierre: radial-gradient(110% 120% at 92% 105%, #dc3023 0%, #982a21 22%, #4c0c09 52%, #070100 88%);
+  --luz-foto: linear-gradient(180deg, #982a21 0%, #4c0c09 40%, #250202 75%, #070100 100%);
+  /* spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+  /* radius */
+  --radius-0: 0px;
+  --radius-boton: 14px;
+  --radius-full: 9999px;
+  /* fuentes */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-condensed: Anton, "Arial Narrow", Impact, sans-serif;
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-script: "Pinyon Script", cursive;
+  --font-label: "Sackers Gothic Std", "Sackers Gothic", Montserrat, "Helvetica Neue", sans-serif;
+}
+.poster{font-family:var(--font-sans);font-size:120px;line-height:0.9;font-weight:700;letter-spacing:-0.02em}
+.poster-pre{font-family:var(--font-sans);font-size:20px;line-height:1;font-weight:700}
+.titular{font-family:var(--font-condensed);font-size:40px;line-height:1.15;font-weight:400}
+.etiqueta-roja{font-family:var(--font-condensed);font-size:24px;line-height:1.1;font-weight:400;font-style:italic}
+.editorial{font-family:var(--font-serif);font-size:56px;line-height:1.05;font-weight:300}
+.cita{font-family:var(--font-serif);font-size:22px;line-height:1.35;font-weight:500}
+.caligrafia{font-family:var(--font-script);font-size:72px;line-height:0.9;font-weight:400}
+.versalitas{font-family:var(--font-label);font-size:13px;line-height:1.3;font-weight:500;letter-spacing:0.1em}
+.cuerpo-mayus{font-family:var(--font-sans);font-size:17px;line-height:1.55;font-weight:400;letter-spacing:0.02em}
+.cuerpo{font-family:var(--font-sans);font-size:16px;line-height:1.5;font-weight:400}
+.boton{font-family:var(--font-sans);font-size:15px;line-height:1;font-weight:700;letter-spacing:0.04em}
