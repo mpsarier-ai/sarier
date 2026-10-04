@@ -54,6 +54,24 @@ THEMES = {
         rail_weight=400, rail_size=44, piece_weight=700, label_weight=500,
         hot="color", pill_bg="#dc3023", pill_fg="#fcfbf2",
         sw=1, sw8=1, swl=1),
+    # Fashionalytics / FOLD — packages/ui/tokens.css del monorepo + el brand book publicado.
+    # Tema Paper: texto ink, brand azul eléctrico, acid como único resaltador.
+    # Sin sombras, foco sólido, nada rebota (160 ms ease-out).
+    "fold": dict(
+        face=("\n      ".join([
+            '@font-face { font-family: "Geist"; src: url("public/fonts/Geist-var.ttf") format("truetype-variations"); font-weight: 100 900; font-display: block; }',
+            '@font-face { font-family: "IBM Plex Mono"; src: url("public/fonts/IBMPlexMono-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }',
+            '@font-face { font-family: "IBM Plex Mono"; src: url("public/fonts/IBMPlexMono-Medium.ttf") format("truetype"); font-weight: 500; font-display: block; }',
+            '@font-face { font-family: "DotGothic16"; src: url("public/fonts/DotGothic16-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }',
+            '@font-face { font-family: "Handjet"; src: url("public/fonts/Handjet-var.ttf") format("truetype-variations"); font-weight: 100 900; font-display: block; }',
+            '@font-face { font-family: "Instrument Serif"; src: url("public/fonts/InstrumentSerif-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: block; }',
+            '@font-face { font-family: "Instrument Serif"; src: url("public/fonts/InstrumentSerif-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: block; }'])),
+        stack='"Geist", -apple-system, "SF Pro Text", system-ui, "Liberation Sans", sans-serif',
+        ink="#0a0a12", accent="#1a1aff", light="#f2f0ea", dark="#0a0a12",
+        tr_display="-0.025em", tr_body="-0.01em", tr_caps="0.08em",
+        rail_weight=400, rail_size=46, piece_weight=500, label_weight=500,
+        hot="pill", pill_bg="#e6ff47", pill_fg="#0a0a12",
+        sw=1.5, sw8=1.5, swl=1),
 }
 def stroke(w): return f'stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round" fill="none"'
 

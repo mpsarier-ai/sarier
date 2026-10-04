@@ -14,6 +14,12 @@ Cada reel usa el design system de SU marca, no el de otra. El tema vive en `THEM
   Para cualquier pieza de Ámbar lee primero `design-system/ambar/BRAND.md` y usa los tokens de
   `design-system/ambar/tokens.css`. No inventes colores ni fuentes. Sin sombras, sin iconos,
   sin esquinas redondeadas (solo el botón), y el anillo de beneficios es el único gráfico de la marca.
+- **Fashionalytics / FOLD** (`fold`) — el sistema vive en el repo `mpsarier-ai/fashionalytics-platform`
+  (`packages/ui/tokens.css`, `packages/ui/fx.css`) y en el brand book publicado
+  `claude.ai/artifact/GGCvZa3r87KowSAk58Pyy4`. Geist + IBM Plex Mono + DotGothic16 + Instrument Serif,
+  ink `#0a0a12`, brand `#1a1aff`, acid `#e6ff47` como único resaltador (uno por pantalla).
+  Sin sombras, sentence case salvo mono y pixel, nada rebota (160 ms ease-out).
+  Los logos y las texturas ASCII se copian del sistema, nunca se redibujan: ver `reel-fold/brand/`.
 
 ## Pipeline
 
