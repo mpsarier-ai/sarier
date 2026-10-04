@@ -34,11 +34,12 @@ se tomó de la web desplegada.
 Nada de chrome blanco encima del plano. El montaje usa los mismos recursos que los reels de Sarier:
 
 - **Subtítulos cinéticos centrados** sobre el video, palabra por palabra, sin caja y sin sombra.
-  Van en el tercio inferior (y=1424) porque ahí el plano es oscuro; en la zona clara de arriba el
-  texto `ink` chocaba con los jeans. La palabra caliente va en `brand` del tema Ink (`#8f8fff`),
+  Centrados y en el tercio inferior (y=1424) porque ahí el plano es oscuro; en la zona clara de
+  arriba el texto `ink` chocaba con los jeans. La palabra caliente va en `brand` del tema Ink (`#8f8fff`),
   que es la tinta de acción del sistema.
-- **Statements desiguales por capas** (`R.card`): tres piezas a distinto tamaño, alineación y alfa,
-  que entran desde lados distintos. En `ink` sobre la pared clara, nunca blancas con sombra.
+- **Statements por capas** (`R.card`): tres piezas **centradas** a distinto tamaño y alfa, que entran
+  en momentos distintos. En `ink` sobre la pared clara, nunca blancas con sombra. El alineado
+  `center` se añadió a `card()` en `reelkit.py`, así que sirve para cualquier reel.
 - **Glitch** sobre la palabra grande del hook, con los dos acentos del sistema (`signal-red` y
   `brand`) en vez de los de Sarier.
 - **Punch-in** en el hook, en el corte de la escena azul y en los diez cuadrados; **slow push** en
@@ -66,15 +67,26 @@ dentro de un titular sans: "todavía toma *semanas*") · Handjet queda cargada p
 4. **14.1–19.3** el dither de Fashionalytics: 36 celdas que crecen de ruido a señal.
 5. **19.3–34.3** diez tags cuadrados que se van acumulando, uno por cada cosa que ella enumera.
 6. **34.3–35.9** los diez tags se resuelven en diez cuadrados: el equipo de diez personas.
-7. **35.9–38.4** cierre en tema Screen: ASCII, lockup de FOLD en blanco, los ocho módulos y la
-   firma de Fashionalytics.
+7. **35.8–37.9** cierre **sobre el plano**, no encima de él: el lockup de FOLD, los ocho módulos y
+   la firma de Fashionalytics en `ink` sobre la zona clara del encuadre, con un *slow push* y
+   fundido a negro. Ella se ve hasta el último fotograma.
+
+### Motion graphics añadidos
+
+- **Escala de tiempo** bajo el statement de la prenda: una barra `brand` que crece en dos tiempos,
+  de `días` a `semanas`.
+- **Contador y barra de progreso** sobre la pila de tags, en mono tabular: `01/10` → `10/10`, con
+  el relleno `brand` creciendo con cada tag. Es el indicador de carga que define el sistema —una
+  barra con relleno `brand`, nunca un spinner circular— y mantiene movimiento durante los 15 s
+  que dura la enumeración.
 
 ## Dos decisiones de edición
 
 - **"Vicodin" era un error de transcripción**: la palabra es **vibecoding**, y así quedó.
 - **La última frase del original queda colgada** ("Y es por eso que creo que."). Se cortó el video
-  en 35,95 s, donde termina "como un equipo de diez personas", y se añadieron 2,45 s de cola para
-  el cierre de marca. Si aparece el resto de la frase, se re-monta con el original completo.
+  en 35,95 s, donde termina "como un equipo de diez personas", y se congeló ese fotograma 1,9 s
+  para el cierre de marca, con un *slow push* encima para que la congelación se lea como una
+  decisión. Si aparece el resto de la frase, se re-monta con el original completo.
 
 ## Subtítulos
 

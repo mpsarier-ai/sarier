@@ -90,18 +90,18 @@ R.rail()
 SAAS_IN, SAAS_OUT = S(3) - 0.10, E(4) + 0.08
 LOGO = img("bg-logo", FOLD_INK, M, 246, 38, 3.972)
 R.clip("bug", 0.35, SAAS_IN, LOGO)          # el bug sale antes de la escena azul
-R.clip("bug2", SAAS_OUT, 35.92, LOGO.replace("bg-logo", "bg-logo2"), hold=True)
-R.fade("#bug2-in", 35.60, 0.0, 0.3); R.hidden("#bug2-in", 35.92)
+R.clip("bug2", SAAS_OUT, 35.80, LOGO.replace("bg-logo", "bg-logo2"), hold=True)
+R.fade("#bug2-in", 35.50, 0.0, 0.3); R.hidden("#bug2-in", 35.80)
 MODULES = [(0.35, SAAS_IN, "Core"), (SAAS_OUT, 14.10, "Product"), (14.10, 19.34, "Production"),
-           (19.34, 23.60, "Inventory"), (23.60, 28.68, "Marketing"), (28.68, 35.60, "Commerce")]
+           (19.34, 23.60, "Inventory"), (23.60, 28.68, "Marketing"), (28.68, 35.50, "Commerce")]
 for k, (st, en, name) in enumerate(MODULES):
     R.clip(f"mod{k}", st, en, label(f"modl{k}", name, M + 184, 276, 24, INK_MUTED))
 
 # ================================================================= 1 · HOOK · statement por capas
 R.card("hook", 0.0, E(2) + 0.20, [
-    ("a", "Construir una marca de ropa", 54, M + 8, 300, "left", "left", 0.80),
-    ("b", "es más difícil", 128, M, 352, "left", "scale", 1.0, 0.75),
-    ("c", "que crear una startup.", 56, M + 8, 506, "right", "right", 0.88, 1.70)],
+    ("a", "Construir una marca de ropa", 54, 0, 300, "center", "drop", 0.80),
+    ("b", "es más difícil", 128, 0, 352, "center", "scale", 1.0, 0.75),
+    ("c", "que crear una startup.", 56, 0, 506, "center", "drop", 0.88, 1.70)],
     glitch_key="b")
 R.glitch(0.80)
 R.punch_cam(0.95)
@@ -136,9 +136,27 @@ R.punch_cam(en + 0.02)
 
 # ================================================================= 3 · LA PRENDA · statement
 R.card("prenda", 8.95, E(6) + 0.20, [
-    ("a", "Pero una prenda todavía toma", 54, M + 8, 300, "left", "left", 0.80),
-    ("b", "semanas", 132, M, 352, "left", "scale", 1.0, 9.90),
-    ("c", "y excelentes fábricas.", 54, M + 8, 506, "right", "right", 0.88, 11.80)])
+    ("a", "Pero una prenda todavía toma", 54, 0, 300, "center", "drop", 0.80),
+    ("b", "semanas", 132, 0, 352, "center", "scale", 1.0, 9.90),
+    ("c", "y excelentes fábricas.", 54, 0, 506, "center", "drop", 0.88, 11.80)])
+
+# Escala de tiempo bajo el statement: la barra crece de "días" a "semanas".
+st_, en_ = 10.60, E(6) + 0.20
+AX, AY, AW = 220, 664, 640
+R.clip("esc", st_, en_, f'''
+  <path id="es-tr" d="M{AX} {AY} L{AX + AW} {AY}" stroke="{LINE_STRONG}" stroke-width="1" fill="none"/>
+  <rect id="es-f1" x="{AX}" y="{AY - 4}" width="190" height="8" fill="{BRAND}"/>
+  <rect id="es-f2" x="{AX + 190}" y="{AY - 4}" width="{AW - 190}" height="8" fill="{BRAND}"/>
+  {label("es-l1", "días", AX, AY + 42, 23, INK_MUTED)}
+  {label("es-l2", "semanas", AX + AW, AY + 42, 23, BRAND, "end")}''')
+R.hidden("#es-tr, #es-f1, #es-f2, #es-l1, #es-l2", st_)
+R.show("#es-tr", st_); R.draw("#es-tr", AW, st_, 0.4, "power2.inOut")
+R.show("#es-f1", st_ + 0.25)
+R.fromTo("#es-f1", "autoAlpha:1, scaleX:0, transformOrigin:'0% 50%'", "autoAlpha:1, scaleX:1", st_ + 0.25, 0.3, EASE)
+R.fromTo("#es-l1", "autoAlpha:0", "autoAlpha:1", st_ + 0.40, 0.2)
+R.show("#es-f2", st_ + 0.85)
+R.fromTo("#es-f2", "autoAlpha:1, scaleX:0, transformOrigin:'0% 50%'", "autoAlpha:1, scaleX:1", st_ + 0.85, 0.7, "power2.inOut")
+R.fromTo("#es-l2", "autoAlpha:0", "autoAlpha:1", st_ + 1.35, 0.2)
 
 # ================================================================= 4 · ESCALAR · el dither
 # El lenguaje cuadrado de Fashionalytics: celdas que crecen de ruido a señal.
@@ -163,24 +181,47 @@ for d, sel in order:
 R.fromTo("#gr1, #gr2", "autoAlpha:0", "autoAlpha:1", st + 0.40, 0.2)
 
 # ================================================================= 5-7 · LA PILA DE DIEZ
-# Diez tags cuadrados que se acumulan: uno por cada cosa que ella enumera.
+# Diez tags cuadrados que se acumulan: uno por cada cosa que ella enumera, con un contador
+# y una barra de progreso en mono — el indicador de carga del sistema, no un spinner.
 st, en = S(10) - 0.05, E(16) + 0.20
 TAGS = ["Cadena de suministro", "Logística", "Inventario", "Fábricas", "Campaña",
         "Tu marca", "Paid media", "Tienda online", "Conversión", "+ mil cosas más"]
-TW, TH, TSTEP = 464, 58, 74
-TX, TY2 = (1080 - (2 * TW + 32)) / 2, 332
+TW, TH, TSTEP = 464, 54, 70
+TX, TY2 = (1080 - (2 * TW + 32)) / 2, 400
+GW = 2 * TW + 32
 grid_tags = "".join(tag(f"st{k}", s_, TX + (k // 5) * (TW + 32), TY2 + (k % 5) * TSTEP, TW, TH)
                     for k, s_ in enumerate(TAGS))
 R.clip("pila", st, en, grid_tags)
 R.hidden("#pila .tag", st)
-for k, a in enumerate([0.10, 0.95, 1.75, 2.90, 4.40, 6.05, 9.30, 10.55, 12.10, 13.40]):
+AT = [0.10, 0.95, 1.75, 2.90, 4.40, 6.05, 9.30, 10.55, 12.10, 13.40]
+for k, a in enumerate(AT):
     R.fromTo(f"#st{k}", "autoAlpha:0, y:14", "autoAlpha:1, y:0", st + a, 0.24, EASE)
 
+# El contador sigue vivo hasta los diez cuadrados: 01 → 10.
+BY_ = 330
+R.clip("cnt", st, 35.80, f'''
+  {label("cn-l", "Lo que tienes que manejar", TX, BY_, 24, INK_MUTED)}
+  <text id="cn-n" x="{TX + GW}" y="{BY_}" text-anchor="end" fill="{BRAND}"
+    style="font-family:{MONO};font-size:30px;font-weight:500;letter-spacing:0.04em">01/10</text>
+  <path id="cn-tr" d="M{TX} {BY_ + 26} L{TX + GW} {BY_ + 26}" stroke="{LINE_STRONG}" stroke-width="1" fill="none"/>
+  <rect id="cn-fl" x="{TX}" y="{BY_ + 22}" width="{GW}" height="8" fill="{BRAND}"/>''')
+R.hidden("#cn-l, #cn-n, #cn-tr, #cn-fl", st)
+R.fromTo("#cn-l", "autoAlpha:0", "autoAlpha:1", st + 0.02, 0.2)
+R.show("#cn-tr", st + 0.02); R.draw("#cn-tr", GW, st + 0.02, 0.4, "power2.inOut")
+R.show("#cn-n", st + 0.10)
+R.show("#cn-fl", st + 0.10)
+for k, a in enumerate(AT):
+    at = st + a
+    R.fromTo("#cn-fl", f"scaleX:{k / 10:.2f}, transformOrigin:'0% 50%'", f"scaleX:{(k + 1) / 10:.2f}",
+             at, 0.24, EASE)
+    R.raw(f'  tl.set("#cn-n", {{ onComplete: () => {{ const e = document.getElementById("cn-n"); if (e) e.textContent = "{k + 1:02d}/10"; }} }}, {at:.2f});')
+R.raw(f'  tl.set("#cn-n", {{ onComplete: () => {{ const e = document.getElementById("cn-n"); if (e) e.textContent = "01/10"; }} }}, {st:.2f});')
+
 # ================================================================= 8 · DIEZ PERSONAS
-st, en = S(17) - 0.05, 35.92
+st, en = S(17) - 0.05, 35.80
 SQ, SG = 58, 26
 SX = (1080 - (10 * SQ + 9 * SG)) / 2
-sq = "".join(f'<rect id="p{k}" class="per" x="{SX + k * (SQ + SG):.0f}" y="470" width="{SQ}" height="{SQ}" fill="{BRAND}"/>'
+sq = "".join(f'<rect id="p{k}" class="per" x="{SX + k * (SQ + SG):.0f}" y="520" width="{SQ}" height="{SQ}" fill="{BRAND}"/>'
              for k in range(10))
 R.clip("team", st, en, sq)
 R.hidden("#team .per", st)
@@ -189,31 +230,27 @@ for k in range(10):
              st + 0.06 + k * 0.055, 0.2, EASE)
 R.punch_cam(st + 0.60, 1.04)
 
-# ================================================================= 9 · CIERRE · tema Screen
-# El tema de marca: la página entera en blue-electric, para portada y cierre.
-st = 35.92
-R.scene("cierre", st, R.DUR, BRAND, f'''
-  <image href="{ASCII_BLUE}" x="-230" y="0" width="1540" height="1920"
-     preserveAspectRatio="xMidYMid slice" opacity="0.55"/>
-  <rect x="0" y="700" width="1080" height="880" fill="{BRAND}"/>
-  <path d="M0 700 L1080 700" stroke="{BLUE_SOFT}" stroke-width="1" fill="none"/>
-  <path d="M0 1580 L1080 1580" stroke="{BLUE_SOFT}" stroke-width="1" fill="none"/>''')
+# ================================================================= 9 · CIERRE
+# Sobre el plano, no encima de él: el cierre es una capa en `ink` en la zona clara del encuadre,
+# así ella se sigue viendo hasta el último fotograma.
+st = 35.80
+LK_H = 92
 MODS = ["Core", "Commerce", "Inventory", "Product", "Production", "Intelligence", "Marketing", "Finance"]
-mods = "".join(label(f"cm{k}", m, 540 + (-1 if k < 4 else 1) * 24, 1160 + (k % 4) * 62, 26,
-                     BLUE_SOFT, "end" if k < 4 else "start") for k, m in enumerate(MODS))
+mods = "".join(label(f"cm{k}", m, 540 + (-96 if k < 4 else 96), 534 + (k % 4) * 50, 24,
+                     INK_MUTED, "end" if k < 4 else "start") for k, m in enumerate(MODS))
 R.clip("cta", st, R.DUR, f'''
-  {img("c-fold", FOLD_W, (1080 - 112 * 3.972) / 2, 790, 112, 3.972)}
-  <path id="c-r" d="M{M + 80} 1040 L{1080 - M - 80} 1040" stroke="{BLUE_SOFT}" stroke-width="1" fill="none"/>
+  {img("c-fold", FOLD_INK, (1080 - LK_H * 3.972) / 2, 316, LK_H, 3.972)}
+  <path id="c-r" d="M300 474 L780 474" stroke="{LINE_STRONG}" stroke-width="1" fill="none"/>
   {mods}
-  {img("c-fa", FA_W, (1080 - 34 * 11.81) / 2, 1450, 34, 11.81)}''', hold=True)
+  {img("c-fa", "brand/fashionalytics-lockup.svg", (1080 - 26 * 11.81) / 2, 726, 26, 11.81)}''', hold=True)
 R.hidden("#c-fold, #c-r, #c-fa", st)
 R.raw(f'  tl.set("#cta text", {{ autoAlpha: 0 }}, {st:.2f});')
-R.fromTo("#c-fold", "autoAlpha:0, y:16", "autoAlpha:1, y:0", st + 0.16, 0.3, EASE)
-R.show("#c-r", st + 0.42); R.draw("#c-r", 1080 - 2 * M - 160, st + 0.42, 0.4, "power2.inOut")
-R.raw(f'  tl.fromTo("#cta text", {{ autoAlpha: 0, y: 8 }}, {{ autoAlpha: 1, y: 0, duration: 0.22, stagger: 0.05, ease: "{EASE}" }}, {st + 0.56:.2f});')
-R.fromTo("#c-fa", "autoAlpha:0", "autoAlpha:1", st + 1.15, 0.3)
+R.fromTo("#c-fold", "autoAlpha:0, y:16", "autoAlpha:1, y:0", st + 0.12, 0.3, EASE)
+R.show("#c-r", st + 0.36); R.draw("#c-r", 480, st + 0.36, 0.36, "power2.inOut")
+R.raw(f'  tl.fromTo("#cta text", {{ autoAlpha: 0, y: 8 }}, {{ autoAlpha: 1, y: 0, duration: 0.2, stagger: 0.045, ease: "{EASE}" }}, {st + 0.48:.2f});')
+R.fromTo("#c-fa", "autoAlpha:0", "autoAlpha:1", st + 0.95, 0.28)
 R.slow_push(st)
-R.fadeout(0.45)
+R.fadeout(0.35)
 
 # ================================================================= estilo propio del reel
 R.extra_css = f'''

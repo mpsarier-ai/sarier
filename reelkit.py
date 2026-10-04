@@ -132,7 +132,9 @@ class Reel:
             key, text, size, x, y, align, enter, alpha = piece[:8]
             at = piece[8] if len(piece) > 8 else st + 0.05 + k * 0.14
             pid = f"{cid}-{key}"
-            pos = f"left:{x}px;" if align == "left" else f"right:{x}px;"
+            # align: "left" | "right" | "center" (center ocupa el ancho del cuadro y centra el texto)
+            pos = ("left:0;right:0;text-align:center;" if align == "center"
+                   else f"left:{x}px;" if align == "left" else f"right:{x}px;")
             style = f"font-size:{size}px;"
             if glitch_key == key:
                 self.glitch_stack = f"{cid}-stack"
@@ -351,6 +353,7 @@ class Reel:
       .card {{ position: absolute; left: 0; top: 0; width: {W}px; height: 700px; pointer-events: none; }}
       .stmt {{ position: absolute; inset: 0; }}
       .stmt .rot {{ position: absolute; white-space: nowrap; }}
+      .stmt .rot[style*="text-align:center"] {{ white-space: normal; }}
       .piece {{ display: inline-block; font-weight: {T["piece_weight"]}; line-height: 0.9; letter-spacing: var(--tr-display); }}
       .piece.white {{ color: #FFFFFF; text-shadow: 0 2px 3px rgba(0,0,0,0.35), 0 6px 28px rgba(0,0,0,0.38); }}
       .gstack {{ display: grid; }}
