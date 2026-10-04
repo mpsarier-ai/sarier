@@ -111,29 +111,33 @@ R.fromTo("#dz-a, #dz-la, #dz-ta", "autoAlpha:0, y:16", "autoAlpha:1, y:0", st + 
 R.fromTo("#dz-b, #dz-lb, #dz-tb", "autoAlpha:0, y:16", "autoAlpha:1, y:0", st + 0.46, 0.26, EASE)
 
 # ================================================================= C · LAS TRES FOUNDERS
-# Foto real, a sangre y sin filtros; el nombre en una franja `surface` dentro de la ficha.
-st, en = S(5) - 0.10, E(6) + 0.55
-FW, FH, FY, FS = 296, 308, TOP, 52
-FOUNDERS = [("ob", "public/f-oberg.jpg", "Emily Oberg", 66),
-            ("gz", "public/f-guizio.jpg", "Danielle Guizio", 392),
-            ("dj", "public/f-djerf.jpg", "Matilda Djerf", 718)]
-cards = '<defs>' + "".join(
-    f'<clipPath id="cl-{k}"><rect x="{x}" y="{FY}" width="{FW}" height="{FH}"/></clipPath>'
-    for k, _, _, x in FOUNDERS) + '</defs>'
-for k, src, name, x in FOUNDERS:
+# Referencia visual de verdad: la foto grande, una por nombre, cambiando en el mismo sitio.
+# Foto real a sangre y sin filtros, con el nombre en una franja `surface` dentro de la ficha.
+st, en = S(5) - 0.10, 15.55
+FX, FY, FW, FH, FS = 230, 260, 620, 754, 72
+FOUNDERS = [("ob", "public/f-oberg.jpg", "Emily Oberg", 11.45),
+            ("gz", "public/f-guizio.jpg", "Danielle Guizio", 13.10),
+            ("dj", "public/f-djerf.jpg", "Matilda Djerf", 14.25)]
+cards = (f'<defs><clipPath id="cl-f"><rect x="{FX}" y="{FY}" width="{FW}" height="{FH}"/></clipPath></defs>')
+for k, src, name, _ in FOUNDERS:
     cards += (f'<g id="fc-{k}" class="fcard">'
-              f'<image href="{src}" x="{x}" y="{FY}" width="{FW}" height="{FH}" '
-              f'preserveAspectRatio="xMidYMid slice" clip-path="url(#cl-{k})"/>'
-              f'<rect x="{x}" y="{FY + FH}" width="{FW}" height="{FS}" fill="{SURFACE}"/>'
-              + label(f"fl-{k}", name, x + FW / 2, FY + FH + 34, 21, INK, "middle") + '</g>')
+              f'<image href="{src}" x="{FX}" y="{FY}" width="{FW}" height="{FH}" '
+              f'preserveAspectRatio="xMidYMid slice" clip-path="url(#cl-f)"/>'
+              f'<rect x="{FX}" y="{FY + FH}" width="{FW}" height="{FS}" fill="{SURFACE}"/>'
+              f'<rect x="{FX}" y="{FY + FH}" width="6" height="{FS}" fill="{BRAND}"/>'
+              + label(f"fl-{k}", name, FX + 30, FY + FH + 46, 25, INK) + '</g>')
 R.clip("founders", st, en, cards)
 R.hidden("#founders .fcard", st)
-for k, at in enumerate([0.22, 2.55, 3.70]):
-    R.fromTo(f"#fc-{FOUNDERS[k][0]}", "autoAlpha:0, y:20", "autoAlpha:1, y:0", st + at, 0.30, EASE)
+for k, (kid, _, _, at) in enumerate(FOUNDERS):
+    R.fromTo(f"#fc-{kid}", "autoAlpha:0, scale:1.04, transformOrigin:'50% 50%'",
+             "autoAlpha:1, scale:1", at, 0.30, EASE)
+    if k:                                   # la anterior sale justo cuando entra la siguiente
+        R.fade(f"#fc-{FOUNDERS[k - 1][0]}", at, 0.0, 0.22)
+        R.hidden(f"#fc-{FOUNDERS[k - 1][0]}", at + 0.24)
 
 # ================================================================= D · LO QUE SÍ SE PUEDE COPIAR
 # Tres cosas que se marcan como copiadas, y una línea que las tacha todas.
-st, en = S(7) - 0.05, E(10) + 0.20
+st, en = 15.62, E(10) + 0.20
 COPY = [("Los mismos proveedores", 0.15), ("El mismo fotógrafo", 2.70), ("La paleta de colores exacta", 4.30)]
 RY, RH, RSTEP, RX, RW = TOP + 10, 56, 76, 150, 780
 rows = ""
