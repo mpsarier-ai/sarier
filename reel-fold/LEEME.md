@@ -21,20 +21,35 @@ se tomó de la web desplegada.
 | --- | --- |
 | "La marca es cruda, el producto es calmado" | un solo bloque azul-ASCII (el chiste del vibecoding) y el cierre; el resto es tema Paper |
 | `brand` `#1a1aff` es la única tinta de acción | celdas del dither, cuadrados del equipo, cierre |
-| `accent-acid` es el resaltador: **uno por pantalla** | "más difícil" en el hook, y dos palabras de subtítulo que nunca coinciden con otro acid |
-| Separar capas por valor y hairline, **nunca por sombra** | las franjas `surface` llevan hairline `line`, ningún `text-shadow` |
+| `brand` `#1a1aff` es la única tinta de acción | la palabra caliente de cada subtítulo, el dither, los cuadrados y el cierre |
+| Separar capas por valor y hairline, **nunca por sombra** | ningún `text-shadow` en todo el reel; los subtítulos se apoyan en la zona oscura del plano |
 | Frases en sentence case; solo `label` y `pixel-title` en MAYÚSCULAS | subtítulos en sentence case, tags y labels en mono mayúscula |
-| Cuadrado para lo mono/ASCII/poster, redondeado para la UI | todos los tags y el dither en `radius-none` |
+| Cuadrado para lo mono/ASCII/poster | todos los tags y el dither en `radius-none` |
 | 160 ms ease-out, **nada rebota** | todas las entradas son `power2.out` de 0.2–0.3 s, ningún `back.out` |
 | Los logos no van sobre textura ASCII sin franja sólida detrás | el cierre lleva una banda `brand` sólida con hairline arriba y abajo |
 | El loader es un carácter mono que rota, nunca un spinner | `|/-\` animado, y `●` como glifo de estado |
 
-## El marco: el reel va vestido como el producto
+## Montaje: los recursos de los reels de Sarier
 
-Barra superior `surface` con el lockup de FOLD y, al lado, **el módulo que resuelve lo que ella
-está diciendo** — Core → Product → Production → Inventory → Marketing → Commerce. Es la regla del
-brand book ("la barra superior lleva el icono y el nombre del módulo"), usada como hilo narrativo.
-Abajo, una franja `surface` para los subtítulos, que solo existe mientras hay subtítulo.
+Nada de chrome blanco encima del plano. El montaje usa los mismos recursos que los reels de Sarier:
+
+- **Subtítulos cinéticos centrados** sobre el video, palabra por palabra, sin caja y sin sombra.
+  Van en el tercio inferior (y=1424) porque ahí el plano es oscuro; en la zona clara de arriba el
+  texto `ink` chocaba con los jeans. La palabra caliente va en `brand` del tema Ink (`#8f8fff`),
+  que es la tinta de acción del sistema.
+- **Statements desiguales por capas** (`R.card`): tres piezas a distinto tamaño, alineación y alfa,
+  que entran desde lados distintos. En `ink` sobre la pared clara, nunca blancas con sombra.
+- **Glitch** sobre la palabra grande del hook, con los dos acentos del sistema (`signal-red` y
+  `brand`) en vez de los de Sarier.
+- **Punch-in** en el hook, en el corte de la escena azul y en los diez cuadrados; **slow push** en
+  el cierre; **fundido a negro** al final.
+- **Una escena faceless corta** (3,9 s): el bloque azul del vibecoding.
+- **Bug de marca** arriba a la izquierda: el lockup de FOLD y, al lado, el módulo que resuelve lo
+  que ella está diciendo — Core → Product → Production → Inventory → Marketing → Commerce. Sale de
+  pantalla durante la escena azul, donde el lockup en `ink` no se leería.
+
+El resaltador `accent-acid` no se usa: al cliente no le gustó, así que la única tinta de énfasis
+es `brand`. El sistema lo permite — "`brand` es la única tinta de acción".
 
 ## Las cinco voces tipográficas
 

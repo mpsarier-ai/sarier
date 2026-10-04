@@ -70,7 +70,7 @@ THEMES = {
         ink="#0a0a12", accent="#1a1aff", light="#f2f0ea", dark="#0a0a12",
         tr_display="-0.025em", tr_body="-0.01em", tr_caps="0.08em",
         rail_weight=400, rail_size=46, piece_weight=500, label_weight=500,
-        hot="pill", pill_bg="#e6ff47", pill_fg="#0a0a12",
+        hot="color", pill_bg="#1a1aff", pill_fg="#ffffff",
         sw=1.5, sw8=1.5, swl=1),
 }
 def stroke(w): return f'stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round" fill="none"'
