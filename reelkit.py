@@ -72,6 +72,26 @@ THEMES = {
         rail_weight=400, rail_size=46, piece_weight=500, label_weight=500,
         hot="color", pill_bg="#1a1aff", pill_fg="#ffffff",
         sw=1.5, sw8=1.5, swl=1),
+    # daniblooming — tokens del workspace de la marca (mpsarier-ai/daniblooming, :root de index.html).
+    # Papel cálido, tinta café, naranja como acento, Alegreya itálica para lo editorial y Poppins
+    # ligera para la interfaz. Tarjetas translúcidas con borde naranja, píldoras y la flor de 6 pétalos.
+    "daniblooming": dict(
+        face=("\n      ".join([
+            '@font-face { font-family: "Alegreya"; src: url("public/fonts/Alegreya-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }',
+            '@font-face { font-family: "Alegreya"; src: url("public/fonts/Alegreya-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }',
+            '@font-face { font-family: "Alegreya"; src: url("public/fonts/Alegreya-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: block; }',
+            '@font-face { font-family: "Alegreya"; src: url("public/fonts/Alegreya-800-normal.woff2") format("woff2"); font-weight: 800; font-style: normal; font-display: block; }',
+            '@font-face { font-family: "Alegreya"; src: url("public/fonts/Alegreya-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: block; }',
+            '@font-face { font-family: "Alegreya"; src: url("public/fonts/Alegreya-700-italic.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: block; }',
+            '@font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Light.ttf") format("truetype"); font-weight: 300; font-display: block; }',
+            '@font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }',
+            '@font-face { font-family: "Poppins"; src: url("public/fonts/Poppins-Medium.ttf") format("truetype"); font-weight: 500; font-display: block; }'])),
+        stack='"Poppins", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif',
+        ink="#3A2418", accent="#E97C41", light="#FFFAF3", dark="#3A2418",
+        tr_display="-0.02em", tr_body="0.005em", tr_caps="0.18em",
+        rail_weight=500, rail_size=54, piece_weight=800, label_weight=500,
+        hot="pill", pill_bg="#E97C41", pill_fg="#FFFAF3",
+        sw=3, sw8=4, swl=2),
 }
 def stroke(w): return f'stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round" fill="none"'
 

@@ -14,6 +14,13 @@ Cada reel usa el design system de SU marca, no el de otra. El tema vive en `THEM
   Para cualquier pieza de Ámbar lee primero `design-system/ambar/BRAND.md` y usa los tokens de
   `design-system/ambar/tokens.css`. No inventes colores ni fuentes. Sin sombras, sin iconos,
   sin esquinas redondeadas (solo el botón), y el anillo de beneficios es el único gráfico de la marca.
+- **daniblooming** (`daniblooming`) — el sistema vive en el repo `mpsarier-ai/daniblooming` (el `:root` y
+  el CSS de `index.html` / `bloom-reset.html`). Papel `#FFFAF3`, crema `#F9E8D8`, tinta café `#3A2418`,
+  tinta suave `#7A5C48`, naranja `#E97C41`, rosa `#E18C8F`, rose `#E2B8BC`, oro `#B8AA2D`, azul `#B9C8FF`.
+  Alegreya itálica (800 para títulos y números, 500 para los sub) + Poppins 300/400/500 para la interfaz.
+  Tarjetas translúcidas con borde naranja y esquinas de 28px, píldoras de 99px, líneas punteadas,
+  blobs desenfocados y la flor de seis pétalos (rose, centro naranja) como único ornamento. Aquí sí
+  hay rebote: `cubic-bezier(.34,1.56,.64,1)`. Los logos se copian de `logo1.png` / `logo2.png`.
 - **Fashionalytics / FOLD** (`fold`) — el sistema vive en el repo `mpsarier-ai/fashionalytics-platform`
   (`packages/ui/tokens.css`, `packages/ui/fx.css`) y en el brand book publicado
   `claude.ai/artifact/GGCvZa3r87KowSAk58Pyy4`. Geist + IBM Plex Mono + DotGothic16 + Instrument Serif,
