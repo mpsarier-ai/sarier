@@ -90,7 +90,9 @@ THEMES = {
         ink="#3A2418", accent="#E97C41", light="#FFFAF3", dark="#3A2418",
         tr_display="-0.02em", tr_body="0.005em", tr_caps="0.18em",
         rail_weight=500, rail_size=54, piece_weight=800, label_weight=500,
-        hot="pill", pill_bg="#E97C41", pill_fg="#FFFAF3",
+        # La píldora blanca sobre naranja del sitio da 2,8:1; a tamaño de reel no se lee,
+        # así que la píldora conserva el degradé de la marca y toma su propia tinta.
+        hot="pill", pill_bg="#E97C41", pill_fg="#3A2418",
         sw=3, sw8=4, swl=2),
 }
 def stroke(w): return f'stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round" fill="none"'
@@ -119,6 +121,7 @@ class Reel:
         self.gin_top, self.gin_scale, self.gin_h = gin_top, gin_scale, gin_h
         self.extra_css = ""
         self.gl_on, self.gl_tex, self.gl_setup_js, self.gl_beats = False, {}, [], []
+        self._cam_seen = set()
     def S(self, i): return self.FR[i]["start"]
     def E(self, i): return self.FR[i]["end"]
 
@@ -183,13 +186,20 @@ class Reel:
     }} }}, {at:.2f});
   tl.set(ghosts, {{ opacity: 0, x: 0, y: 0 }}, {at + dur:.2f});''')
 
+    def _cam_ir(self, sel):
+        """GSAP aplica los from de un fromTo al construir, no en su posición: si hay varios sobre
+        la cámara, solo el primero puede fijar el estado de reposo."""
+        if sel in self._cam_seen: return ", immediateRender: false"
+        self._cam_seen.add(sel); return ""
     def punch_cam(self, at, amount=1.05, hold=0.18, back=1.4, sel="#video-wrap"):
-        self.tl.append(f'  tl.fromTo("{sel}", {{ scale: 1 }}, {{ scale: {amount}, duration: {hold}, ease: "expo.out" }}, {at:.2f});')
-        self.tl.append(f'  tl.to("{sel}", {{ scale: 1, duration: {back}, ease: "power2.out" }}, {at + hold:.2f});')
+        ir = self._cam_ir(sel)
+        self.tl.append(f'  tl.fromTo("{sel}", {{ scale: 1 }}, {{ scale: {amount}, duration: {hold}, ease: "expo.out"{ir} }}, {at:.2f});')
+        self.tl.append(f'  tl.to("{sel}", {{ scale: 1, duration: {back}, ease: "power2.out", overwrite: "auto" }}, {at + hold:.2f});')
     def slow_push(self, at, dur=2.2, amount=1.05):
-        self.tl.append(f'  tl.fromTo("#video-wrap", {{ scale: 1 }}, {{ scale: {amount}, duration: {dur}, ease: "sine.inOut" }}, {at:.2f});')
+        ir = self._cam_ir("#video-wrap")
+        self.tl.append(f'  tl.fromTo("#video-wrap", {{ scale: 1 }}, {{ scale: {amount}, duration: {dur}, ease: "sine.inOut"{ir} }}, {at:.2f});')
     def fadeout(self, dur=0.5):
-        self.tl.append(f'  tl.fromTo("#fadeout", {{ autoAlpha: 0 }}, {{ autoAlpha: 1, duration: {dur}, ease: "power1.in" }}, {self.DUR - dur - 0.05:.2f});')
+        self.tl.append(f'  tl.to("#fadeout-in", {{ opacity: 1, duration: {dur}, ease: "power1.in" }}, {self.DUR - dur - 0.05:.2f});')
 
     # ------------------------------------------------------------ graphics primitives
     def clip(self, gid, st, en, inner, hold=False):
@@ -360,7 +370,8 @@ class Reel:
       .scene {{ position: absolute; inset: 0; pointer-events: none; }}
       .scin {{ position: absolute; inset: 0; transform-origin: 50% 50%; opacity: 0; }}
       .scin svg {{ display: block; }}
-      #fadeout {{ position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }}
+      #fadeout {{ position: absolute; inset: 0; pointer-events: none; }}
+      #fadeout-in {{ position: absolute; inset: 0; background: #000; opacity: 0; }}
       #gl {{ position: absolute; left: 0; top: 0; width: {W}px; height: {H}px; display: block; pointer-events: none; }}
       .rail {{ position: absolute; left: 0; right: 0; top: 1300px; display: flex; justify-content: center; pointer-events: none; }}
       .rail .line {{ max-width: 960px; text-align: center; text-wrap: balance; color: var(--on-dark); font-weight: {T["rail_weight"]}; font-size: {T["rail_size"]}px; line-height: 1.15; letter-spacing: var(--tr-body); text-shadow: var(--sh-rail); }}
@@ -407,7 +418,7 @@ class Reel:
 {chr(10).join(g_html)}
 
 {chr(10).join(self.cards_html)}
-      <div id="fadeout" class="clip" data-start="{DUR - 0.6:.2f}" data-duration="0.60" data-track-index="6"></div>
+      <div id="fadeout" class="clip" data-start="{DUR - 0.6:.2f}" data-duration="0.60" data-track-index="6"><div id="fadeout-in"></div></div>
     </div>{gl_script}
     <script>
       const glitchHash = (n) => {{ const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); }};
