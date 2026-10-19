@@ -1,0 +1,289 @@
+{%- comment -%}
+  LUXUR CRO: "shop by fit" grid. The fit is the main buying decision for jeans, so each card sends the shopper
+  straight to the fit collection. Card image: picked image, else the collection image, else its first product's photo.
+  Scrolls horizontally on mobile, grid on desktop.
+{%- endcomment -%}
+
+<style>
+  #shopify-section-{{ section.id }} .luxur-fits {
+    padding-block: {{ section.settings.padding_mobile }}px;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__header {
+    display: grid;
+    gap: 0.5rem;
+    padding-inline: var(--container-gutter);
+    margin-block-end: 1.5rem;
+    text-align: center;
+    justify-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__subheading {
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 62%;
+    gap: 0.625rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-inline: var(--container-gutter);
+    scroll-padding-inline: var(--container-gutter);
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__card {
+    position: relative;
+    display: block;
+    scroll-snap-align: start;
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background: rgb(var(--text-color) / 0.06);
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__card img,
+  #shopify-section-{{ section.id }} .luxur-fits__card svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: grid;
+    gap: 0.25rem;
+    padding: 2.5rem 1rem 1rem;
+    background: linear-gradient(180deg, rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0.6) 100%);
+    color: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__name {
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__description {
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-fits__arrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-block-start: 0.25rem;
+  }
+
+  @media screen and (pointer: fine) {
+    #shopify-section-{{ section.id }} .luxur-fits__card:hover img {
+      transform: scale(1.04);
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    #shopify-section-{{ section.id }} .luxur-fits__list {
+      grid-auto-columns: 38%;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    #shopify-section-{{ section.id }} .luxur-fits {
+      padding-block: {{ section.settings.padding_desktop }}px;
+    }
+
+    #shopify-section-{{ section.id }} .luxur-fits__list {
+      grid-auto-flow: row;
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0, 1fr));
+      overflow: visible;
+    }
+  }
+</style>
+
+<div class="luxur-fits color-scheme color-scheme--{{ section.settings.color_scheme.id }}" id="{{ section.settings.anchor | default: 'fits' | handleize }}">
+  {%- if section.settings.subheading != blank or section.settings.title != blank -%}
+    <div class="luxur-fits__header">
+      {%- if section.settings.subheading != blank -%}
+        <p class="luxur-fits__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="h2">{{ section.settings.title }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.content != blank -%}
+        <div class="prose">{{ section.settings.content }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="luxur-fits__list">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign fit_collection = block.settings.collection
+        assign fit_image = block.settings.image
+        if fit_image == blank and fit_collection != blank
+          assign fit_image = fit_collection.image | default: fit_collection.products.first.featured_media.preview_image
+        endif
+        assign fit_title = block.settings.title | default: fit_collection.title
+      -%}
+
+      <a href="{{ fit_collection.url | default: routes.all_products_collection_url }}" class="luxur-fits__card" {{ block.shopify_attributes }}>
+        {%- if fit_image != blank -%}
+          {%- if section.index <= 2 -%}
+            {%- assign loading = 'eager' -%}
+          {%- else -%}
+            {%- assign loading = 'lazy' -%}
+          {%- endif -%}
+          {{- fit_image | image_url: width: 900 | image_tag: loading: loading, sizes: '(max-width: 699px) 62vw, (max-width: 999px) 38vw, 25vw', widths: '300,450,600,900', alt: fit_title | escape -}}
+        {%- else -%}
+          {{- 'product-apparel-1' | placeholder_svg_tag: 'placeholder' -}}
+        {%- endif -%}
+
+        <span class="luxur-fits__overlay">
+          <span class="luxur-fits__name">{{ fit_title }}</span>
+          {%- if block.settings.description != blank -%}
+            <span class="luxur-fits__description">{{ block.settings.description }}</span>
+          {%- endif -%}
+          <span class="luxur-fits__arrow">{{ section.settings.link_text }}</span>
+        </span>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LUXUR · Compra por fit",
+  "class": "shopify-section--luxur-cro-fit-finder",
+  "tag": "section",
+  "max_blocks": 8,
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:global.colors.scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Ancla (para enlazar con #)",
+      "default": "fits",
+      "info": "El botón secundario del hero puede apuntar a #fits."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Antetítulo",
+      "default": "Compra por fit"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Título",
+      "default": "¿Cuál es tu fit?"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Texto"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Texto del enlace",
+      "default": "Ver fit"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columnas en escritorio",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "padding_desktop",
+      "label": "Espacio vertical (escritorio)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile",
+      "label": "Espacio vertical (móvil)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fit",
+      "name": "Fit",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Colección"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Nombre (opcional)",
+          "info": "Por defecto, el nombre de la colección."
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Descripción corta"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen (opcional)",
+          "info": "Por defecto, la imagen de la colección o la foto de su primer producto."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LUXUR · Compra por fit",
+      "blocks": [
+        { "type": "fit" },
+        { "type": "fit" },
+        { "type": "fit" }
+      ]
+    }
+  ]
+}
+{% endschema %}

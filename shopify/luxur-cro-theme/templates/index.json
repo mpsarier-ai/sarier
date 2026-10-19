@@ -1,0 +1,566 @@
+{
+  "sections": {
+    "cro_hero": {
+      "type": "luxur-cro-hero",
+      "blocks": {
+        "chip_ship": {
+          "type": "chip",
+          "settings": {
+            "icon": "picto-delivery-truck",
+            "text": "Envío gratis +$250.000"
+          }
+        },
+        "chip_return": {
+          "type": "chip",
+          "settings": {
+            "icon": "picto-return",
+            "text": "Cambios fáciles 30 días"
+          }
+        },
+        "chip_addi": {
+          "type": "chip",
+          "settings": {
+            "icon": "picto-credit-card",
+            "text": "Hasta 6 cuotas con Addi"
+          }
+        }
+      },
+      "block_order": [
+        "chip_ship",
+        "chip_return",
+        "chip_addi"
+      ],
+      "settings": {
+        "image": "",
+        "mobile_image": "",
+        "fallback_collection": "bestsellers-1",
+        "image_link": "shopify://collections/bestsellers-1",
+        "image_position": "center top",
+        "image_right": false,
+        "badge": "Best sellers",
+        "eyebrow": "Jeans y tops para ti",
+        "title": "El jean que te queda <em>perfecto</em>",
+        "rating_text": "",
+        "text": "<p>Elige tu fit, recíbelo hoy si estás en Medellín y, si no te queda, lo cambias en 30 días.</p>",
+        "button_1_text": "Comprar best sellers",
+        "button_1_link": "shopify://collections/bestsellers-1",
+        "button_2_text": "Encuentra tu fit",
+        "button_2_link": "/#fits",
+        "desktop_height": 80,
+        "background": "#edebe6",
+        "text_color": "#1c1c1c",
+        "accent": "#eecdcc",
+        "button_background": "#1c1c1c",
+        "button_text_color": "#ffffff"
+      }
+    },
+    "cro_marquee": {
+      "type": "scrolling-content",
+      "blocks": {
+        "t1": {
+          "type": "text",
+          "settings": {
+            "text": "ENVÍO GRATIS EN COMPRAS SUPERIORES A $250.000"
+          }
+        },
+        "t2": {
+          "type": "text",
+          "settings": {
+            "text": "MEDELLÍN: COMPRA ANTES DE LAS 3 P. M. Y RECIBE HOY"
+          }
+        },
+        "t3": {
+          "type": "text",
+          "settings": {
+            "text": "CAMBIOS FÁCILES EN 30 DÍAS"
+          }
+        },
+        "t4": {
+          "type": "text",
+          "settings": {
+            "text": "10% OFF PARA ESTUDIANTES*"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "separate_section_with_border": false,
+        "scrolling_speed": 0.1,
+        "scroll_direction": "left",
+        "pause_on_hover": false,
+        "text_font": "body",
+        "text_font_size_mobile": 10,
+        "text_font_size_desktop": 14,
+        "section_vertical_spacing_mobile": 10,
+        "section_vertical_spacing_desktop": 10,
+        "item_horizontal_spacing_mobile": 50,
+        "item_horizontal_spacing_desktop": 80,
+        "background": "#eecdcc",
+        "text_color": "#000000"
+      }
+    },
+    "cro_bestsellers": {
+      "type": "featured-collections",
+      "blocks": {
+        "bs": {
+          "type": "collection",
+          "settings": {
+            "collection": "bestsellers-1",
+            "products_count": 8,
+            "title": "Los más vendidos",
+            "link_url": "shopify://collections/bestsellers-1",
+            "link_text": "VER TODOS LOS BEST SELLERS"
+          }
+        }
+      },
+      "block_order": [
+        "bs"
+      ],
+      "settings": {
+        "color_scheme": "scheme-324a3da1-c093-44fa-bcd3-e9eaac9c3b01",
+        "separate_section_with_border": false,
+        "hide_product_information": false,
+        "stack_products": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "horizontal_spacing_factor": 0.2,
+        "vertical_spacing_factor": 0.5,
+        "header_alignment": "center",
+        "heading_style": "h2",
+        "subheading": "Lo que todas están comprando",
+        "hide_collection_title": false
+      }
+    },
+    "cro_fits": {
+      "type": "luxur-cro-fit-finder",
+      "blocks": {
+        "f1": {
+          "type": "fit",
+          "settings": {
+            "collection": "fit-ancho-wide-leg",
+            "title": "Wide leg",
+            "description": "Amplio de cadera a bota",
+            "image": ""
+          }
+        },
+        "f2": {
+          "type": "fit",
+          "settings": {
+            "collection": "relaxed-fit",
+            "title": "Relaxed",
+            "description": "Holgado y cómodo",
+            "image": ""
+          }
+        },
+        "f3": {
+          "type": "fit",
+          "settings": {
+            "collection": "recto-straight-fit",
+            "title": "Straight",
+            "description": "Recto, el clásico",
+            "image": ""
+          }
+        },
+        "f4": {
+          "type": "fit",
+          "settings": {
+            "collection": "sculpted-fit",
+            "title": "Sculpted",
+            "description": "Moldea y estiliza",
+            "image": ""
+          }
+        },
+        "f5": {
+          "type": "fit",
+          "settings": {
+            "collection": "low-waist-wide-fit",
+            "title": "Low wide",
+            "description": "Tiro bajo y ancho",
+            "image": ""
+          }
+        },
+        "f6": {
+          "type": "fit",
+          "settings": {
+            "collection": "flare-fit",
+            "title": "Flare",
+            "description": "Ajustado arriba, bota campana",
+            "image": ""
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ],
+      "settings": {
+        "color_scheme": "scheme-324a3da1-c093-44fa-bcd3-e9eaac9c3b01",
+        "anchor": "fits",
+        "subheading": "Compra por fit",
+        "title": "¿Cuál es <em>tu</em> fit?",
+        "content": "<p>El fit lo es todo. Elige el tuyo y te mostramos solo lo que te va.</p>",
+        "link_text": "Ver fit",
+        "columns_desktop": 3,
+        "padding_desktop": 64,
+        "padding_mobile": 40
+      }
+    },
+    "cro_benefits": {
+      "type": "text-with-icons",
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-delivery-truck",
+            "icon_width": 32,
+            "mobile_icon_width": 28,
+            "title": "Recibe hoy en Medellín",
+            "content": "<p>Pide antes de las 3 p. m. Resto del país: 1 a 3 días hábiles en ciudades principales.</p>"
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-return",
+            "icon_width": 32,
+            "mobile_icon_width": 28,
+            "title": "Cambios en 30 días",
+            "content": "<p>Si no te gusta, lo devuelves y listo. Sin preguntas.</p>"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-credit-card",
+            "icon_width": 32,
+            "mobile_icon_width": 28,
+            "title": "Paga en cuotas",
+            "content": "<p>Compra hoy y divide tu pago en hasta 6 cuotas con Addi.</p>"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-chat",
+            "icon_width": 32,
+            "mobile_icon_width": 28,
+            "title": "Asesoría de talla",
+            "content": "<p>¿Dudas con tu talla? Escríbenos por WhatsApp y te ayudamos.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "separate_section_with_border": false,
+        "stack_on_mobile": false,
+        "icon_color": "",
+        "text_color": "",
+        "text_alignment": "center"
+      }
+    },
+    "cro_reviews": {
+      "type": "apps",
+      "blocks": {
+        "revie_reviews_por_whatsapp_app_block_3_4z7a9n": {
+          "type": "shopify://apps/revie-reviews-por-whatsapp/blocks/app-block-3/32a49769-cfbe-4f29-8b19-1ae20fdb2abe",
+          "settings": {
+            "title": "Lo que dicen nuestras clientas",
+            "format": "5",
+            "title_color": "#1c1c1c",
+            "title_size": 24,
+            "title_pos": "center",
+            "star_color": "#1c1c1c",
+            "size": 15,
+            "back_color": "#ffffff",
+            "text_color": "#000000",
+            "size_text": 15,
+            "name": "2",
+            "truncate": "1",
+            "max_reviews": 20,
+            "image": "1",
+            "from": "1",
+            "width_elements": 4,
+            "content_padding": 22,
+            "mobil_content_padding": 16,
+            "movil_count": "1.5",
+            "max_width": 900
+          }
+        }
+      },
+      "block_order": [
+        "revie_reviews_por_whatsapp_app_block_3_4z7a9n"
+      ],
+      "settings": {
+        "color_scheme": "scheme-324a3da1-c093-44fa-bcd3-e9eaac9c3b01",
+        "separate_section_with_border": false,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false
+      }
+    },
+    "cro_new": {
+      "type": "featured-collections",
+      "blocks": {
+        "nw": {
+          "type": "collection",
+          "settings": {
+            "collection": "nuevo",
+            "products_count": 8,
+            "title": "Recién llegados",
+            "link_url": "shopify://collections/nuevo",
+            "link_text": "VER TODO LO NUEVO"
+          }
+        }
+      },
+      "block_order": [
+        "nw"
+      ],
+      "settings": {
+        "color_scheme": "scheme-324a3da1-c093-44fa-bcd3-e9eaac9c3b01",
+        "separate_section_with_border": false,
+        "hide_product_information": false,
+        "stack_products": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "horizontal_spacing_factor": 0.2,
+        "vertical_spacing_factor": 0.5,
+        "header_alignment": "center",
+        "heading_style": "h2",
+        "subheading": "Nuevo drop",
+        "hide_collection_title": false
+      }
+    },
+    "cro_addi": {
+      "type": "scrolling-content",
+      "blocks": {
+        "a1": {
+          "type": "text",
+          "settings": {
+            "text": "<em>¿Sin $$ ahora?</em> No problem con"
+          }
+        },
+        "a2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/addi-logo-white.png"
+          }
+        },
+        "a3": {
+          "type": "text",
+          "settings": {
+            "text": "✹"
+          }
+        },
+        "a4": {
+          "type": "text",
+          "settings": {
+            "text": "Compra lo que quieras hoy y paga después."
+          }
+        },
+        "a5": {
+          "type": "text",
+          "settings": {
+            "text": "✹"
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5"
+      ],
+      "settings": {
+        "separate_section_with_border": false,
+        "scrolling_speed": 0.3,
+        "scroll_direction": "left",
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 22,
+        "text_font_size_desktop": 32,
+        "section_vertical_spacing_mobile": 10,
+        "section_vertical_spacing_desktop": 10,
+        "item_horizontal_spacing_mobile": 10,
+        "item_horizontal_spacing_desktop": 10,
+        "background": "#5677ff",
+        "text_color": "#ffffff"
+      }
+    },
+    "cro_categories": {
+      "type": "collection-list",
+      "blocks": {
+        "c1": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "scheme-4",
+            "collection": "tops",
+            "image": "shopify://shop_images/200_dd199b57-33db-48e8-a1cd-8303f39eabe7.png",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "Completa el look",
+            "title": "Tops y bodies",
+            "button_text": "COMPRAR TOPS",
+            "button_link": "shopify://collections/tops",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "c2": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "scheme-4",
+            "collection": "mai-petit",
+            "image": "shopify://shop_images/0B3CB29D-F5C8-4452-B2B5-EF8E583D7D56.png",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "El match perfecto para tus jeans",
+            "title": "Conoce <em>Mai Petit</em>",
+            "button_text": "VER MAI PETIT",
+            "button_link": "shopify://collections/mai-petit",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "c3": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "scheme-4",
+            "collection": "super-sale",
+            "image": "shopify://shop_images/3_6228408b-4b25-4bca-95f1-aa678cccd907.png",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "Precios que no vuelven",
+            "title": "Super Sale",
+            "button_text": "COMPRAR EN DESCUENTO",
+            "button_link": "shopify://collections/super-sale",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": false,
+        "image_size": "auto",
+        "show_text_outside": false,
+        "space_items": false,
+        "stack_collections": true,
+        "collections_per_row_desktop": 3,
+        "stack_collections_mobile": false,
+        "collections_per_row_mobile": "1",
+        "subheading": "",
+        "title": "",
+        "heading_style": "h2",
+        "content": ""
+      }
+    },
+    "cro_faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo sé cuál es mi talla?",
+            "answer": "<p>Cada jean tiene su guía de tallas y la altura y talla de la modelo en la ficha del producto. Si aún tienes dudas, escríbenos por WhatsApp y te asesoramos.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cuánto cuesta el envío y cuánto se demora?",
+            "answer": "<p>El envío es gratis en compras superiores a $250.000. En Medellín, si compras antes de las 3 p. m., recibes el mismo día. Al resto del país llega en 1 a 3 días hábiles en ciudades principales y hasta 5 días en otras ciudades.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo cambiar o devolver mi compra?",
+            "answer": "<p>Sí. Tienes 30 días para cambios y devoluciones. Si no te gusta, lo devuelves y listo.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo pagar en cuotas?",
+            "answer": "<p>Sí. Con Addi puedes comprar hoy y dividir tu pago en hasta 6 cuotas.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "¿Tienen tienda física?",
+            "answer": "<p>Sí, en Medellín y en Falabella Colina (Bogotá). En la ficha de cada producto puedes ver la disponibilidad por tienda.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "color_scheme": "scheme-324a3da1-c093-44fa-bcd3-e9eaac9c3b01",
+        "separate_section_with_border": false,
+        "show_categories": false,
+        "subheading": "Antes de comprar",
+        "title": "Preguntas frecuentes",
+        "heading_style": "h2",
+        "content": ""
+      }
+    },
+    "cro_final_cta": {
+      "type": "luxur-cro-final-cta",
+      "settings": {
+        "title": "Tu próximo jean favorito te está esperando",
+        "text": "<p>¿Dudas con tu talla? Escríbenos y te ayudamos a elegir en minutos.</p>",
+        "button_text": "Comprar ahora",
+        "button_link": "shopify://collections/bestsellers-1",
+        "whatsapp_text": "Asesoría por WhatsApp",
+        "whatsapp_number": "573332836024",
+        "whatsapp_message": "Hola LUXUR, necesito ayuda para elegir mi talla",
+        "background": "#1c1c1c",
+        "text_color": "#ffffff",
+        "padding_desktop": 96,
+        "padding_mobile": 56
+      }
+    }
+  },
+  "order": [
+    "cro_hero",
+    "cro_marquee",
+    "cro_bestsellers",
+    "cro_fits",
+    "cro_benefits",
+    "cro_reviews",
+    "cro_new",
+    "cro_addi",
+    "cro_categories",
+    "cro_faq",
+    "cro_final_cta"
+  ]
+}

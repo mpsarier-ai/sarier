@@ -1,0 +1,171 @@
+{%- comment -%}
+  LUXUR CRO: closing banner at the end of the home. Gives shoppers who scrolled the whole page one last clear action,
+  plus a WhatsApp shortcut for the ones still unsure about their size.
+{%- endcomment -%}
+
+<style>
+  #shopify-section-{{ section.id }} .luxur-final-cta {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    padding: {{ section.settings.padding_mobile }}px var(--container-gutter);
+    text-align: center;
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .luxur-final-cta__title {
+    margin: 0;
+    max-width: 40rem;
+    color: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-final-cta__text {
+    max-width: 34rem;
+    opacity: 0.85;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-final-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.625rem;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-final-cta__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.25rem;
+    padding: 0 1.75rem;
+    border-radius: 60px;
+    border: 1px solid currentColor;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .luxur-final-cta__button--primary {
+    background: {{ section.settings.text_color }};
+    border-color: {{ section.settings.text_color }};
+    color: {{ section.settings.background }};
+  }
+
+  @media screen and (min-width: 1000px) {
+    #shopify-section-{{ section.id }} .luxur-final-cta {
+      padding-block: {{ section.settings.padding_desktop }}px;
+    }
+  }
+</style>
+
+<div class="luxur-final-cta">
+  {%- if section.settings.title != blank -%}
+    <h2 class="luxur-final-cta__title h2">{{ section.settings.title }}</h2>
+  {%- endif -%}
+
+  {%- if section.settings.text != blank -%}
+    <div class="luxur-final-cta__text prose">{{ section.settings.text }}</div>
+  {%- endif -%}
+
+  <div class="luxur-final-cta__actions">
+    {%- if section.settings.button_text != blank -%}
+      <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="luxur-final-cta__button luxur-final-cta__button--primary">{{ section.settings.button_text }}</a>
+    {%- endif -%}
+
+    {%- if section.settings.whatsapp_text != blank and section.settings.whatsapp_number != blank -%}
+      <a href="https://wa.me/{{ section.settings.whatsapp_number | remove: '+' | remove: ' ' }}?text={{ section.settings.whatsapp_message | url_encode }}" target="_blank" rel="noopener" class="luxur-final-cta__button">{{ section.settings.whatsapp_text }}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LUXUR · CTA final",
+  "class": "shopify-section--luxur-cro-final-cta",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Título",
+      "default": "Tu próximo jean favorito te está esperando"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>¿Dudas con tu talla? Escríbenos y te ayudamos a elegir en minutos.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Botón principal",
+      "default": "Comprar ahora"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace botón principal"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_text",
+      "label": "Botón WhatsApp",
+      "default": "Asesoría por WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "Número de WhatsApp",
+      "info": "Con indicativo, sin +. Ej.: 573001234567"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_message",
+      "label": "Mensaje inicial",
+      "default": "Hola LUXUR, necesito ayuda para elegir mi talla"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Fondo",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Texto",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_desktop",
+      "label": "Espacio vertical (escritorio)",
+      "min": 24,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile",
+      "label": "Espacio vertical (móvil)",
+      "min": 24,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "LUXUR · CTA final"
+    }
+  ]
+}
+{% endschema %}
