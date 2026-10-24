@@ -35,6 +35,13 @@ Cada reel usa el design system de SU marca, no el de otra. El tema vive en `THEM
 (master crf 17 + copia Instagram). Los subtítulos se alinean sin ASR: espeak-ng → MFCC → DTW →
 reanclaje a las pausas de `silencedetect`.
 
+## Skills
+
+`.claude/skills/luxur-reel/` monta un reel de LUXUR de principio a fin con el design system
+**Q4 Trimestre Dorado** (sacado del artifact *Asesoría Q4 LUXUR*). Trae los guiones reutilizables:
+`bandas.py` (qué tinta aguanta cada franja del plano), `alinear.sh` (subtítulos sin ASR) y
+`entregar.sh` (render + master + copia Instagram ajustando el crf hasta que entren).
+
 ## Entregas
 
 Copia Instagram ≤30 MB por chat; master en `<reel>/renders/`.
