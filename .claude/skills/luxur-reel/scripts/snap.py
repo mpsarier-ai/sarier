@@ -13,6 +13,11 @@ out = subprocess.run(["ffmpeg", "-hide_banner", "-i", "audio16k.wav",
 ss = [float(x) for x in re.findall(r"silence_start: ([0-9.]+)", out)]
 se = [float(x) for x in re.findall(r"silence_end: ([0-9.]+)", out)]
 pauses = list(zip(ss, se))
+if not pauses:
+    # Música debajo de la voz: no hay pausas que detectar. Manda el DTW tal cual.
+    json.dump(frs, open("captions.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("sin pausas detectables (música debajo de la voz): captions.json = DTW")
+    raise SystemExit(0)
 
 KEEP = 0.70   # una frase no puede perder más del 30% de lo que midió el DTW
 MIN = 0.55    # ni bajar de esto en absoluto

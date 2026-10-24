@@ -14,7 +14,7 @@ de escribir el primer `build.py` lee **`references/motion.md`** (recetas, trampa
 va cada cosa) y **`references/q4-trimestre-dorado.md`** (tokens, componentes y la geometría ya
 calibrada).
 
-## Las tres reglas que no se negocian
+## Las cuatro reglas que no se negocian
 
 1. **El design system es el de LUXUR, no el de otra marca.** El tema `luxur` vive en `THEMES` de
    `reelkit.py`; la paleta de Q4 está en la referencia. Si la pieza es de otro trimestre, usa
@@ -22,6 +22,10 @@ calibrada).
 2. **Ningún gráfico tapa la pantalla completa.** Es la regla propia de la marca.
 3. **La persona nunca queda tapada**, tampoco en el cierre. Si el cliente te ve a ti en vez de
    verse a ella, el reel está mal montado.
+4. **El logo de LUXUR no va en la edición salvo cuando lo dicen en el audio.** Nada de wordmark
+   fijo en las tarjetas ni en el cierre. Cuando lo dicen, entra justo en ese momento y se compone
+   en **Montserrat SemiBold (600) sin espaciado** (`letter-spacing: 0`), tanto en el gráfico como
+   en la palabra del subtítulo. Regla de MP del 24 oct 2026; `reel-restock` es el ejemplo.
 
 ## El recorrido
 
@@ -74,6 +78,9 @@ error de marca que paga el cliente.
 ```bash
 bash <skill>/scripts/alinear.sh <dir>
 ```
+
+Si la voz lleva música debajo, `silencedetect` no encuentra pausas y `snap.py` no puede
+reanclar: manda el DTW tal cual (`captions.json` = `captions.dtw.json`).
 
 Revisa la salida antes de seguir: caracteres por segundo entre 10 y 26, ninguna línea por debajo de
 0,55 s, y ninguna pausa de más de un segundo cayendo dentro de una línea (eso casi siempre es un

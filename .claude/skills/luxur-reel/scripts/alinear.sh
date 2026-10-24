@@ -14,7 +14,7 @@ cd "$DIR"
 
 [ -f guion.txt ] || { echo "falta guion.txt en $DIR"; exit 1; }
 [ -f orig.mov ] || [ -f orig.mp4 ] || { echo "falta orig.mov / orig.mp4 en $DIR"; exit 1; }
-SRC=$(ls orig.mov orig.mp4 2>/dev/null | head -1)
+SRC=orig.mov; [ -f orig.mov ] || SRC=orig.mp4
 
 cp -n "$SKILL/align.py" "$SKILL/snap.py" "$SKILL/espeak_say.py" . 2>/dev/null || true
 mkdir -p tts tts16
